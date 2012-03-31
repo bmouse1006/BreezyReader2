@@ -13,6 +13,7 @@
 #import "BRBaseController.h"
 #import "BRFeedDragDownController.h"
 #import "BRFeedLoadMoreController.h"
+#import "JJActivityView.h"
 
 @interface BRFeedViewController : BRBaseController <UITableViewDelegate, BRBaseDataSourceDelegate>
 
@@ -26,6 +27,8 @@
 
 @property (nonatomic, retain) GRSubscription* subscription;
 @property (nonatomic, retain) BRFeedDataSource* dataSource;
+
+@property (nonatomic, retain) IBOutlet JJActivityView* activityView;
 
 -(IBAction)backButtonClicked:(id)sender;
 

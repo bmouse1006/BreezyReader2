@@ -268,4 +268,8 @@ static NSString* _token = nil;
     return request;
 }
 
+-(BOOL)isLoading{
+    return ![self.request isFinished];
+}
+
 @end

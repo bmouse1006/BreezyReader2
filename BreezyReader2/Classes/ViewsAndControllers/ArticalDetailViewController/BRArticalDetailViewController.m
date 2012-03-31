@@ -67,6 +67,7 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     [self removeGradientImage:self.webView];
     // Do any additional setup after loading the view from its nib.
     self.webView.delegate = self;
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 //    CGFloat insetsTop = self.navigationController.navigationBar.frame.size.height;
     CGFloat insetsTop = 0;
     UIEdgeInsets inset = UIEdgeInsetsMake(insetsTop, 0, 0, 0);
@@ -77,15 +78,7 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     if (content == nil){
         content = @"";
     }
-//    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"contentformatter" ofType:@"html"];
-//    NSString* string = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
-//    
-//    NSString* html = [NSString stringWithFormat:string, item.title, content];
-//    
-//    NSString* tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.html"];
-//    [html writeToFile:tempFile atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-//    
-//    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL fileURLWithPath:tempFile]];
+
     NSString* js_url = [[NSBundle mainBundle] pathForResource:@"readability" ofType:@"js"];
     NSString* css_url = [[NSBundle mainBundle] pathForResource:@"readability" ofType:@"css"];
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"template" ofType:@"html"];

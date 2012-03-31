@@ -127,4 +127,8 @@
     [self loadNextPageOfContents];
 }
 
+-(BOOL)isLoading{
+    return [self.client isLoading];
+}
+
 @end

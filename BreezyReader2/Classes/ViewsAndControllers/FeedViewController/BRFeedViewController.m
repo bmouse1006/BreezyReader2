@@ -35,6 +35,7 @@
 @synthesize loadMoreController = _loadMoreController;
 @synthesize loadingView = _loadingView;
 @synthesize okToRefresh = _okToRefresh, okToLoadMore = _okToLoadMore;
+@synthesize activityView = _activityView;
 
 static CGFloat insetsTop = 0.0f;
 static CGFloat insetsBottom = 0.0f;
@@ -48,6 +49,7 @@ static CGFloat refreshDistance = 60.0f;
     self.backButton = nil;
     self.loadMoreController = nil;
     self.loadingView = nil;
+    self.activityView = nil;
     [super dealloc];
 }
 
@@ -86,10 +88,11 @@ static CGFloat refreshDistance = 60.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    insetsTop = self.navigationController.navigationBar.frame.size.height;
+//    insetsTop = self.navigationController.navigationBar.frame.size.height;
+    [self.activityView startAnimating];
+    
+    insetsTop = 0;
     insetsBottom = -self.loadMoreController.view.frame.size.height;
-    UINavigationBar* navBar = self.navigationController.navigationBar;
-    navBar.translucent = YES;
     self.title = self.subscription.title;
     self.tableView = [[[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain] autorelease];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -139,7 +142,6 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.translucent = YES;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 

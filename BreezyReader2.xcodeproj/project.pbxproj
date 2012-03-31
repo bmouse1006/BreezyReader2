@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2207BD6714B731DC00ED0BE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2207BD6614B731DC00ED0BE6 /* SystemConfiguration.framework */; };
 		2207BD6914B731E700ED0BE6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2207BD6814B731E700ED0BE6 /* Security.framework */; };
+		22099669152747530045B659 /* fresh_page.png in Resources */ = {isa = PBXBuildFile; fileRef = 22099667152747530045B659 /* fresh_page.png */; };
+		2209966A152747530045B659 /* fresh_page@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22099668152747530045B659 /* fresh_page@2x.png */; };
+		2209966D1527476B0045B659 /* JJActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2209966C1527476B0045B659 /* JJActivityView.m */; };
 		22608C3214F0C93100732D2B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3114F0C93100732D2B /* CFNetwork.framework */; };
 		22608C3414F0C9B000732D2B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3314F0C9AF00732D2B /* MobileCoreServices.framework */; };
 		22608C3614F0C9F100732D2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3514F0C9F100732D2B /* libz.dylib */; };
@@ -222,6 +225,10 @@
 /* Begin PBXFileReference section */
 		2207BD6614B731DC00ED0BE6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2207BD6814B731E700ED0BE6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		22099667152747530045B659 /* fresh_page.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fresh_page.png; sourceTree = "<group>"; };
+		22099668152747530045B659 /* fresh_page@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fresh_page@2x.png"; sourceTree = "<group>"; };
+		2209966B1527476B0045B659 /* JJActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJActivityView.h; sourceTree = "<group>"; };
+		2209966C1527476B0045B659 /* JJActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJActivityView.m; sourceTree = "<group>"; };
 		22608C3114F0C93100732D2B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		22608C3314F0C9AF00732D2B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		22608C3514F0C9F100732D2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -595,6 +602,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		220996661527472F0045B659 /* ActivityView */ = {
+			isa = PBXGroup;
+			children = (
+				22099667152747530045B659 /* fresh_page.png */,
+				22099668152747530045B659 /* fresh_page@2x.png */,
+				2209966B1527476B0045B659 /* JJActivityView.h */,
+				2209966C1527476B0045B659 /* JJActivityView.m */,
+			);
+			path = ActivityView;
+			sourceTree = "<group>";
+		};
 		229B2B9515273CAE00700504 /* BreezyReader2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +675,7 @@
 		229B2BAB15273CAE00700504 /* BaseView */ = {
 			isa = PBXGroup;
 			children = (
+				220996661527472F0045B659 /* ActivityView */,
 				229B2BAC15273CAE00700504 /* BaseAlertView.h */,
 				229B2BAD15273CAE00700504 /* BaseAlertView.m */,
 				229B2BAE15273CAE00700504 /* BaseAlertView.xib */,
@@ -1456,6 +1475,8 @@
 				229B2DBE15273CAF00700504 /* Localizable.strings in Resources */,
 				229B2DBF15273CAF00700504 /* readability.css in Resources */,
 				229B2DC115273CAF00700504 /* tempscript.html in Resources */,
+				22099669152747530045B659 /* fresh_page.png in Resources */,
+				2209966A152747530045B659 /* fresh_page@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1612,6 +1633,7 @@
 				229B2DBA15273CAF00700504 /* NSString+MD5.m in Sources */,
 				229B2DBB15273CAF00700504 /* RegexKitLite.m in Sources */,
 				229B2DBC15273CAF00700504 /* main.m in Sources */,
+				2209966D1527476B0045B659 /* JJActivityView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

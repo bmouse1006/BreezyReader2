@@ -471,24 +471,26 @@ static GRDataManager *readerDM = nil;
     DebugLog(@"url of request for tag is %@", request_tag.url);
     
     [[GoogleAuthManager shared] authRequest:request_sub completionBlock:^(NSError* error){
-        if (!error){
-            [self sendNotification:BEGANSYNCDATA withUserInfo:nil];
-            [[GoogleAuthManager shared] authRequest:request_tag];
-            [request_sub startSynchronous];
-            [request_tag startSynchronous];
-            NSDictionary* tempSubList = [GoogleMessageParsers JSONParser:request_sub.responseData];
-            NSDictionary* tempTagList = [GoogleMessageParsers JSONParser:request_tag.responseData];	
-            if (![self.subDict isEqualToDictionary:tempSubList] || ![self.tagDict isEqualToDictionary:tempTagList]){
-                self.subDict = tempSubList;
-                self.tagDict = tempTagList;
-                [self.cache removeAllObjects];
-                [self buildProcessedList];
-                [self sendNotification:TAGORSUBCHANGED withUserInfo:nil];
-                [self writeListToFile];
-            }
-            [self sendNotification:ENDSYNCDATA withUserInfo:nil];
-            [self syncUnreadCount_new];
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            if (!error){
+                [self sendNotification:BEGANSYNCDATA withUserInfo:nil];
+                [[GoogleAuthManager shared] authRequest:request_tag];
+                [request_sub startSynchronous];
+                [request_tag startSynchronous];
+                NSDictionary* tempSubList = [GoogleMessageParsers JSONParser:request_sub.responseData];
+                NSDictionary* tempTagList = [GoogleMessageParsers JSONParser:request_tag.responseData];	
+                if (![self.subDict isEqualToDictionary:tempSubList] || ![self.tagDict isEqualToDictionary:tempTagList]){
+                    self.subDict = tempSubList;
+                    self.tagDict = tempTagList;
+                    [self.cache removeAllObjects];
+                    [self buildProcessedList];
+                    [self sendNotification:TAGORSUBCHANGED withUserInfo:nil];
+                    [self writeListToFile];
+                }
+                [self sendNotification:ENDSYNCDATA withUserInfo:nil];
+                [self syncUnreadCount_new];
+            }  
+        });
     }];
 }
 

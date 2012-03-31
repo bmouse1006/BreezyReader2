@@ -35,4 +35,6 @@
 -(void)searchArticlesWithKeywords:(NSString*)keywords;
 -(void)searchFeedsWithKeywords:(NSString*)keywords;
 
+-(BOOL)isLoading;
+
 @end

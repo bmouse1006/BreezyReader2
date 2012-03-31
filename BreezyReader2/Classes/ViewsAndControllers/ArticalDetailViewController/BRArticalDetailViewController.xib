@@ -38,10 +38,11 @@
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIWebView" id="174870700">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">256</int>
+						<int key="NSvFlags">288</int>
 						<string key="NSFrameSize">{320, 460}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -71,6 +72,7 @@
 				<string key="NSFrameSize">{24, 24}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -210,33 +212,25 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">BRArticalDetailViewController</string>
 					<string key="superclassName">BRBaseController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="back:">id</string>
-						<string key="formatContent:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="back:">
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">back:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">back:</string>
+						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">back:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="formatContent:">
-							<string key="name">formatContent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="backButton">UIButton</string>
-						<string key="formatButton">UIBarButtonItem</string>
 						<string key="webView">UIWebView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="backButton">
 							<string key="name">backButton</string>
 							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="formatButton">
-							<string key="name">formatButton</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="webView">
 							<string key="name">webView</string>
@@ -279,7 +273,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NS.key.0">arrow_left.png</string>
-			<string key="NS.object.0">{32, 32}</string>
+			<string key="NS.object.0">{24, 24}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">1179</string>
 	</data>
