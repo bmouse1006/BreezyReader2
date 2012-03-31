@@ -1,0 +1,61 @@
+//
+//  SideMenuController.m
+//  BreezyReader2
+//
+//  Created by 金 津 on 12-3-18.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import "SideMenuController.h"
+#import "BRViewControllerNotification.h"
+
+@interface SideMenuController ()
+
+@end
+
+@implementation SideMenuController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+-(IBAction)searchButtonClicked:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SERACHBUTTONCLICKED object:sender];
+}
+
+-(IBAction)downloadButtonClicked:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DOWNLOADBUTTONCLICKED object:sender];
+}
+
+-(IBAction)logoutButtonClicked:(id)sender{
+     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGOUTBUTTONCLICKED object:sender];
+}
+
+-(IBAction)configButtonClicked:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CONFIGBUTTONCLICKED object:sender];   
+}
+
+@end

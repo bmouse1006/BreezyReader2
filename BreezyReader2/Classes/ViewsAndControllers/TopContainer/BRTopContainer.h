@@ -1,0 +1,28 @@
+//
+//  BRTopContainer.h
+//  BreezyReader2
+//
+//  Created by 金 津 on 12-3-14.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+typedef enum{
+    JJViewTransitionPop,
+    JJViewTransitionZoomIn,
+    JJViewTransitionZoomOut,
+    JJViewTransitionNone
+} JJViewTransitionType;
+
+@interface BRTopContainer : UIViewController
+
+-(void)addToTop:(UIViewController*)controller;
+
+-(void)popViewController:(BOOL)animated;
+-(void)boomOutViewController:(UIViewController*)viewController fromView:(UIView*)view;
+-(void)boomInTopViewController;
+
+-(UIViewController*)topController;
+
+@end

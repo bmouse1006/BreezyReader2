@@ -1,0 +1,78 @@
+//
+//  JJMediaDataSource.m
+//  MeetingPlatform
+//
+//  Created by  on 12-2-23.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import "JJMediaDataSource.h"
+#import "JJMediaLibTableViewCell.h"
+#import "JJMediaSource.h"
+
+static CGFloat kThumbSize = 79;
+static CGFloat kThumbSpacing = 10;
+
+@interface JJMediaDataSource ()
+
+@property (nonatomic, retain) id<JJMediaSource> mediaSource;
+
+@end
+
+@implementation JJMediaDataSource
+
+@synthesize delegate = _delegate;
+@synthesize mediaSource = _mediaSource;
+@synthesize columnCount = _columnCount;
+
+-(id)initWithMediaSource:(id<JJMediaSource>)mediaSource{
+    self = [super init];
+    if (self){
+        self.mediaSource = mediaSource;
+        self.columnCount = 3;
+    }
+    
+    return self;
+}
+
+-(void)dealloc{
+    self.mediaSource = nil;
+    [super dealloc];
+}
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return (self.mediaSource.maxMediaIndex>=0)?1:0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    return self.mediaSource.maxMediaIndex/self.columnCount + 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"MediaLibCell";
+    
+    JJMediaLibTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[JJMediaLibTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.mediaSource = self.mediaSource;
+        cell.delegate = self.delegate;
+    }
+    
+    [cell setStartIndex:indexPath.row*self.columnCount];
+    // Configure the cell...
+    
+    return cell;
+}
+
+- (NSInteger)columnCountForView:(UIView *)view {
+    CGFloat width = view.bounds.size.width;
+    return floorf((width - kThumbSpacing*2) / (kThumbSize+kThumbSpacing) + 0.1);
+}
+
+@end

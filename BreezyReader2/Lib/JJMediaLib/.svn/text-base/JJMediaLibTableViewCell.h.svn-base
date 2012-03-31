@@ -1,0 +1,29 @@
+//
+//  JJMediaLibTableViewCell.h
+//  MeetingPlatform
+//
+//  Created by  on 12-2-23.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@class JJMediaLibTableViewCell;
+@protocol JJMedia, JJMediaSource;
+
+@protocol JJMediaLibTableViewCellDelegate <NSObject>
+
+- (void)mediaLibTableViewCell:(JJMediaLibTableViewCell*)cell didSelectMedia:(id<JJMedia>)media; 
+
+@end
+
+@interface JJMediaLibTableViewCell : UITableViewCell
+
+@property (nonatomic, retain) id<JJMediaSource> mediaSource;
+@property (nonatomic, retain) NSMutableArray* thumbnailViews;
+@property (nonatomic, assign) id<JJMediaLibTableViewCellDelegate> delegate;
+
+-(void)setStartIndex:(NSUInteger)index;
+-(void)setColumnCount:(NSUInteger)columnCount;
+
+@end

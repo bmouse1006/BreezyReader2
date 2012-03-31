@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  BreezyReader2
+
+  Created by 金 津 on 12-3-16.
+  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+*/
+"title_lastUpdatedLabel" = "最后更新: %@";
+"title_pulltorefresh" = "下拉刷新...";
+"title_release" = "可以放开了...";
+"title_refreshing" = "刷新中...";
+"title_nolabel" = "(无标签)";
+"title_loadmore" = "加载更多...";
+"title_nomore" = "没有了";
+"title_searchfeeds" = "搜索源";
+"title_searcharticles" = "搜索文章";
+"title_searchfeedsorarticles" = "搜索文章或者源";
+"msg_searching" = "搜索中...";
+"title_loadingmore" = "加载中...";
+"title_loadmore" = "加载更多";
+"title_velocitylabel" = "每周帖子: %@";
+"title_subscribercount" = "订阅人数: %@";

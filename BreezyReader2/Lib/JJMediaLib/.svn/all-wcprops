@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/mag_eManual/!svn/ver/222/trunk/MeetingPlatform/Client/iOS/eMeeting/Classes/SharedLib/JJMediaLib
+END
+JJMediaThumbView.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/mag_eManual/!svn/ver/222/trunk/MeetingPlatform/Client/iOS/eMeeting/Classes/SharedLib/JJMediaLib/JJMediaThumbView.h
+END
+JJMediaDataSource.h
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/mag_eManual/!svn/ver/222/trunk/MeetingPlatform/Client/iOS/eMeeting/Classes/SharedLib/JJMediaLib/JJMediaDataSource.h
+END
+JJMediaLibTableViewCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/mag_eManual/!svn/ver/222/trunk/MeetingPlatform/Client/iOS/eMeeting/Classes/SharedLib/JJMediaLib/JJMediaLibTableViewCell.m
+END
+JJMediaThumbView.m
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/mag_eManual/!svn/ver/222/trunk/MeetingPlatform/Client/iOS/eMeeting/Classes/SharedLib/JJMediaLib/JJMediaThumbView.m
+END
+JJMediaLibController.h
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/mag_eManual/!svn/ver/222/trunk/MeetingPlatform/Client/iOS/eMeeting/Classes/SharedLib/JJMediaLib/JJMediaLibController.h
+END
+JJMediaDataSource.m
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/mag_eManual/!svn/ver/222/trunk/MeetingPlatform/Client/iOS/eMeeting/Classes/SharedLib/JJMediaLib/JJMediaDataSource.m
+END
+JJMediaSource.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/mag_eManual/!svn/ver/222/trunk/MeetingPlatform/Client/iOS/eMeeting/Classes/SharedLib/JJMediaLib/JJMediaSource.h
+END
+JJMediaLibController.m
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/mag_eManual/!svn/ver/222/trunk/MeetingPlatform/Client/iOS/eMeeting/Classes/SharedLib/JJMediaLib/JJMediaLibController.m
+END
+JJMedia.h
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/mag_eManual/!svn/ver/222/trunk/MeetingPlatform/Client/iOS/eMeeting/Classes/SharedLib/JJMediaLib/JJMedia.h
+END
+JJMediaLibTableViewCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/mag_eManual/!svn/ver/222/trunk/MeetingPlatform/Client/iOS/eMeeting/Classes/SharedLib/JJMediaLib/JJMediaLibTableViewCell.h
+END

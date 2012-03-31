@@ -1,0 +1,23 @@
+/* 
+  Localizable.strings
+  BreezyReader2
+
+  Created by 金 津 on 12-3-16.
+  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+*/
+
+"title_lastUpdatedLabel" = "Last updated: %@";
+"title_pulltorefresh" = "Pull to refresh...";
+"title_release" = "OK to release...";
+"title_refreshing" = "Refreshing...";
+"title_nolabel" = "(no label)";
+"title_loadmore" = "Load more...";
+"title_nomore" = "No more articals";
+"title_searchfeeds" = "Search feeds";
+"title_searcharticles" = "Search articles";
+"title_searchfeedsorarticles" = "Search articles or feeds";
+"msg_searching" = "Searching...";
+"title_loadingmore" = "Loading...";
+"title_loadmore" = "Load More";
+"title_velocitylabel" = "Weely posts: %@";
+"title_subscribercount" = "Subscribers: %@";

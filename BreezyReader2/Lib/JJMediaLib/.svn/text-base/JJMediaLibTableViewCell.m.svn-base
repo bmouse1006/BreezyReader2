@@ -1,0 +1,126 @@
+//
+//  JJMediaLibTableViewCell.m
+//  MeetingPlatform
+//
+//  Created by  on 12-2-23.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import "JJMediaLibTableViewCell.h"
+#import "JJMediaThumbView.h"
+#import "JJMedia.h"
+#import "JJMediaSource.h"
+
+static const CGFloat kSpacing = 5.0f;
+static const NSUInteger kDefaultColumnCount = 4;
+
+@interface JJMediaLibTableViewCell(){
+    NSUInteger _index;
+    NSUInteger _columnCount;
+    CGPoint _thumbOrigin;
+}
+
+@property (nonatomic, readonly) CGFloat thumbSize;
+
+-(void)layoutThumbnailViews;
+-(void)resetThumbSize;
+-(void)addThumbnailViewsToContentView;
+-(void)assignMediaAtIndex:(NSUInteger)index toThumbView:(JJMediaThumbView*)view;
+
+@end
+
+@implementation JJMediaLibTableViewCell
+
+@synthesize thumbnailViews = _thumbnailViews, mediaSource = _mediaSource;
+@synthesize thumbSize = _thumbSize;
+@synthesize delegate = _delegate;
+
+-(void)dealloc{
+    self.thumbnailViews = nil;
+    self.mediaSource = nil;
+    [super dealloc];
+}
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        // Initialization code
+        self.thumbnailViews = [NSMutableArray array];
+        // default column count is 4
+        _columnCount = kDefaultColumnCount;
+        _thumbOrigin = CGPointMake(kSpacing, 0);
+        self.accessoryType = UITableViewCellAccessoryNone;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    return self;
+}
+
+-(void)setStartIndex:(NSUInteger)index{
+    _index = index;
+    [self setNeedsLayout];
+}
+
+-(void)setColumnCount:(NSUInteger)columnCount{
+    _columnCount = columnCount;
+    [self resetThumbSize];
+    [self setNeedsLayout];
+}
+
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    [self layoutThumbnailViews];
+}
+
+-(void)layoutThumbnailViews{
+    CGRect thumbFrame = CGRectMake(_thumbOrigin.x, _thumbOrigin.y,
+                                   self.thumbSize, self.thumbSize);
+
+    for (JJMediaThumbView* thumbView in self.thumbnailViews) {
+        thumbView.frame = thumbFrame;
+        thumbFrame.origin.x += kSpacing + self.thumbSize;
+    }
+}
+
+-(void)resetThumbSize{
+    _thumbSize = -1;
+}
+
+-(CGFloat)thumbSize{
+    if (_thumbSize < 0){
+        CGFloat width = self.frame.size.width;
+        CGFloat size = (width - (_columnCount + 1)*kSpacing)/_columnCount;
+        _thumbSize = (size>0)?size:0;
+    }
+    
+    return _thumbSize;
+}
+
+-(void)addThumbnailViewsToContentView{
+    for (UIView* view in self.thumbnailViews){
+        [view removeFromSuperview];
+    }
+    [self.thumbnailViews removeAllObjects];
+    
+    for (int i = 0; i < _columnCount; i++){
+        JJMediaThumbView* thumb = [[[JJMediaThumbView alloc] init] autorelease];
+        [thumb addTarget:self action:@selector(thumbTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:thumb];
+        [self assignMediaAtIndex:i+_index toThumbView:thumb];
+    }
+}
+
+-(void)assignMediaAtIndex:(NSUInteger)index toThumbView:(JJMediaThumbView*)view{
+    id<JJMedia> media = [self.mediaSource mediaAtIndex:index];
+    view.captionLabel.text = [media caption];
+    view.imageURL = [media thumbUrl];
+    view.type = [media type];
+}
+
+-(void)thumbTouched:(id)sender{
+    NSUInteger index = [self.thumbnailViews indexOfObject:sender];
+    id<JJMedia> media = [self.mediaSource mediaAtIndex:index];
+    [self.delegate mediaLibTableViewCell:self didSelectMedia:media];
+}
+
+@end
