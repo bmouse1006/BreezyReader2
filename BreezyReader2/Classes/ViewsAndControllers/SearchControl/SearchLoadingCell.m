@@ -33,7 +33,7 @@
     self.label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height)] autorelease];
     self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.label.backgroundColor = self.backgroundColor;
-    self.label.font = [UIFont boldSystemFontOfSize:17];
+    self.label.font = [UIFont boldSystemFontOfSize:18];
     self.label.textColor = [UIColor grayColor];
     self.label.textAlignment = UITextAlignmentCenter;
     self.label.text = NSLocalizedString(@"msg_searching", nil);

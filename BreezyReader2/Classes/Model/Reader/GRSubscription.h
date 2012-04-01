@@ -23,6 +23,9 @@
 @property (nonatomic, assign) NSTimeInterval firstItemMSec;
 @property (nonatomic, assign) BOOL isUnreadOnly;
 
+@property (nonatomic, readonly) NSDate* firstItemDate;
+@property (nonatomic, readonly) NSDate* newestItemDate;
+
 -(NSString*)presentationString;
 -(NSInteger)unreadCount;
 -(UIImage*)icon;

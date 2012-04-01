@@ -19,8 +19,11 @@
 @synthesize downloadedDate = _downloadedDate;
 
 @synthesize unread;
-@synthesize newestItemTimestampUsec;
+@synthesize newestItemTimestampUsec = _newestItemTimestampUsec;
 @synthesize isUnreadOnly;
+
+@synthesize firstItemDate = _firstItemDate;
+@synthesize newestItemDate = _newestItemDate;
 
 -(BOOL)isEqual:(id)object{
 	BOOL equal = NO;
@@ -31,6 +34,18 @@
 	}
 	
 	return equal;
+}
+
+-(void)setNewestItemTimestampUsec:(NSTimeInterval)newestItemTimestampUsec{
+    _newestItemTimestampUsec = newestItemTimestampUsec;
+    [_newestItemDate release];
+    _newestItemDate = [[NSDate dateWithTimeIntervalSince1970:_newestItemTimestampUsec/1000000] retain];
+}
+
+-(void)setFirstItemMSec:(NSTimeInterval)firstItemMSec{
+    _firstItemMSec = firstItemMSec;
+    [_firstItemDate release];
+    _firstItemDate = [[NSDate dateWithTimeIntervalSince1970:firstItemMSec/1000] retain];
 }
 
 -(NSString*)keyString{
@@ -113,7 +128,8 @@
 		self.ID = nil;
 		self.sortID = nil;
 		self.title = nil;
-		newestItemTimestampUsec = 0;
+		self.newestItemTimestampUsec = 0;
+        self.firstItemMSec = 0;
 		unread = 0;
 		isUnreadOnly = YES;
 	}
@@ -127,6 +143,8 @@
     self.sortID = nil;
     self.categories = nil;
     self.downloadedDate = nil;
+    [_firstItemDate release];
+    [_newestItemDate release];
 	[super dealloc];
 }
 
