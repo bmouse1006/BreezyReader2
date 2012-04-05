@@ -44,7 +44,7 @@ static CGFloat kTitleLabelHeight = 60.0f;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-//        NSNotification
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSource:) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
 }
@@ -158,6 +158,11 @@ static CGFloat kTitleLabelHeight = 60.0f;
 
 -(CGFloat)thumbSpacing{
     return 7.0f;
+}
+
+#pragma mark - notification call back
+-(void)reloadSource:(NSNotification*)notification{
+    [self.source loadSourceMore:NO];
 }
 
 #pragma mark - scroll view delegate

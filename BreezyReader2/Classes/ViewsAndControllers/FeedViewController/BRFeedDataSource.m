@@ -10,6 +10,7 @@
 #import "BRFeedTableViewCell.h"
 #import "SBJSON.h"
 #import "BROperationQueues.h"
+#import "BRReadingStatistics.h"
 
 @interface BRFeedDataSource(){
     BOOL _loading;
@@ -73,6 +74,7 @@
         _loading = YES;
         [self.delegate dataSource:self didStartLoading:NO];
         [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:nil continuation:nil forceRefresh:refresh];
+        [[BRReadingStatistics statistics] readFeed:self.subscription.ID];
     }
 }
 
@@ -84,6 +86,7 @@
 
         [self.delegate dataSource:self didStartLoading:YES];
         _loadingMore = YES;
+        DebugLog(@"continuation is %@", self.feed.gr_continuation);
         [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:nil continuation:self.feed.gr_continuation forceRefresh:NO];
     }
 }

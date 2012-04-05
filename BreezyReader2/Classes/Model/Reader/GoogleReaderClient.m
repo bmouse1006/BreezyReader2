@@ -11,6 +11,7 @@
 #import "ASIFormDataRequest.h"
 #import "GoogleAuthManager.h"
 #import "NSString+SBJSON.h"
+#import "NSString+Addtion.h"
 
 @interface GoogleReaderClient ()
 
@@ -66,7 +67,11 @@ static NSString* _token = nil;
         NSLog(@"stream id should not be nil");
         return;
     }
-	NSString* url = [API_STREAM_CONTENTS stringByAppendingString:identifer];
+    
+//    NSMutableString* ID = [[identifer mutableCopy] autorelease];
+//    [ID replaceURLCharacters];
+
+	NSString* url = [API_STREAM_CONTENTS stringByAppendingString:[identifer stringByAddingPercentEscapesAndReplacingHTTPCharacter]];
     [self.request clearDelegatesAndCancel];
     self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:parameterSet APIType:API_LIST];
     ASICachePolicy policy = ASIOnlyLoadIfNotCachedCachePolicy;
@@ -202,19 +207,18 @@ static NSString* _token = nil;
 									  startFrom:(NSDate*)date 
 										exclude:(NSString*)excludeString 
                                    continuation:(NSString*)continuationStr {
-	URLParameterSet* parameterSet = nil;
+	URLParameterSet* parameterSet = parameterSet = [[[URLParameterSet alloc] init] autorelease];;
 	
-	if (count||date||excludeString||continuationStr){
-		parameterSet = [[[URLParameterSet alloc] init] autorelease];
-		if (count)
-			[parameterSet setParameterForKey:ATOM_ARGS_COUNT withValue:[count stringValue]];
-		if (date)
-			[parameterSet setParameterForKey:ATOM_ARGS_START_TIME withValue:[NSString stringWithFormat:@"%d", [date timeIntervalSince1970]]];
-		if (excludeString)
-			[parameterSet setParameterForKey:ATOM_ARGS_EXCLUDE_TARGET withValue:excludeString];
-		if (continuationStr)
-			[parameterSet setParameterForKey:ATOM_ARGS_CONTINUATION withValue:continuationStr];
-	}
+    if (count)
+        [parameterSet setParameterForKey:ATOM_ARGS_COUNT withValue:[count stringValue]];
+    if (date)
+        [parameterSet setParameterForKey:ATOM_ARGS_START_TIME withValue:[NSString stringWithFormat:@"%d", [date timeIntervalSince1970]]];
+    if (excludeString)
+        [parameterSet setParameterForKey:ATOM_ARGS_EXCLUDE_TARGET withValue:excludeString];
+    if (continuationStr)
+        [parameterSet setParameterForKey:ATOM_ARGS_CONTINUATION withValue:continuationStr];
+    
+    [parameterSet setParameterForKey:ATOM_ARGS_TIMESTAMP withValue:[NSDate date]];
 	
 	return parameterSet;
 }
@@ -222,7 +226,8 @@ static NSString* _token = nil;
 -(NSURL*)fullURLFromBaseString:(NSString*)string{
     //encode URL string
 	NSString* googleScheme = GOOGLE_SCHEME_SSL;
-	NSString* encodedURLString = [googleScheme stringByAppendingString:[string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//	NSString* encodedURLString = [googleScheme stringByAppendingString:[string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString* encodedURLString = [googleScheme stringByAppendingString:string];
 	DebugLog(@"encoded URL String is %@", encodedURLString);
 	//构造request
 	return [NSURL URLWithString:encodedURLString];

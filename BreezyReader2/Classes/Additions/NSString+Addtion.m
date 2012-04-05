@@ -21,4 +21,23 @@
     return [str stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
 }
 
+-(NSString*)stringByAddingPercentEscapesAndReplacingHTTPCharacter{
+    NSString* string = [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSMutableString* ms = [[string mutableCopy] autorelease];
+    [ms replaceOccurrencesOfString:@"/" 
+                          withString:@"%2F"
+                             options:NSBackwardsSearch
+                               range:NSMakeRange(0, [ms length])];
+	[ms replaceOccurrencesOfString:@":" 
+                          withString:@"%3A"
+                             options:NSBackwardsSearch
+                               range:NSMakeRange(0, [ms length])];
+    [ms replaceOccurrencesOfString:@"?" 
+                          withString:@"%3F"
+                             options:NSBackwardsSearch
+                               range:NSMakeRange(0, [ms length])];
+    
+    return ms;
+}
+
 @end

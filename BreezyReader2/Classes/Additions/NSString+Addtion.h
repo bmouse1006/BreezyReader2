@@ -12,4 +12,6 @@
 
 -(NSString*)stringByReplacingHTMLTagAndTrim;
 
+-(NSString*)stringByAddingPercentEscapesAndReplacingHTTPCharacter;
+
 @end

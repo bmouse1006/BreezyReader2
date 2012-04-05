@@ -8,6 +8,7 @@
 
 #import "BRSubGridSource.h"
 #import "GRDataManager.h"
+#import "BRReadingStatistics.h"
 
 @implementation BRSubGridSource
 
@@ -44,7 +45,8 @@
 }
 
 -(void)loadSourceMore:(BOOL)more{
-    self.subscriptions = [[GRDataManager shared] getSubscriptionListWithTag:self.label];
+    NSArray* subscriptions = [[GRDataManager shared] getSubscriptionListWithTag:self.label];
+    self.subscriptions = [[BRReadingStatistics statistics] sortedSubscriptionsByReadingFrequency:subscriptions];
     [self.delegate sourceLoadFinished];
 }
 

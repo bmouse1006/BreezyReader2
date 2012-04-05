@@ -7,6 +7,7 @@
 //
 
 #import "URLParameterSet.h"
+#import "NSString+Addtion.h"
 #import "GoogleAppConstants.h"
 
 @implementation URLParameterSet
@@ -41,17 +42,13 @@
 			[compliedString appendString:@"&"];								  
 	}
 	
-	NSMutableString* encodedString = [NSMutableString stringWithCapacity:0];
-	[encodedString setString:[compliedString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-	
-	[encodedString replaceOccurrencesOfString:@"/" 
-									withString:@"%2F"
-									   options:NSBackwardsSearch
-										 range:NSMakeRange(0, [compliedString length])];
-	[encodedString replaceOccurrencesOfString:@":" 
-									withString:@"%3A"
-									   options:NSBackwardsSearch
-										 range:NSMakeRange(0, [compliedString length])];
+//	NSMutableString* encodedString = [NSMutableString stringWithCapacity:0];
+//	[encodedString setString:[compliedString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//	
+//    [encodedString replaceURLCharacters];
+    
+    NSString* encodedString = [compliedString stringByAddingPercentEscapesAndReplacingHTTPCharacter];
+    
 	[compliedString release];
 	DebugLog(@"encoded parameter string is %@", encodedString);
 	

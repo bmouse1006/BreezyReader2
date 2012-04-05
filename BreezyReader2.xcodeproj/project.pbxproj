@@ -12,9 +12,11 @@
 		22099669152747530045B659 /* fresh_page.png in Resources */ = {isa = PBXBuildFile; fileRef = 22099667152747530045B659 /* fresh_page.png */; };
 		2209966A152747530045B659 /* fresh_page@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22099668152747530045B659 /* fresh_page@2x.png */; };
 		2209966D1527476B0045B659 /* JJActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2209966C1527476B0045B659 /* JJActivityView.m */; };
+		222132C5152DE0460087D05E /* NSMutableString+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 222132C4152DE0460087D05E /* NSMutableString+Addition.m */; };
 		22608C3214F0C93100732D2B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3114F0C93100732D2B /* CFNetwork.framework */; };
 		22608C3414F0C9B000732D2B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3314F0C9AF00732D2B /* MobileCoreServices.framework */; };
 		22608C3614F0C9F100732D2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3514F0C9F100732D2B /* libz.dylib */; };
+		22994A15152DC90D00EE50C5 /* BRReadingStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */; };
 		229B2D0915273CAE00700504 /* BRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9615273CAE00700504 /* BRAppDelegate.m */; };
 		229B2D0A15273CAE00700504 /* BreezyReader2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 229B2B9815273CAE00700504 /* BreezyReader2-Info.plist */; };
 		229B2D0B15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */; };
@@ -231,9 +233,13 @@
 		22099668152747530045B659 /* fresh_page@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fresh_page@2x.png"; sourceTree = "<group>"; };
 		2209966B1527476B0045B659 /* JJActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJActivityView.h; sourceTree = "<group>"; };
 		2209966C1527476B0045B659 /* JJActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJActivityView.m; sourceTree = "<group>"; };
+		222132C3152DE0460087D05E /* NSMutableString+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+Addition.h"; sourceTree = "<group>"; };
+		222132C4152DE0460087D05E /* NSMutableString+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+Addition.m"; sourceTree = "<group>"; };
 		22608C3114F0C93100732D2B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		22608C3314F0C9AF00732D2B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		22608C3514F0C9F100732D2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		22994A13152DC90D00EE50C5 /* BRReadingStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRReadingStatistics.h; sourceTree = "<group>"; };
+		22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRReadingStatistics.m; sourceTree = "<group>"; };
 		229B2B9615273CAE00700504 /* BRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAppDelegate.m; sourceTree = "<group>"; };
 		229B2B9715273CAE00700504 /* BRCommonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCommonDefine.h; sourceTree = "<group>"; };
 		229B2B9815273CAE00700504 /* BreezyReader2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BreezyReader2-Info.plist"; sourceTree = "<group>"; };
@@ -617,19 +623,28 @@
 			path = ActivityView;
 			sourceTree = "<group>";
 		};
+		22994A11152DC8BB00EE50C5 /* FeedReadingStatistics */ = {
+			isa = PBXGroup;
+			children = (
+				22994A13152DC90D00EE50C5 /* BRReadingStatistics.h */,
+				22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */,
+			);
+			path = FeedReadingStatistics;
+			sourceTree = "<group>";
+		};
 		229B2B9515273CAE00700504 /* BreezyReader2 */ = {
 			isa = PBXGroup;
 			children = (
-				229B2B9715273CAE00700504 /* BRCommonDefine.h */,
-				229B2B9615273CAE00700504 /* BRAppDelegate.m */,
-				229B2CFF15273CAE00700504 /* main.m */,
-				229B2B9915273CAE00700504 /* BreezyReader2-Prefix.pch */,
-				229B2B9815273CAE00700504 /* BreezyReader2-Info.plist */,
 				229B2C7D15273CAE00700504 /* BRAppDelegate.h */,
+				229B2B9615273CAE00700504 /* BRAppDelegate.m */,
+				229B2B9715273CAE00700504 /* BRCommonDefine.h */,
+				229B2B9815273CAE00700504 /* BreezyReader2-Info.plist */,
+				229B2B9915273CAE00700504 /* BreezyReader2-Prefix.pch */,
 				229B2B9A15273CAE00700504 /* Classes */,
 				229B2C8115273CAE00700504 /* Images */,
 				229B2C7F15273CAE00700504 /* InfoPlist.strings */,
 				229B2CA415273CAE00700504 /* Lib */,
+				229B2CFF15273CAE00700504 /* main.m */,
 				229B2D0015273CAE00700504 /* OtherResource */,
 			);
 			path = BreezyReader2;
@@ -651,14 +666,16 @@
 		229B2B9B15273CAE00700504 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				22D56B27152767E80098A85F /* NSString+Addtion.h */,
-				22D56B28152767E80098A85F /* NSString+Addtion.m */,
 				229B2B9C15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.h */,
 				229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */,
 				229B2B9E15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.h */,
 				229B2B9F15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m */,
+				222132C3152DE0460087D05E /* NSMutableString+Addition.h */,
+				222132C4152DE0460087D05E /* NSMutableString+Addition.m */,
 				229B2BA015273CAE00700504 /* NSObject+Notifications.h */,
 				229B2BA115273CAE00700504 /* NSObject+Notifications.m */,
+				22D56B27152767E80098A85F /* NSString+Addtion.h */,
+				22D56B28152767E80098A85F /* NSString+Addtion.m */,
 				229B2BA215273CAE00700504 /* UIColor+Addtion.h */,
 				229B2BA315273CAE00700504 /* UIColor+Addtion.m */,
 				229B2BA415273CAE00700504 /* UIView+util.h */,
@@ -714,15 +731,16 @@
 		229B2BBF15273CAE00700504 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				229B2BDA15273CAE00700504 /* GRNotification.h */,
-				229B2C1915273CAE00700504 /* UserPreferenceDefine.h */,
-				229B2C1A15273CAE00700504 /* UserPreferenceDefine.m */,
 				229B2BC015273CAE00700504 /* BaseProperiesObject */,
 				229B2BC315273CAE00700504 /* BROperationQueues */,
+				22994A11152DC8BB00EE50C5 /* FeedReadingStatistics */,
 				229B2BC615273CAE00700504 /* GoogleApp */,
+				229B2BDA15273CAE00700504 /* GRNotification.h */,
 				229B2BDB15273CAE00700504 /* PreviewCache */,
 				229B2BDE15273CAE00700504 /* Reader */,
 				229B2C0615273CAE00700504 /* SDK */,
+				229B2C1915273CAE00700504 /* UserPreferenceDefine.h */,
+				229B2C1A15273CAE00700504 /* UserPreferenceDefine.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1641,6 +1659,8 @@
 				229B2DBB15273CAF00700504 /* RegexKitLite.m in Sources */,
 				229B2DBC15273CAF00700504 /* main.m in Sources */,
 				2209966D1527476B0045B659 /* JJActivityView.m in Sources */,
+				22994A15152DC90D00EE50C5 /* BRReadingStatistics.m in Sources */,
+				222132C5152DE0460087D05E /* NSMutableString+Addition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
