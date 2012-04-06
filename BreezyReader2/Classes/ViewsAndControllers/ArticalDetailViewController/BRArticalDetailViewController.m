@@ -33,11 +33,13 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 @synthesize index = _index;
 @synthesize feed = _feed;
 @synthesize backButton = _backButton;
+@synthesize bottomToolBar = _bottomToolBar;
 
 -(void)dealloc{
     self.webView = nil;
     self.feed = nil;
     self.backButton = nil;
+    self.bottomToolBar = nil;
     [super dealloc];
 }
 
@@ -113,8 +115,26 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    self.navigationController.navigationBar.translucent = YES;
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.navigationController.navigationBarHidden = YES;
+    [UIApplication sharedApplication].statusBarHidden = YES;
+}
+
+//-(void)viewWillDisappear:(BOOL)animated{
+//    [super viewWillDisappear:animated];
+//    self.navigationController.navigationBarHidden = NO;
+//    [UIApplication sharedApplication].statusBarHidden = NO;
+//}
+
+-(void)viewWillLayoutSubviews{
+    CGRect frame = self.bottomToolBar.frame;
+    frame.origin.y = self.view.frame.size.height - frame.size.height;
+    self.bottomToolBar.frame = frame;
+    
+    frame = self.webView.frame;
+    frame.size.height = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
+    self.webView.frame = frame;
+    
+    [self.view bringSubviewToFront:self.bottomToolBar];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -123,10 +143,6 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(IBAction)back:(id)sender{
-//    [self.navigationController popViewControllerAnimated:YES];
-    [[self topContainer] boomInTopViewController];
-}
 #pragma mark - web view delegate
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     DebugLog(@"web view did finish load");
@@ -134,6 +150,21 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 
 -(void)webViewDidStartLoad:(UIWebView *)webView{
     DebugLog(@"web view did start load");
+}
+
+#pragma mark - action
+-(IBAction)back:(id)sender{
+    //    [self.navigationController popViewControllerAnimated:YES];
+    [[self topContainer] boomInTopViewController];
+}
+
+-(IBAction)scrollToTop:(id)sender{
+    [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+}
+
+-(IBAction)viewInSafari:(id)sender{
+    GRItem* item = [self.feed getItemAtIndex:self.index];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:item.origin_htmlUrl]];
 }
 
 @end

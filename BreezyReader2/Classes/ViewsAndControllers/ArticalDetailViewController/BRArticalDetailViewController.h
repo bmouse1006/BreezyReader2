@@ -12,6 +12,7 @@
 @interface BRArticalDetailViewController : BRBaseController<UIWebViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWebView* webView;
+@property (nonatomic, retain) IBOutlet UIView* bottomToolBar;
 
 @property (nonatomic, retain) GRFeed* feed;
 @property (nonatomic, assign) NSUInteger index;
@@ -19,5 +20,7 @@
 @property (nonatomic, retain) IBOutlet UIButton* backButton;
 
 -(IBAction)back:(id)sender;
+-(IBAction)scrollToTop:(id)sender;
+-(IBAction)viewInSafari:(id)sender;
 
 @end

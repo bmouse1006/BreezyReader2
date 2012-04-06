@@ -16,7 +16,6 @@
 
 @interface BRSubGridViewController()
 
-@property (nonatomic, retain) UIViewController* boomedViewController;
 @property (nonatomic, assign) CGAffineTransform revertTransform;
 
 @end
@@ -27,7 +26,6 @@ static CGFloat kTitleLabelHeight = 60.0f;
 
 @synthesize tag = _tag, source = _source;
 @synthesize titleLabel = _titleLabel;
-@synthesize boomedViewController = _boomedViewController;
 @synthesize revertTransform = _revertTransform;
 
 -(void)dealloc{
@@ -35,7 +33,6 @@ static CGFloat kTitleLabelHeight = 60.0f;
     self.tag = nil;
     self.source = nil;
     self.titleLabel = nil;
-    self.boomedViewController = nil;
     [super dealloc];
 }
 
@@ -140,10 +137,9 @@ static CGFloat kTitleLabelHeight = 60.0f;
     BRFeedViewController* feedController = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
     feedController.subscription = sub;
     
-    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:feedController] autorelease];
-    self.boomedViewController = nav;
+//    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:feedController] autorelease];
     
-    [[self topContainer] boomOutViewController:nav fromView:view];
+    [[self topContainer] boomOutViewController:feedController fromView:view];
 }
 
 -(void)sourceLoadFinished{

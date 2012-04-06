@@ -207,7 +207,7 @@ static CGFloat kCaptionHeight = 40.0f;
     self.caption.verticalAlignment = JJTextVerticalAlignmentBottom;
     self.caption.shadowBlur = 3;
     self.caption.shadowColor = [UIColor blackColor];
-    self.caption.shadowOffset = CGSizeMake(0, 0);
+    self.caption.shadowOffset = CGSizeMake(1, 1);
     self.caption.shadowEnable = NO;
     UIEdgeInsets insets = UIEdgeInsetsMake(2, 5, 2, 5);
     [self.caption setContentEdgeInsets:insets];
@@ -395,7 +395,7 @@ static CGFloat kCaptionHeight = 40.0f;
     [self.timer invalidate];
     [self.imageRequest clearDelegatesAndCancel];
     self.timer = nil;
-    NSTimeInterval interval = (arc4random() % 3)+4;
+    NSTimeInterval interval = (arc4random() % 5)+6;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(changeImage) userInfo:nil repeats:NO];
 }
 

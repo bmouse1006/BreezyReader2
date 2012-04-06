@@ -116,6 +116,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    [UIApplication sharedApplication].statusBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
     [self.labelViewControllers makeObjectsPerformSelector:@selector(viewWillAppear:) withObject:[NSNumber numberWithBool:animated]];
 }

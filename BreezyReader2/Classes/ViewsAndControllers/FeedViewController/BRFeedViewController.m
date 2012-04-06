@@ -36,6 +36,10 @@
 @synthesize loadingView = _loadingView;
 @synthesize okToRefresh = _okToRefresh, okToLoadMore = _okToLoadMore;
 @synthesize activityView = _activityView;
+@synthesize titleView = _titleView;
+@synthesize bottomToolBar = _bottomToolBar;
+@synthesize titleLabel = _titleLabel;
+@synthesize titleIcon = _titleIcon;
 
 static CGFloat insetsTop = 0.0f;
 static CGFloat insetsBottom = 0.0f;
@@ -50,6 +54,10 @@ static CGFloat refreshDistance = 60.0f;
     self.loadMoreController = nil;
     self.loadingView = nil;
     self.activityView = nil;
+    self.titleView = nil;
+    self.bottomToolBar = nil;
+    self.titleLabel = nil;
+    self.titleIcon = nil;
     [super dealloc];
 }
 
@@ -72,9 +80,20 @@ static CGFloat refreshDistance = 60.0f;
 }
 
 -(void)viewWillLayoutSubviews{
-    for (UIView* subview in self.view.subviews){
-        DebugLog(@"%@", subview.description);
-    }
+    CGRect frame = self.bottomToolBar.frame;
+    frame.origin.y = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
+    self.bottomToolBar.frame = frame;
+    
+    frame = self.titleView.frame;
+    frame.origin.y = 0;
+    self.titleView.frame = frame;
+    
+    frame = self.tableView.frame;
+    frame.size.height = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
+    self.tableView.frame = frame;
+    
+    [self.view bringSubviewToFront:self.titleView];
+    [self.view bringSubviewToFront:self.bottomToolBar];
 }
 
 -(void)willMoveToParentViewController:(UIViewController *)parent{
@@ -104,7 +123,15 @@ static CGFloat refreshDistance = 60.0f;
     [self.tableView addGestureRecognizer:gesture];
     [self setupTableViewEdgeInsetByStatus];
     
+    self.titleLabel.textColor = [UIColor darkGrayColor];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+    self.titleLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
+    self.titleLabel.text = self.title;
+    
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.titleView];
+    [self.view addSubview:self.bottomToolBar];
+    
     CGRect frame = self.view.bounds;
     frame.origin.y -= frame.size.height;
     [self.dragController.view setFrame:frame];
@@ -142,8 +169,15 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
+
+//-(void)viewWillDisappear:(BOOL)animated{
+//    [super viewWillDisappear:animated];
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+//    [self.navigationController setNavigationBarHidden:NO animated:NO];
+//}
 
 #pragma mark - setter and getter
 -(void)setOkToRefresh:(BOOL)okToRefresh{
@@ -214,8 +248,8 @@ static CGFloat refreshDistance = 60.0f;
     BRArticalDetailViewController* detail = [[[BRArticalDetailViewController alloc] initWithTheNibOfSameName] autorelease];
     detail.feed = self.dataSource.feed;
     detail.index = indexPath.row;
-    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:detail] autorelease];
-    [[self topContainer] boomOutViewController:nav fromView:[tableView cellForRowAtIndexPath:indexPath]];
+//    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:detail] autorelease];
+    [[self topContainer] boomOutViewController:detail fromView:[tableView cellForRowAtIndexPath:indexPath]];
 //    [self.navigationController pushViewController:detail animated:YES];
 }
 
@@ -223,6 +257,10 @@ static CGFloat refreshDistance = 60.0f;
 -(IBAction)backButtonClicked:(id)sender{
 //    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_VIEWCONTROLLER_BOOMIN object:self];
     [[self topContainer] boomInTopViewController];
+}
+
+-(IBAction)scrollToTop:(id)sender{
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
 #pragma mrak - data source delegate
@@ -270,8 +308,9 @@ static CGFloat refreshDistance = 60.0f;
 
 #pragma mark - setup edge insets for table view
 -(void)setupTableViewEdgeInsetByStatus{
-    UIEdgeInsets tableInset = UIEdgeInsetsMake(insetsTop, 0, insetsBottom, 0);
-    UIEdgeInsets indicatorInset = UIEdgeInsetsMake(insetsTop, 0, 0, 0);
+    CGFloat top = insetsTop + self.titleView.frame.size.height;
+    UIEdgeInsets tableInset = UIEdgeInsetsMake(top, 0, insetsBottom, 0);
+    UIEdgeInsets indicatorInset = UIEdgeInsetsMake(top, 0, 0, 0);
     if (_isRefreshing){
         tableInset.top += refreshDistance;
     }
