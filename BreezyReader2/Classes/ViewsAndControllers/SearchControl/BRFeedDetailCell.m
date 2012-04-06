@@ -101,6 +101,9 @@ static NSMutableDictionary* subCountForFeed = nil;
     }else{
         DebugLog(@"%@", client.responseString);
         NSDictionary* json = client.responseJSONValue;
+        if (json == nil){
+            return;
+        }
         self.velocityLabel.text = [NSString stringWithFormat:NSLocalizedString(@"title_velocitylabel", nil), [json objectForKey:@"velocity"]];
         self.subscriberLabel.text = [NSString stringWithFormat:NSLocalizedString(@"title_subscribercount", nil), [json objectForKey:@"subscribers"]];
         [velocityForFeed setObject:[json objectForKey:@"velocity"] forKey:[self.item objectForKey:@"url"]];

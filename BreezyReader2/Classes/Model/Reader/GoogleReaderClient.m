@@ -175,6 +175,7 @@ static NSString* _token = nil;
 
 -(id)responseFeedSearchingJSONValue{
     NSString* resultString = self.responseString;
+    DebugLog(@"%@", resultString);
     
     NSInteger start = NSNotFound, end = NSNotFound;
     for (int i = 0; i<resultString.length; i++){

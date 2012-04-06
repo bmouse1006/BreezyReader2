@@ -200,6 +200,9 @@
 		229B2DBF15273CAF00700504 /* readability.css in Resources */ = {isa = PBXBuildFile; fileRef = 229B2D0515273CAE00700504 /* readability.css */; };
 		229B2DC115273CAF00700504 /* tempscript.html in Resources */ = {isa = PBXBuildFile; fileRef = 229B2D0715273CAE00700504 /* tempscript.html */; };
 		229B2DC215273D9C00700504 /* readability.js in Resources */ = {isa = PBXBuildFile; fileRef = 229B2D0615273CAE00700504 /* readability.js */; };
+		22B24792152E6FF2009DC4F1 /* BRSubFavoritePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B24790152E6FF2009DC4F1 /* BRSubFavoritePageController.m */; };
+		22B24793152E6FF2009DC4F1 /* BRSubFavoritePageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22B24791152E6FF2009DC4F1 /* BRSubFavoritePageController.xib */; };
+		22B24796152E7078009DC4F1 /* BRSubFavoriteDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B24795152E7078009DC4F1 /* BRSubFavoriteDataSource.m */; };
 		22CC17A914D974E400272147 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CC17A814D974E400272147 /* QuartzCore.framework */; };
 		22D56B29152767E80098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
 		22D56B2B152768DA0098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
@@ -561,6 +564,11 @@
 		229B2D0615273CAE00700504 /* readability.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = readability.js; sourceTree = "<group>"; };
 		229B2D0715273CAE00700504 /* tempscript.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tempscript.html; sourceTree = "<group>"; };
 		229B2D0815273CAE00700504 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		22B2478F152E6FF2009DC4F1 /* BRSubFavoritePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSubFavoritePageController.h; sourceTree = "<group>"; };
+		22B24790152E6FF2009DC4F1 /* BRSubFavoritePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSubFavoritePageController.m; sourceTree = "<group>"; };
+		22B24791152E6FF2009DC4F1 /* BRSubFavoritePageController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRSubFavoritePageController.xib; sourceTree = "<group>"; };
+		22B24794152E7078009DC4F1 /* BRSubFavoriteDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSubFavoriteDataSource.h; sourceTree = "<group>"; };
+		22B24795152E7078009DC4F1 /* BRSubFavoriteDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSubFavoriteDataSource.m; sourceTree = "<group>"; };
 		22CC17A814D974E400272147 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		22D56B27152767E80098A85F /* NSString+Addtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addtion.h"; sourceTree = "<group>"; };
 		22D56B28152767E80098A85F /* NSString+Addtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addtion.m"; sourceTree = "<group>"; };
@@ -976,6 +984,7 @@
 		229B2C4715273CAE00700504 /* LabelView */ = {
 			isa = PBXGroup;
 			children = (
+				22B2478E152E6FB3009DC4F1 /* MyFavoritePage */,
 				229B2C4815273CAE00700504 /* BRSubGridSource.h */,
 				229B2C4915273CAE00700504 /* BRSubGridSource.m */,
 				229B2C4A15273CAE00700504 /* BRSubGridViewController.h */,
@@ -1309,6 +1318,18 @@
 			path = readability;
 			sourceTree = "<group>";
 		};
+		22B2478E152E6FB3009DC4F1 /* MyFavoritePage */ = {
+			isa = PBXGroup;
+			children = (
+				22B2478F152E6FF2009DC4F1 /* BRSubFavoritePageController.h */,
+				22B24790152E6FF2009DC4F1 /* BRSubFavoritePageController.m */,
+				22B24791152E6FF2009DC4F1 /* BRSubFavoritePageController.xib */,
+				22B24794152E7078009DC4F1 /* BRSubFavoriteDataSource.h */,
+				22B24795152E7078009DC4F1 /* BRSubFavoriteDataSource.m */,
+			);
+			path = MyFavoritePage;
+			sourceTree = "<group>";
+		};
 		22F8667B14A216AA00D7B1CE = {
 			isa = PBXGroup;
 			children = (
@@ -1501,6 +1522,7 @@
 				229B2DC115273CAF00700504 /* tempscript.html in Resources */,
 				22099669152747530045B659 /* fresh_page.png in Resources */,
 				2209966A152747530045B659 /* fresh_page@2x.png in Resources */,
+				22B24793152E6FF2009DC4F1 /* BRSubFavoritePageController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1661,6 +1683,8 @@
 				2209966D1527476B0045B659 /* JJActivityView.m in Sources */,
 				22994A15152DC90D00EE50C5 /* BRReadingStatistics.m in Sources */,
 				222132C5152DE0460087D05E /* NSMutableString+Addition.m in Sources */,
+				22B24792152E6FF2009DC4F1 /* BRSubFavoritePageController.m in Sources */,
+				22B24796152E7078009DC4F1 /* BRSubFavoriteDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
