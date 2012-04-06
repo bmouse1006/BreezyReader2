@@ -8,6 +8,8 @@
 
 #import "MainScreenDataSource.h"
 #import "BRSubGridViewController.h"
+#import "BRSubFavoritePageController.h"
+#import "BRReadingStatistics.h"
 #import "GRDataManager.h"
 
 @interface MainScreenDataSource ()
@@ -60,6 +62,11 @@
     tag.label = NSLocalizedString(@"title_nolabel", nil);
     controller.tag = tag;
     [self.controllers addObject:controller];
+    
+    if ([[BRReadingStatistics statistics] countOfRecordedReadingFrequency] >= 6){
+        BRSubFavoritePageController* favoritePage = [[[BRSubFavoritePageController alloc] init] autorelease];
+        [self.controllers insertObject:favoritePage atIndex:0];
+    }
 }
 
 -(NSInteger)numberOfContentViewsInScrollView:(InfinityScrollView *)scrollView{

@@ -19,4 +19,6 @@
 
 @property (nonatomic, retain) JJLabel* titleLabel;
 
+-(void)createSource;
+
 @end

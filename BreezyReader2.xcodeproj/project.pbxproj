@@ -16,6 +16,7 @@
 		22608C3214F0C93100732D2B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3114F0C93100732D2B /* CFNetwork.framework */; };
 		22608C3414F0C9B000732D2B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3314F0C9AF00732D2B /* MobileCoreServices.framework */; };
 		22608C3614F0C9F100732D2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3514F0C9F100732D2B /* libz.dylib */; };
+		22638593152ECD7800CA39E3 /* BRSubFavoriteSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22638592152ECD7800CA39E3 /* BRSubFavoriteSource.m */; };
 		22994A15152DC90D00EE50C5 /* BRReadingStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */; };
 		229B2D0915273CAE00700504 /* BRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9615273CAE00700504 /* BRAppDelegate.m */; };
 		229B2D0A15273CAE00700504 /* BreezyReader2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 229B2B9815273CAE00700504 /* BreezyReader2-Info.plist */; };
@@ -201,8 +202,6 @@
 		229B2DC115273CAF00700504 /* tempscript.html in Resources */ = {isa = PBXBuildFile; fileRef = 229B2D0715273CAE00700504 /* tempscript.html */; };
 		229B2DC215273D9C00700504 /* readability.js in Resources */ = {isa = PBXBuildFile; fileRef = 229B2D0615273CAE00700504 /* readability.js */; };
 		22B24792152E6FF2009DC4F1 /* BRSubFavoritePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B24790152E6FF2009DC4F1 /* BRSubFavoritePageController.m */; };
-		22B24793152E6FF2009DC4F1 /* BRSubFavoritePageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22B24791152E6FF2009DC4F1 /* BRSubFavoritePageController.xib */; };
-		22B24796152E7078009DC4F1 /* BRSubFavoriteDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B24795152E7078009DC4F1 /* BRSubFavoriteDataSource.m */; };
 		22CC17A914D974E400272147 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CC17A814D974E400272147 /* QuartzCore.framework */; };
 		22D56B29152767E80098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
 		22D56B2B152768DA0098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
@@ -241,6 +240,8 @@
 		22608C3114F0C93100732D2B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		22608C3314F0C9AF00732D2B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		22608C3514F0C9F100732D2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		22638591152ECD7800CA39E3 /* BRSubFavoriteSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSubFavoriteSource.h; sourceTree = "<group>"; };
+		22638592152ECD7800CA39E3 /* BRSubFavoriteSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSubFavoriteSource.m; sourceTree = "<group>"; };
 		22994A13152DC90D00EE50C5 /* BRReadingStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRReadingStatistics.h; sourceTree = "<group>"; };
 		22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRReadingStatistics.m; sourceTree = "<group>"; };
 		229B2B9615273CAE00700504 /* BRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAppDelegate.m; sourceTree = "<group>"; };
@@ -566,9 +567,6 @@
 		229B2D0815273CAE00700504 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		22B2478F152E6FF2009DC4F1 /* BRSubFavoritePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSubFavoritePageController.h; sourceTree = "<group>"; };
 		22B24790152E6FF2009DC4F1 /* BRSubFavoritePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSubFavoritePageController.m; sourceTree = "<group>"; };
-		22B24791152E6FF2009DC4F1 /* BRSubFavoritePageController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRSubFavoritePageController.xib; sourceTree = "<group>"; };
-		22B24794152E7078009DC4F1 /* BRSubFavoriteDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSubFavoriteDataSource.h; sourceTree = "<group>"; };
-		22B24795152E7078009DC4F1 /* BRSubFavoriteDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSubFavoriteDataSource.m; sourceTree = "<group>"; };
 		22CC17A814D974E400272147 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		22D56B27152767E80098A85F /* NSString+Addtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addtion.h"; sourceTree = "<group>"; };
 		22D56B28152767E80098A85F /* NSString+Addtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addtion.m"; sourceTree = "<group>"; };
@@ -1323,9 +1321,8 @@
 			children = (
 				22B2478F152E6FF2009DC4F1 /* BRSubFavoritePageController.h */,
 				22B24790152E6FF2009DC4F1 /* BRSubFavoritePageController.m */,
-				22B24791152E6FF2009DC4F1 /* BRSubFavoritePageController.xib */,
-				22B24794152E7078009DC4F1 /* BRSubFavoriteDataSource.h */,
-				22B24795152E7078009DC4F1 /* BRSubFavoriteDataSource.m */,
+				22638591152ECD7800CA39E3 /* BRSubFavoriteSource.h */,
+				22638592152ECD7800CA39E3 /* BRSubFavoriteSource.m */,
 			);
 			path = MyFavoritePage;
 			sourceTree = "<group>";
@@ -1522,7 +1519,6 @@
 				229B2DC115273CAF00700504 /* tempscript.html in Resources */,
 				22099669152747530045B659 /* fresh_page.png in Resources */,
 				2209966A152747530045B659 /* fresh_page@2x.png in Resources */,
-				22B24793152E6FF2009DC4F1 /* BRSubFavoritePageController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1684,7 +1680,7 @@
 				22994A15152DC90D00EE50C5 /* BRReadingStatistics.m in Sources */,
 				222132C5152DE0460087D05E /* NSMutableString+Addition.m in Sources */,
 				22B24792152E6FF2009DC4F1 /* BRSubFavoritePageController.m in Sources */,
-				22B24796152E7078009DC4F1 /* BRSubFavoriteDataSource.m in Sources */,
+				22638593152ECD7800CA39E3 /* BRSubFavoriteSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

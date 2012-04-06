@@ -21,3 +21,4 @@
 "title_loadmore" = "Load More";
 "title_velocitylabel" = "Weely posts: %@";
 "title_subscribercount" = "Subscribers: %@";
+"title_favorite" = "Most read";

@@ -80,20 +80,18 @@ static CGFloat kTitleLabelHeight = 60.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self createSource];
+    [self assignMediaSource:self.source];
     // Do any additional setup after loading the view from its nib.
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.delegate = self;
     self.view.backgroundColor = [UIColor clearColor];
-    self.titleLabel.text = self.tag.label;
+    self.titleLabel.text = [self.source title];
     self.titleLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
     CGFloat edgeHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     UIEdgeInsets inset = UIEdgeInsetsMake(edgeHeight, 0, 0, 0);
     [self.tableView setContentInset:inset];
-    self.source = [[[BRSubGridSource alloc] init] autorelease];
-    self.source.label = self.tag.ID;
-    self.source.delegate = self;
-    [self assignMediaSource:self.source];
     [self.source loadSourceMore:NO];
 }
 
@@ -158,6 +156,12 @@ static CGFloat kTitleLabelHeight = 60.0f;
 
 -(CGFloat)thumbSpacing{
     return 7.0f;
+}
+
+-(void)createSource{
+    self.source = [[[BRSubGridSource alloc] init] autorelease];
+    self.source.tag = self.tag;
+    self.source.delegate = self;
 }
 
 #pragma mark - notification call back

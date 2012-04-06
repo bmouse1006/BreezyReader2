@@ -12,18 +12,18 @@
 
 @implementation BRSubGridSource
 
-@synthesize label = _label, subscriptions = _subscriptions;
+@synthesize tag = _tag, subscriptions = _subscriptions;
 @synthesize delegate = _delegate;
 
 -(void)dealloc{
-    self.label = nil;
+    self.tag = nil;
     self.subscriptions = nil;
     self.delegate = nil;
     [super dealloc];
 }
 
 -(NSString*)title{
-    return self.label;
+    return self.tag.label;
 }
 /**
  * The total number of photos in the source, independent of the number that have been loaded.
@@ -45,7 +45,7 @@
 }
 
 -(void)loadSourceMore:(BOOL)more{
-    NSArray* subscriptions = [[GRDataManager shared] getSubscriptionListWithTag:self.label];
+    NSArray* subscriptions = [[GRDataManager shared] getSubscriptionListWithTag:self.tag.ID];
     self.subscriptions = [[BRReadingStatistics statistics] sortedSubscriptionsByReadingFrequency:subscriptions];
     [self.delegate sourceLoadFinished];
 }

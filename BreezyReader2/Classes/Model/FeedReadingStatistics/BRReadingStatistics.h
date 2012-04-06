@@ -18,4 +18,6 @@
 
 -(NSUInteger)countOfRecordedReadingFrequency;
 
+-(NSArray*)mostReadSubscriptionIDsCount:(NSInteger)count;
+
 @end

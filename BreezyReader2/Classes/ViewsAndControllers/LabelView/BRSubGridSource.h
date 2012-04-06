@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "JJMediaLib.h"
+#import "GRTag.h"
 
 @interface BRSubGridSource : NSObject<JJMediaSource>
 
-@property (nonatomic, retain) NSString* label;
+@property (nonatomic, retain) GRTag* tag;
 @property (nonatomic, retain) NSArray* subscriptions;
 @property (nonatomic, assign) id<JJMediaSourceDelegate> delegate;
 

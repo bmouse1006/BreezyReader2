@@ -102,6 +102,27 @@ static NSMutableDictionary* _readingCount = nil;
     return [[self firstReadTimestamp] count];
 }
 
+-(NSArray*)mostReadSubscriptionIDsCount:(NSInteger)count{
+    NSArray* keys = [[self firstReadTimestamp] allKeys];
+    NSArray* sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
+        double frequency1 = [self readingFrequencyForFeed:obj1]; 
+        double frequency2 = [self readingFrequencyForFeed:obj2]; 
+        NSComparisonResult result = NSOrderedSame;
+        if (frequency1 > frequency2){
+            result = NSOrderedAscending;
+        }else if (frequency1 == frequency2){
+            result = NSOrderedSame;
+        }else if (frequency1 < frequency2){
+            result = NSOrderedDescending;
+        }
+        return result;
+    }];
+    
+    count = MIN([sortedKeys count], count);
+    NSRange range = {0, count};
+    return [sortedKeys subarrayWithRange:range];
+}
+
 -(void)persistent{
     [[NSUserDefaults standardUserDefaults] setObject:[self readingCount] forKey:kReadingCount];
     [[NSUserDefaults standardUserDefaults] setObject:[self firstReadTimestamp] forKey:kFirstReadTimestamp];

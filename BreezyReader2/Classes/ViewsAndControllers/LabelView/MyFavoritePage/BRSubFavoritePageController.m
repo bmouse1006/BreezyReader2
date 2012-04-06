@@ -7,6 +7,7 @@
 //
 
 #import "BRSubFavoritePageController.h"
+#import "BRSubFavoriteSource.h"
 
 @interface BRSubFavoritePageController ()
 
@@ -14,10 +15,9 @@
 
 @implementation BRSubFavoritePageController
 
--(id<UITableViewDataSource>)generateDataSourceWithMediaSource:(id<JJMediaSource>)source{
-    BRSubGridViewDataSource* datasource = [[[BRSubGridViewDataSource alloc] initWithMediaSource:source delegate:self] autorelease];
-    [datasource setThumbSize:[self thumbSize] thumbSpacing:[self thumbSpacing]];
-    return datasource;
+-(void)createSource{
+    self.source = [[[BRSubFavoriteSource alloc] init] autorelease];
+    self.source.delegate = self;
 }
 
 @end

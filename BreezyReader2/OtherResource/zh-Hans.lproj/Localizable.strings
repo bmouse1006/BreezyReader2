@@ -20,3 +20,4 @@
 "title_loadmore" = "加载更多";
 "title_velocitylabel" = "每周帖子: %@";
 "title_subscribercount" = "订阅人数: %@";
+"title_favorite" = "最常阅读";
