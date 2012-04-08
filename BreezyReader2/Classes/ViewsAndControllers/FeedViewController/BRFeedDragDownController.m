@@ -8,9 +8,16 @@
 
 #import "BRFeedDragDownController.h"
 
+@interface BRFeedDragDownController ()
+
+@property (nonatomic, retain) UIView* bottomLine;
+
+@end
+
 @implementation BRFeedDragDownController
 
 @synthesize titleLabel = _titleLabel, timeLabel = _timeLabel, indicator = _indicator;
+@synthesize bottomLine = _bottomLine;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -23,18 +30,23 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-//    [self refreshLabels];
     self.indicator.hidesWhenStopped = YES;
     [self.indicator stopAnimating];
-    UIView* bottomLine = [[[UIView alloc] initWithFrame:CGRectMake(7, self.view.frame.size.height-1, self.view.frame.size.width - 14, 0.5)] autorelease];
-    bottomLine.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:bottomLine];
+    self.bottomLine = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.bottomLine.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:self.bottomLine];
+}
+
+-(void)viewDidLayoutSubviews{
+    CGRect frame = CGRectMake(7, self.view.frame.size.height-1, self.view.frame.size.width - 14, 0.5);
+    self.bottomLine.frame = frame;
 }
 
 -(void)dealloc{
     self.timeLabel = nil;
     self.titleLabel = nil;
     self.indicator = nil;
+    self.bottomLine = nil;
     [super dealloc];
 }
 

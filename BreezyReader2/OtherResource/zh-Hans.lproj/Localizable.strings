@@ -15,9 +15,13 @@
 "title_searchfeeds" = "搜索源";
 "title_searcharticles" = "搜索文章";
 "title_searchfeedsorarticles" = "搜索文章或者源";
-"msg_searching" = "搜索中...";
 "title_loadingmore" = "加载中...";
 "title_loadmore" = "加载更多";
 "title_velocitylabel" = "每周帖子: %@";
 "title_subscribercount" = "订阅人数: %@";
 "title_favorite" = "最常阅读";
+"title_loading" = "载入中...";
+
+"msg_searching" = "搜索中...";
+"msg_unstarfailed" = "去星标失败啦";
+"msg_starfailed" = "加星标失败啦";

@@ -17,8 +17,18 @@
 
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, assign) SEL action;
+@property (nonatomic, retain) NSOperationQueue* editOperationQueue;
 
 @property (nonatomic, retain) ASIHTTPRequest* request;
+
+//add/remove tag to one subscription
+-(void)editSubscription:(NSString*)subscription 
+					tagToAdd:(NSString*)tagToAdd 
+				 tagToRemove:(NSString*)tagToRemove;
+
+-(void)editItem:(NSString*)itemID 
+			  addTag:(NSString*)tagToAdd 
+		   removeTag:(NSString*)tagToRemove;
 
 @end
 
@@ -26,8 +36,9 @@
 
 @synthesize delegate = _delegate, action = _action;
 @synthesize request = _request;
-@synthesize responseData = _responseData, responseString = _responseString, responseJSONValue = _responseJSONValue, error = _error;
+@synthesize responseData, responseString, responseJSONValue, error = _error, isResponseOK;
 @synthesize responseFeedSearchingJSONValue = _responseFeedSearchingJSONValue;
+@synthesize editOperationQueue = _editOperationQueue;
 
 static NSString* _token = nil;
 
@@ -38,6 +49,9 @@ static NSString* _token = nil;
 -(void)dealloc{
     [self.request clearDelegatesAndCancel];
     self.request = nil;
+    [self.editOperationQueue.operations makeObjectsPerformSelector:@selector(clearDelegatesAndCancel)];
+    [self.editOperationQueue cancelAllOperations];
+    self.editOperationQueue = nil;
     [super dealloc];
 }
 
@@ -46,6 +60,7 @@ static NSString* _token = nil;
     if (self){
         self.delegate = delegate;
         self.action = action;
+        self.editOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
     }
     
     return self;
@@ -56,21 +71,21 @@ static NSString* _token = nil;
     self.request = nil;
 }
 
+#pragma mark - list api
+
 -(void)requestFeedWithIdentifier:(NSString*)identifer
                            count:(NSNumber*)count 
                        startFrom:(NSDate*)date 
                          exclude:(NSString*)excludeString 
                     continuation:(NSString*)continuationStr 
-                    forceRefresh:(BOOL)refresh{
+                    forceRefresh:(BOOL)refresh
+                        needAuth:(BOOL)needAuth{
 	URLParameterSet* parameterSet = [self compileParameterSetWithCount:count startFrom:date exclude:excludeString continuation:continuationStr];
     if (identifer.length == 0){
         NSLog(@"stream id should not be nil");
         return;
     }
     
-//    NSMutableString* ID = [[identifer mutableCopy] autorelease];
-//    [ID replaceURLCharacters];
-
 	NSString* url = [API_STREAM_CONTENTS stringByAppendingString:[identifer stringByAddingPercentEscapesAndReplacingHTTPCharacter]];
     [self.request clearDelegatesAndCancel];
     self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:parameterSet APIType:API_LIST];
@@ -80,7 +95,15 @@ static NSString* _token = nil;
     }
     self.request.cachePolicy = policy;
     self.request.delegate = self;
-    [self.request startAsynchronous];
+    if (needAuth){
+        [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
+            if (error == nil){
+                [self.request startAsynchronous];
+            }
+        }];
+    }else{
+        [self.request startAsynchronous];
+    }
 }
 
 -(void)getStreamDetails:(NSString*)streamID{
@@ -103,7 +126,6 @@ static NSString* _token = nil;
         [request addPostValue:[ID objectForKey:@"id"] forKey:CONTENTS_ARGS_ID];
         [request addPostValue:@"0" forKey:CONTENTS_ARGS_IT];
     }
-    [request addPostValue:[[GoogleAuthManager shared] token] forKey:EDIT_ARGS_TOKEN];
     [self clearAndCancel];
     self.request = request;
     [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
@@ -121,7 +143,7 @@ static NSString* _token = nil;
     [self clearAndCancel];
     self.request = [self requestWithURL:[self fullURLFromBaseString:API_SEARCH_ARTICLES] parameters:paramSet APIType:API_LIST];
     [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
-        if (!error){
+        if (error == nil){
             [self.request startAsynchronous];
         }
     }];
@@ -141,6 +163,42 @@ static NSString* _token = nil;
     request.delegate = self;
     self.request = request;
     [self.request startAsynchronous];
+}
+
+#pragma mark - edit api
+-(void)starArticle:(NSString*)itemID{
+    NSString* starTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_STARRED];
+    [self editItem:itemID addTag:starTag removeTag:nil];
+}
+
+-(void)unstartArticle:(NSString*)itemID{
+    NSString* starTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_STARRED];
+    [self editItem:itemID addTag:nil removeTag:starTag];
+    
+}
+
+-(void)markArticleAsRead:(NSString*)itemID{
+    NSString* readTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_READ];
+    [self editItem:itemID addTag:readTag removeTag:nil];
+}
+
+-(void)keepArticleUnread:(NSString*)itemID{
+    NSString* keptUnread = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_UNREAD];
+    [self editItem:itemID addTag:keptUnread removeTag:nil];
+}
+
+-(void)markAllAsRead:(NSString*)streamID{
+    NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_MARK_ALL_AS_READ];
+	//Prepare parameters
+	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	
+	[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:streamID];//add feed URI
+    
+    [self clearAndCancel];
+    self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
+    
+    [self.request startAsynchronous];
+    
 }
 
 #pragma mark - request delegate
@@ -198,6 +256,11 @@ static NSString* _token = nil;
     return [json JSONValue];
 }
 
+-(BOOL)isResponseOK{
+    DebugLog(@"response header is %@", self.request.responseHeaders);
+    return [self.request.responseString compare:@"ok" options:NSCaseInsensitiveSearch] == NSOrderedSame;
+}
+
 -(NSError*)error{
     return self.request.error;
 }
@@ -218,8 +281,6 @@ static NSString* _token = nil;
         [parameterSet setParameterForKey:ATOM_ARGS_EXCLUDE_TARGET withValue:excludeString];
     if (continuationStr)
         [parameterSet setParameterForKey:ATOM_ARGS_CONTINUATION withValue:continuationStr];
-    
-    [parameterSet setParameterForKey:ATOM_ARGS_TIMESTAMP withValue:[NSDate date]];
 	
 	return parameterSet;
 }
@@ -241,7 +302,10 @@ static NSString* _token = nil;
     if ([type isEqualToString:API_EDIT]){
         request = [ASIFormDataRequest requestWithURL:baseURL];
         request.requestMethod = @"POST";//POST method for list api
-        [request appendPostData:[[parameters parameterString] dataUsingEncoding:NSUTF8StringEncoding]];
+        [parameters setParameterForKey:EDIT_ARGS_TOKEN withValue:[[GoogleAuthManager shared] token]];
+        for (NSString* key in parameters.parameters.allKeys){
+            [(ASIFormDataRequest*)request addPostValue:[parameters.parameters objectForKey:key] forKey:key];
+        }
         URLParameterSet* additionalParameters = [[URLParameterSet alloc] init];
         
         [additionalParameters setParameterForKey:EDIT_ARGS_CLIENT withValue:CLIENT_IDENTIFIER];
@@ -253,7 +317,7 @@ static NSString* _token = nil;
         [request setURL:[NSURL URLWithString:temp]];
         
         [additionalParameters release];
-        
+        request.cachePolicy = ASIDoNotReadFromCacheCachePolicy;
     }else{
         request = [ASIHTTPRequest requestWithURL:baseURL];
         request.requestMethod = @"GET";//GET method for others
@@ -263,10 +327,10 @@ static NSString* _token = nil;
             temp = [temp stringByAppendingString:[parameters parameterString]];
         }
         [request setURL:[NSURL URLWithString:temp]];
+        request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
     }
     
     request.delegate = self;
-    request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
     request.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;
     
     DebugLog(@"request string is %@", [request.url absoluteString]);
@@ -276,6 +340,37 @@ static NSString* _token = nil;
 
 -(BOOL)isLoading{
     return ![self.request isFinished];
+}
+
+#pragma mark - private methods
+//add/remove tag to one subscription
+-(void)editSubscription:(NSString*)subscription 
+					tagToAdd:(NSString*)tagToAdd 
+				 tagToRemove:(NSString*)tagToRemove{
+    
+}
+     
+-(void)editItem:(NSString*)itemID 
+            addTag:(NSString*)tagToAdd 
+         removeTag:(NSString*)tagToRemove{
+    NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_TAG2];
+	//Prepare parameters
+	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	[paramSet setParameterForKey:EDIT_ARGS_ITEM withValue:itemID];//add feed URI
+	if (tagToAdd != nil)
+		[paramSet setParameterForKey:EDIT_ARGS_ADD withValue:tagToAdd];//tag name to add
+	if (tagToRemove != nil)
+		[paramSet setParameterForKey:EDIT_ARGS_REMOVE withValue:tagToRemove];//tag name to remove
+	[paramSet setParameterForKey:EDIT_ARGS_ACTION withValue:@"edit"];//add API action. Here is 'edit'
+	
+    ASIHTTPRequest* request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
+    request.delegate = self;
+    self.request = request;
+    [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
+        if (error == nil){
+            [self.request startAsynchronous];
+        }
+    }];
 }
 
 @end

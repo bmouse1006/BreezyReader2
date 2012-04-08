@@ -14,8 +14,6 @@
 
 @interface BRFeedTableViewCell ()
 
-@property (nonatomic, retain) NSArray* imageList;
-
 @end
 
 @implementation BRFeedTableViewCell
@@ -29,6 +27,8 @@
 @synthesize timeLabel = _timeLabel;
 @synthesize imageList = _imageList;
 @synthesize authorLabel = _authorLabel;
+@synthesize unstarButton = _unstarButton, starButton = _starButton;
+@synthesize buttonContainer = _buttonContainer;
 
 -(void)dealloc{
     self.item = nil;
@@ -40,6 +40,7 @@
     self.timeLabel = nil;
     self.imageList = nil;
     self.authorLabel = nil;
+    self.buttonContainer = nil;
     [super dealloc];
 }
 
@@ -86,6 +87,9 @@
         [_item release];
         _item = [item retain];
         
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [self registerNotifications];
+        
         self.imageList = [[BRImagePreviewCache sharedCache] cachedPreviewImagesForKey:_item.ID];
         if (self.imageList == nil){
             self.imageList = [_item imageURLList]; 
@@ -111,6 +115,13 @@
         self.previewLabel.text = previewContent ;
         
         self.authorLabel.text = _item.author;
+        
+        [self.buttonContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        if (_item.isStarred){
+            [self.buttonContainer addSubview:self.unstarButton];
+        }else{
+            [self.buttonContainer addSubview:self.starButton];
+        }
     }
     [self setNeedsLayout];
 }
@@ -138,14 +149,8 @@
     //layout text labels
     frame = self.titleLabel.frame;
     frame.origin.x = leftSpacing;
-    frame.size.width = bounds.size.width - (leftSpacing + kCellRightSpacing);
-//    NSInteger lineNumber = self.titleLabel.actualLineNumber;
+    frame.size.width = bounds.size.width - (leftSpacing + kCellRightSpacing + self.buttonContainer.frame.size.width);
     frame.size.height = 40;
-//    if (lineNumber == 1){
-//        frame.size.height = 20;
-//    }else{
-//        frame.size.height = 40;
-//    }
     
     [self.titleLabel setFrame:frame];
     
@@ -153,7 +158,6 @@
     frame.origin.x = leftSpacing;
     frame.origin.y = self.titleLabel.frame.origin.y+self.titleLabel.frame.size.height;
     frame.size.width = bounds.size.width - (leftSpacing + kCellRightSpacing);
-//    frame.size.height = 73.0f - (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height);
     frame.size.height = 73.0f - (self.titleLabel.frame.origin.y + 40);
     [self.previewLabel setFrame:frame];
     
@@ -169,6 +173,45 @@
         self.previewLabel.textColor = [UIColor grayColor];
     }
     
+}
+
+#pragma mark - button call back
+
+-(IBAction)starButtonClicked:(id)sender{
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item.ID forKey:@"itemID"];
+    NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_STARITEM object:nil userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+-(IBAction)unstarButtonClicked:(id)sender{
+    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item.ID forKey:@"itemID"];
+    NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_UNSTARITEM object:nil userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+#pragma mark - notification register
+
+-(void)registerNotifications{
+    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(addStarSuccess:) name:NOTIFICATION_STARSUCCESS object:self.item.ID];
+    [nc addObserver:self selector:@selector(removeStarSuccess:) name:NOTIFICATION_UNSTARSUCCESS object:self.item.ID];
+}
+
+#pragma mark - notification 
+-(void)addStarSuccess:(NSNotification*)notification{
+    DebugLog(@"add star success");
+    [self.buttonContainer addSubview:self.unstarButton];
+    [UIView transitionFromView:self.starButton toView:self.unstarButton duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
+        [self.starButton removeFromSuperview];
+    }];
+}
+
+-(void)removeStarSuccess:(NSNotification*)notification{
+    DebugLog(@"remove star success");
+    [self.buttonContainer addSubview:self.starButton];
+    [UIView transitionFromView:self.unstarButton toView:self.starButton duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
+        [self.unstarButton removeFromSuperview];
+    }];
 }
 
 @end

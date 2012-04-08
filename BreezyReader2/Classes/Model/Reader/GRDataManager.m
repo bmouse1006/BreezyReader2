@@ -82,7 +82,6 @@ static GRDataManager *readerDM = nil;
 	NSString* result = [self.grController markAllAsReadForSubscription:sub.ID];
 	
 	if ([result isEqualToString:@"ok"]) {
-//		[self syncUnreadCount];
 		[self taskSyncReaderStructure];
 		GRFeed* feed = [self feedWithSubID:[sub keyString]];
 		GRFeed* continuedFeed = nil;

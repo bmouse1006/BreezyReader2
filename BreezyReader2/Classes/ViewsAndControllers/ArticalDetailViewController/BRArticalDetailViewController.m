@@ -155,7 +155,8 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 #pragma mark - action
 -(IBAction)back:(id)sender{
     //    [self.navigationController popViewControllerAnimated:YES];
-    [[self topContainer] boomInTopViewController];
+//    [[self topContainer] boomInTopViewController];
+    [[self topContainer] slideOutViewController];
 }
 
 -(IBAction)scrollToTop:(id)sender{

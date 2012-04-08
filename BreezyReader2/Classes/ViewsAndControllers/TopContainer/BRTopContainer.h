@@ -22,6 +22,8 @@ typedef enum{
 -(void)popViewController:(BOOL)animated;
 -(void)boomOutViewController:(UIViewController*)viewController fromView:(UIView*)view;
 -(void)boomInTopViewController;
+-(void)slideInViewController:(UIViewController*)viewController;
+-(void)slideOutViewController;
 
 -(UIViewController*)topController;
 

@@ -24,4 +24,14 @@
 
 @property (nonatomic, retain) IBOutlet UIView* container;
 
+@property (nonatomic, retain) IBOutlet UIButton* starButton;
+@property (nonatomic, retain) IBOutlet UIButton* unstarButton;
+
+@property (nonatomic, retain) IBOutlet UIView* buttonContainer;
+
+@property (nonatomic, retain) NSArray* imageList;
+
+-(IBAction)starButtonClicked:(id)sender;
+-(IBAction)unstarButtonClicked:(id)sender;
+
 @end

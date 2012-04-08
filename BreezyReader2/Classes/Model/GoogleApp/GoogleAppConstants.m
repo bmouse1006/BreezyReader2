@@ -51,6 +51,8 @@ NSString * const API_EDIT_TAG1				= @"tag/edit";
 NSString * const API_EDIT_TAG2				= @"edit-tag";
 NSString * const API_EDIT_DISABLETAG		= @"disable-tag";
 
+NSString * const API_EDIT_ITEM              = @"item/edit";
+
 NSString * const API_EDIT_MARK_ALL_AS_READ  = @"mark-all-as-read";
 
 NSString * const API_LIST_RECOMMENDATION	= @"recommendation/list";

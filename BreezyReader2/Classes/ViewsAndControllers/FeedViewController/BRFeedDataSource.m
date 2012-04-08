@@ -11,6 +11,7 @@
 #import "SBJSON.h"
 #import "BROperationQueues.h"
 #import "BRReadingStatistics.h"
+#import "GRDataManager.h"
 
 @interface BRFeedDataSource(){
     BOOL _loading;
@@ -46,13 +47,21 @@
 }
 
 -(id)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    BRFeedTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"BRFeedTableViewCell"];
-    if (cell == nil){
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"BRFeedTableViewCell" owner:nil options:nil] objectAtIndex:0];
+    UITableViewCell* cell = nil;
+    if (indexPath.row % 10 == 0){
+        cell = [tableView dequeueReusableCellWithIdentifier:@"BRFeedHeaderArticleCell"];
+        if (cell == nil){
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"BRFeedHeaderArticleCell" owner:nil options:nil] objectAtIndex:0];
+        }
+    }else{
+        cell = [tableView dequeueReusableCellWithIdentifier:@"BRFeedTableViewCell"];
+        if (cell == nil){
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"BRFeedTableViewCell" owner:nil options:nil] objectAtIndex:0];
+        }
     }
     
     GRItem* item = [self.feed getItemAtIndex:indexPath.row];
-    [cell setItem:item];
+    [cell performSelector:@selector(setItem:) withObject:item];
     
     return cell;
 }
@@ -73,8 +82,10 @@
         self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(requestFeedIsLoaded:)];
         _loading = YES;
         [self.delegate dataSource:self didStartLoading:NO];
-        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:nil continuation:nil forceRefresh:refresh];
-        [[BRReadingStatistics statistics] readFeed:self.subscription.ID];
+        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:nil continuation:nil forceRefresh:refresh needAuth:YES];
+        if([[GRDataManager shared] getUpdatedGRSub:self.subscription.ID]){
+            [[BRReadingStatistics statistics] readFeed:self.subscription.ID];
+        }
     }
 }
 
@@ -87,7 +98,7 @@
         [self.delegate dataSource:self didStartLoading:YES];
         _loadingMore = YES;
         DebugLog(@"continuation is %@", self.feed.gr_continuation);
-        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:nil continuation:self.feed.gr_continuation forceRefresh:NO];
+        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:nil continuation:self.feed.gr_continuation forceRefresh:NO needAuth:YES];
     }
 }
 

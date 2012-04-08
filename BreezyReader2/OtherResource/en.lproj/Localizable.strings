@@ -16,9 +16,13 @@
 "title_searchfeeds" = "Search feeds";
 "title_searcharticles" = "Search articles";
 "title_searchfeedsorarticles" = "Search articles or feeds";
-"msg_searching" = "Searching...";
 "title_loadingmore" = "Loading...";
 "title_loadmore" = "Load More";
 "title_velocitylabel" = "Weely posts: %@";
 "title_subscribercount" = "Subscribers: %@";
 "title_favorite" = "Most Read";
+"title_loading" = "Loading...";
+
+"msg_searching" = "Searching...";
+"msg_unstarfailed" = "Failed to remove star";
+"msg_starfailed" = "Failed to add star";

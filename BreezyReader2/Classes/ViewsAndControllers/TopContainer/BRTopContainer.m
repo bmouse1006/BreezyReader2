@@ -167,10 +167,12 @@ static double kTransitionAnimationDuration = 0.2f;
         viewController.view.alpha = 1;
         preController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);  
     }completion:^(BOOL finished){
-        preController.view.transform = CGAffineTransformIdentity;
-        preController.view.userInteractionEnabled = YES;
-        view.userInteractionEnabled = YES;
-        [viewController didMoveToParentViewController:self];
+        if (finished){
+            preController.view.transform = CGAffineTransformIdentity;
+            preController.view.userInteractionEnabled = YES;
+            view.userInteractionEnabled = YES;
+            [viewController didMoveToParentViewController:self];
+        }
     }];
 }
 
@@ -211,5 +213,65 @@ static double kTransitionAnimationDuration = 0.2f;
     }];
 }
 
+-(void)slideInViewController:(UIViewController*)viewController{
+    
+    UIViewController* currentController = [self topController];
+    
+    [viewController willMoveToParentViewController:self];
+    [self addChildViewController:viewController];
+ 
+    UIView* view = viewController.view;
+    
+    [self.view addSubview:view];
+    
+    view.frame = self.view.bounds;
+    
+    CGAffineTransform translate = CGAffineTransformMakeTranslation(self.view.bounds.size.width, 0);
+    view.transform = translate;
+    
+    currentController.view.userInteractionEnabled = NO;
+    view.userInteractionEnabled = NO;
+    
+    [self transitionFromViewController:currentController toViewController:viewController duration:kTransitionAnimationDuration options:UIViewAnimationOptionCurveEaseOut animations:^{
+        viewController.view.transform = CGAffineTransformIdentity;
+        currentController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+    }completion:^(BOOL finished){
+        if (finished){
+            currentController.view.transform = CGAffineTransformIdentity;
+            view.userInteractionEnabled = YES;
+            [viewController didMoveToParentViewController:self];
+        }
+    }];
+}
+
+-(void)slideOutViewController{
+    UIViewController* top = [self topController];
+    NSInteger index = [self.childViewControllers indexOfObject:top];
+    UIViewController* second = nil;
+    if (index - 1 >= 0){
+        second = [self.childViewControllers objectAtIndex:index-1];
+    }
+    
+    [self.view addSubview:second.view];
+    second.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+    
+    top.view.userInteractionEnabled = NO;
+    second.view.userInteractionEnabled = NO;
+    
+    [top willMoveToParentViewController:nil];
+    
+    [self transitionFromViewController:top toViewController:second duration:kTransitionAnimationDuration options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [self.view bringSubviewToFront:top.view];
+        CGAffineTransform translate = CGAffineTransformMakeTranslation(self.view.bounds.size.width, 0);
+        top.view.transform = translate;
+        second.view.transform = CGAffineTransformIdentity;
+    }completion:^(BOOL finished){
+        if (finished){
+            [top removeFromParentViewController];
+            [top didMoveToParentViewController:nil];
+            second.view.userInteractionEnabled = YES;
+        }
+    }];
+}
 
 @end

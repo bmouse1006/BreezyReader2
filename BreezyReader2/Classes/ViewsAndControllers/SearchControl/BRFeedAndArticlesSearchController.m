@@ -160,28 +160,24 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BRSearchDataSource* searchDataBase = (BRSearchDataSource*)self.searchDisplayController.searchResultsDataSource;
     id item = [searchDataBase objectAtIndexPath:indexPath];
-    UINavigationController* nav = nil;
+
     if ([searchDataBase isKindOfClass:[ArticleSearchDataSource class]]){
-        BRArticalDetailViewController* article = [[BRArticalDetailViewController alloc] initWithTheNibOfSameName];
+        BRArticalDetailViewController* article = [[[BRArticalDetailViewController alloc] initWithTheNibOfSameName] autorelease];
         article.feed = ((ArticleSearchDataSource*)searchDataBase).feed;
         article.index = indexPath.row;
-//        [self.navigationController pushViewController:article animated:YES];
-        nav = [[UINavigationController alloc] initWithRootViewController:article];
-        [article release];
+        [[self topContainer] slideInViewController:article];
     }
     if ([searchDataBase isKindOfClass:[FeedSearchDataSource class]]){
-        BRFeedViewController* feed = [[BRFeedViewController alloc] initWithTheNibOfSameName];
+        BRFeedViewController* feed = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
         GRSubscription* sub = [[GRSubscription alloc] init];
         sub.title = [item objectForKey:@"title"];
         sub.ID = [@"feed/" stringByAppendingString:[item objectForKey:@"url"]];
         feed.subscription = sub;
-        nav = [[UINavigationController alloc] initWithRootViewController:feed];
-//        [self.navigationController pushViewController:feed animated:YES];
         [sub release];
-        [feed release];
+        
+        [[self topContainer] boomOutViewController:feed fromView:[tableView cellForRowAtIndexPath:indexPath]];
     }
     
-    [[self topContainer] boomOutViewController:[nav autorelease] fromView:[tableView cellForRowAtIndexPath:indexPath]];
 }
 
 #pragma mark - timer selector

@@ -14,6 +14,7 @@
 @property (nonatomic, readonly) NSError* error;
 @property (nonatomic, readonly) NSString* responseString;
 @property (nonatomic, readonly) NSData* responseData;
+@property (nonatomic, readonly) BOOL isResponseOK;
 @property (nonatomic, readonly) id responseJSONValue;
 @property (nonatomic, readonly) id responseFeedSearchingJSONValue;
 
@@ -28,12 +29,19 @@
                        startFrom:(NSDate*)date 
                          exclude:(NSString*)excludeString 
                     continuation:(NSString*)continuationStr
-                    forceRefresh:(BOOL)refresh;
-
+                    forceRefresh:(BOOL)refresh 
+                        needAuth:(BOOL)needAuth;
+//list api
 -(void)getStreamDetails:(NSString*)streamID;
 -(void)queryContentsWithIDs:(NSArray*)IDArray;
 -(void)searchArticlesWithKeywords:(NSString*)keywords;
 -(void)searchFeedsWithKeywords:(NSString*)keywords;
+//edit api
+-(void)starArticle:(NSString*)itemID;
+-(void)unstartArticle:(NSString*)itemID;
+-(void)markArticleAsRead:(NSString*)itemID;
+-(void)keepArticleUnread:(NSString*)itemID;
+-(void)markAllAsRead:(NSString*)streamID;
 
 -(BOOL)isLoading;
 

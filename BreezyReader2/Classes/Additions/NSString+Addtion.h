@@ -14,4 +14,6 @@
 
 -(NSString*)stringByAddingPercentEscapesAndReplacingHTTPCharacter;
 
+-(UIColor*)colorForString;
+
 @end

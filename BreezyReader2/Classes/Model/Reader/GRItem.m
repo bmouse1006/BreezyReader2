@@ -9,15 +9,18 @@
 #import "GRItem.h"
 #import "RegexKitLite.h"
 #import "NSString+MD5.h"
+#import "NSString+Addtion.h"
 #import "ImageFilter.h"
 
 #define PATTERN @"<.*?>"
 
 @interface GRItem ()
 
--(NSString*)stringByReplacingAndTrim:(NSString*)string;
 -(NSArray*)filterredImagesFromArray:(NSArray*)array;
 -(NSArray*)getAllImageURL:(NSString*)article;
+
+-(void)addCategory:(NSString*)category;
+-(void)removeCategory:(NSString*)category;
 
 @end
 
@@ -37,7 +40,7 @@
 @synthesize shortPresentDateTime = _shortPresentDateTime;
 @synthesize origin_title = _origin_title, origin_htmlUrl = _origin_htmlUrl, origin_streamId = _origin_streamId;
 
-@synthesize readed, starred, keptUnread;
+@synthesize readed = _readed, starred = _starred, keptUnread = _keptUnread;
 @synthesize contentImageURLs = _contentImageURLs;
 @synthesize summaryImageURLs = _summaryImageURLs;
 @synthesize imageURLFileMap = _imageURLFileMap;
@@ -58,7 +61,7 @@
     item.origin_htmlUrl = [origin objectForKey:@"htmlUrl"];
     NSArray* categories = [json objectForKey:@"categories"];
     for (NSString* category in categories){
-        [item.categories addObject:category];
+        [item addCategory:category];
     }
     item.content = [[json objectForKey:@"content"] objectForKey:@"content"];
     item.summary = [[json objectForKey:@"summary"] objectForKey:@"content"];
@@ -76,7 +79,7 @@
 		return _plainSummary;
 	}
 	
-	_plainSummary = [[self stringByReplacingAndTrim:self.summary] retain];
+	_plainSummary = [[self.summary stringByReplacingHTMLTagAndTrim] retain];
 	
 	return _plainSummary;
 }
@@ -85,15 +88,8 @@
 	if (_plainContent){
 		return _plainContent;
 	}
-	_plainContent = [[self stringByReplacingAndTrim:self.content] retain];
+	_plainContent = [[self.content stringByReplacingHTMLTagAndTrim] retain];
 	return _plainContent;
-}
-
--(NSString*)stringByReplacingAndTrim:(NSString*)string{
-    NSString* str = [string stringByReplacingOccurrencesOfRegex:PATTERN 
-                                                     withString:@""];
-    str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-    return [str stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
 }
 
 -(void)parseImagesFromSummaryAndContent{
@@ -119,27 +115,29 @@
 	self.imageURLFileMap = URLFilePathMap;
 }
 
--(UIImage*)previewImage{
-	
-	UIImage* image = nil;
-//	
-//	if (self.summaryImageNames == nil || [self.summaryImageNames count] < 1){
-//		if (self.contentImageNames == nil || [self.contentImageNames count] < 1){
-//			image = nil;
-//		}else {
-//			image = [UIImage imageNamed:[self fullPathForImageName:[self.contentImageNames objectAtIndex:0]]];
-//		}
-//
-//	}else{
-//		image = [UIImage imageNamed:[self fullPathForImageName:[self.summaryImageNames objectAtIndex:0]]];
-//	}
-//	
-	return image;
-}
-
 -(void)markAsRead{
 	NSString* readTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_READ];
-	[self addCategoryWithLabel:ATOM_STATE_READ andTerm:readTag];
+    [self addCategory:readTag];
+}
+
+-(void)keepUnread{
+    NSString* readTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_UNREAD];
+    [self addCategory:readTag];
+}
+
+-(void)removeKeepUnread{
+    NSString* readTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_UNREAD];
+    [self removeCategory:readTag];
+}
+
+-(void)markAsStarred{
+    NSString* readTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_STARRED];
+    [self addCategory:readTag];
+}
+
+-(void)markAsUnstarred{
+    NSString* readTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_STARRED];
+    [self removeCategory:readTag];
 }
 
 -(BOOL)containsState:(NSString*)state{
@@ -167,37 +165,36 @@
 	
 	if ( [termType isEqualToString:@"state"]){//dont' deal with type of 'label'
 		if ([label isEqualToString:ATOM_STATE_UNREAD]){
-			keptUnread = YES;
+			_keptUnread = YES;
 		}else if ([label isEqualToString:ATOM_STATE_READ]) {
-			readed = YES;
+			_readed = YES;
 		}else if ([label isEqualToString:ATOM_STATE_STARRED]){
-			starred = YES;
+			_starred = YES;
 		}
 		
 	}
 	
     [self.categories addObject:label];
-//	[self.categories setObject:label forKey:keyTerm];
 }
 
 -(void)removeCategoryWithLabel:(NSString*)label{
 	if ([label isEqualToString:ATOM_STATE_UNREAD] && [self.categories containsObject:ATOM_STATE_READ]){
-		readed = YES;
+		_readed = YES;
 	}else if ([label isEqualToString:ATOM_STATE_READ]) {
-		readed = NO;
+		_readed = NO;
 	}else if ([label isEqualToString:ATOM_STATE_STARRED]){
-		starred = NO;
+		_starred = NO;
 	}
 	[self.categories removeObject:label];
 }
 
 -(void)removeCategoryWithState:(NSString*)state{
 	if ([state isEqualToString:ATOM_STATE_UNREAD]){
-		keptUnread = NO;
+		_keptUnread = NO;
 	}else if ([state isEqualToString:ATOM_STATE_READ]) {
-		readed = NO;
+		_readed = NO;
 	}else if ([state isEqualToString:ATOM_STATE_STARRED]){
-		starred = NO;
+		_starred = NO;
 	}
 	
 	NSString* keyTerm = nil;
@@ -216,7 +213,6 @@
 	}
 	
     [self.categories removeObject:keyTerm];
-//	[self.categories removeObjectForKey:keyTerm];
 }
 
 -(NSString*)getShortUpdatedDateTime{
@@ -248,23 +244,13 @@
 	return self.title;
 }
 
--(UIImage*)icon{
-	UIImage* image = nil;
-	if ([self isStarred]){
-		image = [UIImage imageNamed:@"star.png"];
-	}else {
-		image = [UIImage imageNamed:@"star_empty.png"];
-	}
-	return image;
-}
-
 -(BOOL)isReaded{
 
-	return (keptUnread)?NO:readed;
+	return (_keptUnread)?NO:_readed;
 }
 
 -(BOOL)isStarred{
-	return starred;
+	return _starred;
 }
 
 -(GRItem*)mergeWithItem:(GRItem*)item{
@@ -335,9 +321,9 @@
 		self.summaryImageURLs = nil;
 		self.imageURLFileMap = nil;
 		
-		readed = NO;
-		keptUnread = NO;
-		starred = NO;
+		_readed = NO;
+		_keptUnread = NO;
+		_starred = NO;
 		
 		_plainContent = nil;
 		_plainSummary = nil;
@@ -396,6 +382,39 @@ static NSMutableDictionary* itemPool = nil;
         }
     }
     return images;
+}
+
+-(void)addCategory:(NSString*)category{
+    
+    NSMutableString* mcate = [NSMutableString stringWithString:category];
+	NSArray* tokens = [category componentsSeparatedByString:@"/"];
+	NSString* type = nil;
+    NSString* label = nil;
+	if ([tokens count] >= 3){
+		type = [tokens objectAtIndex:2];
+        label = [tokens lastObject];
+		[mcate replaceOccurrencesOfString:[tokens objectAtIndex:1] 
+								 withString:@"-" 
+									options:NSForcedOrderingSearch	
+									  range:NSMakeRange(0, [mcate length])];
+	}
+	
+	if ( [type isEqualToString:@"state"]){//dont' deal with type of 'label'
+		if ([label isEqualToString:ATOM_STATE_UNREAD]){
+			_keptUnread = YES;
+		}else if ([label isEqualToString:ATOM_STATE_READ]) {
+			_readed = YES;
+		}else if ([label isEqualToString:ATOM_STATE_STARRED]){
+			_starred = YES;
+		}
+		
+	}
+	
+    [self.categories addObject:category];
+}
+
+-(void)removeCategory:(NSString *)category{
+    
 }
 
 @end

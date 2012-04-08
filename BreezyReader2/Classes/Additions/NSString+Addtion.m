@@ -9,6 +9,7 @@
 
 #import "NSString+Addtion.h"
 #import "RegexKitLite.h"
+#import "NSString+MD5.h"
 
 #define PATTERN @"<.*?>"
 
@@ -38,6 +39,16 @@
                                range:NSMakeRange(0, [ms length])];
     
     return ms;
+}
+
+-(UIColor*)colorForString{
+    NSUInteger hash = [self hash];
+    NSUInteger mask = 0xff;
+    CGFloat red = hash & mask;
+    CGFloat green = (hash >> 8) & mask;
+    CGFloat blue = (hash >> 8) & mask;
+    
+    return [UIColor colorWithRed:red/255 green:green/255 blue:blue/255 alpha:1];
 }
 
 @end

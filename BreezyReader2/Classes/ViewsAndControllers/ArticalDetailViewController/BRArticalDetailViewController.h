@@ -7,12 +7,13 @@
 //
 
 #import "BRBaseController.h"
+#import "BRBottomToolBar.h"
 #import "GRFeed.h"
 
 @interface BRArticalDetailViewController : BRBaseController<UIWebViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWebView* webView;
-@property (nonatomic, retain) IBOutlet UIView* bottomToolBar;
+@property (nonatomic, retain) IBOutlet BRBottomToolBar* bottomToolBar;
 
 @property (nonatomic, retain) GRFeed* feed;
 @property (nonatomic, assign) NSUInteger index;

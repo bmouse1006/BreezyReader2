@@ -9,6 +9,8 @@
 #import "BRFeedViewController.h"
 #import "BRArticalDetailViewController.h"
 #import "BRViewControllerNotification.h"
+#import "GoogleReaderClient.h"
+#import "BRErrorHandler.h"
 
 #define kFeedTableRowHeight 97
 
@@ -22,6 +24,11 @@
 @property (nonatomic, assign) BOOL okToRefresh;
 @property (nonatomic, assign) BOOL okToLoadMore;
 
+@property (nonatomic, retain) GoogleReaderClient* client;
+
+@property (nonatomic, retain) NSMutableSet* clients;
+@property (nonatomic, retain) NSMutableDictionary* itemIDs;
+
 -(void)startLoadingMore;
 -(void)startRefreshing;
 -(void)setupTableViewEdgeInsetByStatus;
@@ -30,34 +37,39 @@
 
 @implementation BRFeedViewController
 
-@synthesize tableView = _tableView, dragController = _dragController, backButton = _backButton;
+@synthesize tableView = _tableView, dragController = _dragController;
 @synthesize subscription = _subscription, dataSource = _dataSource;
 @synthesize loadMoreController = _loadMoreController;
 @synthesize loadingView = _loadingView;
 @synthesize okToRefresh = _okToRefresh, okToLoadMore = _okToLoadMore;
-@synthesize activityView = _activityView;
 @synthesize titleView = _titleView;
 @synthesize bottomToolBar = _bottomToolBar;
 @synthesize titleLabel = _titleLabel;
-@synthesize titleIcon = _titleIcon;
+@synthesize loadingLabel = _loadingLabel;
+@synthesize client = _client;
+@synthesize clients = _clients, itemIDs = _itemIDs;
 
 static CGFloat insetsTop = 0.0f;
 static CGFloat insetsBottom = 0.0f;
 static CGFloat refreshDistance = 60.0f;
 
 -(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.tableView = nil;
     self.dragController = nil;
     self.subscription = nil;
     self.dataSource = nil;
-    self.backButton = nil;
     self.loadMoreController = nil;
     self.loadingView = nil;
-    self.activityView = nil;
     self.titleView = nil;
     self.bottomToolBar = nil;
     self.titleLabel = nil;
-    self.titleIcon = nil;
+    self.loadingLabel = nil;
+    [self.client clearAndCancel];
+    self.client = nil;
+    [[self.clients allObjects] makeObjectsPerformSelector:@selector(clearAndCancel)];
+    self.clients = nil;
+    self.itemIDs = nil;
     [super dealloc];
 }
 
@@ -66,7 +78,11 @@ static CGFloat refreshDistance = 60.0f;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.wantsFullScreenLayout = NO;
+        self.wantsFullScreenLayout = YES;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starArticle:) name:NOTIFICATION_STARITEM object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unstarArticle:) name:NOTIFICATION_UNSTARITEM object:nil];
+        self.clients = [NSMutableSet set];
+        self.itemIDs = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -77,23 +93,6 @@ static CGFloat refreshDistance = 60.0f;
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
-}
-
--(void)viewWillLayoutSubviews{
-    CGRect frame = self.bottomToolBar.frame;
-    frame.origin.y = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
-    self.bottomToolBar.frame = frame;
-    
-    frame = self.titleView.frame;
-    frame.origin.y = 0;
-    self.titleView.frame = frame;
-    
-    frame = self.tableView.frame;
-    frame.size.height = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
-    self.tableView.frame = frame;
-    
-    [self.view bringSubviewToFront:self.titleView];
-    [self.view bringSubviewToFront:self.bottomToolBar];
 }
 
 -(void)willMoveToParentViewController:(UIViewController *)parent{
@@ -108,7 +107,6 @@ static CGFloat refreshDistance = 60.0f;
 {
     [super viewDidLoad];
 //    insetsTop = self.navigationController.navigationBar.frame.size.height;
-    [self.activityView startAnimating];
     
     insetsTop = 0;
     insetsBottom = -self.loadMoreController.view.frame.size.height;
@@ -132,15 +130,17 @@ static CGFloat refreshDistance = 60.0f;
     [self.view addSubview:self.titleView];
     [self.view addSubview:self.bottomToolBar];
     
-    CGRect frame = self.view.bounds;
-    frame.origin.y -= frame.size.height;
-    [self.dragController.view setFrame:frame];
+    self.loadingLabel.font = [UIFont boldSystemFontOfSize:12];
+    self.loadingLabel.textAlignment = UITextAlignmentCenter;
+    self.loadingLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
+    self.loadingLabel.textColor = [UIColor darkGrayColor];
+    self.loadingLabel.text = NSLocalizedString(@"title_loading", nil);
+    
     self.dragController.view.alpha = 0;
     self.dataSource = [[[BRFeedDataSource alloc] init] autorelease];
     self.dataSource.delegate = self;
     self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self;
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:self.backButton] autorelease];
     // Do any additional setup after loading the view from its nib.
     self.dataSource.subscription = self.subscription;
     [self.dataSource loadDataMore:NO forceRefresh:NO];
@@ -156,9 +156,29 @@ static CGFloat refreshDistance = 60.0f;
     self.tableView = nil;
     self.dragController = nil;
     self.dataSource = nil;
-    self.backButton = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+-(void)viewDidLayoutSubviews{
+    CGRect frame = self.dragController.view.bounds;
+    frame.origin.y -= frame.size.height;
+    [self.dragController.view setFrame:frame];
+    
+    frame = self.bottomToolBar.frame;
+    frame.origin.y = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
+    self.bottomToolBar.frame = frame;
+    
+    frame = self.titleView.frame;
+    frame.origin.y = 0;
+    self.titleView.frame = frame;
+    
+    frame = self.tableView.frame;
+    frame.size.height = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
+    self.tableView.frame = frame;
+    
+    [self.view bringSubviewToFront:self.titleView];
+    [self.view bringSubviewToFront:self.bottomToolBar];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -172,12 +192,6 @@ static CGFloat refreshDistance = 60.0f;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
-
-//-(void)viewWillDisappear:(BOOL)animated{
-//    [super viewWillDisappear:animated];
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-//    [self.navigationController setNavigationBarHidden:NO animated:NO];
-//}
 
 #pragma mark - setter and getter
 -(void)setOkToRefresh:(BOOL)okToRefresh{
@@ -248,14 +262,11 @@ static CGFloat refreshDistance = 60.0f;
     BRArticalDetailViewController* detail = [[[BRArticalDetailViewController alloc] initWithTheNibOfSameName] autorelease];
     detail.feed = self.dataSource.feed;
     detail.index = indexPath.row;
-//    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:detail] autorelease];
-    [[self topContainer] boomOutViewController:detail fromView:[tableView cellForRowAtIndexPath:indexPath]];
-//    [self.navigationController pushViewController:detail animated:YES];
+    [[self topContainer] slideInViewController:detail];
 }
 
 #pragma mark - action mathods
 -(IBAction)backButtonClicked:(id)sender{
-//    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_VIEWCONTROLLER_BOOMIN object:self];
     [[self topContainer] boomInTopViewController];
 }
 
@@ -274,7 +285,11 @@ static CGFloat refreshDistance = 60.0f;
     [self setupTableViewEdgeInsetByStatus];
     [self.dragController refreshLabels:self.dataSource.loadedTime];
     [self.tableView reloadData];
-    [self.loadingView removeFromSuperview];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.loadingView.alpha = 0;
+    } completion:^(BOOL finished){
+        [self.loadingView removeFromSuperview];
+    }];
 }
 
 -(void)dataSource:(BRBaseDataSource *)dataSource didStartLoading:(BOOL)more{
@@ -319,6 +334,57 @@ static CGFloat refreshDistance = 60.0f;
     }
     [self.tableView setContentInset:tableInset];
     [self.tableView setScrollIndicatorInsets:indicatorInset];
+}
+
+#pragma mark - notification call back
+-(void)starArticle:(NSNotification*)notification{  
+    GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(didReceiveStarResonponse:)];
+    [self.clients addObject:client];
+    NSString* itemID = [notification.userInfo objectForKey:@"itemID"];
+    [self.itemIDs setObject:itemID forKey:[NSValue valueWithNonretainedObject:client]];
+    [client starArticle:itemID];
+}
+
+-(void)unstarArticle:(NSNotification*)notification{
+    GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(didReceiveUnstarResponse:)];
+    [self.clients addObject:client];
+    NSString* itemID = [notification.userInfo objectForKey:@"itemID"];
+    [self.itemIDs setObject:itemID forKey:[NSValue valueWithNonretainedObject:client]];
+    [client unstartArticle:itemID];    
+}
+
+#pragma mark - google reader client call back
+-(void)didReceiveStarResonponse:(GoogleReaderClient*)client{
+    NSValue* key = [NSValue valueWithNonretainedObject:client];
+    NSString* itemID = [self.itemIDs objectForKey:key];
+
+    if (client.error == nil && client.isResponseOK){
+        NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_STARSUCCESS object:itemID];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }else{
+        //handle failure
+        [[BRErrorHandler sharedHandler] handleErrorMessage:NSLocalizedString(@"msg_starfailed", nil) alert:YES];
+        DebugLog(@"error is %@", [client.error localizedDescription]);
+    }
+    
+    [self.itemIDs removeObjectForKey:key];
+    [self.clients removeObject:client];
+}
+
+-(void)didReceiveUnstarResponse:(GoogleReaderClient*)client{
+    NSValue* key = [NSValue valueWithNonretainedObject:client];
+    NSString* itemID = [self.itemIDs objectForKey:key];
+    
+    if (client.isResponseOK){
+        NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_UNSTARSUCCESS object:itemID];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }else{
+        //handle failure
+        [[BRErrorHandler sharedHandler] handleErrorMessage:NSLocalizedString(@"msg_unstarfailed", nil) alert:YES];
+    }
+    
+    [self.itemIDs removeObjectForKey:key];
+    [self.clients removeObject:client];    
 }
 
 @end

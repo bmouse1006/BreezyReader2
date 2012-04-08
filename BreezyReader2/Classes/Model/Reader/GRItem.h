@@ -34,7 +34,6 @@
 @property (nonatomic, retain) NSArray* contentImageURLs;
 @property (nonatomic, retain) NSArray* summaryImageURLs;
 @property (nonatomic, retain) NSDictionary* imageURLFileMap;
-@property (nonatomic, readonly, getter=previewImage) UIImage* previewImage;
 
 @property (nonatomic, readonly, assign) BOOL readed;
 @property (nonatomic, readonly, assign) BOOL starred;
@@ -48,8 +47,6 @@
 
 -(GRItem*)mergeWithItem:(GRItem*)item;
 
--(UIImage*)icon;
-
 -(BOOL)isReaded;
 -(BOOL)isStarred;
 
@@ -58,6 +55,10 @@
 -(void)removeCategoryWithState:(NSString*)state;
 
 -(void)markAsRead;
+-(void)keepUnread;
+-(void)removeKeepUnread;
+-(void)markAsStarred;
+-(void)markAsUnstarred;
 
 +(GRItem*)mergeItemToPool:(GRItem*)item;
 +(void)didReceiveMemoryWarning;

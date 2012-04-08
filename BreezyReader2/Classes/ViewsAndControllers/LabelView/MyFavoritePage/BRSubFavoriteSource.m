@@ -24,7 +24,10 @@
     NSArray* subKeys = [statistics mostReadSubscriptionIDsCount:kFavoriteSubCount];
     NSMutableArray* subs = [NSMutableArray array];
     for (NSString* key in subKeys){
-        [subs addObject:[[GRDataManager shared] getUpdatedGRSub:key]];
+        id sub = [[GRDataManager shared] getUpdatedGRSub:key];
+        if (sub){
+            [subs addObject:sub];
+        }
     }
     self.subscriptions = subs;
     [self.delegate sourceLoadFinished];
