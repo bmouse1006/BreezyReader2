@@ -99,6 +99,7 @@
         if ([self.imageList count] == 0){
             self.urlImageView.imageURL = nil;
         }else{
+            
             self.urlImageView.imageURL = [NSURL URLWithString:[self.imageList objectAtIndex:0]];
         }
         

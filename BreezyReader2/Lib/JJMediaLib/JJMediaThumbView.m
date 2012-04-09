@@ -1,6 +1,6 @@
 //
 //  JJMediaThumbView.m
-//  MeetingPlatform
+//  BreezyReader2
 //
 //  Created by  on 12-2-23.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
@@ -61,7 +61,7 @@ static CGFloat kImageSwitchDuration = 0.2;
     self.captionLabel = nil;
     self.imageView = nil;
     self.imageURL = nil;
-    [self.request cancel];
+    [self.request clearDelegatesAndCancel];
     self.request = nil;
     [super dealloc];
 }
@@ -86,7 +86,7 @@ static CGFloat kImageSwitchDuration = 0.2;
         _imageURL = [imageURL copy];
         self.imageView.image = nil;
         if (_imageURL){
-            [self.request cancel];
+            [self.request clearDelegatesAndCancel];
             self.request = [self requestWithImageURL:_imageURL];
             [self.request startAsynchronous];
         }
@@ -99,10 +99,7 @@ static CGFloat kImageSwitchDuration = 0.2;
         request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlString] usingCache:[ASIDownloadCache sharedCache]];
         request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
         request.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;
-        [request setCompletionBlock:^{
-            UIImage* image = [UIImage imageWithData:request.responseData];
-            [self switchToImage:image animated:!request.didUseCachedResponse];
-        }];
+        request.delegate = self;
     }
     
     return request;
@@ -155,6 +152,12 @@ static CGFloat kImageSwitchDuration = 0.2;
 
 -(void)didAppear:(BOOL)animated{
     
+}
+
+#pragma mark - asihttprequest delegate
+-(void)requestFinished:(ASIHTTPRequest *)request{
+    UIImage* image = [UIImage imageWithData:request.responseData];
+    [self switchToImage:image animated:!request.didUseCachedResponse];
 }
 
 @end

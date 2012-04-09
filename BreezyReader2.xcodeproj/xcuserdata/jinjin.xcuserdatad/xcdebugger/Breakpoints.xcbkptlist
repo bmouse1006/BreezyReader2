@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/Model/Reader/GoogleReaderClient.m"
-         timestampString = "355624315.375721"
+         timestampString = "355653632.337712"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "360"
-         endingLineNumber = "360"
+         startingLineNumber = "359"
+         endingLineNumber = "359"
          landmarkName = "-requestWithURL:parameters:APIType:"
          landmarkType = "5">
       </FileBreakpoint>

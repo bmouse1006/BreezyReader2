@@ -1,6 +1,6 @@
 //
 //  JJMediaThumbView.h
-//  MeetingPlatform
+//  BreezyReader2
 //
 //  Created by  on 12-2-23.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JJMedia.h"
+#import "ASIHTTPRequest.h"
 
 @protocol JJMediaThumbView 
 
@@ -22,7 +23,7 @@
 
 @end
 
-@interface JJMediaThumbView : UIControl<JJMediaThumbView>
+@interface JJMediaThumbView : UIControl<JJMediaThumbView, ASIHTTPRequestDelegate>
 
 @property (nonatomic, assign) JJMediaType type;
 @property (nonatomic, retain) UIImageView* imageView;

@@ -340,7 +340,6 @@ static CGFloat kCaptionHeight = 40.0f;
         [self performSelectorOnMainThread:@selector(startTimer) withObject:nil waitUntilDone:NO];
         return;
     }else{
-//        DebugLog(@"thumbnail for url %@ does not exist!", imageURL);
         ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:self.currentImageURL]];
         request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
         request.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;

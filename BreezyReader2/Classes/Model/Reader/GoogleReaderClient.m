@@ -64,7 +64,6 @@ static NSTimer* _timer = nil;
         }else {
             _token = nil;
         }
-        
         [tempToken release];
     }];
     [request setFailedBlock:^{

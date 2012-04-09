@@ -114,8 +114,8 @@ static CGFloat refreshDistance = 60.0f;
     self.tableView = [[[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain] autorelease];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.tableFooterView = self.loadMoreController.view;
-    [self.tableView addSubview:self.dragController.view];
+//    self.tableView.tableFooterView = self.loadMoreController.view;
+//    [self.tableView addSubview:self.dragController.view];
     self.tableView.rowHeight = kFeedTableRowHeight;
     UIPinchGestureRecognizer* gesture = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonClicked:)] autorelease];
     [self.tableView addGestureRecognizer:gesture];
@@ -161,19 +161,17 @@ static CGFloat refreshDistance = 60.0f;
 }
 
 -(void)viewDidLayoutSubviews{
-    CGRect frame = self.dragController.view.bounds;
-    frame.origin.y -= frame.size.height;
-    [self.dragController.view setFrame:frame];
+    
+    CGRect frame = self.titleView.frame;
+    frame.origin.y = 0;
+    self.titleView.frame = frame;
     
     frame = self.bottomToolBar.frame;
     frame.origin.y = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
     self.bottomToolBar.frame = frame;
     
-    frame = self.titleView.frame;
-    frame.origin.y = 0;
-    self.titleView.frame = frame;
-    
     frame = self.tableView.frame;
+    frame.origin.y = 0;
     frame.size.height = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
     self.tableView.frame = frame;
     
@@ -191,6 +189,15 @@ static CGFloat refreshDistance = 60.0f;
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+-(void)addHeaderAndFooterForTableView{
+    self.tableView.tableFooterView = self.loadMoreController.view;
+    [self.dragController.view removeFromSuperview];
+    [self.tableView addSubview:self.dragController.view];
+    CGRect frame = self.dragController.view.frame;
+    frame.origin.y = -frame.size.height;
+    self.dragController.view.frame = frame;
 }
 
 #pragma mark - setter and getter
@@ -285,6 +292,7 @@ static CGFloat refreshDistance = 60.0f;
     [self setupTableViewEdgeInsetByStatus];
     [self.dragController refreshLabels:self.dataSource.loadedTime];
     [self.tableView reloadData];
+    [self addHeaderAndFooterForTableView];
     [UIView animateWithDuration:0.2 animations:^{
         self.loadingView.alpha = 0;
     } completion:^(BOOL finished){

@@ -63,7 +63,6 @@ static double kTransitionAnimationDuration = 0.2f;
     view.backgroundColor = [UIColor blackColor];
     view.contentMode = UIViewContentModeTop;
     self.view = view;
-    [view release];
 }
 
 - (void)viewDidLoad

@@ -44,15 +44,18 @@
         _imageURL = [imageURL retain];
         [self.request clearDelegatesAndCancel];
         if (imageURL != nil){
-            UIImage* image = [JJThumbnailCache thumbnailForURL:imageURL andSize:self.bounds.size];
-            if (image != nil){
-                [self performSelectorOnMainThread:@selector(setImage:) withObject:image waitUntilDone:NO];
-                [self.delegate imageDidFinishLoading:self];
-            }else{
-                [self performSelectorOnMainThread:@selector(setImage:) withObject:self.defaultImage waitUntilDone:NO];
-                self.request = [self requestWithURL:imageURL];
-                [self.request startAsynchronous];
-            }
+            __block typeof(self) blockSelf = self;
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                UIImage* image = [JJThumbnailCache thumbnailForURL:imageURL andSize:self.bounds.size];
+                if (image != nil){
+                    [blockSelf performSelectorOnMainThread:@selector(setImage:) withObject:image waitUntilDone:NO];
+                    [blockSelf.delegate imageDidFinishLoading:blockSelf];
+                }else{
+                    [blockSelf performSelectorOnMainThread:@selector(setImage:) withObject:blockSelf.defaultImage waitUntilDone:NO];
+                    blockSelf.request = [blockSelf requestWithURL:imageURL];
+                    [blockSelf.request startAsynchronous];
+                } 
+            });
         }else{
             [self performSelectorOnMainThread:@selector(setImage:) withObject:self.defaultImage waitUntilDone:NO];
         }
