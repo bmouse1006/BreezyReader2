@@ -36,12 +36,20 @@
 -(void)queryContentsWithIDs:(NSArray*)IDArray;
 -(void)searchArticlesWithKeywords:(NSString*)keywords;
 -(void)searchFeedsWithKeywords:(NSString*)keywords;
+-(void)getSubscriptionList;
+-(void)getTagList;
+-(void)getUnreadCount;
 //edit api
 -(void)starArticle:(NSString*)itemID;
 -(void)unstartArticle:(NSString*)itemID;
 -(void)markArticleAsRead:(NSString*)itemID;
 -(void)keepArticleUnread:(NSString*)itemID;
 -(void)markAllAsRead:(NSString*)streamID;
+//token
++(void)refreshToken;
++(NSString*)token;
++(void)startTimerToRefreshToken;
++(void)invalideTimer;
 
 -(BOOL)isLoading;
 

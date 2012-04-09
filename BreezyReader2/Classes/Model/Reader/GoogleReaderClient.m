@@ -41,10 +41,55 @@
 @synthesize editOperationQueue = _editOperationQueue;
 
 static NSString* _token = nil;
+static NSTimer* _timer = nil;
 
 +(id)clientWithDelegate:(id)delegate action:(SEL)action{
     return [[[self alloc] initWithDelegate:delegate action:action] autorelease];
 }
+
+#pragma mark - token
+
++(void)refreshToken{
+    NSString* urlString = [URI_PREFIX_API stringByAppendingString:API_TOKEN];
+    urlString = [GOOGLE_SCHEME_SSL stringByAppendingString:urlString];
+    
+    ASIHTTPRequest* request = [[ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlString]] autorelease];
+    [request setCompletionBlock:^{
+        NSString* tempToken = [[NSString alloc] initWithData:request.responseData encoding:NSUTF8StringEncoding];
+        
+        DebugLog(@"token is %@", tempToken);
+        
+        if (tempToken != nil && [tempToken length] <= 57){
+            _token = [[tempToken substringFromIndex:2] copy];
+        }else {
+            _token = nil;
+        }
+        
+        [tempToken release];
+    }];
+    [request setFailedBlock:^{
+        //handle error  
+    }];
+    [[GoogleAuthManager shared] authRequest:request completionBlock:^(NSError* error){
+        [request startAsynchronous];
+    }];
+}
+
++(NSString*)token{
+    return _token;
+}
+
++(void)startTimerToRefreshToken{
+    _timer = [NSTimer timerWithTimeInterval:60*20 target:[self class] selector:@selector(refreshToken) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+}
+
++(void)invalideTimer{
+    [_timer invalidate];
+    _timer = nil;
+}
+
+#pragma mark - life cycle
 
 -(void)dealloc{
     [self.request clearDelegatesAndCancel];
@@ -163,6 +208,18 @@ static NSString* _token = nil;
     request.delegate = self;
     self.request = request;
     [self.request startAsynchronous];
+}
+
+-(void)getSubscriptionList{
+    
+}
+
+-(void)getTagList{
+    
+}
+
+-(void)getUnreadCount{
+    
 }
 
 #pragma mark - edit api
@@ -302,7 +359,7 @@ static NSString* _token = nil;
     if ([type isEqualToString:API_EDIT]){
         request = [ASIFormDataRequest requestWithURL:baseURL];
         request.requestMethod = @"POST";//POST method for list api
-        [parameters setParameterForKey:EDIT_ARGS_TOKEN withValue:[[GoogleAuthManager shared] token]];
+        [parameters setParameterForKey:EDIT_ARGS_TOKEN withValue:_token];
         for (NSString* key in parameters.parameters.allKeys){
             [(ASIFormDataRequest*)request addPostValue:[parameters.parameters objectForKey:key] forKey:key];
         }
