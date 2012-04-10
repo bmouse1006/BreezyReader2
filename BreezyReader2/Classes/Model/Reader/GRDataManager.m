@@ -110,48 +110,6 @@ static GRDataManager *readerDM = nil;
 }
 
 
--(void)taskReverseStateForItem:(NSDictionary*)param{
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	
-	NSString* itemID = [param objectForKey:@"ID"];
-	NSString* removeTag = [param objectForKey:@"removeTag"];
-	NSString* addTag = [param objectForKey:@"addTag"];
-	
-	if ([removeTag isEqualToString:@""])
-		removeTag = nil;
-	if ([addTag isEqualToString:@""])
-		addTag = nil;
-	
-	[self.grController editItem:itemID
-						 addTag:addTag
-					  removeTag:removeTag];
-	[pool release];
-	
-}
-
-//reverse states for item starred/broadcast/kept-unread
--(void)reverseStateForItem:(GRItem*)item state:(NSString*)state{
-	[item retain];
-	NSString* stateTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:state];
-	NSString* removeTag = @"";
-	NSString* addTag = @"";
-	if ([item containsState:state]){
-		removeTag = stateTag;
-		[item removeCategoryWithState:state];
-	}else {
-		addTag = stateTag;
-		[item addCategoryWithLabel:state andTerm:stateTag];
-	}
-	NSDictionary* paramDict = [NSDictionary dictionaryWithObjectsAndKeys:item.ID, @"ID", removeTag, @"removeTag", addTag, @"addTag", nil];
-	NSInvocationOperation* operation = [[NSInvocationOperation alloc] 
-										initWithTarget:self 
-										selector:@selector(taskReverseStateForItem:) 
-										object:paramDict];
-	[self.editOperationQueue addOperation:operation];
-	[operation release];
-	[item release]; 
-}
-
 -(void)markItemsAsRead:(NSArray*)items{
 	[items retain];
 	for (GRItem* item in items){
@@ -476,8 +434,8 @@ static GRDataManager *readerDM = nil;
                 [[GoogleAuthManager shared] authRequest:request_tag];
                 [request_sub startSynchronous];
                 [request_tag startSynchronous];
-                NSDictionary* tempSubList = [GoogleMessageParsers JSONParser:request_sub.responseData];
-                NSDictionary* tempTagList = [GoogleMessageParsers JSONParser:request_tag.responseData];	
+                NSDictionary* tempSubList = [request_sub.responseString JSONValue];;
+                NSDictionary* tempTagList = [request_tag.responseString JSONValue];	
                 if (![self.subDict isEqualToDictionary:tempSubList] || ![self.tagDict isEqualToDictionary:tempTagList]){
                     self.subDict = tempSubList;
                     self.tagDict = tempTagList;
@@ -498,7 +456,7 @@ static GRDataManager *readerDM = nil;
     
     [[GoogleAuthManager shared] authRequest:request completionBlock:^(NSError* error){
         [request startSynchronous]; 
-        NSDictionary* tempUnreadCount = [GoogleMessageParsers JSONParser:request.responseData];	
+        NSDictionary* tempUnreadCount = [request.responseString JSONValue];	
         
         BOOL changed = ![self.unreadCount isEqualToDictionary:tempUnreadCount];
 

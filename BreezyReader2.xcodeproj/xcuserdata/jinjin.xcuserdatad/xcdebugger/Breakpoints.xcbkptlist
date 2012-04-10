@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/Model/Reader/GoogleReaderClient.m"
-         timestampString = "355653632.337712"
+         timestampString = "355760258.483716"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "359"
-         endingLineNumber = "359"
+         startingLineNumber = "389"
+         endingLineNumber = "389"
          landmarkName = "-requestWithURL:parameters:APIType:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,13 +21,48 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/Model/Reader/GRItem.m"
-         timestampString = "355588538.369449"
+         timestampString = "355674336.421837"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "402"
-         endingLineNumber = "402"
+         startingLineNumber = "336"
+         endingLineNumber = "336"
          landmarkName = "-addCategory:"
          landmarkType = "5">
       </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BreezyReader2/Lib/JJScrollView/JJPageScrollView.m"
+         timestampString = "355758390.011037"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "98"
+         endingLineNumber = "98"
+         landmarkName = "-createContents"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BreezyReader2/Lib/JJScrollView/JJPageScrollView.m"
+         timestampString = "355758390.011037"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "90"
+         endingLineNumber = "90"
+         landmarkName = "-createContents"
+         landmarkType = "5">
+      </FileBreakpoint>
    </FileBreakpoints>
+   <ExceptionBreakpoints>
+      <ExceptionBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         scope = "0"
+         stopOnStyle = "0">
+      </ExceptionBreakpoint>
+   </ExceptionBreakpoints>
 </Bucket>

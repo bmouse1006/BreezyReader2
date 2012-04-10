@@ -10,6 +10,7 @@
 #import "URLParameterSet.h"
 #import "ASIFormDataRequest.h"
 #import "GoogleAuthManager.h"
+#import "GRFeed.h"
 #import "NSString+SBJSON.h"
 #import "NSString+Addtion.h"
 
@@ -36,15 +37,25 @@
 
 @synthesize delegate = _delegate, action = _action;
 @synthesize request = _request;
-@synthesize responseData, responseString, responseJSONValue, error = _error, isResponseOK;
+@synthesize responseData, responseString, responseJSONValue, error = _error, isResponseOK, responseFeed;
 @synthesize responseFeedSearchingJSONValue = _responseFeedSearchingJSONValue;
 @synthesize editOperationQueue = _editOperationQueue;
 
 static NSString* _token = nil;
 static NSTimer* _timer = nil;
 
+static NSMutableDictionary* _itemPool = nil;
+
 +(id)clientWithDelegate:(id)delegate action:(SEL)action{
     return [[[self alloc] initWithDelegate:delegate action:action] autorelease];
+}
+
++(NSMutableDictionary*)itemPool{
+    if (_itemPool == nil){
+        _itemPool = [[NSMutableDictionary alloc] init];
+    }
+    
+    return _itemPool;
 }
 
 #pragma mark - token
@@ -55,7 +66,7 @@ static NSTimer* _timer = nil;
     
     ASIHTTPRequest* request = [[ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlString]] autorelease];
     [request setCompletionBlock:^{
-        NSString* tempToken = [[NSString alloc] initWithData:request.responseData encoding:NSUTF8StringEncoding];
+        NSString* tempToken = request.responseString;
         
         DebugLog(@"token is %@", tempToken);
         
@@ -64,7 +75,6 @@ static NSTimer* _timer = nil;
         }else {
             _token = nil;
         }
-        [tempToken release];
     }];
     [request setFailedBlock:^{
         //handle error  
@@ -287,6 +297,26 @@ static NSTimer* _timer = nil;
     return [self.responseString JSONValue];
 }
 
+-(GRFeed*)responseFeed{
+    GRFeed* feed = [GRFeed objWithJSON:self.responseJSONValue];
+    Class selfClass = [self class];
+    if (self.request.didUseCachedResponse == NO){
+        [feed.items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+            GRItem* item = obj;
+            [[selfClass itemPool] setObject:item forKey:item.ID];
+        }];
+    }else{
+        NSMutableArray* items = [NSMutableArray array];
+        for (GRItem* item in feed.items){
+            GRItem* origItem = [[[self class] itemPool] objectForKey:item.ID];
+            [items addObject:origItem];
+        }
+        feed.items = items;
+    }
+    
+    return feed;
+}
+
 -(id)responseFeedSearchingJSONValue{
     NSString* resultString = self.responseString;
     DebugLog(@"%@", resultString);
@@ -313,7 +343,6 @@ static NSTimer* _timer = nil;
 }
 
 -(BOOL)isResponseOK{
-    DebugLog(@"response header is %@", self.request.responseHeaders);
     return [self.request.responseString compare:@"ok" options:NSCaseInsensitiveSearch] == NSOrderedSame;
 }
 
@@ -420,7 +449,22 @@ static NSTimer* _timer = nil;
 	[paramSet setParameterForKey:EDIT_ARGS_ACTION withValue:@"edit"];//add API action. Here is 'edit'
 	
     ASIHTTPRequest* request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
-    request.delegate = self;
+//    request.didFinishSelector = @selector(editItemRequestFinished:);
+    __block typeof(self) blockSelf = self;
+    [request setCompletionBlock:^{
+        if (blockSelf.action){
+            [blockSelf.delegate performSelectorOnMainThread:blockSelf.action withObject:blockSelf waitUntilDone:NO];
+        }
+        GRItem* item = [[[self class] itemPool] objectForKey:itemID];
+        [item removeCategory:tagToRemove];
+        [item addCategory:tagToAdd];
+    }];
+    [request setFailedBlock:^{
+        if (blockSelf.action){
+            [blockSelf.delegate performSelectorOnMainThread:blockSelf.action withObject:self waitUntilDone:NO];
+        }
+    }];
+    [self.request clearDelegatesAndCancel];
     self.request = request;
     [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
         if (error == nil){

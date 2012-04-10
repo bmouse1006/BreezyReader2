@@ -147,74 +147,6 @@
 	return [self.categories containsObject:key];
 }
 
--(void)addCategoryWithLabel:(NSString*)label andTerm:(NSString*)term{
-
-	NSArray* token = [term componentsSeparatedByString:@"/"];
-	NSMutableString* keyTerm = [NSMutableString stringWithString:term];
-	
-	NSString* termType = nil;
-	
-	if (token && [token count] >= 3){
-		
-		termType = [token objectAtIndex:2];
-		[keyTerm replaceOccurrencesOfString:[token objectAtIndex:1] 
-								 withString:@"-" 
-									options:NSForcedOrderingSearch	
-									  range:NSMakeRange(0, [term length])];
-	}
-	
-	if ( [termType isEqualToString:@"state"]){//dont' deal with type of 'label'
-		if ([label isEqualToString:ATOM_STATE_UNREAD]){
-			_keptUnread = YES;
-		}else if ([label isEqualToString:ATOM_STATE_READ]) {
-			_readed = YES;
-		}else if ([label isEqualToString:ATOM_STATE_STARRED]){
-			_starred = YES;
-		}
-		
-	}
-	
-    [self.categories addObject:label];
-}
-
--(void)removeCategoryWithLabel:(NSString*)label{
-	if ([label isEqualToString:ATOM_STATE_UNREAD] && [self.categories containsObject:ATOM_STATE_READ]){
-		_readed = YES;
-	}else if ([label isEqualToString:ATOM_STATE_READ]) {
-		_readed = NO;
-	}else if ([label isEqualToString:ATOM_STATE_STARRED]){
-		_starred = NO;
-	}
-	[self.categories removeObject:label];
-}
-
--(void)removeCategoryWithState:(NSString*)state{
-	if ([state isEqualToString:ATOM_STATE_UNREAD]){
-		_keptUnread = NO;
-	}else if ([state isEqualToString:ATOM_STATE_READ]) {
-		_readed = NO;
-	}else if ([state isEqualToString:ATOM_STATE_STARRED]){
-		_starred = NO;
-	}
-	
-	NSString* keyTerm = nil;
-	
-	NSArray* terms = [self.categories allKeys];
-	for (NSString* term in terms){
-		NSArray* tokens = [term componentsSeparatedByString:@"/"];
-		NSString* termType = nil;
-		if (tokens && [tokens count] >=3){
-			termType = [tokens objectAtIndex:2];
-		}
-		if ([termType isEqualToString:@"state"] && [[self.categories objectForKey:term] isEqualToString:state]){
-			keyTerm = term;
-			break;
-		}
-	}
-	
-    [self.categories removeObject:keyTerm];
-}
-
 -(NSString*)getShortUpdatedDateTime{
 	
 	if (!self.shortPresentDateTime){
@@ -385,7 +317,9 @@ static NSMutableDictionary* itemPool = nil;
 }
 
 -(void)addCategory:(NSString*)category{
-    
+    if (category == nil){
+        return;
+    }
     NSMutableString* mcate = [NSMutableString stringWithString:category];
 	NSArray* tokens = [category componentsSeparatedByString:@"/"];
 	NSString* type = nil;
@@ -414,7 +348,29 @@ static NSMutableDictionary* itemPool = nil;
 }
 
 -(void)removeCategory:(NSString *)category{
+    if (category == nil){
+        return;
+    }
+    NSArray* tokens = [category componentsSeparatedByString:@"/"];
+    NSString* type = nil;
+    NSString* label = nil;
+    if ([tokens count] >= 3){
+        type = [tokens objectAtIndex:2];
+        label = [tokens lastObject];
+    }
     
+    if ( [type isEqualToString:@"state"]){//dont' deal with type of 'label'
+        if ([label isEqualToString:ATOM_STATE_UNREAD]){
+            _keptUnread = NO;
+        }else if ([label isEqualToString:ATOM_STATE_READ]) {
+            _readed = NO;
+        }else if ([label isEqualToString:ATOM_STATE_STARRED]){
+            _starred = NO;
+        }
+        
+    }
+    
+    [self.categories removeObject:category];
 }
 
 @end

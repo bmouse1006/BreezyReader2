@@ -116,13 +116,6 @@
         self.previewLabel.text = previewContent ;
         
         self.authorLabel.text = _item.author;
-        
-        [self.buttonContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        if (_item.isStarred){
-            [self.buttonContainer addSubview:self.unstarButton];
-        }else{
-            [self.buttonContainer addSubview:self.starButton];
-        }
     }
     [self setNeedsLayout];
 }
@@ -148,6 +141,7 @@
         leftSpacing += self.urlImageView.bounds.size.width + kCellLeftSpacing;
     }
     //layout text labels
+//    CGPoint starCenter = CGPointMake(<#CGFloat x#>, <#CGFloat y#>)
     frame = self.titleLabel.frame;
     frame.origin.x = leftSpacing;
     frame.size.width = bounds.size.width - (leftSpacing + kCellRightSpacing + self.buttonContainer.frame.size.width);
@@ -165,15 +159,25 @@
     frame = self.authorLabel.frame;
     frame.origin.x = leftSpacing;
     [self.authorLabel setFrame:frame];
-    
+    [self updateStarButton];
+    [self updateReadColor];
+}
+
+-(void)updateStarButton{
+    [self.buttonContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    if (_item.isStarred){
+        [self.buttonContainer addSubview:self.unstarButton];
+    }else{
+        [self.buttonContainer addSubview:self.starButton];
+    }
+}
+
+-(void)updateReadColor{
     if (self.item.isReaded){
-        self.titleLabel.textColor = [UIColor lightGrayColor];
-        self.previewLabel.textColor = [UIColor lightGrayColor];
+        self.titleLabel.textColor = [UIColor grayColor];
     }else{
         self.titleLabel.textColor = [UIColor blackColor];
-        self.previewLabel.textColor = [UIColor grayColor];
     }
-    
 }
 
 #pragma mark - button call back
@@ -201,17 +205,18 @@
 #pragma mark - notification 
 -(void)addStarSuccess:(NSNotification*)notification{
     DebugLog(@"add star success");
-    [self.buttonContainer addSubview:self.unstarButton];
-    [UIView transitionFromView:self.starButton toView:self.unstarButton duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
-        [self.starButton removeFromSuperview];
-    }];
+    [self animateTransitionView1:self.starButton view2:self.unstarButton];
 }
 
 -(void)removeStarSuccess:(NSNotification*)notification{
     DebugLog(@"remove star success");
-    [self.buttonContainer addSubview:self.starButton];
-    [UIView transitionFromView:self.unstarButton toView:self.starButton duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
-        [self.unstarButton removeFromSuperview];
+    [self animateTransitionView1:self.unstarButton view2:self.starButton];
+}
+
+-(void)animateTransitionView1:(UIView*)view1 view2:(UIView*)view2{
+    [view1.superview addSubview:view2];
+    [UIView transitionFromView:view1 toView:view2 duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
+        [view1 removeFromSuperview];
     }];
 }
 

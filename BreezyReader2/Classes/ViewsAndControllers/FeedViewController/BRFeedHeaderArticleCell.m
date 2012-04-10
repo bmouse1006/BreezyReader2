@@ -95,8 +95,8 @@
     self.authorLabel.frame = CGRectMake(0, 0, width, authLabelHeight);
     self.timeLabel.frame = CGRectMake(0, authLabelHeight, width, authLabelHeight);
     CGRect frame = self.buttonContainer.frame;
-    frame.origin.x = width-36;
-    frame.origin.y = 12;
+    frame.origin.x = width-35;
+    frame.origin.y = 3;
     self.buttonContainer.frame = frame;
     
     self.container.backgroundColor = [self.item.ID colorForString];
@@ -116,6 +116,6 @@
         self.titleLabel.frame = CGRectMake(0, authLabelHeight*2, width, titleLabelHeight);
         self.bottomShadow.hidden = YES;
     }
+    [self updateStarButton];
 }
-
 @end

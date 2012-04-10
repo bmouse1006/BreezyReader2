@@ -7,7 +7,6 @@
 //
 
 #import "BRSubscriptionTileView.h"
-#import "GoogleMessageParsers.h"
 #import "BRImagePreviewCache.h"
 #import "BROperationQueues.h"
 #import "ASIDownloadCache.h"
@@ -477,7 +476,7 @@ static CGFloat kCaptionHeight = 40.0f;
         return;
     }
     
-    GRFeed* feed = [GRFeed objWithJSON:client.responseJSONValue];
+    GRFeed* feed = client.responseFeed;
     if (feed){
         DebugLog(@"feed's ID is %@", feed.ID);
         [[BRImagePreviewCache sharedCache] storeImagePreviews:feed.imageURLs key:self.subscription.ID];

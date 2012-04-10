@@ -19,9 +19,6 @@
 					   parser:(SEL)parser 
 					  APIType:(NSString*)type;
 
--(NSDictionary*)JSONParser:(NSData*)source;//parser for JSON message
--(NSString*)EDITParser:(NSData*)source;//Parser for Edit return message
-
 -(URLParameterSet*)compileParameterSetWithCount:(NSNumber*)count 
 									  startFrom:(NSDate*)date 
 										exclude:(NSString*)excludeString 
@@ -441,22 +438,6 @@
 	return nil;
 }
 
-#pragma mark - parsers
--(id)EDITParser:(NSData*)source{
-	return [GoogleMessageParsers EDITParser:source];
-}
-
--(id)JSONParser:(NSData*)source{
-	return [GoogleMessageParsers JSONParser:source];
-}
-
--(id)ATOMParser:(NSData*)source{
-	return [GoogleMessageParsers ATOMParser:source];
-}
-
--(id)SEARCHParser:(NSData*)source{
-    return [GoogleMessageParsers SEARCHParser:source];
-}
 
 -(URLParameterSet*)compileParameterSetWithCount:(NSNumber*)count 
 									  startFrom:(NSDate*)date 

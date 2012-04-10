@@ -8,34 +8,37 @@
 
 #import <UIKit/UIKit.h>
 
-@class JJImageScrollView;
+@class JJPageScrollView;
 
-@protocol JJImageScrollViewDataSource <NSObject>
+@protocol JJPageScrollViewDataSource <NSObject>
 
--(id)objectAtIndex:(NSInteger)index;
--(NSUInteger)numberOfPagesInScrollView:(JJImageScrollView*)scrollView;
--(UIView*)scrollView:(JJImageScrollView*)scrollView pageAtIndex:(NSInteger)index;
--(CGSize)scrollView:(JJImageScrollView*)scrollView sizeOfPageAtIndex:(NSInteger)index;
-
-@end
-
-@protocol JJImageScrollViewDelegate <NSObject>
-
--(void)scrollView:(JJImageScrollView*)scrollView didScrollToPageAtIndex:(NSInteger)index;
--(void)scrollViewWillBeginDragging:(JJImageScrollView *)scrollView;
+-(NSUInteger)numberOfPagesInScrollView:(JJPageScrollView*)scrollView;
+-(UIView*)scrollView:(JJPageScrollView*)scrollView pageAtIndex:(NSInteger)index;
+-(CGSize)scrollView:(JJPageScrollView*)scrollView sizeOfPageAtIndex:(NSInteger)index;
 
 @end
 
-@interface JJImageScrollView : UIScrollView<UIScrollViewDelegate>
+@protocol JJPageScrollViewDelegate <NSObject>
 
-@property (nonatomic, assign) id<JJImageScrollViewDataSource> datasource;
-@property (nonatomic, assign) id<JJImageScrollViewDelegate> imageScrollDelegate;
+-(void)scrollView:(JJPageScrollView*)scrollView didScrollToPageAtIndex:(NSInteger)index;
+-(void)scrollViewWillBeginDragging:(JJPageScrollView *)scrollView;
+
+@optional
+-(void)scrollViewDidRemovePageAtIndex:(NSInteger)index;
+
+@end
+
+@interface JJPageScrollView : UIScrollView<UIScrollViewDelegate>
+
+@property (nonatomic, assign) id<JJPageScrollViewDataSource> datasource;
+@property (nonatomic, assign) id<JJPageScrollViewDelegate> scrollDelegate;
 
 @property (nonatomic, assign) NSUInteger pageIndex;
 
 -(void)reloadData;
--(void)scrollToPageAtIndex:(NSInteger)index animated:(BOOL)animated;
 
--(id)dequeueReusableContentView;
+-(void)scrollToPageAtIndex:(NSInteger)index animated:(BOOL)animated;
+-(NSInteger)currentIndex;
+-(UIView*)currentPage;
 
 @end

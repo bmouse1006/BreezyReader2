@@ -8,7 +8,6 @@
 
 #import "ArticleSearchDataSource.h"
 #import "SearchLoadingCell.h"
-#import "SBJSON.h"
 
 #define kPageSize 10
 
@@ -106,7 +105,7 @@
 
 -(void)receivedContents:(GoogleReaderClient*)client{
     if (client.error == nil){
-        GRFeed* feed = [GRFeed objWithJSON:client.responseJSONValue];
+        GRFeed* feed = client.responseFeed;
         if (!self.feed){
             self.feed = feed;
         }else{

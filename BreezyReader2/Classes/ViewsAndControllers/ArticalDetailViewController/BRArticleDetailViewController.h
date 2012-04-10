@@ -9,19 +9,15 @@
 #import "BRBaseController.h"
 #import "BRBottomToolBar.h"
 #import "GRFeed.h"
+#import "GRItem.h"
 
-@interface BRArticalDetailViewController : BRBaseController<UIWebViewDelegate>
+@interface BRArticleDetailViewController : BRBaseController<UIWebViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWebView* webView;
-@property (nonatomic, retain) IBOutlet BRBottomToolBar* bottomToolBar;
 
-@property (nonatomic, retain) GRFeed* feed;
-@property (nonatomic, assign) NSUInteger index;
+@property (nonatomic, retain) GRItem* item;
 
-@property (nonatomic, retain) IBOutlet UIButton* backButton;
-
--(IBAction)back:(id)sender;
--(IBAction)scrollToTop:(id)sender;
--(IBAction)viewInSafari:(id)sender;
+-(id)initWithItem:(GRItem*)item;
+-(void)scrollToTop;
 
 @end

@@ -50,15 +50,14 @@
 -(BOOL)isReaded;
 -(BOOL)isStarred;
 
--(void)addCategoryWithLabel:(NSString*)label andTerm:(NSString*)term;
--(void)removeCategoryWithLabel:(NSString*)label;
--(void)removeCategoryWithState:(NSString*)state;
-
 -(void)markAsRead;
 -(void)keepUnread;
 -(void)removeKeepUnread;
 -(void)markAsStarred;
 -(void)markAsUnstarred;
+
+-(void)removeCategory:(NSString*)category;
+-(void)addCategory:(NSString*)category;
 
 +(GRItem*)mergeItemToPool:(GRItem*)item;
 +(void)didReceiveMemoryWarning;

@@ -34,4 +34,7 @@
 -(IBAction)starButtonClicked:(id)sender;
 -(IBAction)unstarButtonClicked:(id)sender;
 
+-(void)updateStarButton;
+-(void)updateReadColor;
+
 @end

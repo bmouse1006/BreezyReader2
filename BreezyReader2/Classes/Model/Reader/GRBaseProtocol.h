@@ -16,7 +16,6 @@
 -(NSString*)presentationString;//the main string that display in table view
 -(NSString*)ID;
 //-(NSString*)title;
--(UIImage*)icon;//for Subscription and Tag
 
 @optional
 

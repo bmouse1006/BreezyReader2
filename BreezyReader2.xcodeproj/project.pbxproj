@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		2207BD6714B731DC00ED0BE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2207BD6614B731DC00ED0BE6 /* SystemConfiguration.framework */; };
 		2207BD6914B731E700ED0BE6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2207BD6814B731E700ED0BE6 /* Security.framework */; };
+		221943E1153329AD00A0C4E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C7F15273CAE00700504 /* InfoPlist.strings */; };
+		221943E515332BAB00A0C4E4 /* BRArticleScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943E315332BAB00A0C4E4 /* BRArticleScrollViewController.m */; };
+		221943E615332BAB00A0C4E4 /* BRArticleScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 221943E415332BAB00A0C4E4 /* BRArticleScrollViewController.xib */; };
+		221943F115332C6D00A0C4E4 /* JJPageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943EB15332C6D00A0C4E4 /* JJPageScrollView.m */; };
+		221943F315332C6D00A0C4E4 /* JJImageZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943EF15332C6D00A0C4E4 /* JJImageZoomView.m */; };
 		222132C5152DE0460087D05E /* NSMutableString+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 222132C4152DE0460087D05E /* NSMutableString+Addition.m */; };
 		22395ADF152EE1AD00428C56 /* top_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 22395ADD152EE1AD00428C56 /* top_shadow.png */; };
 		22395AE0152EE1AD00428C56 /* top_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22395ADE152EE1AD00428C56 /* top_shadow@2x.png */; };
@@ -20,7 +25,6 @@
 		22638593152ECD7800CA39E3 /* BRSubFavoriteSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22638592152ECD7800CA39E3 /* BRSubFavoriteSource.m */; };
 		22994A15152DC90D00EE50C5 /* BRReadingStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */; };
 		229B2D0915273CAE00700504 /* BRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9615273CAE00700504 /* BRAppDelegate.m */; };
-		229B2D0A15273CAE00700504 /* BreezyReader2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 229B2B9815273CAE00700504 /* BreezyReader2-Info.plist */; };
 		229B2D0B15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */; };
 		229B2D0C15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9F15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m */; };
 		229B2D0D15273CAE00700504 /* NSObject+Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA115273CAE00700504 /* NSObject+Notifications.m */; };
@@ -42,11 +46,8 @@
 		229B2D1D15273CAE00700504 /* BROperationQueues.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BC515273CAE00700504 /* BROperationQueues.m */; };
 		229B2D1E15273CAE00700504 /* GoogleAppConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BC815273CAE00700504 /* GoogleAppConstants.m */; };
 		229B2D2015273CAE00700504 /* GoogleAuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BCD15273CAE00700504 /* GoogleAuthManager.m */; };
-		229B2D2115273CAE00700504 /* GoogleMessageParsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BCF15273CAE00700504 /* GoogleMessageParsers.m */; };
 		229B2D2215273CAE00700504 /* GoogleReaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BD115273CAE00700504 /* GoogleReaderController.m */; };
 		229B2D2315273CAE00700504 /* GoogleReaderStoreModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BD215273CAE00700504 /* GoogleReaderStoreModel.xcdatamodel */; };
-		229B2D2415273CAE00700504 /* GRATOMXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BD415273CAE00700504 /* GRATOMXMLParser.m */; };
-		229B2D2515273CAE00700504 /* GRATOMXMLParser_new.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BD715273CAE00700504 /* GRATOMXMLParser_new.m */; };
 		229B2D2615273CAE00700504 /* URLParameterSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BD915273CAE00700504 /* URLParameterSet.m */; };
 		229B2D2715273CAE00700504 /* BRImagePreviewCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BDD15273CAE00700504 /* BRImagePreviewCache.m */; };
 		229B2D2815273CAE00700504 /* GoogleReaderClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BE015273CAE00700504 /* GoogleReaderClient.m */; };
@@ -78,8 +79,8 @@
 		229B2D4215273CAE00700504 /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1715273CAE00700504 /* GTMOAuth2ViewControllerTouch.m */; };
 		229B2D4315273CAE00700504 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C1815273CAE00700504 /* GTMOAuth2ViewTouch.xib */; };
 		229B2D4415273CAE00700504 /* UserPreferenceDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1A15273CAE00700504 /* UserPreferenceDefine.m */; };
-		229B2D4515273CAE00700504 /* BRArticalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1E15273CAE00700504 /* BRArticalDetailViewController.m */; };
-		229B2D4615273CAE00700504 /* BRArticalDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C1F15273CAE00700504 /* BRArticalDetailViewController.xib */; };
+		229B2D4515273CAE00700504 /* BRArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1E15273CAE00700504 /* BRArticleDetailViewController.m */; };
+		229B2D4615273CAE00700504 /* BRArticleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C1F15273CAE00700504 /* BRArticleDetailViewController.xib */; };
 		229B2D4715273CAE00700504 /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C2015273CAE00700504 /* template.html */; };
 		229B2D4815273CAE00700504 /* BRBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2315273CAE00700504 /* BRBaseController.m */; };
 		229B2D4915273CAE00700504 /* BRBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2515273CAE00700504 /* BRBaseDataSource.m */; };
@@ -127,7 +128,6 @@
 		229B2D7415273CAE00700504 /* BRTopContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C7815273CAE00700504 /* BRTopContainer.m */; };
 		229B2D7515273CAE00700504 /* BRUserVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C7B15273CAE00700504 /* BRUserVerifyController.m */; };
 		229B2D7615273CAE00700504 /* BRUserVerifyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C7C15273CAE00700504 /* BRUserVerifyController.xib */; };
-		229B2D7715273CAE00700504 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C7F15273CAE00700504 /* InfoPlist.strings */; };
 		229B2D7815273CAE00700504 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C8315273CAE00700504 /* background.jpg */; };
 		229B2D7915273CAE00700504 /* background@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C8415273CAE00700504 /* background@2x.jpg */; };
 		229B2D7A15273CAE00700504 /* nav-bgImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C8515273CAE00700504 /* nav-bgImg.png */; };
@@ -243,6 +243,13 @@
 /* Begin PBXFileReference section */
 		2207BD6614B731DC00ED0BE6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2207BD6814B731E700ED0BE6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		221943E215332BAB00A0C4E4 /* BRArticleScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRArticleScrollViewController.h; sourceTree = "<group>"; };
+		221943E315332BAB00A0C4E4 /* BRArticleScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRArticleScrollViewController.m; sourceTree = "<group>"; };
+		221943E415332BAB00A0C4E4 /* BRArticleScrollViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRArticleScrollViewController.xib; sourceTree = "<group>"; };
+		221943EA15332C6D00A0C4E4 /* JJPageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJPageScrollView.h; sourceTree = "<group>"; };
+		221943EB15332C6D00A0C4E4 /* JJPageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJPageScrollView.m; sourceTree = "<group>"; };
+		221943EE15332C6D00A0C4E4 /* JJImageZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJImageZoomView.h; sourceTree = "<group>"; };
+		221943EF15332C6D00A0C4E4 /* JJImageZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJImageZoomView.m; sourceTree = "<group>"; };
 		222132C3152DE0460087D05E /* NSMutableString+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+Addition.h"; sourceTree = "<group>"; };
 		222132C4152DE0460087D05E /* NSMutableString+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+Addition.m"; sourceTree = "<group>"; };
 		22395ADD152EE1AD00428C56 /* top_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_shadow.png; sourceTree = "<group>"; };
@@ -301,16 +308,9 @@
 		229B2BC915273CAE00700504 /* GoogleAppLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleAppLib.h; sourceTree = "<group>"; };
 		229B2BCC15273CAE00700504 /* GoogleAuthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleAuthManager.h; sourceTree = "<group>"; };
 		229B2BCD15273CAE00700504 /* GoogleAuthManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleAuthManager.m; sourceTree = "<group>"; };
-		229B2BCE15273CAE00700504 /* GoogleMessageParsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleMessageParsers.h; sourceTree = "<group>"; };
-		229B2BCF15273CAE00700504 /* GoogleMessageParsers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleMessageParsers.m; sourceTree = "<group>"; };
 		229B2BD015273CAE00700504 /* GoogleReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleReaderController.h; sourceTree = "<group>"; };
 		229B2BD115273CAE00700504 /* GoogleReaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleReaderController.m; sourceTree = "<group>"; };
 		229B2BD215273CAE00700504 /* GoogleReaderStoreModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoogleReaderStoreModel.xcdatamodel; sourceTree = "<group>"; };
-		229B2BD315273CAE00700504 /* GRATOMXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRATOMXMLParser.h; sourceTree = "<group>"; };
-		229B2BD415273CAE00700504 /* GRATOMXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRATOMXMLParser.m; sourceTree = "<group>"; };
-		229B2BD515273CAE00700504 /* GRATOMXMLParser_new+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GRATOMXMLParser_new+private.h"; sourceTree = "<group>"; };
-		229B2BD615273CAE00700504 /* GRATOMXMLParser_new.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRATOMXMLParser_new.h; sourceTree = "<group>"; };
-		229B2BD715273CAE00700504 /* GRATOMXMLParser_new.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRATOMXMLParser_new.m; sourceTree = "<group>"; };
 		229B2BD815273CAE00700504 /* URLParameterSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParameterSet.h; sourceTree = "<group>"; };
 		229B2BD915273CAE00700504 /* URLParameterSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParameterSet.m; sourceTree = "<group>"; };
 		229B2BDA15273CAE00700504 /* GRNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRNotification.h; sourceTree = "<group>"; };
@@ -373,9 +373,9 @@
 		229B2C1815273CAE00700504 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
 		229B2C1915273CAE00700504 /* UserPreferenceDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPreferenceDefine.h; sourceTree = "<group>"; };
 		229B2C1A15273CAE00700504 /* UserPreferenceDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPreferenceDefine.m; sourceTree = "<group>"; };
-		229B2C1D15273CAE00700504 /* BRArticalDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRArticalDetailViewController.h; sourceTree = "<group>"; };
-		229B2C1E15273CAE00700504 /* BRArticalDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRArticalDetailViewController.m; sourceTree = "<group>"; };
-		229B2C1F15273CAE00700504 /* BRArticalDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRArticalDetailViewController.xib; sourceTree = "<group>"; };
+		229B2C1D15273CAE00700504 /* BRArticleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRArticleDetailViewController.h; sourceTree = "<group>"; };
+		229B2C1E15273CAE00700504 /* BRArticleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRArticleDetailViewController.m; sourceTree = "<group>"; };
+		229B2C1F15273CAE00700504 /* BRArticleDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRArticleDetailViewController.xib; sourceTree = "<group>"; };
 		229B2C2015273CAE00700504 /* template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
 		229B2C2215273CAE00700504 /* BRBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBaseController.h; sourceTree = "<group>"; };
 		229B2C2315273CAE00700504 /* BRBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseController.m; sourceTree = "<group>"; };
@@ -643,6 +643,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		221943E715332C6D00A0C4E4 /* JJScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				221943EA15332C6D00A0C4E4 /* JJPageScrollView.h */,
+				221943EB15332C6D00A0C4E4 /* JJPageScrollView.m */,
+				221943EE15332C6D00A0C4E4 /* JJImageZoomView.h */,
+				221943EF15332C6D00A0C4E4 /* JJImageZoomView.m */,
+			);
+			path = JJScrollView;
+			sourceTree = "<group>";
+		};
 		22994A11152DC8BB00EE50C5 /* FeedReadingStatistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -790,16 +801,9 @@
 				229B2BC915273CAE00700504 /* GoogleAppLib.h */,
 				229B2BCC15273CAE00700504 /* GoogleAuthManager.h */,
 				229B2BCD15273CAE00700504 /* GoogleAuthManager.m */,
-				229B2BCE15273CAE00700504 /* GoogleMessageParsers.h */,
-				229B2BCF15273CAE00700504 /* GoogleMessageParsers.m */,
 				229B2BD015273CAE00700504 /* GoogleReaderController.h */,
 				229B2BD115273CAE00700504 /* GoogleReaderController.m */,
 				229B2BD215273CAE00700504 /* GoogleReaderStoreModel.xcdatamodel */,
-				229B2BD315273CAE00700504 /* GRATOMXMLParser.h */,
-				229B2BD415273CAE00700504 /* GRATOMXMLParser.m */,
-				229B2BD515273CAE00700504 /* GRATOMXMLParser_new+private.h */,
-				229B2BD615273CAE00700504 /* GRATOMXMLParser_new.h */,
-				229B2BD715273CAE00700504 /* GRATOMXMLParser_new.m */,
 				229B2BD815273CAE00700504 /* URLParameterSet.h */,
 				229B2BD915273CAE00700504 /* URLParameterSet.m */,
 			);
@@ -923,10 +927,13 @@
 		229B2C1C15273CAE00700504 /* ArticalDetailViewController */ = {
 			isa = PBXGroup;
 			children = (
-				229B2C1D15273CAE00700504 /* BRArticalDetailViewController.h */,
-				229B2C1E15273CAE00700504 /* BRArticalDetailViewController.m */,
-				229B2C1F15273CAE00700504 /* BRArticalDetailViewController.xib */,
+				229B2C1D15273CAE00700504 /* BRArticleDetailViewController.h */,
+				229B2C1E15273CAE00700504 /* BRArticleDetailViewController.m */,
+				229B2C1F15273CAE00700504 /* BRArticleDetailViewController.xib */,
 				229B2C2015273CAE00700504 /* template.html */,
+				221943E215332BAB00A0C4E4 /* BRArticleScrollViewController.h */,
+				221943E315332BAB00A0C4E4 /* BRArticleScrollViewController.m */,
+				221943E415332BAB00A0C4E4 /* BRArticleScrollViewController.xib */,
 			);
 			path = ArticalDetailViewController;
 			sourceTree = "<group>";
@@ -1171,6 +1178,7 @@
 			children = (
 				229B2CA515273CAE00700504 /* ASIHTTPRequest */,
 				229B2CDD15273CAE00700504 /* JJMediaLib */,
+				221943E715332C6D00A0C4E4 /* JJScrollView */,
 				229B2CEB15273CAE00700504 /* JSON */,
 				229B2CF915273CAE00700504 /* MD5 */,
 				229B2CFC15273CAE00700504 /* RegexKitLite */,
@@ -1486,14 +1494,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				221943E1153329AD00A0C4E4 /* InfoPlist.strings in Resources */,
 				229B2DC215273D9C00700504 /* readability.js in Resources */,
-				229B2D0A15273CAE00700504 /* BreezyReader2-Info.plist in Resources */,
 				229B2D1315273CAE00700504 /* BaseAlertView.xib in Resources */,
 				229B2D1515273CAE00700504 /* BaseImageScrollView.xib in Resources */,
 				229B2D1715273CAE00700504 /* BaseMessageView.xib in Resources */,
 				229B2D3E15273CAE00700504 /* GTMOAuthViewTouch.xib in Resources */,
 				229B2D4315273CAE00700504 /* GTMOAuth2ViewTouch.xib in Resources */,
-				229B2D4615273CAE00700504 /* BRArticalDetailViewController.xib in Resources */,
+				229B2D4615273CAE00700504 /* BRArticleDetailViewController.xib in Resources */,
 				229B2D4715273CAE00700504 /* template.html in Resources */,
 				229B2D4C15273CAE00700504 /* CustomOAuth2ViewController.xib in Resources */,
 				229B2D4F15273CAE00700504 /* BRFeedDragDownController.xib in Resources */,
@@ -1510,7 +1518,6 @@
 				229B2D7115273CAE00700504 /* SubOverviewController.xib in Resources */,
 				229B2D7315273CAE00700504 /* TestOAuth2Controller.xib in Resources */,
 				229B2D7615273CAE00700504 /* BRUserVerifyController.xib in Resources */,
-				229B2D7715273CAE00700504 /* InfoPlist.strings in Resources */,
 				229B2D7815273CAE00700504 /* background.jpg in Resources */,
 				229B2D7915273CAE00700504 /* background@2x.jpg in Resources */,
 				229B2D7A15273CAE00700504 /* nav-bgImg.png in Resources */,
@@ -1560,6 +1567,7 @@
 				22E46DBE152FFA4D00C45A8E /* star_complete.png in Resources */,
 				22E46DBF152FFA4D00C45A8E /* star_complete@2x.png in Resources */,
 				22E46DC0152FFA4D00C45A8E /* star_empty@2x.png in Resources */,
+				221943E615332BAB00A0C4E4 /* BRArticleScrollViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1614,11 +1622,8 @@
 				229B2D1D15273CAE00700504 /* BROperationQueues.m in Sources */,
 				229B2D1E15273CAE00700504 /* GoogleAppConstants.m in Sources */,
 				229B2D2015273CAE00700504 /* GoogleAuthManager.m in Sources */,
-				229B2D2115273CAE00700504 /* GoogleMessageParsers.m in Sources */,
 				229B2D2215273CAE00700504 /* GoogleReaderController.m in Sources */,
 				229B2D2315273CAE00700504 /* GoogleReaderStoreModel.xcdatamodel in Sources */,
-				229B2D2415273CAE00700504 /* GRATOMXMLParser.m in Sources */,
-				229B2D2515273CAE00700504 /* GRATOMXMLParser_new.m in Sources */,
 				229B2D2615273CAE00700504 /* URLParameterSet.m in Sources */,
 				229B2D2715273CAE00700504 /* BRImagePreviewCache.m in Sources */,
 				229B2D2815273CAE00700504 /* GoogleReaderClient.m in Sources */,
@@ -1648,7 +1653,7 @@
 				229B2D4115273CAE00700504 /* GTMOAuth2SignIn.m in Sources */,
 				229B2D4215273CAE00700504 /* GTMOAuth2ViewControllerTouch.m in Sources */,
 				229B2D4415273CAE00700504 /* UserPreferenceDefine.m in Sources */,
-				229B2D4515273CAE00700504 /* BRArticalDetailViewController.m in Sources */,
+				229B2D4515273CAE00700504 /* BRArticleDetailViewController.m in Sources */,
 				229B2D4815273CAE00700504 /* BRBaseController.m in Sources */,
 				229B2D4915273CAE00700504 /* BRBaseDataSource.m in Sources */,
 				229B2D4A15273CAE00700504 /* UIViewController+BRAddtion.m in Sources */,
@@ -1723,6 +1728,9 @@
 				22638593152ECD7800CA39E3 /* BRSubFavoriteSource.m in Sources */,
 				22B2479D152F253B009DC4F1 /* BRBottomToolBar.m in Sources */,
 				22D9BE58152F3376007E32CC /* BRFeedHeaderArticleCell.m in Sources */,
+				221943E515332BAB00A0C4E4 /* BRArticleScrollViewController.m in Sources */,
+				221943F115332C6D00A0C4E4 /* JJPageScrollView.m in Sources */,
+				221943F315332C6D00A0C4E4 /* JJImageZoomView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

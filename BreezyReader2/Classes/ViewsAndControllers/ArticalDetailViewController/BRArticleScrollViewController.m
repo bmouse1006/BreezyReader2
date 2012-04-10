@@ -7,31 +7,54 @@
 //
 
 #import "BRArticleScrollViewController.h"
+#import "BRArticleDetailViewController.h"
+#import "UIViewController+BRAddtion.h"
+#import "GoogleReaderClient.h"
 
 @interface BRArticleScrollViewController ()
+
+@property (nonatomic, retain) NSArray* articleDetailControllers;
+@property (nonatomic, retain) GoogleReaderClient* client;
 
 @end
 
 @implementation BRArticleScrollViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
+@synthesize scrollView = _scrollView;
+@synthesize index = _index;
+@synthesize feed = _feed;
+@synthesize backButton = _backButton;
+@synthesize bottomToolBar = _bottomToolBar;
+@synthesize articleDetailControllers = _articleDetailControllers;
+@synthesize client = _client;
+
+-(void)dealloc{
+    self.scrollView = nil;
+    self.feed = nil;
+    self.backButton = nil;
+    self.bottomToolBar = nil;
+    self.articleDetailControllers = nil;
+    self.client = nil;
+    [super dealloc];
+}
+
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self){
+        self.client = [GoogleReaderClient clientWithDelegate:self action:NULL];
     }
+    
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self loadControllers];
+    self.scrollView.datasource = self;
+    self.scrollView.scrollDelegate = self;
+    self.scrollView.pageIndex = self.index;
+    [self.scrollView reloadData];
 }
 
 - (void)viewDidUnload
@@ -39,90 +62,80 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.scrollView = nil;
+    self.bottomToolBar = nil;
+    self.articleDetailControllers = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+-(void)viewWillLayoutSubviews{
+    CGRect frame = self.bottomToolBar.frame;
+    frame.origin.y = self.view.frame.size.height - frame.size.height;
+    self.bottomToolBar.frame = frame;
     
-    // Configure the cell...
+    frame = self.scrollView.frame;
+    frame.size.height = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
+    self.scrollView.frame = frame;
     
-    return cell;
+    [self.view bringSubviewToFront:self.bottomToolBar];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+-(void)loadControllers{
+    NSMutableArray* controllers = [NSMutableArray array];
+    for (GRItem* item in self.feed.items){
+        BRArticleDetailViewController* articleDetail = [[[BRArticleDetailViewController alloc] initWithItem:item] autorelease];
+        [controllers addObject:articleDetail];
+    }
+    
+    self.articleDetailControllers = controllers;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+#pragma mark - action
+-(IBAction)back:(id)sender{
+    [[self topContainer] slideOutViewController];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
+-(IBAction)viewInSafari:(id)sender{
+    
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+-(IBAction)scrollCurrentPageToTop:(id)sender{
+    NSInteger index = [self.scrollView currentIndex];
+    [[self.articleDetailControllers objectAtIndex:index] performSelector:@selector(scrollToTop)];
 }
-*/
 
-#pragma mark - Table view delegate
+#pragma mark - JJPageScrollView data source
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+-(NSUInteger)numberOfPagesInScrollView:(JJPageScrollView*)scrollView{
+    return [self.feed.items count];
+}
+
+-(UIView*)scrollView:(JJPageScrollView*)scrollView pageAtIndex:(NSInteger)index{
+    UIViewController* controller = [self.articleDetailControllers objectAtIndex:index];
+    return controller.view;
+}
+
+-(CGSize)scrollView:(JJPageScrollView*)scrollView sizeOfPageAtIndex:(NSInteger)index{
+    return self.scrollView.bounds.size;
+}
+
+#pragma mark - JJPageScrollView delegate
+
+-(void)scrollView:(JJPageScrollView*)scrollView didScrollToPageAtIndex:(NSInteger)index{
+    GRItem* item = [self.feed.items objectAtIndex:index];
+    if (item.isReaded == NO){
+        [self.client markArticleAsRead:item.ID];
+    }
+}
+
+-(void)scrollViewWillBeginDragging:(JJPageScrollView *)scrollView{
+    
+}
+
+-(void)scrollViewDidRemovePageAtIndex:(NSInteger)index{
+    UIViewController* controller = [self.articleDetailControllers objectAtIndex:index];
+    [controller viewWillUnload];
+    controller.view = nil;
+    [controller viewDidUnload];
 }
 
 @end

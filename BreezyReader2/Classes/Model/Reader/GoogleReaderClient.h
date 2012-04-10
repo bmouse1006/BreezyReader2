@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GRItem.h"
+#import "GRFeed.h"
 #import "ASIHTTPRequest.h"
 
 @interface GoogleReaderClient : NSObject<ASIHTTPRequestDelegate>
@@ -17,6 +19,7 @@
 @property (nonatomic, readonly) BOOL isResponseOK;
 @property (nonatomic, readonly) id responseJSONValue;
 @property (nonatomic, readonly) id responseFeedSearchingJSONValue;
+@property (nonatomic, readonly) GRFeed* responseFeed;
 
 +(id)clientWithDelegate:(id)delegate action:(SEL)action;
 

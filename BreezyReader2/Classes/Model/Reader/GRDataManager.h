@@ -75,7 +75,6 @@
 -(void)markItemsAsRead:(NSArray*)items;
 -(void)markItemAsRead:(GRItem*)item;
 -(void)markAllAsRead:(GRSubscription*)sub waitUtilDone:(BOOL)wait;
--(void)reverseStateForItem:(GRItem*)item state:(NSString*)label;
 -(void)refreshRecFeedsList;
 -(void)reloadData;
 -(void)reloadData_new;

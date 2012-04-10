@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "GoogleAuthManager.h"
-#import	"GoogleMessageParsers.h"
 #import "URLParameterSet.h"
 #import "GRFeed.h"
 #import "JSON.h"

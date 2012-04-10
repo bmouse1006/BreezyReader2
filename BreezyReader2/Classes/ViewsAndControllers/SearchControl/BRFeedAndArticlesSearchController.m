@@ -9,10 +9,11 @@
 #import "BRFeedAndArticlesSearchController.h"
 #import "ArticleSearchDataSource.h"
 #import "FeedSearchDataSource.h"
-#import "BRArticalDetailViewController.h"
+#import "BRArticleScrollViewController.h"
 #import "BRFeedViewController.h"
 #import "UIViewController+BRAddtion.h"
 #import "GRItem.h"
+#import "NSString+Addtion.h"
 
 static CGFloat kFeedSearchResultCellHeight = 97.0f;
 static CGFloat kArticleSearchResultCellHeight = 97.0f;
@@ -162,7 +163,7 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
     id item = [searchDataBase objectAtIndexPath:indexPath];
 
     if ([searchDataBase isKindOfClass:[ArticleSearchDataSource class]]){
-        BRArticalDetailViewController* article = [[[BRArticalDetailViewController alloc] initWithTheNibOfSameName] autorelease];
+        BRArticleScrollViewController* article = [[[BRArticleScrollViewController alloc] initWithTheNibOfSameName] autorelease];
         article.feed = ((ArticleSearchDataSource*)searchDataBase).feed;
         article.index = indexPath.row;
         [[self topContainer] slideInViewController:article];
@@ -170,7 +171,7 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
     if ([searchDataBase isKindOfClass:[FeedSearchDataSource class]]){
         BRFeedViewController* feed = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
         GRSubscription* sub = [[GRSubscription alloc] init];
-        sub.title = [item objectForKey:@"title"];
+        sub.title = [[item objectForKey:@"title"] stringByReplacingHTMLTagAndTrim];
         sub.ID = [@"feed/" stringByAppendingString:[item objectForKey:@"url"]];
         feed.subscription = sub;
         [sub release];

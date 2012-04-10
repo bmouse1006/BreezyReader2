@@ -131,7 +131,7 @@
 -(void)requestFeedIsLoaded:(GoogleReaderClient*)client{
     if (client.error == nil){
         self.loadedTime = [NSDate date];
-        GRFeed* feed = [GRFeed objWithJSON:client.responseJSONValue];
+        GRFeed* feed = client.responseFeed;
         self.feed = feed;
         _loading = NO;
         [self.delegate dataSource:self didFinishLoading:NO];
@@ -143,7 +143,7 @@
 
 -(void)moreFeedIsLoaded:(GoogleReaderClient*)client{
     if (client.error == nil){
-        self.moreFeed = [GRFeed objWithJSON:client.responseJSONValue];
+        self.moreFeed = client.responseFeed;
         _loadingMore = NO;
         [self.delegate dataSource:self didFinishLoading:YES];
     }else{

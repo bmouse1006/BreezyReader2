@@ -7,7 +7,8 @@
 //
 
 #import "BRFeedViewController.h"
-#import "BRArticalDetailViewController.h"
+#import "BRArticleDetailViewController.h"
+#import "BRArticleScrollViewController.h"
 #import "BRViewControllerNotification.h"
 #import "GoogleReaderClient.h"
 #import "BRErrorHandler.h"
@@ -114,8 +115,6 @@ static CGFloat refreshDistance = 60.0f;
     self.tableView = [[[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain] autorelease];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    self.tableView.tableFooterView = self.loadMoreController.view;
-//    [self.tableView addSubview:self.dragController.view];
     self.tableView.rowHeight = kFeedTableRowHeight;
     UIPinchGestureRecognizer* gesture = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonClicked:)] autorelease];
     [self.tableView addGestureRecognizer:gesture];
@@ -156,6 +155,10 @@ static CGFloat refreshDistance = 60.0f;
     self.tableView = nil;
     self.dragController = nil;
     self.dataSource = nil;
+    self.loadingView = nil;
+    self.loadMoreController = nil;
+    self.titleLabel = nil;
+    self.bottomToolBar = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -189,6 +192,13 @@ static CGFloat refreshDistance = 60.0f;
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.tableView reloadData];
+    [[self.tableView visibleCells] makeObjectsPerformSelector:@selector(setNeedsLayout)];
+    [self addHeaderAndFooterForTableView];
 }
 
 -(void)addHeaderAndFooterForTableView{
@@ -266,10 +276,10 @@ static CGFloat refreshDistance = 60.0f;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    BRArticalDetailViewController* detail = [[[BRArticalDetailViewController alloc] initWithTheNibOfSameName] autorelease];
-    detail.feed = self.dataSource.feed;
-    detail.index = indexPath.row;
-    [[self topContainer] slideInViewController:detail];
+    BRArticleScrollViewController* article = [[[BRArticleScrollViewController alloc] initWithTheNibOfSameName] autorelease];
+    article.feed = self.dataSource.feed;
+    article.index = indexPath.row;
+    [[self topContainer] slideInViewController:article];
 }
 
 #pragma mark - action mathods

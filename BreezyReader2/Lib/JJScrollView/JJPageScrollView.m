@@ -1,4 +1,4 @@
-//
+ //
 //  JJImageScroll.m
 //  MeetingPlatform
 //
@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "JJImageScrollView.h"
+#import "JJPageScrollView.h"
 
 CGPoint CGCenterOfRect(CGRect rect);
 
@@ -14,36 +14,33 @@ CGPoint CGCenterOfRect(CGRect rect){
     return CGPointMake(rect.origin.x+rect.size.width/2, rect.origin.y+rect.size.height/2);
 };
 
-@interface JJImageScrollView (){
+@interface JJPageScrollView (){
     NSInteger _pageCount;
     NSInteger _currentPageNumber;
 }
 
 -(void)loadPageAtIndex:(NSInteger)index;
--(void)removeInvisiblePageFaraway;
 -(CGPoint)pageOffsetAtIndex:(NSInteger)index;
 -(NSInteger)indexForOffset:(CGPoint)offset;
 
 -(void)createContents;
 
--(UIView*)currentPage;
+-(void)clearInvisiblePages;
 
 @property (nonatomic, retain) NSMutableDictionary* loadedPages;
-@property (nonatomic, retain) NSMutableDictionary* invisiblePages;
 @property (nonatomic, retain) NSMutableDictionary* pageFrames;
 
 @end
 
-@implementation JJImageScrollView
+@implementation JJPageScrollView
 
-@synthesize imageScrollDelegate = _imageScrollDelegate, datasource = _datasource;
+@synthesize scrollDelegate = _scrollDelegate, datasource = _datasource;
 @synthesize pageIndex = pageIndex;
-@synthesize loadedPages = _loadedPages, invisiblePages = _invisiblePages;
+@synthesize loadedPages = _loadedPages;
 @synthesize pageFrames = _pageFrames;
 
 -(void)dealloc{
     self.loadedPages = nil;
-    self.invisiblePages = nil;
     self.pageFrames = nil;
     [super dealloc];
 }
@@ -51,22 +48,26 @@ CGPoint CGCenterOfRect(CGRect rect){
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self){
-        self.pagingEnabled = YES;
-        self.bounces = YES;
-        self.backgroundColor = [UIColor blackColor];
-        self.maximumZoomScale = 4.0;
-        self.delegate = self;
-        self.pageIndex = 0;
-        _pageCount = 0;
-        self.loadedPages = [NSMutableDictionary dictionary];
-        self.invisiblePages = [NSMutableDictionary dictionary];
-        self.pageFrames = [NSMutableDictionary dictionary];
-        UITapGestureRecognizer* doubleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)] autorelease];
-        doubleTap.numberOfTapsRequired = 2;
-        [self addGestureRecognizer:doubleTap];
+        [self createViews];
     }
     
     return self;
+}
+
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    [self createViews];
+}
+
+-(void)createViews{
+    self.pagingEnabled = YES;
+    self.bounces = YES;
+    self.backgroundColor = [UIColor blackColor];
+    self.delegate = self;
+    self.pageIndex = 0;
+    _pageCount = 0;
+    self.loadedPages = [NSMutableDictionary dictionary];
+    self.pageFrames = [NSMutableDictionary dictionary];
 }
 
 -(void)layoutSubviews{
@@ -77,7 +78,6 @@ CGPoint CGCenterOfRect(CGRect rect){
     [[self.loadedPages allValues] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self.loadedPages removeAllObjects];    
     [self.pageFrames removeAllObjects];
-    [self removeInvisiblePageFaraway];
     _pageCount = [self.datasource numberOfPagesInScrollView:self];
     [self createContents];
     [self setNeedsLayout];
@@ -122,11 +122,6 @@ CGPoint CGCenterOfRect(CGRect rect){
     [self addSubview:page];
 }
 
--(void)removeInvisiblePageFaraway{
-    [[self.invisiblePages allValues] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self.invisiblePages removeAllObjects];
-}
-
 -(void)scrollToPageAtIndex:(NSInteger)index animated:(BOOL)animated{
     if (index < 0){
         index = 0;
@@ -140,7 +135,7 @@ CGPoint CGCenterOfRect(CGRect rect){
     [self loadPageAtIndex:index+1];
     [self setContentOffset:[self pageOffsetAtIndex:index] animated:animated];
     self.pageIndex = index;
-    [self.imageScrollDelegate scrollView:self didScrollToPageAtIndex:index];
+    [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];
 }
 
 -(CGPoint)pageOffsetAtIndex:(NSInteger)index{
@@ -148,16 +143,6 @@ CGPoint CGCenterOfRect(CGRect rect){
     CGRect frame = [[self.pageFrames objectForKey:pageKey] CGRectValue];
     CGPoint offset = CGPointMake(frame.origin.x, frame.origin.y+(frame.size.height-self.frame.size.height)/2);
     return offset;
-}
-
--(id)dequeueReusableContentView{
-    id view = nil;
-    id key = [[self.invisiblePages allKeys] lastObject];
-    if (key != nil){
-        view = [[[self.invisiblePages objectForKey:key] retain] autorelease];
-        [self.invisiblePages removeObjectForKey:key];
-    }
-    return view;
 }
 
 -(NSInteger)indexForOffset:(CGPoint)offset{
@@ -171,36 +156,64 @@ CGPoint CGCenterOfRect(CGRect rect){
 #pragma mark - scroll view delegate
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     //load more 
-    [self.imageScrollDelegate scrollViewWillBeginDragging:self];
-    NSInteger index = [self indexForOffset:self.contentOffset];
+    [self.scrollDelegate scrollViewWillBeginDragging:self];
+    NSInteger index = [self currentIndex];
     [self loadPageAtIndex:index];
     [self loadPageAtIndex:index-1];
+    [self loadPageAtIndex:index-2];
     [self loadPageAtIndex:index+1];
+    [self loadPageAtIndex:index+2];
+    [self clearInvisiblePages];
 }
 
 //- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 ////    NSInteger index = [self indexForOffset:self.contentOffset];
 ////    self.pageIndex = index;
-////    [self.imageScrollDelegate scrollView:self didScrollToPageAtIndex:index];
+////    [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];
 //}
 
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-    NSInteger index = [self indexForOffset:self.contentOffset];
+    NSInteger index = [self currentIndex];
     self.pageIndex = index;
-    [self.imageScrollDelegate scrollView:self didScrollToPageAtIndex:index];    
+    [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];  
+    [self loadPageAtIndex:index-1];
+    [self loadPageAtIndex:index-2];
+    [self loadPageAtIndex:index+1];
+    [self loadPageAtIndex:index+2];
+    [self clearInvisiblePages];
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    NSInteger index = [self indexForOffset:self.contentOffset];
+    NSInteger index = [self currentIndex];
     self.pageIndex = index;
-    [self.imageScrollDelegate scrollView:self didScrollToPageAtIndex:index];  
+    [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];  
+    [self loadPageAtIndex:index-1];
+    [self loadPageAtIndex:index-2];
+    [self loadPageAtIndex:index+1];
+    [self loadPageAtIndex:index+2];
+    [self clearInvisiblePages];
 }
 
-#pragma mark - gesture recognizer action
--(void)doubleTapAction:(UITapGestureRecognizer*)gesture{
-    UIView* page = [self currentPage];
-    if([page respondsToSelector:@selector(doubleTapAction:)]){
-        [page performSelector:@selector(doubleTapAction:) withObject:gesture];
+-(void)clearInvisiblePages{
+    NSInteger index = [self currentIndex];
+    for (NSNumber* key in [self.loadedPages allKeys]){
+        if ([key intValue]>index + 2 || [key intValue] < index - 2){
+            [self removePageWithIndex:[key intValue]];
+        }
+    }
+}
+
+-(NSInteger)currentIndex{
+    return [self indexForOffset:self.contentOffset];
+}
+
+-(void)removePageWithIndex:(NSInteger)index{
+    NSNumber* key = [NSNumber numberWithInt:index];
+    UIView* page = [self.loadedPages objectForKey:key];
+    [page removeFromSuperview];
+    [self.loadedPages removeObjectForKey:key];
+    if ([self.scrollDelegate respondsToSelector:@selector(scrollViewDidRemovePageAtIndex:)]){
+        [self.scrollDelegate scrollViewDidRemovePageAtIndex:index];
     }
 }
 
