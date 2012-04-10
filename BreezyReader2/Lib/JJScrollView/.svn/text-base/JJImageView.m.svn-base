@@ -1,0 +1,72 @@
+//
+//  JJImageView.m
+//  MeetingPlatform
+//
+//  Created by  on 12-3-1.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import "JJImageView.h"
+#import "JJThumbnailCache.h"
+#import "ASIHTTPRequest.h"
+
+@interface JJImageView ()
+
+@property (nonatomic, retain) ASIHTTPRequest* requset;
+
+@end
+
+@implementation JJImageView
+
+@synthesize defaultImage = _defaultImage;
+@synthesize imageURL = _imageURL;
+@synthesize requset = _requset;
+
+@synthesize delegate = _delegate;
+
+-(void)dealloc{
+    [self.requset clearDelegatesAndCancel];
+    self.defaultImage = nil;
+    self.imageURL = nil;
+    self.requset = nil;
+    self.delegate = nil;
+    [super dealloc];
+}
+
+-(void)setImageURL:(NSString *)imageURL{
+    if (_imageURL != imageURL){
+        [_imageURL release];
+        _imageURL = [imageURL copy];
+        [self setImage:self.defaultImage];
+        if (_imageURL.length > 0){
+            NSURL* url = [NSURL URLWithString:self.imageURL];
+            UIImage* image = [JJThumbnailCache thumbnailForURL:url andSize:self.bounds.size];
+            if (image != nil){
+                [self performSelectorOnMainThread:@selector(setImage:) withObject:image waitUntilDone:NO];
+                return;
+            }
+            [self.requset clearDelegatesAndCancel];
+            ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:self.imageURL]];
+            request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
+            request.cacheStoragePolicy = ASICachePermanentlyCacheStoragePolicy;
+            request.delegate = self;
+            [request setStartedBlock:^{
+                [self performSelectorOnMainThread:@selector(setImage:) withObject:self.defaultImage waitUntilDone:YES];
+                self.requset = request;
+            }];
+            [request setCompletionBlock:^{
+                UIImage* image = [UIImage imageWithData:request.responseData];
+                [self performSelectorOnMainThread:@selector(setImage:) withObject:image waitUntilDone:YES];
+                [JJThumbnailCache storeThumbnail:image forURL:url size:self.bounds.size];
+                [self.delegate imageViewDidFinishLoad:self];
+            }];
+            [request startAsynchronous];
+        }
+    }
+}
+
+-(void)stopLoading{
+    [self.requset clearDelegatesAndCancel];
+}
+
+@end

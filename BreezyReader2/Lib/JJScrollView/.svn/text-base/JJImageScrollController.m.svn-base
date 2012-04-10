@@ -1,0 +1,282 @@
+//
+//  JJImageScrollController.m
+//  MeetingPlatform
+//
+//  Created by  on 12-3-1.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import "JJImageScrollController.h"
+
+@interface JJImageScrollController (){
+    BOOL _outletHidden;
+}
+
+@property (nonatomic, retain) UIToolbar* bottomToolbar;
+@property (nonatomic, retain) NSTimer* timer;
+
+@property (nonatomic, retain) UIBarButtonItem* previousButton;
+@property (nonatomic, retain) UIBarButtonItem* nextButton;
+
+-(void)hideAllOutlets;
+-(void)showAllOutlets;
+
+-(void)startTimer;
+-(void)stopTimer;
+
+-(void)updateButtonStatus;
+-(void)updateTitle;
+-(void)updateCaption;
+-(void)updateUI;
+
+@end
+
+@implementation JJImageScrollController
+
+static CGFloat kCaptionLabelHeight = 40.0f;
+static CGFloat kToolbarHeight = 44.0f;
+
+@synthesize scrollView = _scrollView;
+@synthesize captionLabel = _captionLabel;
+@synthesize bottomToolbar = _bottomToolbar;
+@synthesize timer = _timer;
+@synthesize previousButton = _previousButton, nextButton = _nextButton;
+
+-(void)dealloc{
+    self.scrollView = nil;
+    self.captionLabel = nil;
+    self.bottomToolbar = nil;
+    self.previousButton = nil;
+    self.nextButton = nil;
+    [self stopTimer];
+    [super dealloc];
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+        self.wantsFullScreenLayout = YES;
+    }
+    return self;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+#pragma mark - View lifecycle
+
+
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
+- (void)loadView
+{
+    //create scroll view, caption view
+    self.view = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+    self.scrollView = [[[JJImageScrollView alloc] initWithFrame:self.view.bounds] autorelease];
+    
+    self.captionLabel = [[[JJLabel alloc] initWithFrame:CGRectZero] autorelease];
+    self.captionLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    self.captionLabel.font = [UIFont boldSystemFontOfSize:15];
+    self.captionLabel.textColor = [UIColor whiteColor];
+    self.captionLabel.textAlignment = UITextAlignmentCenter;
+    self.captionLabel.numberOfLines = 0;
+    [self.captionLabel setContentEdgeInsets:UIEdgeInsetsMake(0, 7, 0, 7)];
+    CGRect frame = self.navigationController.navigationBar.frame;
+    frame.origin.y = self.view.bounds.size.height - kToolbarHeight - kCaptionLabelHeight;
+    frame.size.height = kCaptionLabelHeight;
+    [self.captionLabel setFrame:frame];
+    
+    self.previousButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"previousIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(previousAction:)] autorelease];
+    
+    self.nextButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nextIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(nextAction:)] autorelease];
+    UIBarButtonItem* space = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL] autorelease];
+    NSArray* items = [NSArray arrayWithObjects:space, self.previousButton, space, self.nextButton, space, nil];
+    self.toolbarItems = items;
+    self.navigationController.toolbar.barStyle = UIBarStyleBlackTranslucent;
+    [self.view addSubview:self.scrollView];
+    [self.view addSubview:self.captionLabel];
+    self.scrollView.imageScrollDelegate = self;
+    
+    UITapGestureRecognizer* singleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)] autorelease];
+    singleTap.numberOfTapsRequired = 1;
+    singleTap.numberOfTouchesRequired = 1;
+    for (UIGestureRecognizer* gesture in self.scrollView.gestureRecognizers){
+        if ([gesture isKindOfClass:[UITapGestureRecognizer class]] && 
+            ((UITapGestureRecognizer*)gesture).numberOfTapsRequired == 2){
+            [singleTap requireGestureRecognizerToFail:gesture];
+        }
+    }
+    [self.scrollView addGestureRecognizer:singleTap];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    
+}
+
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    self.scrollView = nil;
+    self.captionLabel = nil;
+    self.previousButton = nil;
+    self.nextButton = nil;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self startTimer];
+    [self.navigationController setToolbarHidden:NO animated:animated];
+    [self updateUI];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self stopTimer];
+    [self showAllOutlets];
+    [self.navigationController setToolbarHidden:YES animated:animated];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - tool bar action
+-(void)previousAction:(id)sender{
+    [self startTimer];
+    NSInteger index = self.scrollView.pageIndex;
+    [self.scrollView scrollToPageAtIndex:index-1 animated:YES];
+}
+
+-(void)nextAction:(id)sender{
+    [self startTimer];
+    NSInteger index = self.scrollView.pageIndex;
+    [self.scrollView scrollToPageAtIndex:index+1 animated:YES];
+}
+
+#pragma mark - update UI
+-(void)updateButtonStatus{
+    NSInteger index = self.scrollView.pageIndex;
+    if (index <= 0){
+        self.previousButton.enabled = NO;
+    }else{
+        self.previousButton.enabled = YES;
+    }
+    
+    if (index >= [self.scrollView.datasource numberOfPagesInScrollView:self.scrollView] -1){
+        self.nextButton.enabled = NO;
+    }else{
+        self.nextButton.enabled = YES;
+    }
+}
+
+-(void)updateTitle{
+    NSInteger index = self.scrollView.pageIndex;
+    NSInteger total = [self.scrollView.datasource numberOfPagesInScrollView:self.scrollView];
+    self.title = [NSString stringWithFormat:@"%d/%d", index+1, total];
+}
+
+-(void)updateCaption{
+    id obj = [self.scrollView.datasource objectAtIndex:self.scrollView.pageIndex];
+    NSString* text = [obj description];
+    self.captionLabel.text = text;
+    if (text.length>0){
+        CGSize contentSize = [self.captionLabel contentSize];
+        CGSize stringSize = [text sizeWithFont:self.captionLabel.font];
+        NSInteger extralLines = stringSize.width/contentSize.width;
+        
+        CGRect frame = self.captionLabel.frame;
+        frame.size.height = kCaptionLabelHeight + extralLines*stringSize.height;
+        frame.origin.y = self.view.bounds.size.height - frame.size.height - kToolbarHeight;
+
+        [self.captionLabel setFrame:frame];
+        [UIView animateWithDuration:0.2 animations:^{
+            self.captionLabel.alpha = 1;
+        }];
+    }else{
+        [UIView animateWithDuration:0.2 animations:^{
+            self.captionLabel.alpha = 0;
+        }];
+    }
+}
+
+-(void)updateUI{
+    [self updateButtonStatus];
+    [self updateTitle];
+    [self updateCaption];
+}
+
+#pragma mark - image scroll view delegate method
+-(void)scrollView:(JJImageScrollView *)scrollView didScrollToPageAtIndex:(NSInteger)index{
+    [self updateUI];
+}
+
+-(void)scrollViewWillBeginDragging:(JJImageScrollView *)scrollView{
+    [self hideAllOutlets];
+}
+
+#pragma mark - hide/show all outlets
+-(void)hideAllOutlets{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+        if (_outletHidden == NO){
+            self.navigationController.toolbar.alpha = 0;
+            self.navigationController.navigationBar.alpha = 0;
+            self.captionLabel.alpha = 0;
+        }
+    }];
+    _outletHidden = YES;
+}
+
+-(void)showAllOutlets{
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+        if (_outletHidden == YES){
+            self.navigationController.toolbar.alpha = 1;
+            self.navigationController.navigationBar.alpha = 1;
+            self.captionLabel.alpha = 1;
+        }
+    }];
+    
+    _outletHidden = NO;
+}
+
+#pragma mark - actions
+-(void)singleTapAction:(UITapGestureRecognizer*)gesture{
+    if (_outletHidden == YES){
+        [self showAllOutlets];
+    }else{
+        [self hideAllOutlets];
+    }
+    [self startTimer];
+}
+
+#pragma mark - timer
+-(void)startTimer{
+    [self stopTimer];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(timerAction) userInfo:nil repeats:NO];
+}
+
+-(void)stopTimer{
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+-(void)timerAction{
+    [self hideAllOutlets];
+}
+@end

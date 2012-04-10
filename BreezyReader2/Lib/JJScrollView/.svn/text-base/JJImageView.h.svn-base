@@ -1,0 +1,29 @@
+//
+//  JJImageView.h
+//  MeetingPlatform
+//
+//  Created by  on 12-3-1.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "ASIHTTPRequest.h"
+
+@class JJImageView;
+
+@protocol JJImageViewDelegate <NSObject>
+
+-(void)imageViewDidFinishLoad:(JJImageView*)imageView;
+
+@end
+
+@interface JJImageView : UIImageView<ASIHTTPRequestDelegate>
+
+@property (nonatomic, retain) UIImage* defaultImage;
+@property (nonatomic, copy) NSString* imageURL;
+
+@property (nonatomic, assign) id<JJImageViewDelegate> delegate;
+
+-(void)stopLoading;
+
+@end

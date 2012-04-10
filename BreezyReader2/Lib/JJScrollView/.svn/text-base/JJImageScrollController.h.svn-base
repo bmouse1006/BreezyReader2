@@ -1,0 +1,18 @@
+//
+//  JJImageScrollController.h
+//  MeetingPlatform
+//
+//  Created by  on 12-3-1.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "JJImageScrollView.h"
+#import "JJLabel.h"
+
+@interface JJImageScrollController : UIViewController<JJImageScrollViewDelegate>
+
+@property (nonatomic, retain) JJImageScrollView* scrollView; 
+@property (nonatomic, retain) JJLabel* captionLabel;
+
+@end
