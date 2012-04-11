@@ -81,7 +81,7 @@ static double kTransitionAnimationDuration = 0.2f;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation != UIInterfaceOrientationPortrait);
 }
 
 -(void)zoomOutViewController:(UIViewController*)controller fromRect:(CGRect)rect{
