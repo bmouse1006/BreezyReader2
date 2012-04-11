@@ -158,10 +158,8 @@ static CGFloat refreshDistance = 60.0f;
     if (adView){
         CGRect frame = adView.frame;
         frame.origin.x = 0;
-        frame.origin.y = self.view.bounds.size.height;
+        frame.origin.y = self.view.bounds.size.height-self.bottomToolBar.frame.size.height-frame.size.height;
         adView.frame = frame;
-        adView.hidden = YES;
-        adView.delegate = self;
         [adView loadAd];
         [self.view addSubview:adView];
         [self.view bringSubviewToFront:self.bottomToolBar];
@@ -424,22 +422,22 @@ static CGFloat refreshDistance = 60.0f;
     [self.clients removeObject:client];    
 }
 
-#pragma mark - ad view delegate
--(void)adViewDidLoadAd:(GHAdView *)view{
-    view.hidden = NO;
-    CGRect frame = view.frame;
-    frame.origin.y = self.view.bounds.size.height - self.bottomToolBar.bounds.size.height - frame.size.height;
-    [UIView animateWithDuration:0.2 animations:^{
-        view.frame = frame; 
-    }];
-}
-
--(void)adViewDidFailToLoadAd:(GHAdView *)view{
-    DebugLog(@"ad load failed");
-}
-
--(UIViewController*)viewControllerForPresentingModalView{
-    return self;
-}
+//#pragma mark - ad view delegate
+//-(void)adViewDidLoadAd:(GHAdView *)view{
+//    view.hidden = NO;
+//    CGRect frame = view.frame;
+//    frame.origin.y = self.view.bounds.size.height - self.bottomToolBar.bounds.size.height - frame.size.height;
+//    [UIView animateWithDuration:0.2 animations:^{
+//        view.frame = frame; 
+//    }];
+//}
+//
+//-(void)adViewDidFailToLoadAd:(GHAdView *)view{
+//    DebugLog(@"ad load failed");
+//}
+//
+//-(UIViewController*)viewControllerForPresentingModalView{
+//    return self;
+//}
 
 @end

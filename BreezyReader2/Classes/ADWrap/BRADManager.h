@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "GHAdViewDelegate.h"
+#import "GHAdView.h"
 
 #define NOTIFICATION_ADLOADED @"NOTIFICATION_ADLOADED"
 

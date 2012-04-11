@@ -10,6 +10,7 @@
 #import "BRArticleDetailViewController.h"
 #import "UIViewController+BRAddtion.h"
 #import "GoogleReaderClient.h"
+#import "BRADManager.h"
 
 @interface BRArticleScrollViewController ()
 
@@ -55,6 +56,17 @@
     self.scrollView.scrollDelegate = self;
     self.scrollView.pageIndex = self.index;
     [self.scrollView reloadData];
+    
+    GHAdView* adView = [[BRADManager sharedManager] adView];
+    if (adView){
+        CGRect frame = adView.frame;
+        frame.origin.x = 0;
+        frame.origin.y = self.view.bounds.size.height-self.bottomToolBar.frame.size.height-frame.size.height;
+        adView.frame = frame;
+        [adView loadAd];
+        [self.view addSubview:adView];
+        [self.view bringSubviewToFront:self.bottomToolBar];
+    }
 }
 
 - (void)viewDidUnload

@@ -12,15 +12,9 @@
 
 @interface BRADManager ()
 
-@property (nonatomic, retain) NSMutableSet* adSet;
-@property (nonatomic, retain) NSMutableSet* loadedADSet;
-
 @end
 
 @implementation BRADManager
-
-@synthesize adSet = _adSet;
-@synthesize loadedADSet = _loadedADSet;
 
 static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
 
@@ -40,29 +34,13 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
 -(id)init{
     self = [super init];
     if (self){
-        self.adSet = [NSMutableSet set];
-        self.loadedADSet = [NSMutableSet set];
     }
     
     return self;
 }
 
 -(void)dealloc{
-    self.adSet = nil;
-    self.loadedADSet = nil;
     [super dealloc];
-}
-
--(void)loadAD{
-    //add a switch here to prevent loading ad
-    if ([UserPreferenceDefine shouldLoadAD] == NO){
-        return;
-    }
-    
-    GHAdView* adView = [[GHAdView alloc] initWithAdUnitId:GHUNITID size:CGSizeMake(320, 50)];
-    adView.delegate = self;
-    [self.adSet addObject:adView];
-    [adView loadAd];
 }
 
 -(GHAdView*)adView{
@@ -71,7 +49,8 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
     }
     
     GHAdView* adView = [[[GHAdView alloc] initWithAdUnitId:GHUNITID size:CGSizeMake(320, 50)] autorelease];
-//    adView.delegate = self;
+    adView.delegate = self;
+    adView.hidden = YES;
     return adView;
 }
 
@@ -81,17 +60,11 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
 
 -(void)adViewDidLoadAd:(GHAdView *)view{
     NSLog(@"ad is loaded");
-    [self.loadedADSet addObject:view];
-    [self.adSet removeObject:view];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADLOADED object:nil];
+    view.hidden = NO;
 }
 
 -(void)adViewDidFailToLoadAd:(GHAdView *)view{
     NSLog(@"ad is loaded failure");
-}
-
--(UIView*)loadedAD{
-    return [self.loadedADSet anyObject];
 }
 
 

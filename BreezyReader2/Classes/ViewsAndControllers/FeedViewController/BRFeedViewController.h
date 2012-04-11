@@ -18,7 +18,7 @@
 #import "BRBottomToolBar.h"
 #import "BRADManager.h"
 
-@interface BRFeedViewController : BRBaseController <UITableViewDelegate, BRBaseDataSourceDelegate, GHAdViewDelegate>
+@interface BRFeedViewController : BRBaseController <UITableViewDelegate, BRBaseDataSourceDelegate>
 
 @property (nonatomic, retain) IBOutlet UITableView* tableView;
 @property (nonatomic, retain) IBOutlet BRFeedDragDownController* dragController;

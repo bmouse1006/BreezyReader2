@@ -135,12 +135,12 @@
 
 #pragma mark - appearence setup
 -(void)setupGlobalAppearence{
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:[NSValue valueWithUIOffset:UIOffsetMake(0, 0)] forKey:UITextAttributeTextShadowOffset]];
-    
-    [[UIToolbar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    
-    [[UISearchBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"]];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"] forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:[NSValue valueWithUIOffset:UIOffsetMake(0, 0)] forKey:UITextAttributeTextShadowOffset]];
+//    
+//    [[UIToolbar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+//    
+//    [[UISearchBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"]];
 }
 
 @end
