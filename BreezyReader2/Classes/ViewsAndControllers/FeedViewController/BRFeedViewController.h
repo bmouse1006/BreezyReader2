@@ -16,8 +16,9 @@
 #import "JJImageView.h"
 #import "JJLabel.h"
 #import "BRBottomToolBar.h"
+#import "BRADManager.h"
 
-@interface BRFeedViewController : BRBaseController <UITableViewDelegate, BRBaseDataSourceDelegate>
+@interface BRFeedViewController : BRBaseController <UITableViewDelegate, BRBaseDataSourceDelegate, GHAdViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UITableView* tableView;
 @property (nonatomic, retain) IBOutlet BRFeedDragDownController* dragController;

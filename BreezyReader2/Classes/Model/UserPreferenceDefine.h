@@ -29,6 +29,8 @@
 
 +(BOOL)shouldTapToFullscreen;
 
++(BOOL)shouldLoadAD;
+
 +(BOOL)markDownloadedItemsAsRead;
 
 +(NSUInteger)maxDownloadConcurrency;

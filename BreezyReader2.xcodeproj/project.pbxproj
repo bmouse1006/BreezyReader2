@@ -237,6 +237,7 @@
 		22A586B6152EF76800B38154 /* safari@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22A586B2152EF76800B38154 /* safari@2x.png */; };
 		22B24792152E6FF2009DC4F1 /* BRSubFavoritePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B24790152E6FF2009DC4F1 /* BRSubFavoritePageController.m */; };
 		22B2479D152F253B009DC4F1 /* BRBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2479C152F253A009DC4F1 /* BRBottomToolBar.m */; };
+		22B5056815357C4C00D77B5F /* BRADManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B5056715357C4C00D77B5F /* BRADManager.m */; };
 		22CC17A914D974E400272147 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CC17A814D974E400272147 /* QuartzCore.framework */; };
 		22D56B29152767E80098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
 		22D56B2B152768DA0098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
@@ -665,6 +666,8 @@
 		22B24790152E6FF2009DC4F1 /* BRSubFavoritePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSubFavoritePageController.m; sourceTree = "<group>"; };
 		22B2479B152F253A009DC4F1 /* BRBottomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBottomToolBar.h; sourceTree = "<group>"; };
 		22B2479C152F253A009DC4F1 /* BRBottomToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBottomToolBar.m; sourceTree = "<group>"; };
+		22B5056615357C4C00D77B5F /* BRADManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRADManager.h; sourceTree = "<group>"; };
+		22B5056715357C4C00D77B5F /* BRADManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRADManager.m; sourceTree = "<group>"; };
 		22CC17A814D974E400272147 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		22D56B27152767E80098A85F /* NSString+Addtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addtion.h"; sourceTree = "<group>"; };
 		22D56B28152767E80098A85F /* NSString+Addtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addtion.m"; sourceTree = "<group>"; };
@@ -878,6 +881,7 @@
 		229B2B9A15273CAE00700504 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				22B5056415357C2D00D77B5F /* ADWrap */,
 				229B2B9B15273CAE00700504 /* Additions */,
 				229B2BA815273CAE00700504 /* AlertHandler */,
 				229B2BAB15273CAE00700504 /* BaseView */,
@@ -1562,6 +1566,15 @@
 			path = MyFavoritePage;
 			sourceTree = "<group>";
 		};
+		22B5056415357C2D00D77B5F /* ADWrap */ = {
+			isa = PBXGroup;
+			children = (
+				22B5056615357C4C00D77B5F /* BRADManager.h */,
+				22B5056715357C4C00D77B5F /* BRADManager.m */,
+			);
+			path = ADWrap;
+			sourceTree = "<group>";
+		};
 		22F8667B14A216AA00D7B1CE = {
 			isa = PBXGroup;
 			children = (
@@ -1955,6 +1968,7 @@
 				2271F40915348A4000A50484 /* CJSONSerializer.m in Sources */,
 				2271F4221534FAC200A50484 /* GuoHeAdAdapter_Admob.m in Sources */,
 				2271F4271534FB3600A50484 /* GuoHeAdAdapter_iAd.m in Sources */,
+				22B5056815357C4C00D77B5F /* BRADManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

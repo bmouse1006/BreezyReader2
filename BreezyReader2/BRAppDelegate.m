@@ -17,22 +17,26 @@
 #import "BRErrorHandler.h"
 #import "ASIHTTPRequest.h"
 #import "ASIDownloadCache.h"
-
 #import "BRTopContainer.h"
+#import "BRADManager.h"
 
 @interface BRAppDelegate ()
 
 -(void)setupGlobalAppearence;
 
+@property (nonatomic, retain) NSMutableSet* adSet;
+
 @end
 
 @implementation BRAppDelegate
 
+@synthesize adSet = _adSet;
 @synthesize window = _window;
 
 - (void)dealloc
 {
     [_window release];
+    self.adSet = nil;
     [super dealloc];
 }
 

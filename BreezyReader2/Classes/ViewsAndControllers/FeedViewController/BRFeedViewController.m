@@ -12,6 +12,8 @@
 #import "BRViewControllerNotification.h"
 #import "GoogleReaderClient.h"
 #import "BRErrorHandler.h"
+#import "BRADManager.h"
+#import "GHAdView.h"
 
 #define kFeedTableRowHeight 97
 
@@ -80,12 +82,17 @@ static CGFloat refreshDistance = 60.0f;
     if (self) {
         // Custom initialization
         self.wantsFullScreenLayout = YES;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starArticle:) name:NOTIFICATION_STARITEM object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unstarArticle:) name:NOTIFICATION_UNSTARITEM object:nil];
         self.clients = [NSMutableSet set];
         self.itemIDs = [NSMutableDictionary dictionary];
+        [self registerNotifications];
     }
     return self;
+}
+
+-(void)registerNotifications{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starArticle:) name:NOTIFICATION_STARITEM object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unstarArticle:) name:NOTIFICATION_UNSTARITEM object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adLoaded:) name:NOTIFICATION_ADLOADED object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -146,7 +153,19 @@ static CGFloat refreshDistance = 60.0f;
     if ([self.dataSource isLoaded] == NO){
         [self.view addSubview:self.loadingView];
     }
-
+    
+    GHAdView* adView = [[BRADManager sharedManager] adView];
+    if (adView){
+        CGRect frame = adView.frame;
+        frame.origin.x = 0;
+        frame.origin.y = self.view.bounds.size.height;
+        adView.frame = frame;
+        adView.hidden = YES;
+        adView.delegate = self;
+        [adView loadAd];
+        [self.view addSubview:adView];
+        [self.view bringSubviewToFront:self.bottomToolBar];
+    }
 }
 
 - (void)viewDidUnload
@@ -403,6 +422,24 @@ static CGFloat refreshDistance = 60.0f;
     
     [self.itemIDs removeObjectForKey:key];
     [self.clients removeObject:client];    
+}
+
+#pragma mark - ad view delegate
+-(void)adViewDidLoadAd:(GHAdView *)view{
+    view.hidden = NO;
+    CGRect frame = view.frame;
+    frame.origin.y = self.view.bounds.size.height - self.bottomToolBar.bounds.size.height - frame.size.height;
+    [UIView animateWithDuration:0.2 animations:^{
+        view.frame = frame; 
+    }];
+}
+
+-(void)adViewDidFailToLoadAd:(GHAdView *)view{
+    DebugLog(@"ad load failed");
+}
+
+-(UIViewController*)viewControllerForPresentingModalView{
+    return self;
 }
 
 @end

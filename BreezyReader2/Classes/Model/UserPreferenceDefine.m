@@ -82,6 +82,10 @@ static NSDictionary* preferenceBundle = nil;
 	return [self boolValueForKey:key];
 }
 
++(BOOL)shouldLoadAD{
+    return YES;//for free version
+}
+
 +(BOOL)boolValueForKey:(NSString*)key{
 	NSNumber* value = (NSNumber*)[[NSUserDefaults standardUserDefaults] objectForKey:key];
 	if (!value){
