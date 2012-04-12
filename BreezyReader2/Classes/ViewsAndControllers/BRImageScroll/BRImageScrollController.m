@@ -43,8 +43,8 @@
     self.saveButton.layer.cornerRadius = 3;
     [self.view addSubview:self.saveButton];
     CGRect frame = self.saveButton.frame;
-    frame.origin.x = self.view.frame.size.width - frame.size.width - 30;
-    frame.origin.y = self.view.frame.size.height - frame.size.height - 30;
+    frame.origin.x = self.view.frame.size.width - frame.size.width - 20;
+    frame.origin.y = self.view.frame.size.height - frame.size.height - 25;
     self.saveButton.frame = frame;
     
     UITapGestureRecognizer* singleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)] autorelease];
