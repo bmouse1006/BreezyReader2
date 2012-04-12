@@ -16,7 +16,6 @@
 #import "JJImageView.h"
 #import "JJLabel.h"
 #import "BRBottomToolBar.h"
-#import "BRADManager.h"
 
 @interface BRFeedViewController : BRBaseController <UITableViewDelegate, BRBaseDataSourceDelegate>
 

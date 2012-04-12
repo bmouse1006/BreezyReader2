@@ -57,13 +57,12 @@
     self.scrollView.pageIndex = self.index;
     [self.scrollView reloadData];
     
-    GHAdView* adView = [[BRADManager sharedManager] adView];
+    UIView* adView = [[BRADManager sharedManager] adView];
     if (adView){
         CGRect frame = adView.frame;
         frame.origin.x = 0;
         frame.origin.y = self.view.bounds.size.height-self.bottomToolBar.frame.size.height-frame.size.height;
         adView.frame = frame;
-        [adView loadAd];
         [self.view addSubview:adView];
         [self.view bringSubviewToFront:self.bottomToolBar];
     }

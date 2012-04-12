@@ -29,8 +29,6 @@
 		222A92301535C1300000B7DD /* GuoHeAdAdapter_Domob.m in Sources */ = {isa = PBXBuildFile; fileRef = 222A922A1535C1300000B7DD /* GuoHeAdAdapter_Domob.m */; };
 		222A92311535C1300000B7DD /* DoMobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 222A922D1535C1300000B7DD /* DoMobViewController.m */; };
 		222A92321535C1310000B7DD /* libDomob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 222A922E1535C1300000B7DD /* libDomob.a */; };
-		222A92551535CFAF0000B7DD /* GuoHeAdAdapter_Baidu.m in Sources */ = {isa = PBXBuildFile; fileRef = 222A92351535CFAF0000B7DD /* GuoHeAdAdapter_Baidu.m */; };
-		222A92561535CFAF0000B7DD /* libBaiduMobAdSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 222A92391535CFAF0000B7DD /* libBaiduMobAdSdk.a */; };
 		22395ADF152EE1AD00428C56 /* top_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 22395ADD152EE1AD00428C56 /* top_shadow.png */; };
 		22395AE0152EE1AD00428C56 /* top_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22395ADE152EE1AD00428C56 /* top_shadow@2x.png */; };
 		22395AE3152EE23E00428C56 /* bottom_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 22395AE1152EE23E00428C56 /* bottom_shadow.png */; };
@@ -68,6 +66,9 @@
 		2271F4221534FAC200A50484 /* GuoHeAdAdapter_Admob.m in Sources */ = {isa = PBXBuildFile; fileRef = 2271F4201534FAC200A50484 /* GuoHeAdAdapter_Admob.m */; };
 		2271F4231534FAC200A50484 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2271F4211534FAC200A50484 /* libGoogleAdMobAds.a */; };
 		2271F4271534FB3600A50484 /* GuoHeAdAdapter_iAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 2271F4261534FB3600A50484 /* GuoHeAdAdapter_iAd.m */; };
+		227E472F153652200057B706 /* GuoHeAdAdapter_Millennial.m in Sources */ = {isa = PBXBuildFile; fileRef = 227E4711153652200057B706 /* GuoHeAdAdapter_Millennial.m */; };
+		227E473C153652200057B706 /* libMMSDK_4.5.3_withoutJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 227E472D153652200057B706 /* libMMSDK_4.5.3_withoutJSON.a */; };
+		227E473E153652700057B706 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227E473D153652700057B706 /* AVFoundation.framework */; };
 		22994A15152DC90D00EE50C5 /* BRReadingStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */; };
 		229B2D0915273CAE00700504 /* BRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9615273CAE00700504 /* BRAppDelegate.m */; };
 		229B2D0B15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */; };
@@ -301,11 +302,6 @@
 		222A922C1535C1300000B7DD /* DoMobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoMobViewController.h; sourceTree = "<group>"; };
 		222A922D1535C1300000B7DD /* DoMobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoMobViewController.m; sourceTree = "<group>"; };
 		222A922E1535C1300000B7DD /* libDomob.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libDomob.a; sourceTree = "<group>"; };
-		222A92341535CFAF0000B7DD /* GuoHeAdAdapter_Baidu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuoHeAdAdapter_Baidu.h; sourceTree = "<group>"; };
-		222A92351535CFAF0000B7DD /* GuoHeAdAdapter_Baidu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuoHeAdAdapter_Baidu.m; sourceTree = "<group>"; };
-		222A92371535CFAF0000B7DD /* BaiduMobAdDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduMobAdDelegateProtocol.h; sourceTree = "<group>"; };
-		222A92381535CFAF0000B7DD /* BaiduMobAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduMobAdView.h; sourceTree = "<group>"; };
-		222A92391535CFAF0000B7DD /* libBaiduMobAdSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduMobAdSdk.a; sourceTree = "<group>"; };
 		22395ADD152EE1AD00428C56 /* top_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_shadow.png; sourceTree = "<group>"; };
 		22395ADE152EE1AD00428C56 /* top_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top_shadow@2x.png"; sourceTree = "<group>"; };
 		22395AE1152EE23E00428C56 /* bottom_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_shadow.png; sourceTree = "<group>"; };
@@ -366,6 +362,11 @@
 		2271F4211534FAC200A50484 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		2271F4251534FB3600A50484 /* GuoHeAdAdapter_iAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuoHeAdAdapter_iAd.h; sourceTree = "<group>"; };
 		2271F4261534FB3600A50484 /* GuoHeAdAdapter_iAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuoHeAdAdapter_iAd.m; sourceTree = "<group>"; };
+		227E4710153652200057B706 /* GuoHeAdAdapter_Millennial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuoHeAdAdapter_Millennial.h; sourceTree = "<group>"; };
+		227E4711153652200057B706 /* GuoHeAdAdapter_Millennial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuoHeAdAdapter_Millennial.m; sourceTree = "<group>"; };
+		227E472D153652200057B706 /* libMMSDK_4.5.3_withoutJSON.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_4.5.3_withoutJSON.a; sourceTree = "<group>"; };
+		227E472E153652200057B706 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
+		227E473D153652700057B706 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		22994A13152DC90D00EE50C5 /* BRReadingStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRReadingStatistics.h; sourceTree = "<group>"; };
 		22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRReadingStatistics.m; sourceTree = "<group>"; };
 		229B2B9615273CAE00700504 /* BRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAppDelegate.m; sourceTree = "<group>"; };
@@ -722,6 +723,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				227E473E153652700057B706 /* AVFoundation.framework in Frameworks */,
 				222A92191535B9AD0000B7DD /* libsqlite3.0.dylib in Frameworks */,
 				222A92171535B99A0000B7DD /* MapKit.framework in Frameworks */,
 				222A92151535B98B0000B7DD /* ImageIO.framework in Frameworks */,
@@ -751,7 +753,7 @@
 				222A92131535B6FD0000B7DD /* MobWin.a in Frameworks */,
 				222A92231535BB650000B7DD /* libYouMi.a in Frameworks */,
 				222A92321535C1310000B7DD /* libDomob.a in Frameworks */,
-				222A92561535CFAF0000B7DD /* libBaiduMobAdSdk.a in Frameworks */,
+				227E473C153652200057B706 /* libMMSDK_4.5.3_withoutJSON.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,31 +839,11 @@
 			path = IBSupport;
 			sourceTree = "<group>";
 		};
-		222A92331535CFAF0000B7DD /* Baidu */ = {
-			isa = PBXGroup;
-			children = (
-				222A92341535CFAF0000B7DD /* GuoHeAdAdapter_Baidu.h */,
-				222A92351535CFAF0000B7DD /* GuoHeAdAdapter_Baidu.m */,
-				222A92361535CFAF0000B7DD /* Release-iphoneos */,
-			);
-			path = Baidu;
-			sourceTree = "<group>";
-		};
-		222A92361535CFAF0000B7DD /* Release-iphoneos */ = {
-			isa = PBXGroup;
-			children = (
-				222A92371535CFAF0000B7DD /* BaiduMobAdDelegateProtocol.h */,
-				222A92381535CFAF0000B7DD /* BaiduMobAdView.h */,
-				222A92391535CFAF0000B7DD /* libBaiduMobAdSdk.a */,
-			);
-			path = "Release-iphoneos";
-			sourceTree = "<group>";
-		};
 		222A92621535CFB30000B7DD /* ADSupport */ = {
 			isa = PBXGroup;
 			children = (
+				227E470F153652200057B706 /* Millennial */,
 				2271F4181534FAC100A50484 /* Admob */,
-				222A92331535CFAF0000B7DD /* Baidu */,
 				222A92241535C1300000B7DD /* Domob */,
 				2271F3D015348A4000A50484 /* GuoHeSDK */,
 				2271F4241534FB3500A50484 /* iAd */,
@@ -975,6 +957,17 @@
 				2271F4261534FB3600A50484 /* GuoHeAdAdapter_iAd.m */,
 			);
 			path = iAd;
+			sourceTree = "<group>";
+		};
+		227E470F153652200057B706 /* Millennial */ = {
+			isa = PBXGroup;
+			children = (
+				227E4710153652200057B706 /* GuoHeAdAdapter_Millennial.h */,
+				227E4711153652200057B706 /* GuoHeAdAdapter_Millennial.m */,
+				227E472D153652200057B706 /* libMMSDK_4.5.3_withoutJSON.a */,
+				227E472E153652200057B706 /* MMAdView.h */,
+			);
+			path = Millennial;
 			sourceTree = "<group>";
 		};
 		22994A11152DC8BB00EE50C5 /* FeedReadingStatistics */ = {
@@ -1721,6 +1714,7 @@
 		22F8668914A216AA00D7B1CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				227E473D153652700057B706 /* AVFoundation.framework */,
 				2271F40C1534F8C800A50484 /* AudioToolbox.framework */,
 				22608C3114F0C93100732D2B /* CFNetwork.framework */,
 				22E9FE1214A21B6F004D7A55 /* CoreData.framework */,
@@ -2080,7 +2074,7 @@
 				222A92221535BB650000B7DD /* GuoHeAdAdapter_Youmi.m in Sources */,
 				222A92301535C1300000B7DD /* GuoHeAdAdapter_Domob.m in Sources */,
 				222A92311535C1300000B7DD /* DoMobViewController.m in Sources */,
-				222A92551535CFAF0000B7DD /* GuoHeAdAdapter_Baidu.m in Sources */,
+				227E472F153652200057B706 /* GuoHeAdAdapter_Millennial.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2214,6 +2208,7 @@
 					"\"$(SRCROOT)/BreezyReader2/Lib/Domob\"",
 					"\"$(SRCROOT)/BreezyReader2/Lib/Baidu/Release-iphoneos\"",
 					"\"$(SRCROOT)/BreezyReader2/Lib/Baidu/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/BreezyReader2/Lib/Millennial\"",
 				);
 				OTHER_LDFLAGS = (
 					"-licucore",
@@ -2246,6 +2241,7 @@
 					"\"$(SRCROOT)/BreezyReader2/Lib/Domob\"",
 					"\"$(SRCROOT)/BreezyReader2/Lib/Baidu/Release-iphoneos\"",
 					"\"$(SRCROOT)/BreezyReader2/Lib/Baidu/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/BreezyReader2/Lib/Millennial\"",
 				);
 				OTHER_LDFLAGS = (
 					"-licucore",

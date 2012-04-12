@@ -18,8 +18,6 @@
 
 static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
 
-//static NSString* GHUNITID = @"ee942c110277be254c5f15e73a61394b";
-
 +(id)sharedManager{
     static dispatch_once_t pred;
     __strong static BRADManager *obj = nil; 
@@ -51,6 +49,7 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
     GHAdView* adView = [[[GHAdView alloc] initWithAdUnitId:GHUNITID size:CGSizeMake(320, 50)] autorelease];
     adView.delegate = self;
     adView.hidden = YES;
+    [adView loadAd];
     return adView;
 }
 
