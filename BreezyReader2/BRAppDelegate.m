@@ -25,24 +25,27 @@
 -(void)setupGlobalAppearence;
 
 @property (nonatomic, retain) NSMutableSet* adSet;
+@property (nonatomic, retain) GoogleReaderClient* client;
 
 @end
 
 @implementation BRAppDelegate
 
 @synthesize adSet = _adSet;
+@synthesize client = _client;
 @synthesize window = _window;
 
 - (void)dealloc
 {
     [_window release];
     self.adSet = nil;
+    self.client = nil;
     [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    [[GRDataManager shared] readerDMSetup];
+    self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];
     //setup request cache
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
     [self registerNotifications];
@@ -101,8 +104,7 @@
      */
     [self.window makeKeyAndVisible];
     if ([[GoogleAuthManager shared] canAuthorize]){
-//        [[GoogleAuthManager shared] updateTokenAsync];
-        [GoogleReaderClient refreshToken];
+        [self.client refreshToken];
     }
     [GoogleReaderClient startTimerToRefreshToken];
 }

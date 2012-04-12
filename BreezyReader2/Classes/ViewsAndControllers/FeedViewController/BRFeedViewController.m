@@ -31,6 +31,8 @@
 @property (nonatomic, retain) NSMutableSet* clients;
 @property (nonatomic, retain) NSMutableDictionary* itemIDs;
 
+@property (nonatomic, retain) UIView* adView;
+
 -(void)startLoadingMore;
 -(void)startRefreshing;
 -(void)setupTableViewEdgeInsetByStatus;
@@ -50,6 +52,7 @@
 @synthesize loadingLabel = _loadingLabel;
 @synthesize client = _client;
 @synthesize clients = _clients, itemIDs = _itemIDs;
+@synthesize adView = _adView;
 
 static CGFloat insetsTop = 0.0f;
 static CGFloat insetsBottom = 0.0f;
@@ -72,6 +75,7 @@ static CGFloat refreshDistance = 60.0f;
     [[self.clients allObjects] makeObjectsPerformSelector:@selector(clearAndCancel)];
     self.clients = nil;
     self.itemIDs = nil;
+    self.adView = nil;
     [super dealloc];
 }
 
@@ -155,6 +159,7 @@ static CGFloat refreshDistance = 60.0f;
     
     UIView* adView = [[BRADManager sharedManager] adView];
     if (adView){
+        self.adView = adView;
         CGRect frame = adView.frame;
         frame.origin.x = 0;
         frame.origin.y = self.view.bounds.size.height-self.bottomToolBar.frame.size.height-frame.size.height;
@@ -174,6 +179,7 @@ static CGFloat refreshDistance = 60.0f;
     self.loadMoreController = nil;
     self.titleLabel = nil;
     self.bottomToolBar = nil;
+    self.adView = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -214,6 +220,12 @@ static CGFloat refreshDistance = 60.0f;
     [self.tableView reloadData];
     [[self.tableView visibleCells] makeObjectsPerformSelector:@selector(setNeedsLayout)];
     [self addHeaderAndFooterForTableView];
+    [self.adView performSelector:@selector(resumeAdRequest)];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.adView performSelector:@selector(stopAdRequest)];
 }
 
 -(void)addHeaderAndFooterForTableView{

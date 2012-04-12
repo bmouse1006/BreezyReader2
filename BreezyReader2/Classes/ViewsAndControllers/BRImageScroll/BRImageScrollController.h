@@ -8,7 +8,7 @@
 
 #import "JJImageScrollController.h"
 
-@interface BRImageScrollController : JJImageScrollController
+@interface BRImageScrollController : JJImageScrollController<UIGestureRecognizerDelegate>
 
 @property (nonatomic, retain) IBOutlet UIButton* saveButton;
 

@@ -52,7 +52,7 @@
     [UIView animateWithDuration:BASEVIEW_ANIMATION_DURATION animations:^{
         [self.contentView setFrame:frame];
     }];
-    [[NSRunLoop mainRunLoop] addTimer:[NSTimer timerWithTimeInterval:0.8f target:self selector:@selector(dismiss) userInfo:nil repeats:NO] forMode:NSDefaultRunLoopMode];
+    [[NSRunLoop mainRunLoop] addTimer:[NSTimer timerWithTimeInterval:2.0f target:self selector:@selector(dismiss) userInfo:nil repeats:NO] forMode:NSDefaultRunLoopMode];
 }
 
 -(void)dismiss{

@@ -13,6 +13,8 @@
     BOOL _outletHidden;
 }
 
+@property (nonatomic, retain) UITapGestureRecognizer* singleTap;
+
 @end
 
 @implementation JJImageScrollController
@@ -21,10 +23,12 @@
 @synthesize scrollView = _scrollView;
 @synthesize imageList = _imageList;
 @synthesize index = _index;
+@synthesize singleTap = _singleTap;
 
 -(void)dealloc{
     self.scrollView = nil;
     self.imageList = nil;
+    self.singleTap = nil;
     [super dealloc];
 }
 
@@ -60,6 +64,8 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.datasource = self;
     self.scrollView.scrollDelegate = self;
+    self.singleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singelTapAction:)] autorelease];
+    [self.scrollView addGestureRecognizer:self.singleTap];
     [self.view addSubview:self.scrollView];
     self.scrollView.pageIndex = self.index;
     [self.scrollView reloadData];    
@@ -89,6 +95,10 @@
     return imageView.loadedImage;
 }
 
+-(void)singleTagAction:(UITapGestureRecognizer*)singleTap{
+    
+}
+
 #pragma mark - image scroll view delegate method
 -(void)scrollView:(JJPageScrollView *)scrollView didScrollToPageAtIndex:(NSInteger)index{
 
@@ -105,6 +115,9 @@
 
 -(UIView*)scrollView:(JJPageScrollView*)scrollView pageAtIndex:(NSInteger)index{
     JJImageZoomView* imageView = [[JJImageZoomView alloc] initWithFrame:self.view.bounds];
+    for (UIGestureRecognizer* gesutre in imageView.gestureRecognizers){
+        [self.singleTap requireGestureRecognizerToFail:gesutre];
+    }
     [imageView setImageURL:[self.imageList objectAtIndex:index]];
     return [imageView autorelease];
 }

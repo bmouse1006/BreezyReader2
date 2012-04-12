@@ -60,13 +60,14 @@ static NSMutableDictionary* _itemPool = nil;
 
 #pragma mark - token
 
-+(void)refreshToken{
+-(void)refreshToken{
     NSString* urlString = [URI_PREFIX_API stringByAppendingString:API_TOKEN];
     urlString = [GOOGLE_SCHEME_SSL stringByAppendingString:urlString];
     
-    ASIHTTPRequest* request = [[ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlString]] autorelease];
-    [request setCompletionBlock:^{
-        NSString* tempToken = request.responseString;
+    [self.request clearDelegatesAndCancel];
+    self.request = [[ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlString]] autorelease];
+    [_request setCompletionBlock:^{
+        NSString* tempToken = _request.responseString;
         
         DebugLog(@"token is %@", tempToken);
         
@@ -76,11 +77,9 @@ static NSMutableDictionary* _itemPool = nil;
             _token = nil;
         }
     }];
-    [request setFailedBlock:^{
-        //handle error  
-    }];
-    [[GoogleAuthManager shared] authRequest:request completionBlock:^(NSError* error){
-        [request startAsynchronous];
+
+    [[GoogleAuthManager shared] authRequest:_request completionBlock:^(NSError* error){
+        [_request startAsynchronous];
     }];
 }
 

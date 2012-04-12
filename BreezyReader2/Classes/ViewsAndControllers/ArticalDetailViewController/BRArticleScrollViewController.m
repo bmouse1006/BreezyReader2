@@ -17,6 +17,8 @@
 @property (nonatomic, retain) NSArray* articleDetailControllers;
 @property (nonatomic, retain) NSMutableSet* clients;
 
+@property (nonatomic, retain) UIView* adView;
+
 @end
 
 @implementation BRArticleScrollViewController
@@ -28,6 +30,7 @@
 @synthesize bottomToolBar = _bottomToolBar;
 @synthesize articleDetailControllers = _articleDetailControllers;
 @synthesize clients = _clients;
+@synthesize adView = _adView;
 
 -(void)dealloc{
     self.scrollView = nil;
@@ -36,6 +39,7 @@
     self.bottomToolBar = nil;
     self.articleDetailControllers = nil;
     self.clients = nil;
+    self.adView = nil;
     [super dealloc];
 }
 
@@ -57,13 +61,13 @@
     self.scrollView.pageIndex = self.index;
     [self.scrollView reloadData];
     
-    UIView* adView = [[BRADManager sharedManager] adView];
-    if (adView){
-        CGRect frame = adView.frame;
+    self.adView = [[BRADManager sharedManager] adView];
+    if (self.adView){
+        CGRect frame = self.adView.frame;
         frame.origin.x = 0;
         frame.origin.y = self.view.bounds.size.height-self.bottomToolBar.frame.size.height-frame.size.height;
-        adView.frame = frame;
-        [self.view addSubview:adView];
+        self.adView.frame = frame;
+        [self.view addSubview:self.adView];
         [self.view bringSubviewToFront:self.bottomToolBar];
     }
 }
@@ -76,6 +80,7 @@
     self.scrollView = nil;
     self.bottomToolBar = nil;
     self.articleDetailControllers = nil;
+    self.adView = nil;
 }
 
 -(void)viewWillLayoutSubviews{
@@ -88,6 +93,16 @@
     self.scrollView.frame = frame;
     
     [self.view bringSubviewToFront:self.bottomToolBar];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.adView performSelector:@selector(stopAdRequest)];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.adView performSelector:@selector(resumeAdRequest)];
 }
 
 -(void)loadControllers{

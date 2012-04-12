@@ -12,10 +12,13 @@
 
 @interface JJImageZoomView (){
     BOOL _imageLoaded;
+    long long _downloadedLength;
+    long long _contentLength;
 }
 
-@property (nonatomic, retain) IBOutlet UIImageView* imageView;
-@property (nonatomic, retain) IBOutlet ASIHTTPRequest* request;
+@property (nonatomic, retain) UIImageView* imageView;
+@property (nonatomic, retain) ASIHTTPRequest* request;
+@property (nonatomic, retain) UIProgressView* progressBar;
 
 -(void)setupViews;
 - (void)setMaxMinZoomScalesForCurrentBounds;
@@ -31,6 +34,7 @@
 
 @synthesize imageView = _imageView;
 @synthesize request = _request;
+@synthesize progressBar = _progressBar;
 @synthesize loadedImage;
 
 -(id)initWithFrame:(CGRect)frame{
@@ -49,46 +53,84 @@
 
 -(void)dealloc{
     self.imageView = nil;
+    [self.request clearDelegatesAndCancel];
     self.request = nil;
+    self.progressBar = nil;
     [super dealloc];
 }
 
 -(void)setupViews{
+    _downloadedLength = 0.0f;
+    _contentLength = 0.0001f;
+    self.progressBar = [[[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar] autorelease];
+    self.progressBar.progress = 0;
+    CGRect frame = self.progressBar.frame;
+    frame.origin.x = (self.frame.size.width - frame.size.width)/2;
+    frame.origin.y = (self.frame.size.height - frame.size.height)/2;
+    [self addSubview:self.progressBar];
+    self.progressBar.frame = frame;
+    self.progressBar.hidden = YES;
     self.delegate = self;
     self.bouncesZoom = YES;
     self.bounces = YES;
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
+    UITapGestureRecognizer* doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
+    doubleTap.numberOfTapsRequired = 2;
+    doubleTap.delaysTouchesBegan = YES;
+    [self addGestureRecognizer:doubleTap];
 }
 
 -(void)setImage:(UIImage *)image{
     [self.imageView removeFromSuperview];
     self.imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
-    [self addSubview:self.imageView];
+    [self insertSubview:self.imageView belowSubview:self.progressBar];
     
     [self adjustImageView];
 }
 
 -(void)setImageURL:(NSString*)imageURL{
+    self.progressBar.hidden = YES;
     [self.request clearDelegatesAndCancel];
     self.request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:imageURL]];
     self.request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
-    self.request.cacheStoragePolicy = ASICachePermanentlyCacheStoragePolicy;
+    self.request.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;
+    self.request.allowResumeForFileDownloads =  YES;
     self.request.delegate = self;
+    self.request.downloadProgressDelegate = self;
     self.request.didStartSelector = @selector(requestLoadStarted:);
     self.request.didFinishSelector = @selector(requestLoadFinished:);
     [self.request startAsynchronous];
 }
 
+- (void)request:(ASIHTTPRequest *)request didReceiveResponseHeaders:(NSDictionary *)responseHeaders{
+    _downloadedLength = 0.0f;
+    _contentLength = [[responseHeaders objectForKey:@"Content-Length"] longLongValue];
+    if (_contentLength == 0){
+        _contentLength = LONG_LONG_MAX;
+    }
+}
+
 -(void)requestLoadFinished:(ASIHTTPRequest*)request{
     _imageLoaded = YES;
+    self.progressBar.hidden = YES;
     [self setImage:[UIImage imageWithData:self.request.responseData]];
 }
 
 -(void)requestLoadStarted:(ASIHTTPRequest*)request{
     _imageLoaded = NO;
+    self.progressBar.progress = 0.0f;
+    self.progressBar.hidden = NO;
     [self setImage:[UIImage imageNamed:@"photoDefault"]];
 }
+
+- (void)request:(ASIHTTPRequest *)request didReceiveBytes:(long long)bytes{
+    _downloadedLength += bytes;
+    self.progressBar.progress = ((double)_downloadedLength)/_contentLength;
+}
+
+// Called when a request needs to change the length of the content to download
+//- (void)request:(ASIHTTPRequest *)request incrementDownloadSizeBy:(long long)newLength;
 
 -(void)adjustImageView{
     CGSize imageSize = self.imageView.image.size;
@@ -119,6 +161,7 @@
         frameToCenter.origin.y = 0;
     
     self.imageView.frame = frameToCenter;
+    [self bringSubviewToFront:self.progressBar];
     
 }
 
@@ -191,6 +234,15 @@
 -(UIImage*)loadedImage{
     UIImage* image = (_imageLoaded)?self.imageView.image:nil;
     return image;
+}
+
+-(void)doubleTapAction:(UITapGestureRecognizer*)gesture{
+    //    CGPoint location = [gesture locationInView:self.superview];
+    if (self.zoomScale == self.minimumZoomScale){
+        [self setZoomScale:self.minimumZoomScale*2 animated:YES];
+    }else{
+        [self setZoomScale:self.minimumZoomScale animated:YES];
+    }
 }
 
 #pragma mark - zoom

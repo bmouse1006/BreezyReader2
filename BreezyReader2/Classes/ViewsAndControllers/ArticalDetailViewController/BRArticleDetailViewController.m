@@ -24,6 +24,8 @@
     BOOL _imageClicked;
 }
 
+-(NSString*)filePathForItemID:(NSString*)itemID;
+
 @end
 
 @implementation BRArticleDetailViewController
@@ -38,6 +40,8 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 @synthesize item = _item;
 
 -(void)dealloc{
+    NSString* tempFile = [self filePathForItemID:self.item.ID];
+    [[NSFileManager defaultManager] removeItemAtPath:tempFile error:NULL];
     self.webView = nil;
     self.item = nil;
     [super dealloc];
@@ -114,10 +118,9 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
         DebugLog(@"exception is %@", exception.reason);
     }
     
-    NSString* filename = [[self.item.ID MD5] stringByAppendingPathExtension:@"html"];
-    NSString* tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:filename];
-    [htmlTemplate writeToFile:tempFile atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:tempFile]];
+    filePath = [self filePathForItemID:self.item.ID];
+    [htmlTemplate writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:filePath]];
     [self.webView loadRequest:request];
 }
 
@@ -127,9 +130,6 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     self.webView = nil;
-    NSString* filename = [[self.item.ID MD5] stringByAppendingPathExtension:@"html"];
-    NSString* tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:filename];
-    [[NSFileManager defaultManager] removeItemAtPath:tempFile error:NULL];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -144,6 +144,12 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(NSString*)filePathForItemID:(NSString*)itemID{
+    NSString* filename = [[itemID MD5] stringByAppendingPathExtension:@"html"];
+    NSString* cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] ;
+    NSString* tempFile = [cachePath stringByAppendingPathComponent:filename];
+    return tempFile;
+}
 #pragma mark - web view delegate
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     DebugLog(@"web view did finish load");
@@ -158,10 +164,14 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
         _imageClicked = NO;
         return NO;
     }
-    NSString* scheme = [request URL].scheme;
-    //if it is image
-    //else if it is http or https
-    //else if it is javascript 
+    
+    if (navigationType == UIWebViewNavigationTypeLinkClicked){
+        //promote a single web view;
+        NSString* scheme = [request URL].scheme;
+        return NO;
+    }
+    
+    return YES;
 }
 
 -(void)scrollToTop{
@@ -173,10 +183,10 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 -(NSString*)preprocessContent:(NSString*)content{
     //remove iframe and ad
     NSString* temp = [content stringByReplacingOccurrencesOfRegex:@"<iframe\\s*.*\\s*iframe>" withString:@""];
-    temp = [temp stringByReplacingOccurrencesOfRegex:@"<font[^>]*>" withString:@"<span>"];
-    temp = [temp stringByReplacingOccurrencesOfRegex:@"<[^>]*/font>" withString:@"</span>"];
-    temp = [temp stringByReplacingOccurrencesOfRegex:@"<br[^>]*>" withString:@"<p>"];
-    temp = [temp stringByReplacingOccurrencesOfRegex:@"<[^>]*/br>" withString:@"</p>"];
+//    temp = [temp stringByReplacingOccurrencesOfRegex:@"<font[^>]*>" withString:@"<span>"];
+//    temp = [temp stringByReplacingOccurrencesOfRegex:@"<[^>]*/font>" withString:@"</span>"];
+//    temp = [temp stringByReplacingOccurrencesOfRegex:@"<br[^>]*>" withString:@"<p>"];
+//    temp = [temp stringByReplacingOccurrencesOfRegex:@"<[^>]*/br>" withString:@"</p>"];
     return [temp stringByReplacingOccurrencesOfRegex:@"<a\\s*[^>]*?feedsportal.*?/a>" withString:@""];
 }
 
