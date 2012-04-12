@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "GHAdViewDelegate.h"
 #import "GHAdView.h"
+#import <CoreLocation/CoreLocation.h>
 
 #define NOTIFICATION_ADLOADED @"NOTIFICATION_ADLOADED"
 
-@interface BRADManager : NSObject<GHAdViewDelegate>
+@interface BRADManager : NSObject<GHAdViewDelegate, CLLocationManagerDelegate>
 
 +(id)sharedManager;
 

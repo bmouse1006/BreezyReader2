@@ -17,7 +17,7 @@ typedef enum{
 
 @interface BRTopContainer : UIViewController
 
--(void)addToTop:(UIViewController*)controller;
+-(void)addToTop:(UIViewController*)controller animated:(BOOL)animated;
 
 -(void)popViewController:(BOOL)animated;
 -(void)boomOutViewController:(UIViewController*)viewController fromView:(UIView*)view;

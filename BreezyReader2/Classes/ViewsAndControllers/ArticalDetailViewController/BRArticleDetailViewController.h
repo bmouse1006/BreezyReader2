@@ -11,7 +11,7 @@
 #import "GRFeed.h"
 #import "GRItem.h"
 
-@interface BRArticleDetailViewController : BRBaseController<UIWebViewDelegate>
+@interface BRArticleDetailViewController : BRBaseController<UIWebViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWebView* webView;
 

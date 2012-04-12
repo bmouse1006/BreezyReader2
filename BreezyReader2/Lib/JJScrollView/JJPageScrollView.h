@@ -40,5 +40,6 @@
 -(void)scrollToPageAtIndex:(NSInteger)index animated:(BOOL)animated;
 -(NSInteger)currentIndex;
 -(UIView*)currentPage;
+-(UIView*)pageAtIndex:(NSInteger)index;
 
 @end

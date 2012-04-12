@@ -11,6 +11,7 @@
 #import "GRItem.h"
 #import "NSString+MD5.h"
 #import "RegexKitLite.h"
+#import "BRImageScrollController.h"
 
 #define kPlaceHolderArticleTitle @"#BREEZYREADERARTICLETITLE#"
 #define kPlaceHolderArticleContent @"#BREEZYREADERARTICLECONTENT#"
@@ -19,6 +20,8 @@
 
 @interface BRArticleDetailViewController (){
     BOOL _formatted;
+    
+    BOOL _imageClicked;
 }
 
 @end
@@ -72,6 +75,9 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 {
     [super viewDidLoad];
     [self removeGradientImage:self.webView];
+    UITapGestureRecognizer* singleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)] autorelease];
+    singleTap.delegate = self;
+    [self.webView addGestureRecognizer:singleTap];
     // Do any additional setup after loading the view from its nib.
     self.webView.delegate = self;
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -120,6 +126,7 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.webView = nil;
     NSString* filename = [[self.item.ID MD5] stringByAppendingPathExtension:@"html"];
     NSString* tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:filename];
     [[NSFileManager defaultManager] removeItemAtPath:tempFile error:NULL];
@@ -146,14 +153,59 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     DebugLog(@"web view did start load");
 }
 
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    if (_imageClicked){
+        _imageClicked = NO;
+        return NO;
+    }
+    NSString* scheme = [request URL].scheme;
+    //if it is image
+    //else if it is http or https
+    //else if it is javascript 
+}
+
 -(void)scrollToTop{
     [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
+#pragma mark - prepare content
+
 -(NSString*)preprocessContent:(NSString*)content{
     //remove iframe and ad
     NSString* temp = [content stringByReplacingOccurrencesOfRegex:@"<iframe\\s*.*\\s*iframe>" withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfRegex:@"<font[^>]*>" withString:@"<span>"];
+    temp = [temp stringByReplacingOccurrencesOfRegex:@"<[^>]*/font>" withString:@"</span>"];
+    temp = [temp stringByReplacingOccurrencesOfRegex:@"<br[^>]*>" withString:@"<p>"];
+    temp = [temp stringByReplacingOccurrencesOfRegex:@"<[^>]*/br>" withString:@"</p>"];
     return [temp stringByReplacingOccurrencesOfRegex:@"<a\\s*[^>]*?feedsportal.*?/a>" withString:@""];
+}
+
+#pragma mark - gesture recgonizer delegate
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
+}
+
+-(void)singleTapAction:(UITapGestureRecognizer*)gesture{
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    CGPoint pt = [gesture locationInView:self.webView]; 
+    NSLog(@"%@", NSStringFromCGPoint(pt));
+    NSString *js = [NSString stringWithFormat:@"document.elementFromPoint(%f, %f).tagName", pt.x, pt.y];
+    NSString * tagName = [self.webView stringByEvaluatingJavaScriptFromString:js]; 
+    if ([[tagName lowercaseString] isEqualToString:@"img"]) { 
+        NSString *scriptToGetSrc = [NSString stringWithFormat:@"document.elementFromPoint(%f, %f).src", pt.x, pt.y]; 
+        NSString *imageUrl = [self.webView stringByEvaluatingJavaScriptFromString:scriptToGetSrc];
+        NSLog(@"image url=%@", imageUrl); 
+        _imageClicked = YES;
+        //show image scroll
+        NSArray* imageList = [self.item imageURLList];
+        NSInteger index = [imageList indexOfObject:imageUrl];
+        BRImageScrollController* imageScroller = [[[BRImageScrollController alloc] initWithTheNibOfSameName] autorelease];
+        [imageScroller setImageList:imageList startIndex:index];
+//        [self presentViewController:imageScroller animated:YES completion:NULL];
+        [[self topContainer] addToTop:imageScroller animated:YES];
+    }else{
+        _imageClicked = NO;
+    }
 }
 
 @end

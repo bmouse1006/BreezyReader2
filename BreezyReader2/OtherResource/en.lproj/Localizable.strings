@@ -26,3 +26,5 @@
 "msg_searching" = "Searching...";
 "msg_unstarfailed" = "Failed to remove star";
 "msg_starfailed" = "Failed to add star";
+"msg_imagenotloaded" = "Image is not loaded";
+"msg_imagesaved" = "Image successfully saved to album";

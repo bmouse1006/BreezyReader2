@@ -88,15 +88,18 @@ static double kTransitionAnimationDuration = 0.2f;
     
 }
 
--(void)addToTop:(UIViewController*)controller{
+-(void)addToTop:(UIViewController*)controller animated:(BOOL)animated{
     UIViewController* top = [self.childViewControllers lastObject];
     [controller willMoveToParentViewController:self];
     [self addChildViewController:controller];
     if (top == nil){
         [self.view addSubview:controller.view];
+        [controller didMoveToParentViewController:self];
     }else{
-        [self transitionFromViewController:top toViewController:controller duration:0 options:UIViewAnimationOptionTransitionNone animations:^{
-//            [self.view addSubview:controller.view];
+        double duration = (animated)?kTransitionAnimationDuration:0.0f;
+        controller.view.alpha = 0.0f;
+        [self transitionFromViewController:top toViewController:controller duration:duration options:UIViewAnimationOptionTransitionNone animations:^{
+            controller.view.alpha = 1.0f;
         }completion:^(BOOL finished){
             if (finished){
                 [controller didMoveToParentViewController:self];
@@ -106,7 +109,7 @@ static double kTransitionAnimationDuration = 0.2f;
 }
 
 -(void)popViewController:(BOOL)animated{
-    CGFloat duration = (animated)?0.2f:0.0f;
+    CGFloat duration = (animated)?kTransitionAnimationDuration:0.0f;
     
     UIViewController* top = [self.childViewControllers lastObject];
     UIView* topView = top.view;

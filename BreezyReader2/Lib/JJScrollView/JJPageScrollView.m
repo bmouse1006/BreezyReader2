@@ -150,7 +150,11 @@ CGPoint CGCenterOfRect(CGRect rect){
 }
 
 -(UIView*)currentPage{
-    return [self.loadedPages objectForKey:[NSNumber numberWithInt:[self indexForOffset:self.contentOffset]]];
+    return [self pageAtIndex:[self indexForOffset:self.contentOffset]];
+}
+
+-(UIView*)pageAtIndex:(NSInteger)index{
+    return [self.loadedPages objectForKey:[NSNumber numberWithInt:index]];
 }
 
 #pragma mark - scroll view delegate

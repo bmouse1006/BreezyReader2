@@ -10,7 +10,9 @@
 #import "ASIHTTPRequest.h"
 #import "JJImageView.h"
 
-@interface JJImageZoomView ()
+@interface JJImageZoomView (){
+    BOOL _imageLoaded;
+}
 
 @property (nonatomic, retain) IBOutlet UIImageView* imageView;
 @property (nonatomic, retain) IBOutlet ASIHTTPRequest* request;
@@ -29,6 +31,7 @@
 
 @synthesize imageView = _imageView;
 @synthesize request = _request;
+@synthesize loadedImage;
 
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -62,21 +65,29 @@
     [self.imageView removeFromSuperview];
     self.imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
     [self addSubview:self.imageView];
+    
     [self adjustImageView];
 }
 
 -(void)setImageURL:(NSString*)imageURL{
-    [self.request cancel];
+    [self.request clearDelegatesAndCancel];
     self.request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:imageURL]];
     self.request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
     self.request.cacheStoragePolicy = ASICachePermanentlyCacheStoragePolicy;
-    [self.request setStartedBlock:^{
-        [self setImage:[UIImage imageNamed:@"photoDefault"]];
-    }];
-    [self.request setCompletionBlock:^{
-        [self setImage:[UIImage imageWithData:self.request.responseData]];
-    }];
+    self.request.delegate = self;
+    self.request.didStartSelector = @selector(requestLoadStarted:);
+    self.request.didFinishSelector = @selector(requestLoadFinished:);
     [self.request startAsynchronous];
+}
+
+-(void)requestLoadFinished:(ASIHTTPRequest*)request{
+    _imageLoaded = YES;
+    [self setImage:[UIImage imageWithData:self.request.responseData]];
+}
+
+-(void)requestLoadStarted:(ASIHTTPRequest*)request{
+    _imageLoaded = NO;
+    [self setImage:[UIImage imageNamed:@"photoDefault"]];
 }
 
 -(void)adjustImageView{
@@ -177,13 +188,9 @@
     [self adjustImageView];
 }
 
--(void)doubleTapAction:(UITapGestureRecognizer*)gesture{
-//    CGPoint location = [gesture locationInView:self.superview];
-    if (self.zoomScale == self.minimumZoomScale){
-        [self setZoomScale:self.minimumZoomScale*2 animated:YES];
-    }else{
-        [self setZoomScale:self.minimumZoomScale animated:YES];
-    }
+-(UIImage*)loadedImage{
+    UIImage* image = (_imageLoaded)?self.imageView.image:nil;
+    return image;
 }
 
 #pragma mark - zoom

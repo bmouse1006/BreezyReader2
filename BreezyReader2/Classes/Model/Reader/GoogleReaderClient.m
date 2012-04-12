@@ -455,20 +455,20 @@ static NSMutableDictionary* _itemPool = nil;
         if (blockSelf.action){
             [blockSelf.delegate performSelectorOnMainThread:blockSelf.action withObject:blockSelf waitUntilDone:NO];
         }
-        GRItem* item = [[[self class] itemPool] objectForKey:itemID];
+        GRItem* item = [[[blockSelf class] itemPool] objectForKey:itemID];
         [item removeCategory:tagToRemove];
         [item addCategory:tagToAdd];
     }];
     [request setFailedBlock:^{
         if (blockSelf.action){
-            [blockSelf.delegate performSelectorOnMainThread:blockSelf.action withObject:self waitUntilDone:NO];
+            [blockSelf.delegate performSelectorOnMainThread:blockSelf.action withObject:blockSelf waitUntilDone:NO];
         }
     }];
     [self.request clearDelegatesAndCancel];
     self.request = request;
     [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
         if (error == nil){
-            [self.request startAsynchronous];
+            [blockSelf.request startAsynchronous];
         }
     }];
 }

@@ -12,9 +12,13 @@
 
 @interface BRADManager ()
 
+@property (nonatomic, assign) CLLocation* location;
+
 @end
 
 @implementation BRADManager
+
+@synthesize location;
 
 static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
 
@@ -32,13 +36,22 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
 -(id)init{
     self = [super init];
     if (self){
+        CLLocationManager* manager = [[CLLocationManager alloc] init];
+        manager.delegate = self;
+        [manager startUpdatingLocation];
     }
     
     return self;
 }
 
 -(void)dealloc{
+    self.location = nil;
     [super dealloc];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
+    self.location = location;
+    [manager stopUpdatingLocation];
 }
 
 -(GHAdView*)adView{
@@ -66,5 +79,8 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
     NSLog(@"ad is loaded failure");
 }
 
+- (CLLocation *)locationInfo{
+    return self.location;
+}
 
 @end

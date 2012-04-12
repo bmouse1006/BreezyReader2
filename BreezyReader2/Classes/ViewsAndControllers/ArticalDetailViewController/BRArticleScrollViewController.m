@@ -15,7 +15,7 @@
 @interface BRArticleScrollViewController ()
 
 @property (nonatomic, retain) NSArray* articleDetailControllers;
-@property (nonatomic, retain) GoogleReaderClient* client;
+@property (nonatomic, retain) NSMutableSet* clients;
 
 @end
 
@@ -27,7 +27,7 @@
 @synthesize backButton = _backButton;
 @synthesize bottomToolBar = _bottomToolBar;
 @synthesize articleDetailControllers = _articleDetailControllers;
-@synthesize client = _client;
+@synthesize clients = _clients;
 
 -(void)dealloc{
     self.scrollView = nil;
@@ -35,14 +35,14 @@
     self.backButton = nil;
     self.bottomToolBar = nil;
     self.articleDetailControllers = nil;
-    self.client = nil;
+    self.clients = nil;
     [super dealloc];
 }
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
-        self.client = [GoogleReaderClient clientWithDelegate:self action:NULL];
+        self.clients = [NSMutableSet set];
     }
     
     return self;
@@ -95,9 +95,14 @@
     for (GRItem* item in self.feed.items){
         BRArticleDetailViewController* articleDetail = [[[BRArticleDetailViewController alloc] initWithItem:item] autorelease];
         [controllers addObject:articleDetail];
+        [self addChildViewController:articleDetail];
     }
     
     self.articleDetailControllers = controllers;
+}
+
+-(void)markAsReadFinished:(GoogleReaderClient*)client{
+    [self.clients removeObject:client];
 }
 
 #pragma mark - action
@@ -134,7 +139,9 @@
 -(void)scrollView:(JJPageScrollView*)scrollView didScrollToPageAtIndex:(NSInteger)index{
     GRItem* item = [self.feed.items objectAtIndex:index];
     if (item.isReaded == NO){
-        [self.client markArticleAsRead:item.ID];
+        GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(markAsReadFinished:)];
+        [self.clients addObject:client];
+        [client markArticleAsRead:item.ID];
     }
 }
 

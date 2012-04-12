@@ -233,6 +233,16 @@
 		22B2479D152F253B009DC4F1 /* BRBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2479C152F253A009DC4F1 /* BRBottomToolBar.m */; };
 		22B5056815357C4C00D77B5F /* BRADManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B5056715357C4C00D77B5F /* BRADManager.m */; };
 		22CC17A914D974E400272147 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CC17A814D974E400272147 /* QuartzCore.framework */; };
+		22D4F9B21536751600197F48 /* GuoHeAdAdapter_WiYun.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D4F9AE1536751600197F48 /* GuoHeAdAdapter_WiYun.m */; };
+		22D4F9B31536751600197F48 /* libWiAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D4F9B01536751600197F48 /* libWiAd.a */; };
+		22D4FA2E1536B97F00197F48 /* GuoHeAdAdapter_InMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D4FA281536B97F00197F48 /* GuoHeAdAdapter_InMobi.m */; };
+		22D4FA2F1536B97F00197F48 /* libInMobi_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D4FA2D1536B97F00197F48 /* libInMobi_iOS.a */; };
+		22D4FA331536C79000197F48 /* JJImageScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D4FA321536C79000197F48 /* JJImageScrollController.m */; };
+		22D4FA371536CA8800197F48 /* BRImageScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D4FA361536CA8800197F48 /* BRImageScrollController.m */; };
+		22D4FA381536CAF900197F48 /* JJImageScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D4FA321536C79000197F48 /* JJImageScrollController.m */; };
+		22D4FA3A1536D44500197F48 /* BRImageScrollController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D4FA391536D44500197F48 /* BRImageScrollController.xib */; };
+		22D4FA411536DF8500197F48 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D4FA3F1536DF8500197F48 /* save.png */; };
+		22D4FA421536DF8500197F48 /* save@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D4FA401536DF8500197F48 /* save@2x.png */; };
 		22D56B29152767E80098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
 		22D56B2B152768DA0098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
 		22D9BE58152F3376007E32CC /* BRFeedHeaderArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D9BE57152F3376007E32CC /* BRFeedHeaderArticleCell.m */; };
@@ -694,6 +704,24 @@
 		22B5056615357C4C00D77B5F /* BRADManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRADManager.h; sourceTree = "<group>"; };
 		22B5056715357C4C00D77B5F /* BRADManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRADManager.m; sourceTree = "<group>"; };
 		22CC17A814D974E400272147 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		22D4F9AD1536751600197F48 /* GuoHeAdAdapter_WiYun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuoHeAdAdapter_WiYun.h; sourceTree = "<group>"; };
+		22D4F9AE1536751600197F48 /* GuoHeAdAdapter_WiYun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuoHeAdAdapter_WiYun.m; sourceTree = "<group>"; };
+		22D4F9B01536751600197F48 /* libWiAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWiAd.a; sourceTree = "<group>"; };
+		22D4F9B11536751600197F48 /* WiAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiAdView.h; sourceTree = "<group>"; };
+		22D4FA271536B97F00197F48 /* GuoHeAdAdapter_InMobi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuoHeAdAdapter_InMobi.h; sourceTree = "<group>"; };
+		22D4FA281536B97F00197F48 /* GuoHeAdAdapter_InMobi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuoHeAdAdapter_InMobi.m; sourceTree = "<group>"; };
+		22D4FA291536B97F00197F48 /* IMAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAdDelegate.h; sourceTree = "<group>"; };
+		22D4FA2A1536B97F00197F48 /* IMAdError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAdError.h; sourceTree = "<group>"; };
+		22D4FA2B1536B97F00197F48 /* IMAdRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAdRequest.h; sourceTree = "<group>"; };
+		22D4FA2C1536B97F00197F48 /* IMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAdView.h; sourceTree = "<group>"; };
+		22D4FA2D1536B97F00197F48 /* libInMobi_iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libInMobi_iOS.a; sourceTree = "<group>"; };
+		22D4FA311536C79000197F48 /* JJImageScrollController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJImageScrollController.h; sourceTree = "<group>"; };
+		22D4FA321536C79000197F48 /* JJImageScrollController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJImageScrollController.m; sourceTree = "<group>"; };
+		22D4FA351536CA8800197F48 /* BRImageScrollController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRImageScrollController.h; sourceTree = "<group>"; };
+		22D4FA361536CA8800197F48 /* BRImageScrollController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRImageScrollController.m; sourceTree = "<group>"; };
+		22D4FA391536D44500197F48 /* BRImageScrollController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRImageScrollController.xib; sourceTree = "<group>"; };
+		22D4FA3F1536DF8500197F48 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
+		22D4FA401536DF8500197F48 /* save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save@2x.png"; sourceTree = "<group>"; };
 		22D56B27152767E80098A85F /* NSString+Addtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addtion.h"; sourceTree = "<group>"; };
 		22D56B28152767E80098A85F /* NSString+Addtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addtion.m"; sourceTree = "<group>"; };
 		22D9BE56152F3376007E32CC /* BRFeedHeaderArticleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFeedHeaderArticleCell.h; sourceTree = "<group>"; };
@@ -754,6 +782,8 @@
 				222A92231535BB650000B7DD /* libYouMi.a in Frameworks */,
 				222A92321535C1310000B7DD /* libDomob.a in Frameworks */,
 				227E473C153652200057B706 /* libMMSDK_4.5.3_withoutJSON.a in Frameworks */,
+				22D4F9B31536751600197F48 /* libWiAd.a in Frameworks */,
+				22D4FA2F1536B97F00197F48 /* libInMobi_iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -773,6 +803,8 @@
 		221943E715332C6D00A0C4E4 /* JJScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				22D4FA311536C79000197F48 /* JJImageScrollController.h */,
+				22D4FA321536C79000197F48 /* JJImageScrollController.m */,
 				221943EA15332C6D00A0C4E4 /* JJPageScrollView.h */,
 				221943EB15332C6D00A0C4E4 /* JJPageScrollView.m */,
 				221943EE15332C6D00A0C4E4 /* JJImageZoomView.h */,
@@ -842,12 +874,14 @@
 		222A92621535CFB30000B7DD /* ADSupport */ = {
 			isa = PBXGroup;
 			children = (
-				227E470F153652200057B706 /* Millennial */,
 				2271F4181534FAC100A50484 /* Admob */,
 				222A92241535C1300000B7DD /* Domob */,
 				2271F3D015348A4000A50484 /* GuoHeSDK */,
 				2271F4241534FB3500A50484 /* iAd */,
+				22D4FA261536B97F00197F48 /* InMobi */,
+				227E470F153652200057B706 /* Millennial */,
 				222A920A1535B6FD0000B7DD /* MobWIN */,
+				22D4F9AC1536751600197F48 /* WiYun */,
 				222A921A1535BB650000B7DD /* YouMi */,
 			);
 			name = ADSupport;
@@ -1224,6 +1258,7 @@
 		229B2C1B15273CAE00700504 /* ViewsAndControllers */ = {
 			isa = PBXGroup;
 			children = (
+				22D4FA341536CA5E00197F48 /* BRImageScroll */,
 				229B2C1C15273CAE00700504 /* ArticalDetailViewController */,
 				229B2C2115273CAE00700504 /* BaseController */,
 				229B2C2815273CAE00700504 /* BRViewControllerNotification.h */,
@@ -1450,6 +1485,8 @@
 		229B2C8715273CAE00700504 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				22D4FA3F1536DF8500197F48 /* save.png */,
+				22D4FA401536DF8500197F48 /* save@2x.png */,
 				229B2C8815273CAE00700504 /* arrow_left.png */,
 				229B2C8915273CAE00700504 /* arrow_left@2x.png */,
 				22A586AF152EF76800B38154 /* backarrow.png */,
@@ -1692,6 +1729,49 @@
 			path = ADWrap;
 			sourceTree = "<group>";
 		};
+		22D4F9AC1536751600197F48 /* WiYun */ = {
+			isa = PBXGroup;
+			children = (
+				22D4F9AD1536751600197F48 /* GuoHeAdAdapter_WiYun.h */,
+				22D4F9AE1536751600197F48 /* GuoHeAdAdapter_WiYun.m */,
+				22D4F9AF1536751600197F48 /* lib */,
+				22D4F9B11536751600197F48 /* WiAdView.h */,
+			);
+			path = WiYun;
+			sourceTree = "<group>";
+		};
+		22D4F9AF1536751600197F48 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				22D4F9B01536751600197F48 /* libWiAd.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		22D4FA261536B97F00197F48 /* InMobi */ = {
+			isa = PBXGroup;
+			children = (
+				22D4FA271536B97F00197F48 /* GuoHeAdAdapter_InMobi.h */,
+				22D4FA281536B97F00197F48 /* GuoHeAdAdapter_InMobi.m */,
+				22D4FA291536B97F00197F48 /* IMAdDelegate.h */,
+				22D4FA2A1536B97F00197F48 /* IMAdError.h */,
+				22D4FA2B1536B97F00197F48 /* IMAdRequest.h */,
+				22D4FA2C1536B97F00197F48 /* IMAdView.h */,
+				22D4FA2D1536B97F00197F48 /* libInMobi_iOS.a */,
+			);
+			path = InMobi;
+			sourceTree = "<group>";
+		};
+		22D4FA341536CA5E00197F48 /* BRImageScroll */ = {
+			isa = PBXGroup;
+			children = (
+				22D4FA351536CA8800197F48 /* BRImageScrollController.h */,
+				22D4FA361536CA8800197F48 /* BRImageScrollController.m */,
+				22D4FA391536D44500197F48 /* BRImageScrollController.xib */,
+			);
+			path = BRImageScroll;
+			sourceTree = "<group>";
+		};
 		22F8667B14A216AA00D7B1CE = {
 			isa = PBXGroup;
 			children = (
@@ -1917,6 +1997,9 @@
 				2271F40A15348A4000A50484 /* LICENSE.txt in Resources */,
 				2271F40B15348A4000A50484 /* README.markdown in Resources */,
 				222A922F1535C1300000B7DD /* DoMobBundle.bundle in Resources */,
+				22D4FA3A1536D44500197F48 /* BRImageScrollController.xib in Resources */,
+				22D4FA411536DF8500197F48 /* save.png in Resources */,
+				22D4FA421536DF8500197F48 /* save@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1951,6 +2034,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22D4FA381536CAF900197F48 /* JJImageScrollController.m in Sources */,
 				22D56B2B152768DA0098A85F /* NSString+Addtion.m in Sources */,
 				229B2D0915273CAE00700504 /* BRAppDelegate.m in Sources */,
 				229B2D0B15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */,
@@ -2075,6 +2159,9 @@
 				222A92301535C1300000B7DD /* GuoHeAdAdapter_Domob.m in Sources */,
 				222A92311535C1300000B7DD /* DoMobViewController.m in Sources */,
 				227E472F153652200057B706 /* GuoHeAdAdapter_Millennial.m in Sources */,
+				22D4F9B21536751600197F48 /* GuoHeAdAdapter_WiYun.m in Sources */,
+				22D4FA2E1536B97F00197F48 /* GuoHeAdAdapter_InMobi.m in Sources */,
+				22D4FA371536CA8800197F48 /* BRImageScrollController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2084,6 +2171,7 @@
 			files = (
 				22F866B014A216AA00D7B1CE /* BreezyReader2Tests.m in Sources */,
 				22D56B29152767E80098A85F /* NSString+Addtion.m in Sources */,
+				22D4FA331536C79000197F48 /* JJImageScrollController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2209,6 +2297,8 @@
 					"\"$(SRCROOT)/BreezyReader2/Lib/Baidu/Release-iphoneos\"",
 					"\"$(SRCROOT)/BreezyReader2/Lib/Baidu/Release-iphonesimulator\"",
 					"\"$(SRCROOT)/BreezyReader2/Lib/Millennial\"",
+					"\"$(SRCROOT)/BreezyReader2/Lib/WiYun/lib\"",
+					"\"$(SRCROOT)/BreezyReader2/Lib/InMobi\"",
 				);
 				OTHER_LDFLAGS = (
 					"-licucore",
@@ -2242,6 +2332,8 @@
 					"\"$(SRCROOT)/BreezyReader2/Lib/Baidu/Release-iphoneos\"",
 					"\"$(SRCROOT)/BreezyReader2/Lib/Baidu/Release-iphonesimulator\"",
 					"\"$(SRCROOT)/BreezyReader2/Lib/Millennial\"",
+					"\"$(SRCROOT)/BreezyReader2/Lib/WiYun/lib\"",
+					"\"$(SRCROOT)/BreezyReader2/Lib/InMobi\"",
 				);
 				OTHER_LDFLAGS = (
 					"-licucore",

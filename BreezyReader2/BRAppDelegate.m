@@ -126,7 +126,7 @@
 -(void)logoutNeeded:(NSNotification*)notification{
     [[GoogleAuthManager shared] logout];
     BRUserVerifyController* verify = [[[BRUserVerifyController alloc] init] autorelease];
-    [(BRTopContainer*)self.window.rootViewController addToTop:verify];
+    [(BRTopContainer*)self.window.rootViewController addToTop:verify animated:YES];
 }
 
 -(void)loginFailed:(NSNotification*)notification{
