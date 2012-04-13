@@ -45,7 +45,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];
     //setup request cache
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
     [self registerNotifications];
@@ -104,6 +103,7 @@
      */
     [self.window makeKeyAndVisible];
     if ([[GoogleAuthManager shared] canAuthorize]){
+        self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];
         [self.client refreshToken];
     }
     [GoogleReaderClient startTimerToRefreshToken];

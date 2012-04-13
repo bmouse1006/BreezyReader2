@@ -270,10 +270,6 @@ static CGFloat kCaptionHeight = 40.0f;
     
 }
 
--(void)requestStarted:(ASIHTTPRequest*)request{
-    self.imageRequest = request;
-}
-
 -(void)requestFailed:(ASIHTTPRequest*)request{
     [self.imageURLs removeObject:[request.url absoluteString]];
     [[BRImagePreviewCache sharedCache] storeImagePreviews:self.imageURLs key:self.subscription.ID];
@@ -339,11 +335,11 @@ static CGFloat kCaptionHeight = 40.0f;
         [self performSelectorOnMainThread:@selector(startTimer) withObject:nil waitUntilDone:NO];
         return;
     }else{
-        ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:self.currentImageURL]];
-        request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
-        request.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;
-        request.delegate = self;
-        [request startAsynchronous];
+        self.imageRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:self.currentImageURL]];
+        self.imageRequest.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
+        self.imageRequest.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;
+        self.imageRequest.delegate = self;
+        [self.imageRequest startAsynchronous];
     }
 }
 

@@ -66,8 +66,21 @@ static NSMutableDictionary* _itemPool = nil;
     
     [self.request clearDelegatesAndCancel];
     self.request = [[ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlString]] autorelease];
-    [_request setCompletionBlock:^{
-        NSString* tempToken = _request.responseString;
+    self.request.delegate = self;
+    self.request.didFinishSelector = @selector(tokenFetchFinished:);
+
+    __block typeof(self) blockSelf = self;
+    [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
+        if (error == nil){
+            [blockSelf.request startAsynchronous];
+        }
+    }];
+}
+
+-(void)tokenFetchFinished:(ASIHTTPRequest*)request{
+    
+    if (request.error == nil){
+        NSString* tempToken = request.responseString;
         
         DebugLog(@"token is %@", tempToken);
         
@@ -76,11 +89,11 @@ static NSMutableDictionary* _itemPool = nil;
         }else {
             _token = nil;
         }
-    }];
-
-    [[GoogleAuthManager shared] authRequest:_request completionBlock:^(NSError* error){
-        [_request startAsynchronous];
-    }];
+        
+        if (self.delegate && self.action){
+            [self.delegate performSelector:self.action withObject:self];
+        }
+    }
 }
 
 +(NSString*)token{
