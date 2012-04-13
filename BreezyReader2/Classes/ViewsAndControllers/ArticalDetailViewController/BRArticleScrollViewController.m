@@ -10,6 +10,7 @@
 #import "BRArticleDetailViewController.h"
 #import "UIViewController+BRAddtion.h"
 #import "GoogleReaderClient.h"
+#import "JJSingleWebController.h"
 #import "BRADManager.h"
 
 @interface BRArticleScrollViewController ()
@@ -126,7 +127,13 @@
 }
 
 -(IBAction)viewInSafari:(id)sender{
+    NSInteger index = [self.scrollView currentIndex];
+    GRItem* item = [self.feed.items objectAtIndex:index];
+    JJSingleWebController* webController = [[[JJSingleWebController alloc] initWithTheNibOfSameName] autorelease];
+    webController.URL = [NSURL URLWithString:item.alternateLink];
     
+    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:webController] autorelease];
+    [[self topContainer] presentViewController:nav animated:YES completion:NULL];
 }
 
 -(IBAction)scrollCurrentPageToTop:(id)sender{

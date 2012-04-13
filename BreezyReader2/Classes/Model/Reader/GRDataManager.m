@@ -455,17 +455,20 @@ static GRDataManager *readerDM = nil;
     ASIHTTPRequest* request = [[GoogleReaderController controller] requestForUnreadCount];
     
     [[GoogleAuthManager shared] authRequest:request completionBlock:^(NSError* error){
-        [request startSynchronous]; 
-        NSDictionary* tempUnreadCount = [request.responseString JSONValue];	
-        
-        BOOL changed = ![self.unreadCount isEqualToDictionary:tempUnreadCount];
-
-        if (changed){
-            self.unreadCount = tempUnreadCount;
-            [self updateUnreadCountToProcessedList];
-            [self sendNotification:UNREADCOUNTCHANGED withUserInfo:nil];
+        if (error == nil){
+            [request setCompletionBlock:^{
+                NSDictionary* tempUnreadCount = [request.responseString JSONValue];	
+                
+                BOOL changed = ![self.unreadCount isEqualToDictionary:tempUnreadCount];
+                
+                if (changed){
+                    self.unreadCount = tempUnreadCount;
+                    [self updateUnreadCountToProcessedList];
+                    [self sendNotification:UNREADCOUNTCHANGED withUserInfo:nil];
+                }
+            }];
+            [request startAsynchronous]; 
         }
-
     }];
 }
 

@@ -18,7 +18,6 @@
 #import "ASIHTTPRequest.h"
 #import "ASIDownloadCache.h"
 #import "BRTopContainer.h"
-#import "BRADManager.h"
 
 @interface BRAppDelegate ()
 

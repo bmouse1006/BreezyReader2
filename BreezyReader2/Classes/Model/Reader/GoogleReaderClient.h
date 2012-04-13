@@ -50,6 +50,9 @@
 -(void)markAllAsRead:(NSString*)streamID;
 +(void)setToken:(NSString*)token;
 +(NSString*)token;
+//sub, tag and unread count
+-(void)refreshUnreadCount;
+-(void)refreshTagAndSubscription;
 
 -(BOOL)isLoading;
 
