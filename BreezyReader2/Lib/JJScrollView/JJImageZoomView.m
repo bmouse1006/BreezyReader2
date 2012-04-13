@@ -75,7 +75,7 @@
     self.bounces = YES;
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
-    UITapGestureRecognizer* doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
+    UITapGestureRecognizer* doubleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)] autorelease];
     doubleTap.numberOfTapsRequired = 2;
     doubleTap.delaysTouchesBegan = YES;
     [self addGestureRecognizer:doubleTap];

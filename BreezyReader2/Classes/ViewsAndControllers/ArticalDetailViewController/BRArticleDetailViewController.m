@@ -13,6 +13,8 @@
 #import "RegexKitLite.h"
 #import "BRImageScrollController.h"
 
+#import "JJSingleWebController.h"
+
 #define kPlaceHolderArticleTitle @"#BREEZYREADERARTICLETITLE#"
 #define kPlaceHolderArticleContent @"#BREEZYREADERARTICLECONTENT#"
 #define kPlaceHolderCSSFilePath @"#BREEZYREADERREADABILITYCSSFILEPATH#"
@@ -167,7 +169,14 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     
     if (navigationType == UIWebViewNavigationTypeLinkClicked){
         //promote a single web view;
-        NSString* scheme = [request URL].scheme;
+        NSString* scheme = [[request URL].scheme lowercaseString];
+        if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]){
+            JJSingleWebController* singleWeb = [[[JJSingleWebController alloc] init] autorelease];
+            singleWeb.URL = [request URL];
+            UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:singleWeb] autorelease];
+            [[self topContainer] presentViewController:nav animated:YES completion:NULL];
+        }
+        
         return NO;
     }
     

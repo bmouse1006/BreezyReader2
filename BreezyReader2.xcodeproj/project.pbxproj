@@ -249,6 +249,8 @@
 		22D4FA421536DF8500197F48 /* save@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D4FA401536DF8500197F48 /* save@2x.png */; };
 		22D56B29152767E80098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
 		22D56B2B152768DA0098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
+		22D696661538066D00437C7A /* JJSingleWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D696641538066D00437C7A /* JJSingleWebController.m */; };
+		22D696671538066D00437C7A /* JJSingleWebController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D696651538066D00437C7A /* JJSingleWebController.xib */; };
 		22D9BE58152F3376007E32CC /* BRFeedHeaderArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D9BE57152F3376007E32CC /* BRFeedHeaderArticleCell.m */; };
 		22D9BE5B152F3388007E32CC /* BRFeedHeaderArticleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D9BE5A152F3388007E32CC /* BRFeedHeaderArticleCell.xib */; };
 		22E46DBD152FFA4D00C45A8E /* star_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E46DB9152FFA4D00C45A8E /* star_empty.png */; };
@@ -732,6 +734,9 @@
 		22D4FA401536DF8500197F48 /* save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save@2x.png"; sourceTree = "<group>"; };
 		22D56B27152767E80098A85F /* NSString+Addtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addtion.h"; sourceTree = "<group>"; };
 		22D56B28152767E80098A85F /* NSString+Addtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addtion.m"; sourceTree = "<group>"; };
+		22D696631538066D00437C7A /* JJSingleWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJSingleWebController.h; sourceTree = "<group>"; };
+		22D696641538066D00437C7A /* JJSingleWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJSingleWebController.m; sourceTree = "<group>"; };
+		22D696651538066D00437C7A /* JJSingleWebController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JJSingleWebController.xib; sourceTree = "<group>"; };
 		22D9BE56152F3376007E32CC /* BRFeedHeaderArticleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFeedHeaderArticleCell.h; sourceTree = "<group>"; };
 		22D9BE57152F3376007E32CC /* BRFeedHeaderArticleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFeedHeaderArticleCell.m; sourceTree = "<group>"; };
 		22D9BE5A152F3388007E32CC /* BRFeedHeaderArticleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRFeedHeaderArticleCell.xib; sourceTree = "<group>"; };
@@ -1546,6 +1551,7 @@
 				229B2CA515273CAE00700504 /* ASIHTTPRequest */,
 				229B2CDD15273CAE00700504 /* JJMediaLib */,
 				221943E715332C6D00A0C4E4 /* JJScrollView */,
+				22D696621538066C00437C7A /* JJSingleWebController */,
 				229B2CEB15273CAE00700504 /* JSON */,
 				229B2CF915273CAE00700504 /* MD5 */,
 				229B2CFC15273CAE00700504 /* RegexKitLite */,
@@ -1784,6 +1790,16 @@
 			path = BRImageScroll;
 			sourceTree = "<group>";
 		};
+		22D696621538066C00437C7A /* JJSingleWebController */ = {
+			isa = PBXGroup;
+			children = (
+				22D696631538066D00437C7A /* JJSingleWebController.h */,
+				22D696641538066D00437C7A /* JJSingleWebController.m */,
+				22D696651538066D00437C7A /* JJSingleWebController.xib */,
+			);
+			path = JJSingleWebController;
+			sourceTree = "<group>";
+		};
 		22F8667B14A216AA00D7B1CE = {
 			isa = PBXGroup;
 			children = (
@@ -2016,6 +2032,7 @@
 				22D4CE7B15370D990027D333 /* photoDefault@2x.png in Resources */,
 				22D4CE7F153726260027D333 /* star_black.png in Resources */,
 				22D4CE80153726260027D333 /* star_black@2x.png in Resources */,
+				22D696671538066D00437C7A /* JJSingleWebController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2178,6 +2195,7 @@
 				22D4F9B21536751600197F48 /* GuoHeAdAdapter_WiYun.m in Sources */,
 				22D4FA2E1536B97F00197F48 /* GuoHeAdAdapter_InMobi.m in Sources */,
 				22D4FA371536CA8800197F48 /* BRImageScrollController.m in Sources */,
+				22D696661538066D00437C7A /* JJSingleWebController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

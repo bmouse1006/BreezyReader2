@@ -48,11 +48,8 @@
 -(void)markArticleAsRead:(NSString*)itemID;
 -(void)keepArticleUnread:(NSString*)itemID;
 -(void)markAllAsRead:(NSString*)streamID;
-//token
--(void)refreshToken;
++(void)setToken:(NSString*)token;
 +(NSString*)token;
-+(void)startTimerToRefreshToken;
-+(void)invalideTimer;
 
 -(BOOL)isLoading;
 

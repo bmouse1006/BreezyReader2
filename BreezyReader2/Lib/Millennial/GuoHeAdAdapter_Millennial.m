@@ -19,7 +19,6 @@
 	self.adBannerView.refreshTimerEnabled = NO;
     self.adBannerView.delegate = nil;
     self.adBannerView = nil;
-    [self.adBannerView release];
 	[super dealloc];
 }
 

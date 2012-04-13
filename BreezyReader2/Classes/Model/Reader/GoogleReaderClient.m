@@ -14,13 +14,33 @@
 #import "NSString+SBJSON.h"
 #import "NSString+Addtion.h"
 
+@interface FetchTokenArg: NSObject
+
+@property (nonatomic, retain) id request;
+@property (nonatomic, copy) id completionHandler; 
+
+@end
+
+@implementation FetchTokenArg
+
+@synthesize request = _request, completionHandler = _completionHandler;
+
+-(void)dealloc{
+    self.request = nil;
+    self.completionHandler = nil;
+    [super dealloc];
+}
+
+@end
+
 @interface GoogleReaderClient ()
 
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, assign) SEL action;
-@property (nonatomic, retain) NSOperationQueue* editOperationQueue;
 
 @property (nonatomic, retain) ASIHTTPRequest* request;
+@property (nonatomic, retain) ASIHTTPRequest* tokenRequest;
+
 
 //add/remove tag to one subscription
 -(void)editSubscription:(NSString*)subscription 
@@ -39,12 +59,16 @@
 @synthesize request = _request;
 @synthesize responseData, responseString, responseJSONValue, error = _error, isResponseOK, responseFeed;
 @synthesize responseFeedSearchingJSONValue = _responseFeedSearchingJSONValue;
-@synthesize editOperationQueue = _editOperationQueue;
+@synthesize tokenRequest = _tokenRequest;
 
 static NSString* _token = nil;
-static NSTimer* _timer = nil;
+static long long _tokenFetchTimeInterval = 0;
 
 static NSMutableDictionary* _itemPool = nil;
+
+static NSMutableArray* _addTokenQueue = nil;
+
+static BOOL _startFetchToken = NO;
 
 +(id)clientWithDelegate:(id)delegate action:(SEL)action{
     return [[[self alloc] initWithDelegate:delegate action:action] autorelease];
@@ -60,54 +84,24 @@ static NSMutableDictionary* _itemPool = nil;
 
 #pragma mark - token
 
--(void)refreshToken{
-    NSString* urlString = [URI_PREFIX_API stringByAppendingString:API_TOKEN];
-    urlString = [GOOGLE_SCHEME_SSL stringByAppendingString:urlString];
-    
-    [self.request clearDelegatesAndCancel];
-    self.request = [[ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlString]] autorelease];
-    self.request.delegate = self;
-    self.request.didFinishSelector = @selector(tokenFetchFinished:);
-
-    __block typeof(self) blockSelf = self;
-    [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
-        if (error == nil){
-            [blockSelf.request startAsynchronous];
-        }
-    }];
-}
-
--(void)tokenFetchFinished:(ASIHTTPRequest*)request{
-    
-    if (request.error == nil){
-        NSString* tempToken = request.responseString;
-        
-        DebugLog(@"token is %@", tempToken);
-        
-        if (tempToken != nil && [tempToken length] <= 57){
-            _token = [[tempToken substringFromIndex:2] copy];
-        }else {
-            _token = nil;
-        }
-        
-        if (self.delegate && self.action){
-            [self.delegate performSelector:self.action withObject:self];
-        }
-    }
-}
 
 +(NSString*)token{
+    NSDate* now = [NSDate date];
+    NSDate* tokenFetchedDate = [NSDate dateWithTimeIntervalSince1970:_tokenFetchTimeInterval];
+    
+    if ([now timeIntervalSinceDate:tokenFetchedDate] > 25*60){
+        //token invalid time is 30 mins
+        //refresh it after 25 mins
+        [self setToken:nil];
+        _tokenFetchTimeInterval = 0;
+    }
+        
     return _token;
 }
 
-+(void)startTimerToRefreshToken{
-    _timer = [NSTimer timerWithTimeInterval:60*20 target:[self class] selector:@selector(refreshToken) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
-}
-
-+(void)invalideTimer{
-    [_timer invalidate];
-    _timer = nil;
++(void)setToken:(NSString*)token{
+    [_token release];
+    _token = [token copy];
 }
 
 #pragma mark - life cycle
@@ -115,9 +109,8 @@ static NSMutableDictionary* _itemPool = nil;
 -(void)dealloc{
     [self.request clearDelegatesAndCancel];
     self.request = nil;
-    [self.editOperationQueue.operations makeObjectsPerformSelector:@selector(clearDelegatesAndCancel)];
-    [self.editOperationQueue cancelAllOperations];
-    self.editOperationQueue = nil;
+    [self.tokenRequest clearDelegatesAndCancel];
+    self.tokenRequest = nil;
     [super dealloc];
 }
 
@@ -126,7 +119,13 @@ static NSMutableDictionary* _itemPool = nil;
     if (self){
         self.delegate = delegate;
         self.action = action;
-        self.editOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
+        
+        static dispatch_once_t pred;
+        
+        dispatch_once(&pred, ^{ 
+            _addTokenQueue = [[NSMutableArray alloc] init]; 
+        }); 
+        
     }
     
     return self;
@@ -274,8 +273,13 @@ static NSMutableDictionary* _itemPool = nil;
     
     [self clearAndCancel];
     self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
+    self.request.delegate = self;
     
-    [self.request startAsynchronous];
+    [self addTokenToRequest:(ASIFormDataRequest*)_request completionBlock:^(NSError* error){
+        [[GoogleAuthManager shared] authRequest:_request completionBlock:^(NSError* error){
+                [_request startAsynchronous];
+        }];
+    }];
     
 }
 
@@ -284,15 +288,11 @@ static NSMutableDictionary* _itemPool = nil;
 }
 
 -(void)requestFailed:(ASIHTTPRequest*)request{
-    if (self.action){
-        [self.delegate performSelectorOnMainThread:self.action withObject:self waitUntilDone:NO];
-    }
+    [self performCallBack];
 }
 
 -(void)requestFinished:(ASIHTTPRequest*)request{
-    if (self.action){
-        [self.delegate performSelectorOnMainThread:self.action withObject:self waitUntilDone:NO];
-    }
+    [self performCallBack];
 }
 
 #pragma mark - getter and setter
@@ -399,7 +399,7 @@ static NSMutableDictionary* _itemPool = nil;
     if ([type isEqualToString:API_EDIT]){
         request = [ASIFormDataRequest requestWithURL:baseURL];
         request.requestMethod = @"POST";//POST method for list api
-        [parameters setParameterForKey:EDIT_ARGS_TOKEN withValue:_token];
+        
         for (NSString* key in parameters.parameters.allKeys){
             [(ASIFormDataRequest*)request addPostValue:[parameters.parameters objectForKey:key] forKey:key];
         }
@@ -460,29 +460,127 @@ static NSMutableDictionary* _itemPool = nil;
 		[paramSet setParameterForKey:EDIT_ARGS_REMOVE withValue:tagToRemove];//tag name to remove
 	[paramSet setParameterForKey:EDIT_ARGS_ACTION withValue:@"edit"];//add API action. Here is 'edit'
 	
-    ASIHTTPRequest* request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
-//    request.didFinishSelector = @selector(editItemRequestFinished:);
+    ASIFormDataRequest* request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
+    
     __block typeof(self) blockSelf = self;
+    
+    [self addTokenToRequest:request completionBlock:^(NSError* error){
+        if (error){
+            [self performCallBack];
+        }
+        [request setCompletionBlock:^{
+            [self performCallBack];
+            
+            GRItem* item = [[[blockSelf class] itemPool] objectForKey:itemID];
+            [item removeCategory:tagToRemove];
+            [item addCategory:tagToAdd];
+        }];
+        [request setFailedBlock:^{
+            [self performCallBack];
+        }];
+        [blockSelf.request clearDelegatesAndCancel];
+        blockSelf.request = request;
+        [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
+            if (error == nil){
+                [blockSelf.request startAsynchronous];
+            }
+        }];
+    }];
+}
+
+//add token if only needed
+-(void)addTokenToRequest:(ASIFormDataRequest*)request completionBlock:(void(^)(NSError* error))block{
+    NSString* token = [[self class] token];
+    
+    if (token == nil){
+        @synchronized(_addTokenQueue){
+            FetchTokenArg* arg = [[[FetchTokenArg alloc] init] autorelease];
+            arg.request = request;
+            arg.completionHandler = block;
+            
+            [_addTokenQueue addObject:arg];
+        
+            if (_startFetchToken == NO){
+                //start fetch token
+                _startFetchToken = YES;
+                [self startFetchToken];
+            }
+        }
+                
+    }else{
+        [request addPostValue:token forKey:EDIT_ARGS_TOKEN];
+        if (block){
+            block(nil);
+        }
+    }
+}
+
+-(void)startFetchToken{
+    
+    NSString* urlString = [URI_PREFIX_API stringByAppendingString:API_TOKEN];
+    urlString = [GOOGLE_SCHEME_SSL stringByAppendingString:urlString];
+    
+    ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [self.tokenRequest clearDelegatesAndCancel];
+    self.tokenRequest = request;
+    
     [request setCompletionBlock:^{
-        if (blockSelf.action){
-            [blockSelf.delegate performSelectorOnMainThread:blockSelf.action withObject:blockSelf waitUntilDone:NO];
+        if (request.error == nil){
+            NSString* tempToken = request.responseString;
+            
+            DebugLog(@"token is %@", tempToken);
+            
+            if (tempToken != nil && [tempToken length] <= 57){
+                [[GoogleReaderClient class] setToken:[tempToken substringFromIndex:2]];
+                _tokenFetchTimeInterval = [[NSDate date] timeIntervalSince1970];
+            }else {
+                [[GoogleReaderClient class] setToken:nil];
+                _tokenFetchTimeInterval = 0;
+            }
+            
+            @synchronized(_addTokenQueue){
+                NSArray* args = [NSArray arrayWithArray:_addTokenQueue];
+                [_addTokenQueue removeAllObjects];
+                
+                for (FetchTokenArg* arg in args){
+                    [arg.request addPostValue:tempToken forKey:EDIT_ARGS_TOKEN];
+                    if (arg.completionHandler){
+                        void (^completionBlock)(NSError *) = arg.completionHandler;
+                        completionBlock(request.error);
+                    }
+                }
+            }
         }
-        GRItem* item = [[[blockSelf class] itemPool] objectForKey:itemID];
-        [item removeCategory:tagToRemove];
-        [item addCategory:tagToAdd];
+        _startFetchToken = NO;
     }];
+    
     [request setFailedBlock:^{
-        if (blockSelf.action){
-            [blockSelf.delegate performSelectorOnMainThread:blockSelf.action withObject:blockSelf waitUntilDone:NO];
+        @synchronized(_addTokenQueue){
+            NSArray* args = [NSArray arrayWithArray:_addTokenQueue];
+            [_addTokenQueue removeAllObjects];
+            
+            for (FetchTokenArg* arg in args){
+                if (arg.completionHandler){
+                    void (^completionBlock)(NSError *) = arg.completionHandler;
+                    completionBlock(request.error);
+                }
+            }
         }
+        _startFetchToken = NO;
     }];
-    [self.request clearDelegatesAndCancel];
-    self.request = request;
-    [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
+    
+    [[GoogleAuthManager shared] authRequest:request completionBlock:^(NSError* error){
         if (error == nil){
-            [blockSelf.request startAsynchronous];
+            [request startAsynchronous];
         }
     }];
+
+}
+
+-(void)performCallBack{
+    if (self.action){
+        [self.delegate performSelectorOnMainThread:self.action withObject:self waitUntilDone:NO];
+    }
 }
 
 @end
