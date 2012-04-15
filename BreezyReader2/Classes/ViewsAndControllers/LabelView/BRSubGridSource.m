@@ -45,6 +45,7 @@
 }
 
 -(void)loadSourceMore:(BOOL)more{
+    [self.delegate sourceStartLoading];
     NSArray* subscriptions = [[GRDataManager shared] getSubscriptionListWithTag:self.tag.ID];
     self.subscriptions = [[BRReadingStatistics statistics] sortedSubscriptionsByReadingFrequency:subscriptions];
     [self.delegate sourceLoadFinished];

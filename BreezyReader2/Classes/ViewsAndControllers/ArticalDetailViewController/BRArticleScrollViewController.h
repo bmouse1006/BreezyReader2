@@ -20,9 +20,15 @@
 @property (nonatomic, assign) NSUInteger index;
 
 @property (nonatomic, retain) IBOutlet UIButton* backButton;
+@property (nonatomic, retain) IBOutlet UIButton* starButton;
+@property (nonatomic, retain) IBOutlet UIButton* unstarButton;
+@property (nonatomic, retain) IBOutlet UIView* starButtonContainer;
 
 -(IBAction)back:(id)sender;
 -(IBAction)viewInSafari:(id)sender;
+-(IBAction)starItem:(id)sender;
+-(IBAction)unstarItem:(id)sender;
 -(IBAction)scrollCurrentPageToTop:(id)sender;
+-(IBAction)showHideFontsizeMenu:(id)sender;
 
 @end

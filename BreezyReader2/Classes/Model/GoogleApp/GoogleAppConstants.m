@@ -68,6 +68,8 @@ NSString * const API_STREAM_CONTENTS        = @"reader/api/0/stream/contents/";
 NSString * const API_STREAM_ITEMS           = @"reader/api/0/stream/items/";
 NSString * const API_STREAM_DETAILS         = @"reader/api/0/stream/details";
 
+NSString * const API_RECOMMENDATION_EDIT  = @"reader/api/0/recommendation/edit";
+
 NSString * const URI_QUICKADD				= @"http://www.google.com/reader/quickadd";
 
 NSString * const OUTPUT_XML					= @"xml";
@@ -87,6 +89,7 @@ NSString * const ATOM_ARGS_CONTINUATION		= @"c";
 NSString * const ATOM_ARGS_CLIENT			= @"client";
 NSString * const ATOM_ARGS_TIMESTAMP		= @"ck";
 
+NSString * const EDIT_ARGS_IMPRESSION		= @"impression";
 NSString * const EDIT_ARGS_FEED				= @"s";
 NSString * const EDIT_ARGS_ITEM			    = @"i";
 NSString * const EDIT_ARGS_ADD				= @"a";		

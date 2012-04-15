@@ -365,7 +365,7 @@ static CGFloat kCaptionHeight = 40.0f;
 -(void)startFeedRequest:(GRSubscription*)sub{
     [self setImageURLs:nil];
     [self.grClient clearAndCancel];
-    [self.grClient requestFeedWithIdentifier:sub.ID count:[NSNumber numberWithInt:3] startFrom:nil exclude:nil continuation:nil forceRefresh:NO needAuth:NO];
+    [self.grClient requestFeedWithIdentifier:sub.ID count:[NSNumber numberWithInt:2] startFrom:nil exclude:nil continuation:nil forceRefresh:NO needAuth:NO];
 }
 
 -(void)setObject:(id)obj{

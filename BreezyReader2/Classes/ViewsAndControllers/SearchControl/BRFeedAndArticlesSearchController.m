@@ -185,7 +185,7 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
 -(void)startSearch:(NSTimer*)timer{
     NSString* keywords = self.searchDisplayController.searchBar.text;
     BRSearchDataSource* searchDataBase = (BRSearchDataSource*)self.searchDisplayController.searchResultsDataSource;
-    if ([searchDataBase.keywords isEqualToString:[keywords stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]]]){
+    if (keywords.length == 0 || [searchDataBase.keywords isEqualToString:[keywords stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]]]){
         return;
     }
     DebugLog(@"start searching");

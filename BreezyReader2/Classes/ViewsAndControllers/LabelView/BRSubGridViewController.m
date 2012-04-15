@@ -143,6 +143,10 @@ static CGFloat kTitleLabelHeight = 60.0f;
     [[self topContainer] boomOutViewController:feedController fromView:view];
 }
 
+-(void)sourceStartLoading{
+    
+}
+
 -(void)sourceLoadFinished{
     [self.tableView reloadData];
 }

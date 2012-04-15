@@ -18,6 +18,7 @@
 @property (nonatomic, retain) GRSubscription* subscription;
 @property (nonatomic, retain) GRFeed* feed;
 @property (nonatomic, retain) GRFeed* moreFeed;
+@property (nonatomic, assign) BOOL unreadOnly;
 
 @property (nonatomic, retain) GoogleReaderClient* client;
 

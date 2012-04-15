@@ -48,6 +48,8 @@
 @synthesize plainSummary = _plainSummary;
 @synthesize plainContent = _plainContent;
 
+@synthesize isReadStateLocked = _isReadStateLocked;
+
 +(id)objWithJSON:(NSDictionary*)json{
     GRItem* item = [[[self alloc] init] autorelease];
     
@@ -66,6 +68,7 @@
     item.content = [[json objectForKey:@"content"] objectForKey:@"content"];
     item.summary = [[json objectForKey:@"summary"] objectForKey:@"content"];
     item.author = [json objectForKey:@"author"];
+    item.isReadStateLocked = [[json objectForKey:@"isReadStateLocked"] boolValue];
     
     if ([[json objectForKey:@"alternate"] count] > 0){
         item.alternateLink = [[[json objectForKey:@"alternate"] objectAtIndex:0] objectForKey:@"href"];

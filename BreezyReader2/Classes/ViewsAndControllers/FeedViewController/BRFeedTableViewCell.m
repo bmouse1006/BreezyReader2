@@ -165,6 +165,9 @@
 
 -(void)updateStarButton{
     [self.buttonContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    if (self.item.isReadStateLocked){
+        return;
+    }
     if (_item.isStarred){
         [self.buttonContainer addSubview:self.unstarButton];
     }else{
@@ -173,6 +176,9 @@
 }
 
 -(void)updateReadColor{
+    if (self.item.isReadStateLocked){
+        return;
+    }
     if (self.item.isReaded){
         self.titleLabel.textColor = [UIColor grayColor];
     }else{

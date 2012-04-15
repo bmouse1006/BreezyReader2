@@ -84,7 +84,7 @@ static CGFloat animationDuration = 0.4f;
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.container.clipsToBounds = YES;
+//    self.container.clipsToBounds = YES;
 }
 
 -(void)setSubscription:(GRSubscription *)subscription{

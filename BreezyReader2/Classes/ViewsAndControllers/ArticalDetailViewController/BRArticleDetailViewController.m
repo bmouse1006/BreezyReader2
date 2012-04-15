@@ -10,6 +10,7 @@
 #import "UIViewController+addition.h"
 #import "GRItem.h"
 #import "NSString+MD5.h"
+#import "NSString+Addtion.h"
 #import "RegexKitLite.h"
 #import "BRImageScrollController.h"
 
@@ -40,12 +41,16 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
                                                 
 @synthesize webView = _webView;
 @synthesize item = _item;
+@synthesize loadingView = _loadingView;
+@synthesize loadingLabel = _loadingLabel;
 
 -(void)dealloc{
     NSString* tempFile = [self filePathForItemID:self.item.ID];
     [[NSFileManager defaultManager] removeItemAtPath:tempFile error:NULL];
     self.webView = nil;
     self.item = nil;
+    self.loadingView = nil;
+    self.loadingLabel = nil;
     [super dealloc];
 }
 
@@ -80,11 +85,13 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.loadingLabel.text = [self.item.title stringByReplacingHTMLTagAndTrim];
+    
     [self removeGradientImage:self.webView];
     UITapGestureRecognizer* singleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)] autorelease];
     singleTap.delegate = self;
     [self.webView addGestureRecognizer:singleTap];
-    // Do any additional setup after loading the view from its nib.
     self.webView.delegate = self;
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 //    CGFloat insetsTop = self.navigationController.navigationBar.frame.size.height;
@@ -92,9 +99,6 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     UIEdgeInsets inset = UIEdgeInsetsMake(insetsTop, 0, 0, 0);
     [self.webView.scrollView setContentInset:inset];
     [self.webView.scrollView setScrollIndicatorInsets:inset];
-//    GRItem* item = [self.feed getItemAtIndex:self.index];
-    DebugLog(@"item id is %@", self.item.ID);
-    DebugLog(@"item title is %@", self.item.title);
     NSString* content = (self.item.content.length > 0)?self.item.content:self.item.summary;
     
     content = [self preprocessContent:(NSString*)content];
@@ -106,19 +110,15 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     NSString* css_url = [[NSBundle mainBundle] pathForResource:@"readability" ofType:@"css"];
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"template" ofType:@"html"];
     NSMutableString* htmlTemplate = [NSMutableString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
-    @try {
-        NSRange range = {0, htmlTemplate.length};
-        [htmlTemplate replaceOccurrencesOfString:kPlaceHolderArticleTitle withString:self.item.presentationString options:NSLiteralSearch range:range];
-        NSRange range1 = {0, htmlTemplate.length};
-        [htmlTemplate replaceOccurrencesOfString:kPlaceHolderArticleContent withString:content options:NSLiteralSearch range:range1];
-        NSRange range2 = {0, htmlTemplate.length};
-        [htmlTemplate replaceOccurrencesOfString:kPlaceHolderCSSFilePath withString:css_url options:NSLiteralSearch range:range2];
-        NSRange range3 = {0, htmlTemplate.length};
-        [htmlTemplate replaceOccurrencesOfString:kPlaceHolderJSFilePath withString:js_url options:NSLiteralSearch range:range3];
-    }
-    @catch (NSException *exception) {
-        DebugLog(@"exception is %@", exception.reason);
-    }
+
+    NSRange range = {0, htmlTemplate.length};
+    [htmlTemplate replaceOccurrencesOfString:kPlaceHolderArticleTitle withString:self.item.presentationString options:NSLiteralSearch range:range];
+    NSRange range1 = {0, htmlTemplate.length};
+    [htmlTemplate replaceOccurrencesOfString:kPlaceHolderArticleContent withString:content options:NSLiteralSearch range:range1];
+    NSRange range2 = {0, htmlTemplate.length};
+    [htmlTemplate replaceOccurrencesOfString:kPlaceHolderCSSFilePath withString:css_url options:NSLiteralSearch range:range2];
+    NSRange range3 = {0, htmlTemplate.length};
+    [htmlTemplate replaceOccurrencesOfString:kPlaceHolderJSFilePath withString:js_url options:NSLiteralSearch range:range3];
     
     filePath = [self filePathForItemID:self.item.ID];
     [htmlTemplate writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
@@ -132,12 +132,7 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     self.webView = nil;
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
-    [UIApplication sharedApplication].statusBarHidden = YES;
+    self.loadingView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -155,10 +150,12 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 #pragma mark - web view delegate
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     DebugLog(@"web view did finish load");
+    [self.loadingView removeFromSuperview];
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView{
     DebugLog(@"web view did start load");
+    [self.loadingView performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:1.2];
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
@@ -225,6 +222,15 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     }else{
         _imageClicked = NO;
     }
+}
+
+#pragma mark - change font size
+-(void)increaseFontsize{
+    
+}
+
+-(void)decreaseFontsize{
+    
 }
 
 @end

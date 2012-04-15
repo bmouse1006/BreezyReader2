@@ -33,7 +33,7 @@
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
 	// Define clipping area
-	CGPathRef path = CGPathCreateMutable();
+	CGMutablePathRef path = CGPathCreateMutable();
 	CGFloat width = rect.size.width;
 	CGFloat height = rect.size.height;
 	CGFloat radius = 2*[CustomSwitch margin];

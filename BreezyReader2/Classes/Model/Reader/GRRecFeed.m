@@ -15,7 +15,7 @@
 @synthesize snippet = _snippet;
 @synthesize streamID = _streamID;
 @synthesize impressionTime = _impressionTime;
-@synthesize isSucscribing;
+@synthesize isSubscribed;
 
 -(NSString*)presentationString{//the main string that display in table view
 	return self.title;
@@ -36,7 +36,7 @@
 	feed.snippet = [JSONObj objectForKey:@"snippet"];
 	feed.streamID = [JSONObj objectForKey:@"streamId"];
 	feed.impressionTime = [JSONObj objectForKey:@"impressionTime"];
-	feed.isSucscribing = NO;
+	feed.isSubscribed = NO;
 	
 	return [feed autorelease];
 }

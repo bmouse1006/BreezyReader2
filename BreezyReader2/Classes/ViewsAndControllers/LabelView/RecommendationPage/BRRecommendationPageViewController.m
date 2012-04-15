@@ -7,37 +7,49 @@
 //
 
 #import "BRRecommendationPageViewController.h"
+#import "BRRecommendationDataSource.h"
+#import "GoogleReaderClient.h"
 
 @interface BRRecommendationPageViewController ()
+
+@property (nonatomic, retain) GoogleReaderClient* client;
 
 @end
 
 @implementation BRRecommendationPageViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+@synthesize client = _client;
+
+-(void)dealloc{
+    [self.client clearAndCancel];
+    self.client = nil;
+    [super dealloc];
 }
 
-- (void)viewDidLoad
-{
+-(void)viewDidLoad{
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+-(void)createSource{
+    self.source = [[[BRRecommendationDataSource alloc] init] autorelease];
+    self.source.delegate = self;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+-(void)mediaLibTableViewCell:(JJMediaLibTableViewCell *)cell didSelectMediaAtIndex:(NSInteger)index{
+    [super mediaLibTableViewCell:cell didSelectMediaAtIndex:index];
+    GRSubscription* sub = [self.source mediaAtIndex:index];
+    [self.client recommendationStream:sub.ID];
+}
+
+#pragma mark - data source delegate
+-(void)sourceStartLoading{
+    
+}
+
+-(void)sourceLoadFinished{
+    [super sourceLoadFinished];
+    //remove 'waiting' page
 }
 
 @end

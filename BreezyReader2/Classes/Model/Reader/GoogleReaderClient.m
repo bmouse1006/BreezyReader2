@@ -104,6 +104,14 @@ static BOOL _startFetchToken = NO;
     _token = [token copy];
 }
 
+-(void)refreshUnreadCount{
+    
+}
+
+-(void)refreshTagAndSubscription{
+    
+}
+
 #pragma mark - life cycle
 
 -(void)dealloc{
@@ -230,6 +238,20 @@ static BOOL _startFetchToken = NO;
     [self.request startAsynchronous];
 }
 
+-(void)getRecommendationList{
+    NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_RECOMMENDATION];
+	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	[paramSet setParameterForKey:ATOM_ARGS_COUNT withValue:@"99999"];
+	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
+    [self.request clearDelegatesAndCancel];
+    self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_LIST];
+    [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
+        if (error == nil){
+            [self.request startAsynchronous];
+        }
+    }];
+}
+
 -(void)getSubscriptionList{
     
 }
@@ -244,19 +266,16 @@ static BOOL _startFetchToken = NO;
 
 #pragma mark - edit api
 -(void)starArticle:(NSString*)itemID{
-    NSString* starTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_STARRED];
-    [self editItem:itemID addTag:starTag removeTag:nil];
+    [self editItem:itemID addTag:[[self class] starTag] removeTag:nil];
 }
 
 -(void)unstartArticle:(NSString*)itemID{
-    NSString* starTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_STARRED];
-    [self editItem:itemID addTag:nil removeTag:starTag];
+    [self editItem:itemID addTag:nil removeTag:[[self class] starTag]];
     
 }
 
 -(void)markArticleAsRead:(NSString*)itemID{
-    NSString* readTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_READ];
-    [self editItem:itemID addTag:readTag removeTag:nil];
+    [self editItem:itemID addTag:[[self class] readArticleTag] removeTag:nil];
 }
 
 -(void)keepArticleUnread:(NSString*)itemID{
@@ -281,6 +300,23 @@ static BOOL _startFetchToken = NO;
         }];
     }];
     
+}
+
+-(void)recommendationStream:(NSString*)streamID{
+    NSString* url = [URI_PREFIX_API stringByAppendingString:API_RECOMMENDATION_EDIT];
+    
+    URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+    [paramSet setParameterForKey:EDIT_ARGS_FEED withValue:streamID];
+    [paramSet setParameterForKey:EDIT_ARGS_IMPRESSION withValue:[NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]*1000000]];
+    self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
+    __block typeof(self) blockSelf = self;
+    [self addTokenToRequest:(ASIFormDataRequest*)self.request completionBlock:^(NSError* error){
+        if (error == nil){
+            [[GoogleAuthManager shared] authRequest:blockSelf.request completionBlock:^(NSError* error){
+                [blockSelf.request startAsynchronous];
+            }];
+        }
+    }];
 }
 
 #pragma mark - request delegate
@@ -450,6 +486,10 @@ static BOOL _startFetchToken = NO;
 -(void)editItem:(NSString*)itemID 
             addTag:(NSString*)tagToAdd 
          removeTag:(NSString*)tagToRemove{
+    GRItem* item = [_itemPool objectForKey:itemID];
+    if (item.isReadStateLocked){
+        return;
+    }
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_TAG2];
 	//Prepare parameters
 	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
@@ -581,6 +621,15 @@ static BOOL _startFetchToken = NO;
     if (self.action){
         [self.delegate performSelectorOnMainThread:self.action withObject:self waitUntilDone:NO];
     }
+}
+
+#pragma mark - labels
++(NSString*)readArticleTag{
+    return [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_READ];
+}
+
++(NSString*)starTag{
+    return [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_STARRED];
 }
 
 @end

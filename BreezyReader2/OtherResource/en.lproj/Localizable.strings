@@ -22,6 +22,8 @@
 "title_subscribercount" = "Subscribers: %@";
 "title_favorite" = "Most Read";
 "title_loading" = "Loading...";
+"title_recommendation" = "Recommendation";
+"title_starred" = "Starred";
 
 "msg_searching" = "Searching...";
 "msg_unstarfailed" = "Failed to remove star";

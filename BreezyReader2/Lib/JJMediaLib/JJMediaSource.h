@@ -12,6 +12,7 @@
 
 @protocol JJMediaSourceDelegate
 
+-(void)sourceStartLoading;
 -(void)sourceLoadFinished;
 
 @end

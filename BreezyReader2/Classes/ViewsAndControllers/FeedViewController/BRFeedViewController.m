@@ -53,6 +53,7 @@
 @synthesize client = _client;
 @synthesize clients = _clients, itemIDs = _itemIDs;
 @synthesize adView = _adView;
+@synthesize readSwitch = _readSwitch;
 
 static CGFloat insetsTop = 0.0f;
 static CGFloat insetsBottom = 0.0f;
@@ -76,6 +77,7 @@ static CGFloat refreshDistance = 60.0f;
     self.clients = nil;
     self.itemIDs = nil;
     self.adView = nil;
+    self.readSwitch = nil;
     [super dealloc];
 }
 
@@ -134,6 +136,11 @@ static CGFloat refreshDistance = 60.0f;
     self.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     self.titleLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
     self.titleLabel.text = self.title;
+    
+    self.readSwitch = [[[CustomSwitch alloc] initWithFrame:CGRectMake(224, 9, 80, 26) onLabelText:@"All" offLabelText:@"Unread"] autorelease];
+    self.readSwitch.delegate = self;
+    self.readSwitch.on = YES;
+    [self.bottomToolBar addSubview:self.readSwitch];
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.titleView];
@@ -217,9 +224,7 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self.tableView reloadData];
     [[self.tableView visibleCells] makeObjectsPerformSelector:@selector(setNeedsLayout)];
-    [self addHeaderAndFooterForTableView];
     [self.adView performSelector:@selector(resumeAdRequest)];
 }
 
@@ -318,6 +323,10 @@ static CGFloat refreshDistance = 60.0f;
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
+-(IBAction)showSearch:(id)sender{
+    
+}
+
 #pragma mrak - data source delegate
 -(void)dataSource:(BRBaseDataSource *)dataSource didFinishLoading:(BOOL)more{
     if (more){
@@ -325,16 +334,16 @@ static CGFloat refreshDistance = 60.0f;
         _isLoadingMore = NO;
     }else{
         _isRefreshing = NO;
+        [UIView animateWithDuration:0.2 animations:^{
+            self.loadingView.alpha = 0;
+        } completion:^(BOOL finished){
+            [self.loadingView removeFromSuperview];
+        }];
     }
     [self setupTableViewEdgeInsetByStatus];
     [self.dragController refreshLabels:self.dataSource.loadedTime];
     [self.tableView reloadData];
     [self addHeaderAndFooterForTableView];
-    [UIView animateWithDuration:0.2 animations:^{
-        self.loadingView.alpha = 0;
-    } completion:^(BOOL finished){
-        [self.loadingView removeFromSuperview];
-    }];
 }
 
 -(void)dataSource:(BRBaseDataSource *)dataSource didStartLoading:(BOOL)more{
@@ -432,22 +441,10 @@ static CGFloat refreshDistance = 60.0f;
     [self.clients removeObject:client];    
 }
 
-//#pragma mark - ad view delegate
-//-(void)adViewDidLoadAd:(GHAdView *)view{
-//    view.hidden = NO;
-//    CGRect frame = view.frame;
-//    frame.origin.y = self.view.bounds.size.height - self.bottomToolBar.bounds.size.height - frame.size.height;
-//    [UIView animateWithDuration:0.2 animations:^{
-//        view.frame = frame; 
-//    }];
-//}
-//
-//-(void)adViewDidFailToLoadAd:(GHAdView *)view{
-//    DebugLog(@"ad load failed");
-//}
-//
-//-(UIViewController*)viewControllerForPresentingModalView{
-//    return self;
-//}
+#pragma mark - switch delegate
+- (void)valueChanged:(BOOL)switchValue{
+    self.dataSource.unreadOnly = !switchValue;
+    [self.dataSource loadDataMore:NO forceRefresh:NO];
+}
 
 @end

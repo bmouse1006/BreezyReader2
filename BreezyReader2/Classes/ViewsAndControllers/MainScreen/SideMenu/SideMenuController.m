@@ -58,4 +58,12 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CONFIGBUTTONCLICKED object:sender];   
 }
 
+-(IBAction)starButtonClicked:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_STARBUTTONCLICKED object:sender];  
+}
+
+-(IBAction)showSubListButtonClicked:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOWAUBLISTBUTTONCLICKED object:sender];  
+}
+
 @end

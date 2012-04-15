@@ -36,7 +36,7 @@
 +(GRSubscription*)subscriptionWithJSONObject:(NSDictionary*)JSONSub;
 
 +(GRSubscription*)subscriptionForAllItems;
-
++(GRSubscription*)subscriptionForLabel:(NSString*)label;
 +(GRSubscription*)subscriptionForGRRecFeed:(GRRecFeed*)recFeed;
 
 @end

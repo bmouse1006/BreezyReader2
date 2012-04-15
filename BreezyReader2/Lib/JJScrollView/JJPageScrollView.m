@@ -22,6 +22,7 @@ CGPoint CGCenterOfRect(CGRect rect){
 -(void)loadPageAtIndex:(NSInteger)index;
 -(CGPoint)pageOffsetAtIndex:(NSInteger)index;
 -(NSInteger)indexForOffset:(CGPoint)offset;
+-(CGPoint)offsetOfTouch:(CGPoint)location;
 
 -(void)createContents;
 
@@ -161,47 +162,41 @@ CGPoint CGCenterOfRect(CGRect rect){
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     //load more 
     [self.scrollDelegate scrollViewWillBeginDragging:self];
-    NSInteger index = [self currentIndex];
-    [self loadPageAtIndex:index];
-    [self loadPageAtIndex:index-1];
-    [self loadPageAtIndex:index-2];
-    [self loadPageAtIndex:index+1];
-    [self loadPageAtIndex:index+2];
-    [self clearInvisiblePages];
 }
 
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-////    NSInteger index = [self indexForOffset:self.contentOffset];
-////    self.pageIndex = index;
-////    [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];
-//}
-
--(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-    NSInteger index = [self currentIndex];
-    self.pageIndex = index;
-    [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];  
-    [self loadPageAtIndex:index-1];
-    [self loadPageAtIndex:index-2];
-    [self loadPageAtIndex:index+1];
-    [self loadPageAtIndex:index+2];
-    [self clearInvisiblePages];
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (decelerate == YES){
+        self.userInteractionEnabled = NO;
+    }else{
+        self.userInteractionEnabled = YES;
+        NSInteger index = [self currentIndex];
+        self.pageIndex = index;
+        [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];  
+        [self loadPage];
+    }
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    self.userInteractionEnabled = YES;
+    NSInteger index = [self currentIndex];
+    self.pageIndex = index;
+    [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];  
+    [self loadPage];
+}
+
+-(void)loadPage{
     NSInteger index = [self currentIndex];
     self.pageIndex = index;
     [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];  
     [self loadPageAtIndex:index-1];
-    [self loadPageAtIndex:index-2];
     [self loadPageAtIndex:index+1];
-    [self loadPageAtIndex:index+2];
     [self clearInvisiblePages];
 }
 
 -(void)clearInvisiblePages{
     NSInteger index = [self currentIndex];
     for (NSNumber* key in [self.loadedPages allKeys]){
-        if ([key intValue]>index + 2 || [key intValue] < index - 2){
+        if ([key intValue]>index + 1 || [key intValue] < index - 1){
             [self removePageWithIndex:[key intValue]];
         }
     }
@@ -219,6 +214,12 @@ CGPoint CGCenterOfRect(CGRect rect){
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewDidRemovePageAtIndex:)]){
         [self.scrollDelegate scrollViewDidRemovePageAtIndex:index];
     }
+}
+
+-(CGPoint)offsetOfTouch:(CGPoint)location{
+    CGPoint offset = self.contentOffset;
+    offset.x += location.x;
+    return offset;
 }
 
 @end

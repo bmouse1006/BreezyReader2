@@ -119,7 +119,6 @@
 						<string key="NSFrame">{{20, 15}, {160, 46}}</string>
 						<reference key="NSSuperview" ref="480104739"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -151,7 +150,7 @@
 					<object class="IBUILabel" id="1014956394">
 						<reference key="NSNextResponder" ref="480104739"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 89}, {160, 21}}</string>
+						<string key="NSFrame">{{20, 79}, {160, 21}}</string>
 						<reference key="NSSuperview" ref="480104739"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="796568420"/>
@@ -184,10 +183,9 @@
 					<object class="IBUILabel" id="796568420">
 						<reference key="NSNextResponder" ref="480104739"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 128}, {160, 21}}</string>
+						<string key="NSFrame">{{20, 118}, {160, 21}}</string>
 						<reference key="NSSuperview" ref="480104739"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -416,14 +414,6 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
-					<string key="className">JJImageView</string>
-					<string key="superclassName">UIImageView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/JJImageView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">SubOverviewController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="actions">
@@ -441,10 +431,6 @@
 						<string key="container">UIView</string>
 						<string key="dimBackground">UIView</string>
 						<string key="dismissButton">UIButton</string>
-						<string key="imageView1">JJImageView</string>
-						<string key="imageView2">JJImageView</string>
-						<string key="imageView3">JJImageView</string>
-						<string key="imageView4">JJImageView</string>
 						<string key="subDetailView">UIView</string>
 						<string key="subscriberCountLabel">UILabel</string>
 						<string key="titleLabel">UILabel</string>
@@ -462,22 +448,6 @@
 						<object class="IBToOneOutletInfo" key="dismissButton">
 							<string key="name">dismissButton</string>
 							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imageView1">
-							<string key="name">imageView1</string>
-							<string key="candidateClassName">JJImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imageView2">
-							<string key="name">imageView2</string>
-							<string key="candidateClassName">JJImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imageView3">
-							<string key="name">imageView3</string>
-							<string key="candidateClassName">JJImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imageView4">
-							<string key="name">imageView4</string>
-							<string key="candidateClassName">JJImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="subDetailView">
 							<string key="name">subDetailView</string>

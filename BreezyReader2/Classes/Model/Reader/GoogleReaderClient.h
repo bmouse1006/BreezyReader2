@@ -42,17 +42,22 @@
 -(void)getSubscriptionList;
 -(void)getTagList;
 -(void)getUnreadCount;
+-(void)getRecommendationList;
 //edit api
 -(void)starArticle:(NSString*)itemID;
 -(void)unstartArticle:(NSString*)itemID;
 -(void)markArticleAsRead:(NSString*)itemID;
 -(void)keepArticleUnread:(NSString*)itemID;
 -(void)markAllAsRead:(NSString*)streamID;
+-(void)recommendationStream:(NSString*)streamID;
 +(void)setToken:(NSString*)token;
 +(NSString*)token;
 //sub, tag and unread count
 -(void)refreshUnreadCount;
 -(void)refreshTagAndSubscription;
+//labels
++(NSString*)readArticleTag;
++(NSString*)starTag;
 
 -(BOOL)isLoading;
 

@@ -43,7 +43,6 @@
 						<string key="NSFrameSize">{320, 96}</string>
 						<reference key="NSSuperview" ref="231601219"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:395</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="630327524">
 							<int key="NSColorSpace">3</int>
@@ -93,7 +92,6 @@
 						<string key="NSFrame">{{7, 96}, {306, 1}}</string>
 						<reference key="NSSuperview" ref="756020080"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="282853292"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -174,7 +172,6 @@
 				<string key="NSFrameSize">{32, 32}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="630327524"/>
 				<bool key="IBUIOpaque">NO</bool>
@@ -196,7 +193,7 @@
 				</object>
 				<object class="NSCustomResource" key="IBUINormalImage">
 					<string key="NSClassName">NSImage</string>
-					<string key="NSResourceName">star_empty.png</string>
+					<string key="NSResourceName">star_black_24.png</string>
 				</object>
 				<object class="IBUIFontDescription" key="IBUIFontDescription" id="587071499">
 					<int key="type">2</int>
@@ -214,7 +211,6 @@
 				<string key="NSFrameSize">{32, 32}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="630327524"/>
 				<bool key="IBUIOpaque">NO</bool>
@@ -437,6 +433,7 @@
 				<string key="23.CustomClassName">JJLabel</string>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="0.0" key="26.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.CustomClassName">BRFeedTableViewCell</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -557,8 +554,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="star_black_24.png">{24, 24}</string>
 			<string key="star_complete.png">{24, 24}</string>
-			<string key="star_empty.png">{24, 24}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1179</string>
 	</data>

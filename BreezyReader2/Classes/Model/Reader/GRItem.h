@@ -35,6 +35,8 @@
 @property (nonatomic, retain) NSArray* summaryImageURLs;
 @property (nonatomic, retain) NSDictionary* imageURLFileMap;
 
+@property (nonatomic, assign) BOOL isReadStateLocked;
+
 @property (nonatomic, readonly, assign) BOOL readed;
 @property (nonatomic, readonly, assign) BOOL starred;
 @property (nonatomic, readonly, assign) BOOL keptUnread;

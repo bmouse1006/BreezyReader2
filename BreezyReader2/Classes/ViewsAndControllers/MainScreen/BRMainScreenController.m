@@ -14,6 +14,7 @@
 #import "GoogleAppConstants.h"
 #import "BRViewControllerNotification.h"
 #import "BRFeedAndArticlesSearchController.h"
+#import "BRFeedViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface BRMainScreenController (){
@@ -151,6 +152,11 @@
     [nc addObserver:self selector:@selector(loginStatusChanged:) name:NOTIFICATION_LOGINSTATUSCHANGED object:nil];
     [nc addObserver:self selector:@selector(startFlipTile:) name:NOTIFICATION_STARTFLIPSUBTILEVIEW object:nil];
     [nc addObserver:self selector:@selector(showSearchUI:) name:NOTIFICATION_SERACHBUTTONCLICKED object:nil];
+    [nc addObserver:self selector:@selector(switchDownloadMode:) name:NOTIFICATION_DOWNLOADBUTTONCLICKED object:nil];
+    [nc addObserver:self selector:@selector(showLogoutDialog:) name:NOTIFICATION_LOGOUTBUTTONCLICKED object:nil];
+    [nc addObserver:self selector:@selector(showConfigUI:) name:NOTIFICATION_CONFIGBUTTONCLICKED object:nil];
+    [nc addObserver:self selector:@selector(showStarItems:) name:NOTIFICATION_STARBUTTONCLICKED object:nil];
+    [nc addObserver:self selector:@selector(showSubscriptionList:) name:NOTIFICATION_SHOWAUBLISTBUTTONCLICKED object:nil];
     [nc addObserver:self selector:@selector(finishedFlipTile:) name:NOTIFICATION_FINISHEDFLIPSUBTILEVIEW object:nil];
 }
 
@@ -221,13 +227,36 @@
 }
 
 -(void)scrollViewDidScroll:(InfinityScrollView*)scrollView{
-    
+
 }
 
-#pragma mark - show search ui
+#pragma mark - NOTIFICATOIN call back
 -(void)showSearchUI:(NSNotification*)notification{
     [self.view addSubview:self.searchController.view];
     [self.searchController getReadyForSearch];
+}
+
+-(void)showStarItems:(NSNotification*)notification{
+    BRFeedViewController* starFeed = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
+    starFeed.subscription = [GRSubscription subscriptionForLabel:[GoogleReaderClient starTag]];
+    starFeed.subscription.title = NSLocalizedString(@"title_starred", nil);
+    [[self topContainer] boomOutViewController:starFeed fromView:notification.object];
+}
+
+-(void)showSubscriptionList:(NSNotification*)notification{
+    
+}
+
+-(void)switchDownloadMode:(NSNotification*)notification{
+    DebugLog(@"switch download mode");
+}
+
+-(void)showLogoutDialog:(NSNotification*)notification{
+    DebugLog(@"show logout dialog");
+}
+
+-(void)showConfigUI:(NSNotification*)notification{
+    DebugLog(@"show config UI");
 }
 
 @end

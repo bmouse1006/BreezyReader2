@@ -14,10 +14,15 @@
 @interface BRArticleDetailViewController : BRBaseController<UIWebViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWebView* webView;
+@property (nonatomic, retain) IBOutlet UIView* loadingView;
+@property (nonatomic, retain) IBOutlet UILabel* loadingLabel;
 
 @property (nonatomic, retain) GRItem* item;
 
 -(id)initWithItem:(GRItem*)item;
 -(void)scrollToTop;
+
+-(void)increaseFontsize;
+-(void)decreaseFontsize;
 
 @end

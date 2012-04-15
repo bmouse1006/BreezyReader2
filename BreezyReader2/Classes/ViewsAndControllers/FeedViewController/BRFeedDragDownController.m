@@ -7,6 +7,7 @@
 //
 
 #import "BRFeedDragDownController.h"
+#import "NSDate+simpleFormat.h"
 
 @interface BRFeedDragDownController ()
 
@@ -52,7 +53,7 @@
 
 -(void)refreshLabels:(NSDate*)date{
     NSString* timeLabelText = NSLocalizedString(@"title_lastUpdatedLabel", nil);
-    self.timeLabel.text = [NSString stringWithFormat:timeLabelText, date];
+    self.timeLabel.text = [NSString stringWithFormat:timeLabelText, [date stringWithFormat:@"yyyy-MM-dd HH:mm"]];
     [self pullToRefresh];
 }
 

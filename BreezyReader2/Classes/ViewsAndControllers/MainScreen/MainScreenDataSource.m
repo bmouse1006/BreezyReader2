@@ -9,6 +9,7 @@
 #import "MainScreenDataSource.h"
 #import "BRSubGridViewController.h"
 #import "BRSubFavoritePageController.h"
+#import "BRRecommendationPageViewController.h"
 #import "BRReadingStatistics.h"
 #import "GRDataManager.h"
 
@@ -63,10 +64,16 @@
     controller.tag = tag;
     [self.controllers addObject:controller];
     
+    //load favorite page
     if ([[BRReadingStatistics statistics] countOfRecordedReadingFrequency] >= 6){
         BRSubFavoritePageController* favoritePage = [[[BRSubFavoritePageController alloc] init] autorelease];
         [self.controllers insertObject:favoritePage atIndex:0];
     }
+    
+    //load recommendation page
+    BRRecommendationPageViewController* recPage = [[[BRRecommendationPageViewController alloc] init] autorelease];
+    [self.controllers addObject:recPage];
+    
 }
 
 -(NSInteger)numberOfContentViewsInScrollView:(InfinityScrollView *)scrollView{

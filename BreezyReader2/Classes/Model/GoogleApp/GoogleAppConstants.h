@@ -75,6 +75,8 @@ extern NSString * const API_STREAM_ITEMS_CONTENTS;
 extern NSString * const API_STREAM_DETAILS;
 extern NSString * const API_STREAM_CONTENTS;
 
+extern NSString * const API_RECOMMENDATION_EDIT;
+
 extern NSString * const URI_QUICKADD;
 
 extern NSString * const OUTPUT_XML;
@@ -93,6 +95,7 @@ extern NSString * const ATOM_ARGS_CONTINUATION;
 extern NSString * const ATOM_ARGS_CLIENT;
 extern NSString * const ATOM_ARGS_TIMESTAMP;
 
+extern NSString * const EDIT_ARGS_IMPRESSION;
 extern NSString * const EDIT_ARGS_FEED;
 extern NSString * const EDIT_ARGS_ITEM;
 extern NSString * const EDIT_ARGS_ADD;

@@ -107,9 +107,15 @@
 }
 
 +(GRSubscription*)subscriptionForAllItems{
-	GRSubscription* allItems = [[GRSubscription alloc] init];
-	allItems.ID = @"usr/-/state/com.google/reading-list";
+    
+	GRSubscription* allItems = [self subscriptionForLabel:@"usr/-/state/com.google/reading-list"];
 	allItems.title = @"reading-list";
+	return allItems;
+}
+
++(GRSubscription*)subscriptionForLabel:(NSString*)label{
+	GRSubscription* allItems = [[GRSubscription alloc] init];
+	allItems.ID = label;
 	allItems.sortID = @"000000";
 	return [allItems autorelease];
 }

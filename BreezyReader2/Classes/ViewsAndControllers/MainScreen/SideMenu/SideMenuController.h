@@ -16,4 +16,7 @@
 -(IBAction)configButtonClicked:(id)sender;
 -(IBAction)logoutButtonClicked:(id)sender;
 
+-(IBAction)starButtonClicked:(id)sender;
+-(IBAction)showSubListButtonClicked:(id)sender;
+
 @end

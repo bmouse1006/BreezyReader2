@@ -20,6 +20,8 @@
 
 -(void)loadMoreFeedInBackground;
 
+@property (nonatomic, retain) NSString* exclude;
+
 @end
 
 @implementation BRFeedDataSource
@@ -27,6 +29,8 @@
 @synthesize items = _items;
 @synthesize subscription = _subscription, feed = _feed, moreFeed = _moreFeed;
 @synthesize client = _client;
+@synthesize unreadOnly = _unreadOnly;
+@synthesize exclude = _exclude;
 
 -(void)dealloc{
     [self.client clearAndCancel];
@@ -35,7 +39,20 @@
     self.subscription = nil;
     self.feed = nil;
     self.moreFeed = nil;
+    self.exclude = nil;
     [super dealloc];
+}
+
+-(void)setUnreadOnly:(BOOL)unreadOnly{
+    if (_unreadOnly != unreadOnly){
+        self.moreFeed = nil;
+        _unreadOnly = unreadOnly;
+        if (_unreadOnly){
+            self.exclude = [GoogleReaderClient readArticleTag];
+        }else{
+            self.exclude = nil;
+        }
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -82,7 +99,7 @@
         self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(requestFeedIsLoaded:)];
         _loading = YES;
         [self.delegate dataSource:self didStartLoading:NO];
-        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:nil continuation:nil forceRefresh:refresh needAuth:YES];
+        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:self.exclude continuation:nil forceRefresh:refresh needAuth:YES];
         if([[GRDataManager shared] getUpdatedGRSub:self.subscription.ID]){
             [[BRReadingStatistics statistics] readFeed:self.subscription.ID];
         }
@@ -98,7 +115,7 @@
         [self.delegate dataSource:self didStartLoading:YES];
         _loadingMore = YES;
         DebugLog(@"continuation is %@", self.feed.gr_continuation);
-        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:nil continuation:self.feed.gr_continuation forceRefresh:NO needAuth:YES];
+        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:self.exclude continuation:self.feed.gr_continuation forceRefresh:NO needAuth:YES];
     }
 }
 

@@ -16,7 +16,7 @@
 @property (nonatomic, retain) NSString* streamID;
 @property (nonatomic, retain) NSString* impressionTime;
 
-@property (nonatomic, assign) BOOL isSucscribing;
+@property (nonatomic, assign) BOOL isSubscribed;
 
 +(GRRecFeed*)recFeedsWithJSONObject:(NSDictionary*)JSONObj;
 

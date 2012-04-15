@@ -12,6 +12,7 @@
 #import "GoogleReaderClient.h"
 #import "JJSingleWebController.h"
 #import "BRADManager.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface BRArticleScrollViewController ()
 
@@ -32,6 +33,8 @@
 @synthesize articleDetailControllers = _articleDetailControllers;
 @synthesize clients = _clients;
 @synthesize adView = _adView;
+@synthesize starButton = _starButton, unstarButton = _unstarButton;
+@synthesize starButtonContainer = _starButtonContainer;
 
 -(void)dealloc{
     self.scrollView = nil;
@@ -41,6 +44,9 @@
     self.articleDetailControllers = nil;
     self.clients = nil;
     self.adView = nil;
+    self.starButton = nil;
+    self.unstarButton = nil;
+    self.starButtonContainer = nil;
     [super dealloc];
 }
 
@@ -101,6 +107,12 @@
     [self.adView performSelector:@selector(stopAdRequest)];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+    [UIApplication sharedApplication].statusBarHidden = YES;
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.adView performSelector:@selector(resumeAdRequest)];
@@ -122,6 +134,10 @@
 }
 
 #pragma mark - action
+-(IBAction)showHideFontsizeMenu:(id)sender{
+    
+}
+
 -(IBAction)back:(id)sender{
     [[self topContainer] slideOutViewController];
 }
@@ -139,6 +155,42 @@
 -(IBAction)scrollCurrentPageToTop:(id)sender{
     NSInteger index = [self.scrollView currentIndex];
     [[self.articleDetailControllers objectAtIndex:index] performSelector:@selector(scrollToTop)];
+}
+
+-(IBAction)starItem:(id)sender{
+    GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(starFinished:)];
+    GRItem* item = [self.feed.items objectAtIndex:self.index];
+    [client starArticle:item.ID];
+    [self.clients addObject:client];
+}
+
+-(IBAction)unstarItem:(id)sender{
+    GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(unstarFinished:)];
+    GRItem* item = [self.feed.items objectAtIndex:self.index];
+    [client unstartArticle:item.ID];
+    [self.clients addObject:client];
+}
+
+-(void)starFinished:(GoogleReaderClient*)client{
+    if (client.isResponseOK){
+        if (self.starButton.superview == self.starButtonContainer){
+            [UIView transitionFromView:self.starButton toView:self.unstarButton duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
+                [self.starButton removeFromSuperview]; 
+            }];
+        }
+    }
+    [self.clients removeObject:client];
+}
+
+-(void)unstarFinished:(GoogleReaderClient*)client{
+    if (client.isResponseOK){
+        if (self.unstarButton.superview == self.starButtonContainer){
+            [UIView transitionFromView:self.unstarButton toView:self.starButton duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
+                [self.unstarButton removeFromSuperview]; 
+            }];
+        }
+    }
+    [self.clients removeObject:client];
 }
 
 #pragma mark - JJPageScrollView data source
@@ -159,6 +211,8 @@
 #pragma mark - JJPageScrollView delegate
 
 -(void)scrollView:(JJPageScrollView*)scrollView didScrollToPageAtIndex:(NSInteger)index{
+    self.index = index;
+    [self updateBottomToolBar];
     GRItem* item = [self.feed.items objectAtIndex:index];
     if (item.isReaded == NO){
         GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(markAsReadFinished:)];
@@ -176,6 +230,19 @@
     [controller viewWillUnload];
     controller.view = nil;
     [controller viewDidUnload];
+}
+
+#pragma mark - update bottom tool bar
+-(void)updateBottomToolBar{
+    GRItem* item = [self.feed.items objectAtIndex:self.index];
+    [self.starButtonContainer.layer removeAllAnimations];
+    if (item.isStarred){
+        [self.starButton removeFromSuperview];
+        [self.starButtonContainer addSubview:self.unstarButton];
+    }else{
+        [self.unstarButton removeFromSuperview];
+        [self.starButtonContainer addSubview:self.starButton];
+    }
 }
 
 @end

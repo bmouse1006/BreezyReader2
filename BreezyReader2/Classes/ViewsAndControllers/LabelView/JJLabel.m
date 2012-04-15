@@ -47,6 +47,14 @@
     }
 }
 
+-(void)setTextColor:(UIColor *)textColor{
+    if (_textColor != textColor){
+        [_textColor release];
+        _textColor = [textColor retain];
+        [self setNeedsDisplay];
+    }
+}
+
 -(void)setShadowEnable:(CGFloat)shadowEnable{
     _shadowEnable = shadowEnable;
     [self setNeedsDisplay];
