@@ -79,6 +79,10 @@
     self.authorLabel.font = [UIFont systemFontOfSize:10];
     self.authorLabel.textColor = [UIColor lightGrayColor];
     
+    self.urlImageView.defaultImage = [UIImage imageNamed:@"photo"];
+    self.urlImageView.defautImageMode = UIViewContentModeCenter;
+    self.urlImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
     [self.contentView addSubview:self.container];
 }
 
@@ -122,7 +126,6 @@
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    self.urlImageView.contentMode = UIViewContentModeScaleAspectFill;
     CGRect bounds = self.bounds;
     //layout bottom line
     CGRect frame = self.bottomSeperateLine.frame;

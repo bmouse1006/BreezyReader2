@@ -25,4 +25,6 @@
 @property (nonatomic, retain) UIImage* defaultImage;
 @property (nonatomic, assign) id<JJImageViewDelegate> delegate;
 
+@property (nonatomic, assign) UIViewContentMode defautImageMode;
+
 @end

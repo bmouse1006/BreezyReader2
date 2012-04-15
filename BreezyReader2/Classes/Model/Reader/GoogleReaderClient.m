@@ -63,23 +63,54 @@
 
 static NSString* _token = nil;
 static long long _tokenFetchTimeInterval = 0;
-
-static NSMutableDictionary* _itemPool = nil;
-
-static NSMutableArray* _addTokenQueue = nil;
-
 static BOOL _startFetchToken = NO;
 
 +(id)clientWithDelegate:(id)delegate action:(SEL)action{
     return [[[self alloc] initWithDelegate:delegate action:action] autorelease];
 }
 
-+(NSMutableDictionary*)itemPool{
-    if (_itemPool == nil){
-        _itemPool = [[NSMutableDictionary alloc] init];
-    }
+-(NSMutableArray*)addTokenQueue{
+    static dispatch_once_t predTokenQueue;
+    static NSMutableArray* _addTokenQueue = nil;
     
-    return _itemPool;
+    dispatch_once(&predTokenQueue, ^{ 
+        _addTokenQueue = [[NSMutableArray alloc] init]; 
+    }); 
+    
+    return _addTokenQueue;
+}
+
+-(NSMutableDictionary*)itemPool{
+    static dispatch_once_t predItems;
+    static NSMutableDictionary* _items = nil;
+    
+    dispatch_once(&predItems, ^{ 
+        _items = [[NSMutableDictionary alloc] init]; 
+    }); 
+    
+    return _items;
+}
+
+-(NSMutableDictionary*)tags{
+    static dispatch_once_t predTags;
+    static NSMutableDictionary* _tags = nil;
+    
+    dispatch_once(&predTags, ^{ 
+        _tags = [[NSMutableDictionary alloc] init]; 
+    }); 
+    
+    return _tags;
+}
+
+-(NSMutableDictionary*)subscriptions{
+    static dispatch_once_t predSubs;
+    static NSMutableDictionary* _subs = nil;
+    
+    dispatch_once(&predSubs, ^{ 
+        _subs = [[NSMutableDictionary alloc] init]; 
+    }); 
+    
+    return _subs;
 }
 
 #pragma mark - token
@@ -127,13 +158,6 @@ static BOOL _startFetchToken = NO;
     if (self){
         self.delegate = delegate;
         self.action = action;
-        
-        static dispatch_once_t pred;
-        
-        dispatch_once(&pred, ^{ 
-            _addTokenQueue = [[NSMutableArray alloc] init]; 
-        }); 
-        
     }
     
     return self;
@@ -347,16 +371,15 @@ static BOOL _startFetchToken = NO;
 
 -(GRFeed*)responseFeed{
     GRFeed* feed = [GRFeed objWithJSON:self.responseJSONValue];
-    Class selfClass = [self class];
     if (self.request.didUseCachedResponse == NO){
         [feed.items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
             GRItem* item = obj;
-            [[selfClass itemPool] setObject:item forKey:item.ID];
+            [[self itemPool] setObject:item forKey:item.ID];
         }];
     }else{
         NSMutableArray* items = [NSMutableArray array];
         for (GRItem* item in feed.items){
-            GRItem* origItem = [[[self class] itemPool] objectForKey:item.ID];
+            GRItem* origItem = [[self itemPool] objectForKey:item.ID];
             [items addObject:origItem];
         }
         feed.items = items;
@@ -486,7 +509,7 @@ static BOOL _startFetchToken = NO;
 -(void)editItem:(NSString*)itemID 
             addTag:(NSString*)tagToAdd 
          removeTag:(NSString*)tagToRemove{
-    GRItem* item = [_itemPool objectForKey:itemID];
+    GRItem* item = [[self itemPool] objectForKey:itemID];
     if (item.isReadStateLocked){
         return;
     }
@@ -506,17 +529,17 @@ static BOOL _startFetchToken = NO;
     
     [self addTokenToRequest:request completionBlock:^(NSError* error){
         if (error){
-            [self performCallBack];
+            [blockSelf performCallBack];
         }
         [request setCompletionBlock:^{
-            [self performCallBack];
+            [blockSelf performCallBack];
             
-            GRItem* item = [[[blockSelf class] itemPool] objectForKey:itemID];
+            GRItem* item = [[blockSelf itemPool] objectForKey:itemID];
             [item removeCategory:tagToRemove];
             [item addCategory:tagToAdd];
         }];
         [request setFailedBlock:^{
-            [self performCallBack];
+            [blockSelf performCallBack];
         }];
         [blockSelf.request clearDelegatesAndCancel];
         blockSelf.request = request;
@@ -531,14 +554,14 @@ static BOOL _startFetchToken = NO;
 //add token if only needed
 -(void)addTokenToRequest:(ASIFormDataRequest*)request completionBlock:(void(^)(NSError* error))block{
     NSString* token = [[self class] token];
-    
+    NSMutableArray* addTokenQueue = [self addTokenQueue];
     if (token == nil){
-        @synchronized(_addTokenQueue){
+        @synchronized(addTokenQueue){
             FetchTokenArg* arg = [[[FetchTokenArg alloc] init] autorelease];
             arg.request = request;
             arg.completionHandler = block;
             
-            [_addTokenQueue addObject:arg];
+            [addTokenQueue addObject:arg];
         
             if (_startFetchToken == NO){
                 //start fetch token
@@ -563,7 +586,7 @@ static BOOL _startFetchToken = NO;
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlString]];
     [self.tokenRequest clearDelegatesAndCancel];
     self.tokenRequest = request;
-    
+    NSMutableArray* addTokenQueue = [self addTokenQueue];
     [request setCompletionBlock:^{
         if (request.error == nil){
             NSString* tempToken = request.responseString;
@@ -578,9 +601,9 @@ static BOOL _startFetchToken = NO;
                 _tokenFetchTimeInterval = 0;
             }
             
-            @synchronized(_addTokenQueue){
-                NSArray* args = [NSArray arrayWithArray:_addTokenQueue];
-                [_addTokenQueue removeAllObjects];
+            @synchronized(addTokenQueue){
+                NSArray* args = [NSArray arrayWithArray:addTokenQueue];
+                [addTokenQueue removeAllObjects];
                 
                 for (FetchTokenArg* arg in args){
                     [arg.request addPostValue:tempToken forKey:EDIT_ARGS_TOKEN];
@@ -595,9 +618,9 @@ static BOOL _startFetchToken = NO;
     }];
     
     [request setFailedBlock:^{
-        @synchronized(_addTokenQueue){
-            NSArray* args = [NSArray arrayWithArray:_addTokenQueue];
-            [_addTokenQueue removeAllObjects];
+        @synchronized(addTokenQueue){
+            NSArray* args = [NSArray arrayWithArray:addTokenQueue];
+            [addTokenQueue removeAllObjects];
             
             for (FetchTokenArg* arg in args){
                 if (arg.completionHandler){
