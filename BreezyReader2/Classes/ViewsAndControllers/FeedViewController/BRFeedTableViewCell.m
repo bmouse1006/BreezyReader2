@@ -82,6 +82,7 @@
     self.urlImageView.defaultImage = [UIImage imageNamed:@"photo"];
     self.urlImageView.defautImageMode = UIViewContentModeCenter;
     self.urlImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.urlImageView.imageURL = nil;
     
     [self.contentView addSubview:self.container];
 }
