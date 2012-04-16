@@ -30,6 +30,21 @@
 @synthesize unstarButton = _unstarButton, starButton = _starButton;
 @synthesize buttonContainer = _buttonContainer;
 
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self){
+        UISwipeGestureRecognizer* rightSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToRight:)] autorelease];
+        rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+        [self addGestureRecognizer:rightSwipe];
+        
+        UISwipeGestureRecognizer* leftSwipte = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToLeft:)] autorelease];
+        leftSwipte.direction = UISwipeGestureRecognizerDirectionLeft;
+        [self addGestureRecognizer:leftSwipte];
+    }
+    
+    return self;
+}
+
 -(void)dealloc{
     self.item = nil;
     self.urlImageView = nil;
@@ -169,9 +184,6 @@
 
 -(void)updateStarButton{
     [self.buttonContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    if (self.item.isReadStateLocked){
-        return;
-    }
     if (_item.isStarred){
         [self.buttonContainer addSubview:self.unstarButton];
     }else{
@@ -193,14 +205,26 @@
 #pragma mark - button call back
 
 -(IBAction)starButtonClicked:(id)sender{
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item.ID forKey:@"itemID"];
-    NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_STARITEM object:nil userInfo:userInfo];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [self postNotificationWithName:NOTIFICATION_STARITEM];
 }
 
 -(IBAction)unstarButtonClicked:(id)sender{
+    [self postNotificationWithName:NOTIFICATION_UNSTARITEM];
+}
+
+-(void)swipeToRight:(UISwipeGestureRecognizer*)swipe{
+    DebugLog(@"mark as read by swiping");
+    [self postNotificationWithName:NOTIFICATION_MARKITEMASREAD];
+}
+
+-(void)swipeToLeft:(UISwipeGestureRecognizer*)swipe{
+    DebugLog(@"keep item as unread by swiping");
+    [self postNotificationWithName:NOTIFICATION_MARKITEMASUNREAD];
+}
+
+-(void)postNotificationWithName:(NSString*)notificationName{
     NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item.ID forKey:@"itemID"];
-    NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_UNSTARITEM object:nil userInfo:userInfo];
+    NSNotification* notification = [NSNotification notificationWithName:notificationName object:nil userInfo:userInfo];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
@@ -210,6 +234,7 @@
     NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(addStarSuccess:) name:NOTIFICATION_STARSUCCESS object:self.item.ID];
     [nc addObserver:self selector:@selector(removeStarSuccess:) name:NOTIFICATION_UNSTARSUCCESS object:self.item.ID];
+    [nc addObserver:self selector:@selector(readStatesChange:) name:NOTIFICATION_READSTATESCHANGE object:self.item.ID];
 }
 
 #pragma mark - notification 
@@ -221,6 +246,11 @@
 -(void)removeStarSuccess:(NSNotification*)notification{
     DebugLog(@"remove star success");
     [self animateTransitionView1:self.unstarButton view2:self.starButton];
+}
+
+-(void)readStatesChange:(NSNotification*)notification{
+    DebugLog(@"mark as read success");
+    [self setNeedsLayout];
 }
 
 -(void)animateTransitionView1:(UIView*)view1 view2:(UIView*)view2{

@@ -33,7 +33,7 @@
     [self.delegate sourceStartLoading];
     [self.client clearAndCancel];
     self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(recommendationReceived:)];
-    [self.client getRecommendationList];
+    [self.client requestRecommendationList];
 }
 
 -(void)recommendationReceived:(GoogleReaderClient*)client{

@@ -29,3 +29,4 @@
 "msg_starfailed" = "加星标失败啦";
 "msg_imagenotloaded" = "图像还没有载入完毕";
 "msg_imagesaved" = "图像成功保存到相册";
+"msg_operationfailed" = "操作失败";

@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/Model/Reader/GoogleReaderClient.m"
-         timestampString = "356195452.53405"
+         timestampString = "356283220.508384"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "471"
-         endingLineNumber = "471"
+         startingLineNumber = "508"
+         endingLineNumber = "508"
          landmarkName = "-requestWithURL:parameters:APIType:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/FeedViewController/BRFeedViewController.m"
-         timestampString = "356183952.960397"
+         timestampString = "356276501.325954"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "125"
-         endingLineNumber = "125"
+         startingLineNumber = "128"
+         endingLineNumber = "128"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>

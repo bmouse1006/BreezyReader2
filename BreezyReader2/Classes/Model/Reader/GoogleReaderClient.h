@@ -39,14 +39,15 @@
 -(void)queryContentsWithIDs:(NSArray*)IDArray;
 -(void)searchArticlesWithKeywords:(NSString*)keywords;
 -(void)searchFeedsWithKeywords:(NSString*)keywords;
--(void)getSubscriptionList;
--(void)getTagList;
--(void)getUnreadCount;
--(void)getRecommendationList;
+-(void)requestSubscriptionList;
+-(void)requestTagList;
+-(void)requestUnreadCount;
+-(void)requestRecommendationList;
 //edit api
 -(void)starArticle:(NSString*)itemID;
 -(void)unstartArticle:(NSString*)itemID;
 -(void)markArticleAsRead:(NSString*)itemID;
+-(void)markArticleAsUnread:(NSString*)itemID;
 -(void)keepArticleUnread:(NSString*)itemID;
 -(void)markAllAsRead:(NSString*)streamID;
 -(void)recommendationStream:(NSString*)streamID;

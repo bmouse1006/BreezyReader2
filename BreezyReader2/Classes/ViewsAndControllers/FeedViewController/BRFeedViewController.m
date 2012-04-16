@@ -95,9 +95,12 @@ static CGFloat refreshDistance = 60.0f;
 }
 
 -(void)registerNotifications{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starArticle:) name:NOTIFICATION_STARITEM object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unstarArticle:) name:NOTIFICATION_UNSTARITEM object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adLoaded:) name:NOTIFICATION_ADLOADED object:nil];
+    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(starArticle:) name:NOTIFICATION_STARITEM object:nil];
+    [nc addObserver:self selector:@selector(unstarArticle:) name:NOTIFICATION_UNSTARITEM object:nil];
+    [nc addObserver:self selector:@selector(markArticleAsRead:) name:NOTIFICATION_MARKITEMASREAD object:nil];
+    [nc addObserver:self selector:@selector(markArticleAsUnread:) name:NOTIFICATION_MARKITEMASUNREAD object:nil];
+    [nc addObserver:self selector:@selector(adLoaded:) name:NOTIFICATION_ADLOADED object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -327,7 +330,14 @@ static CGFloat refreshDistance = 60.0f;
     
 }
 
-#pragma mrak - data source delegate
+-(IBAction)markAllAsReadButtonClicked:(id)sender{
+    DebugLog(@"mark all as read", nil);
+    GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(didMarkAllAsReadReceived:)];
+    [self.clients addObject:client];
+    [client markAllAsRead:self.subscription.ID];    
+}
+
+#pragma mark - data source delegate
 -(void)dataSource:(BRBaseDataSource *)dataSource didFinishLoading:(BOOL)more{
     if (more){
         [self.loadMoreController stopLoadingWithMore:[self.dataSource hasMore]];
@@ -407,6 +417,22 @@ static CGFloat refreshDistance = 60.0f;
     [client unstartArticle:itemID];    
 }
 
+-(void)markArticleAsRead:(NSNotification*)notification{
+    GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(didReceiveReadStatesChange:)];
+    [self.clients addObject:client];
+    NSString* itemID = [notification.userInfo objectForKey:@"itemID"];
+    [self.itemIDs setObject:itemID forKey:[NSValue valueWithNonretainedObject:client]];
+    [client markArticleAsRead:itemID];
+}
+
+-(void)markArticleAsUnread:(NSNotification*)notification{
+    GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(didReceiveReadStatesChange:)];
+    [self.clients addObject:client];
+    NSString* itemID = [notification.userInfo objectForKey:@"itemID"];
+    [self.itemIDs setObject:itemID forKey:[NSValue valueWithNonretainedObject:client]];
+    [client markArticleAsUnread:itemID];
+}
+
 #pragma mark - google reader client call back
 -(void)didReceiveStarResonponse:(GoogleReaderClient*)client{
     NSValue* key = [NSValue valueWithNonretainedObject:client];
@@ -439,6 +465,34 @@ static CGFloat refreshDistance = 60.0f;
     
     [self.itemIDs removeObjectForKey:key];
     [self.clients removeObject:client];    
+}
+
+-(void)didReceiveReadStatesChange:(GoogleReaderClient*)client{
+    NSValue* key = [NSValue valueWithNonretainedObject:client];
+    NSString* itemID = [self.itemIDs objectForKey:key];
+    
+    if (client.isResponseOK){
+        NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_READSTATESCHANGE object:itemID];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }else{
+        //handle failure
+//        [[BRErrorHandler sharedHandler] handleErrorMessage:NSLocalizedString(@"msg_networkerror", nil) alert:YES];
+    }
+    
+    [self.itemIDs removeObjectForKey:key];
+    [self.clients removeObject:client];   
+}
+
+-(void)didMarkAllAsReadReceived:(GoogleReaderClient*)client{
+    
+    if (client.isResponseOK){
+        [self.tableView reloadData];
+    }else{
+        //handle failure
+        [[BRErrorHandler sharedHandler] handleErrorMessage:NSLocalizedString(@"msg_operationfailed", nil) alert:YES];
+    }
+    
+    [self.clients removeObject:client];  
 }
 
 #pragma mark - switch delegate

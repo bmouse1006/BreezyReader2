@@ -39,6 +39,7 @@
 -(IBAction)backButtonClicked:(id)sender;
 -(IBAction)scrollToTop:(id)sender;
 -(IBAction)showSearch:(id)sender;
+-(IBAction)markAllAsReadButtonClicked:(id)sender;
 
 @end
 

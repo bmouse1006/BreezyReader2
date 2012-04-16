@@ -69,6 +69,7 @@ static BOOL _startFetchToken = NO;
     return [[[self alloc] initWithDelegate:delegate action:action] autorelease];
 }
 
+#pragma mark - static containers
 -(NSMutableArray*)addTokenQueue{
     static dispatch_once_t predTokenQueue;
     static NSMutableArray* _addTokenQueue = nil;
@@ -89,6 +90,17 @@ static BOOL _startFetchToken = NO;
     }); 
     
     return _items;
+}
+
+-(NSMutableDictionary*)itemsForFeed{
+    static dispatch_once_t predFeeds;
+    static NSMutableDictionary* _feeds = nil;
+    
+    dispatch_once(&predFeeds, ^{ 
+        _feeds = [[NSMutableDictionary alloc] init]; 
+    }); 
+    
+    return _feeds;
 }
 
 -(NSMutableDictionary*)tags{
@@ -262,7 +274,7 @@ static BOOL _startFetchToken = NO;
     [self.request startAsynchronous];
 }
 
--(void)getRecommendationList{
+-(void)requestRecommendationList{
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_RECOMMENDATION];
 	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
 	[paramSet setParameterForKey:ATOM_ARGS_COUNT withValue:@"99999"];
@@ -276,15 +288,15 @@ static BOOL _startFetchToken = NO;
     }];
 }
 
--(void)getSubscriptionList{
+-(void)requestSubscriptionList{
     
 }
 
--(void)getTagList{
+-(void)requestTagList{
     
 }
 
--(void)getUnreadCount{
+-(void)requestUnreadCount{
     
 }
 
@@ -302,6 +314,10 @@ static BOOL _startFetchToken = NO;
     [self editItem:itemID addTag:[[self class] readArticleTag] removeTag:nil];
 }
 
+-(void)markArticleAsUnread:(NSString*)itemID{
+    [self editItem:itemID addTag:nil removeTag:[[self class] readArticleTag]];
+}
+
 -(void)keepArticleUnread:(NSString*)itemID{
     NSString* keptUnread = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_UNREAD];
     [self editItem:itemID addTag:keptUnread removeTag:nil];
@@ -316,14 +332,31 @@ static BOOL _startFetchToken = NO;
     
     [self clearAndCancel];
     self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
-    self.request.delegate = self;
-    
-    [self addTokenToRequest:(ASIFormDataRequest*)_request completionBlock:^(NSError* error){
-        [[GoogleAuthManager shared] authRequest:_request completionBlock:^(NSError* error){
-                [_request startAsynchronous];
-        }];
+    __block typeof(self) blockSelf = self;
+    [self.request setCompletionBlock:^{
+        DebugLog(@"mark all as read succeeded");
+        NSArray* items = [[blockSelf itemsForFeed] objectForKey:streamID];
+        [items makeObjectsPerformSelector:@selector(markAsRead)];
+        [blockSelf performCallBack];
+        [blockSelf performSelectorOnMainThread:@selector(refreshUnreadCount) withObject:self waitUntilDone:NO];
+    }];
+    [self.request setFailedBlock:^{
+        DebugLog(@"mark all as read failed");
+        [blockSelf performCallBack];
     }];
     
+    [self addTokenToRequest:(ASIFormDataRequest*)_request completionBlock:^(NSError* error){
+        if (error){
+            [blockSelf performCallBack];
+        }else{
+            
+            [[GoogleAuthManager shared] authRequest:_request completionBlock:^(NSError* error){
+                if (error == nil){
+                    [_request startAsynchronous];
+                }
+            }];
+        }
+    }];
 }
 
 -(void)recommendationStream:(NSString*)streamID{
@@ -372,9 +405,15 @@ static BOOL _startFetchToken = NO;
 -(GRFeed*)responseFeed{
     GRFeed* feed = [GRFeed objWithJSON:self.responseJSONValue];
     if (self.request.didUseCachedResponse == NO){
+        NSMutableArray* items = [[self itemsForFeed] objectForKey:feed.ID];
+        if (items == nil){
+            items = [NSMutableArray array];
+            [[self itemsForFeed] setObject:items forKey:feed.ID];
+        }
         [feed.items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
             GRItem* item = obj;
             [[self itemPool] setObject:item forKey:item.ID];
+            [items addObject:item];
         }];
     }else{
         NSMutableArray* items = [NSMutableArray array];
@@ -526,28 +565,32 @@ static BOOL _startFetchToken = NO;
     ASIFormDataRequest* request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
     
     __block typeof(self) blockSelf = self;
+    [request setCompletionBlock:^{
+        [blockSelf performCallBack];
+        
+        GRItem* item = [[blockSelf itemPool] objectForKey:itemID];
+        [item removeCategory:tagToRemove];
+        [item addCategory:tagToAdd];
+    }];
     
+    [request setFailedBlock:^{
+        [blockSelf performCallBack];
+    }];
+    
+    self.request = request;
+ 
     [self addTokenToRequest:request completionBlock:^(NSError* error){
         if (error){
             [blockSelf performCallBack];
+        }else{
+
+            [[GoogleAuthManager shared] authRequest:request completionBlock:^(NSError* error){
+                if (error == nil){
+                    DebugLog(@"address for request is %d", request);
+                    [request startAsynchronous];
+                }
+            }];
         }
-        [request setCompletionBlock:^{
-            [blockSelf performCallBack];
-            
-            GRItem* item = [[blockSelf itemPool] objectForKey:itemID];
-            [item removeCategory:tagToRemove];
-            [item addCategory:tagToAdd];
-        }];
-        [request setFailedBlock:^{
-            [blockSelf performCallBack];
-        }];
-        [blockSelf.request clearDelegatesAndCancel];
-        blockSelf.request = request;
-        [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
-            if (error == nil){
-                [blockSelf.request startAsynchronous];
-            }
-        }];
     }];
 }
 
