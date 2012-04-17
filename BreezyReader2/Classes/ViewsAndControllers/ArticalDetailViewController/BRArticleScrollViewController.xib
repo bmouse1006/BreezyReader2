@@ -38,6 +38,7 @@
 				<string key="NSFrameSize">{38, 38}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor" id="252824147">
 					<int key="NSColorSpace">3</int>
@@ -148,7 +149,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="538971536"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">safari.png</string>
+									<string key="NSResourceName">globe.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="138125160"/>
 								<reference key="IBUIFont" ref="74109680"/>
@@ -196,9 +197,10 @@
 							<object class="IBUIButton" id="336508831">
 								<reference key="NSNextResponder" ref="569774252"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{204, 1}, {38, 38}}</string>
+								<string key="NSFrame">{{204, 3}, {38, 38}}</string>
 								<reference key="NSSuperview" ref="569774252"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="444008198"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="252824147"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -214,7 +216,34 @@
 								<reference key="IBUINormalTitleShadowColor" ref="538971536"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">fontsize.png</string>
+									<string key="NSResourceName">bookmark.png</string>
+								</object>
+								<reference key="IBUIFontDescription" ref="138125160"/>
+								<reference key="IBUIFont" ref="74109680"/>
+							</object>
+							<object class="IBUIButton" id="444008198">
+								<reference key="NSNextResponder" ref="569774252"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{266, 3}, {38, 38}}</string>
+								<reference key="NSSuperview" ref="569774252"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<reference key="IBUIBackgroundColor" ref="252824147"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<bool key="IBUIShowsTouchWhenHighlighted">YES</bool>
+								<reference key="IBUIHighlightedTitleColor" ref="339522349"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="538971536"/>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">sendto.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="138125160"/>
 								<reference key="IBUIFont" ref="74109680"/>
@@ -413,6 +442,7 @@
 							<reference ref="358961392"/>
 							<reference ref="919638849"/>
 							<reference ref="336508831"/>
+							<reference ref="444008198"/>
 						</array>
 						<reference key="parent" ref="12954124"/>
 					</object>
@@ -450,6 +480,11 @@
 						<reference key="parent" ref="919638849"/>
 					</object>
 					<object class="IBObjectRecord">
+						<int key="objectID">38</int>
+						<reference key="object" ref="444008198"/>
+						<reference key="parent" ref="569774252"/>
+					</object>
+					<object class="IBObjectRecord">
 						<int key="objectID">36</int>
 						<reference key="object" ref="336508831"/>
 						<reference key="parent" ref="569774252"/>
@@ -475,7 +510,9 @@
 				<real value="0.0" key="29.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="1" key="36.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="0.0" key="36.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="0.0" key="38.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -483,7 +520,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">37</int>
+			<int key="maxID">38</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -493,6 +530,7 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="back:">id</string>
 						<string key="scrollCurrentPageToTop:">id</string>
+						<string key="showHideFontsizeMenu:">id</string>
 						<string key="starItem:">id</string>
 						<string key="unstarItem:">id</string>
 						<string key="viewInSafari:">id</string>
@@ -504,6 +542,10 @@
 						</object>
 						<object class="IBActionInfo" key="scrollCurrentPageToTop:">
 							<string key="name">scrollCurrentPageToTop:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showHideFontsizeMenu:">
+							<string key="name">showHideFontsizeMenu:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="starItem:">
@@ -586,8 +628,9 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="backarrow.png">{32, 32}</string>
-			<string key="fontsize.png">{32, 32}</string>
-			<string key="safari.png">{32, 32}</string>
+			<string key="bookmark.png">{24, 24}</string>
+			<string key="globe.png">{24, 24}</string>
+			<string key="sendto.png">{24, 24}</string>
 			<string key="star_black.png">{32, 32}</string>
 			<string key="star_complete.png">{24, 24}</string>
 		</dictionary>

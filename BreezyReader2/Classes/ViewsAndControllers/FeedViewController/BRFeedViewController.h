@@ -16,9 +16,8 @@
 #import "JJImageView.h"
 #import "JJLabel.h"
 #import "BRBottomToolBar.h"
-#import "CustomSwitch.h"
 
-@interface BRFeedViewController : BRBaseController <UITableViewDelegate, BRBaseDataSourceDelegate, CustomSwitchDelegate>
+@interface BRFeedViewController : BRBaseController <UITableViewDelegate, BRBaseDataSourceDelegate>
 
 @property (nonatomic, retain) IBOutlet UITableView* tableView;
 @property (nonatomic, retain) IBOutlet BRFeedDragDownController* dragController;
@@ -30,8 +29,6 @@
 @property (nonatomic, retain) IBOutlet UIView* titleView;
 @property (nonatomic, retain) IBOutlet JJLabel* titleLabel;
 @property (nonatomic, retain) IBOutlet BRBottomToolBar* bottomToolBar;
-
-@property (nonatomic, retain) CustomSwitch* readSwitch;
 
 @property (nonatomic, retain) GRSubscription* subscription;
 @property (nonatomic, retain) BRFeedDataSource* dataSource;

@@ -53,7 +53,6 @@
 @synthesize client = _client;
 @synthesize clients = _clients, itemIDs = _itemIDs;
 @synthesize adView = _adView;
-@synthesize readSwitch = _readSwitch;
 
 static CGFloat insetsTop = 0.0f;
 static CGFloat insetsBottom = 0.0f;
@@ -77,7 +76,6 @@ static CGFloat refreshDistance = 60.0f;
     self.clients = nil;
     self.itemIDs = nil;
     self.adView = nil;
-    self.readSwitch = nil;
     [super dealloc];
 }
 
@@ -139,11 +137,6 @@ static CGFloat refreshDistance = 60.0f;
     self.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     self.titleLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
     self.titleLabel.text = self.title;
-    
-    self.readSwitch = [[[CustomSwitch alloc] initWithFrame:CGRectMake(224, 9, 80, 26) onLabelText:@"All" offLabelText:@"Unread"] autorelease];
-    self.readSwitch.delegate = self;
-    self.readSwitch.on = YES;
-    [self.bottomToolBar addSubview:self.readSwitch];
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.titleView];
