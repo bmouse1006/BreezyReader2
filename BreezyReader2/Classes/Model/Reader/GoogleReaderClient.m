@@ -158,6 +158,7 @@ static BOOL _startFetchToken = NO;
 #pragma mark - life cycle
 
 -(void)dealloc{
+    self.delegate = nil;
     [self.request clearDelegatesAndCancel];
     self.request = nil;
     [self.tokenRequest clearDelegatesAndCancel];

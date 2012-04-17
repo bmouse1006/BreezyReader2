@@ -147,8 +147,8 @@ static CGFloat refreshDistance = 60.0f;
     self.titleLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
     self.titleLabel.text = self.title;
     
-    [self.view addSubview:self.tableView];
-    [self.view addSubview:self.titleView];
+    [self.mainContainer addSubview:self.tableView];
+    [self.mainContainer addSubview:self.titleView];
     
     self.loadingLabel.font = [UIFont boldSystemFontOfSize:12];
     self.loadingLabel.textAlignment = UITextAlignmentCenter;
@@ -165,16 +165,16 @@ static CGFloat refreshDistance = 60.0f;
     self.dataSource.subscription = self.subscription;
     [self.dataSource loadDataMore:NO forceRefresh:NO];
     if ([self.dataSource isLoaded] == NO){
-        [self.view addSubview:self.loadingView];
+        [self.mainContainer addSubview:self.loadingView];
     }
     
     UIView* adView = [[BRADManager sharedManager] adView];
     if (adView){
         self.adView = adView;
-        [self.view addSubview:adView];
+        [self.mainContainer addSubview:adView];
     }
     
-    [self.view addSubview:self.actionMenuController.view];
+    [self.mainContainer addSubview:self.actionMenuController.view];
 }
 
 - (void)viewDidUnload
@@ -196,24 +196,26 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
+    self.mainContainer.frame = self.view.bounds;
+    
     CGRect frame = self.titleView.frame;
     frame.origin.y = 0;
     self.titleView.frame = frame;
     
     frame = self.bottomToolBar.frame;
-    frame.origin.y = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
+    frame.origin.y = self.mainContainer.frame.size.height - self.bottomToolBar.frame.size.height;
     self.bottomToolBar.frame = frame;
     
     frame = self.tableView.frame;
     frame.origin.y = 0;
     frame.origin.x = 0;
     frame.size.height = self.bottomToolBar.frame.origin.y;
-    frame.size.width = self.view.bounds.size.width;
+    frame.size.width = self.mainContainer.bounds.size.width;
     self.tableView.frame = frame;
     
     frame = self.adView.frame;
     frame.origin.x = 0;
-    frame.origin.y = self.view.bounds.size.height-self.bottomToolBar.frame.size.height-frame.size.height;
+    frame.origin.y = self.mainContainer.bounds.size.height-self.bottomToolBar.frame.size.height-frame.size.height;
     self.adView.frame = frame;
     
     frame = self.actionMenuController.view.frame;
@@ -222,10 +224,10 @@ static CGFloat refreshDistance = 60.0f;
     self.actionMenuController.view.frame = frame;
     self.actionMenuController.view.hidden = YES;
     
-    [self.view bringSubviewToFront:self.titleView];
-    [self.view bringSubviewToFront:self.adView];
-    [self.view bringSubviewToFront:self.bottomToolBar];
-    [self.view bringSubviewToFront:self.actionMenuController.view];
+    [self.mainContainer bringSubviewToFront:self.titleView];
+    [self.mainContainer bringSubviewToFront:self.adView];
+    [self.mainContainer bringSubviewToFront:self.actionMenuController.view];
+    [self.mainContainer bringSubviewToFront:self.bottomToolBar];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -249,6 +251,7 @@ static CGFloat refreshDistance = 60.0f;
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.adView performSelector:@selector(stopAdRequest)];
+    [self.actionMenuController dismiss];
 }
 
 -(void)addHeaderAndFooterForTableView{
@@ -275,7 +278,7 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)showHideMenu{
     if (_showMenu){
-        CGFloat x = self.view.frame.size.width - 3;
+        CGFloat x = self.mainContainer.frame.size.width - 3;
         CGFloat y = self.bottomToolBar.frame.origin.y - 3;
         [self.actionMenuController showMenuInPosition:CGPointMake(x, y) anchorPoint:CGPointMake(1, 1)];
     }else{
@@ -334,6 +337,7 @@ static CGFloat refreshDistance = 60.0f;
         self.okToLoadMore = NO;
     }
     
+    [self.actionMenuController dismiss];
     //pull to load more
 }
 
@@ -356,6 +360,10 @@ static CGFloat refreshDistance = 60.0f;
 }
 
 #pragma mark - action mathods
+-(IBAction)configButtonClicked:(id)sender{
+    //insert menu to 
+}
+
 -(IBAction)backButtonClicked:(id)sender{
     [[self topContainer] boomInTopViewController];
 }
@@ -402,7 +410,7 @@ static CGFloat refreshDistance = 60.0f;
         if ([self.dataSource isLoaded]){
             
         }else{
-            [self.view addSubview:self.loadingView];
+            [self.mainContainer addSubview:self.loadingView];
         }
     }
 }
@@ -489,7 +497,8 @@ static CGFloat refreshDistance = 60.0f;
 }
 
 -(void)actionMenuDisappeared:(NSNotification*)notification{
-    
+    _showMenu = NO;
+    [self updateMenuButton];
 }
 
 #pragma mark - google reader client call back

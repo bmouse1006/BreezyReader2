@@ -15,6 +15,13 @@
 
 @implementation BRFeedActionMenuViewController
 
+@synthesize menu = _menu;
+
+-(void)dealloc{
+    self.menu = nil;
+    [super dealloc];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,6 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.menu.layer.masksToBounds = YES;
+    self.menu.layer.cornerRadius = 4.0f;
     // Do any additional setup after loading the view from its nib.
 //    self.view.autoresizingMask = UIViewAuto;
 }
@@ -38,61 +47,63 @@
     // e.g. self.myOutlet = nil;
 }
 
+-(void)viewDidLayoutSubviews{
+    CGRect frame = self.menu.frame;
+    frame = self.view.bounds;
+    self.menu.frame = frame;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 -(void)dismiss{
-    self.view.hidden = YES;
+    self.menu.userInteractionEnabled = NO;
+    CGRect frame = self.menu.frame;
+    frame.origin.y = self.view.frame.size.height;
+    [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.menu.frame = frame;
+    } completion:^(BOOL finished){
+        self.menu.userInteractionEnabled = YES;
+        self.view.hidden = YES;
+    }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MENUACTION_DISAPPEAR object:self.menu];
 }
 
 -(void)showMenuInPosition:(CGPoint)position anchorPoint:(CGPoint)anchor{
     
     self.view.hidden = NO;
     CGRect frame = self.view.frame;
-    frame.origin.x = position.x-frame.size.width;
-    frame.origin.y = position.y-frame.size.height;
+    frame.origin.x = position.x-frame.size.width*anchor.x;
+    frame.origin.y = position.y-frame.size.height*anchor.y;
     self.view.frame = frame;
-    CALayer* layer = self.view.layer;
-    layer.anchorPoint = anchor;
     
-    CAKeyframeAnimation* boundsOvershootAnimation =[CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    CATransform3D startingScale =CATransform3DScale(layer.transform,0,0,0);
-    CATransform3D overshootScale =CATransform3DScale(layer.transform,1.1,1.1,1.0);
-    CATransform3D undershootScale =CATransform3DScale(layer.transform,0.95,0.95,1.0);
-    CATransform3D endingScale = layer.transform;
-    NSArray*boundsValues =[NSArray arrayWithObjects:[NSValue valueWithCATransform3D:startingScale],
-                           [NSValue valueWithCATransform3D:overshootScale],
-                           [NSValue valueWithCATransform3D:undershootScale],
-                           [NSValue valueWithCATransform3D:endingScale],nil];
-    [boundsOvershootAnimation setValues:boundsValues];
-    NSArray*times =[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f],
-                    [NSNumber numberWithFloat:0.8f],
-                    [NSNumber numberWithFloat:0.9f],
-                    [NSNumber numberWithFloat:1.0f],nil];
-    [boundsOvershootAnimation setKeyTimes:times];
-    NSArray*timingFunctions =[NSArray arrayWithObjects:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut],
-                              [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
-                              [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
-                              nil];
-    [boundsOvershootAnimation setTimingFunctions:timingFunctions];
-    boundsOvershootAnimation.fillMode = kCAFillModeForwards;
-    boundsOvershootAnimation.removedOnCompletion = NO;
-    
-    CAKeyframeAnimation* alpha = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
-    
-    alpha.keyTimes = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f],
-                      [NSNumber numberWithFloat:1.0f], nil];  
-    alpha.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f],
-                    [NSNumber numberWithFloat:1.0f], nil];  
-    
-    CAAnimationGroup* group = [CAAnimationGroup animation];
-    group.animations = [NSArray arrayWithObjects:boundsOvershootAnimation, alpha, nil];
-    group.fillMode = kCAFillModeForwards;
-    group.removedOnCompletion = YES;
-    
-    [layer addAnimation:group forKey:@"showmenu"];
+    frame = self.menu.frame;
+    frame.origin.y = self.view.frame.size.height;
+    self.menu.frame = frame;
+    frame.origin.y = 0;
+    self.menu.userInteractionEnabled = NO;
+    [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.menu.frame = frame;
+    } completion:^(BOOL finished){
+        self.menu.userInteractionEnabled = YES;
+    }];
+}
+
+-(IBAction)showUnreadOnlyButtonClicked:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MENUACTION_UNREADONLY object:sender];
+    [self dismiss];
+}
+
+-(IBAction)showAllArticlesButtonClicked:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_MENUACTION_ALLARTICLES object:sender];
+    [self dismiss];
+}
+
+-(IBAction)markAllAsReadButtonClicked:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MENUACTION_MARKALLASREAD object:sender];
+    [self dismiss];
 }
 
 @end

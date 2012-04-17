@@ -13,6 +13,7 @@
 @interface BRBaseController : UIViewController
 
 @property (nonatomic, retain) IBOutlet UIView* backgroundView;
+@property (nonatomic, retain) IBOutlet UIView* mainContainer;
 
 -(void)switchContentViewsToViews:(NSArray*)views animated:(BOOL)animated;
 

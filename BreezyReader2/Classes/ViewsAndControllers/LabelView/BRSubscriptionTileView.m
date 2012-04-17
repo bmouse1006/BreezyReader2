@@ -365,7 +365,7 @@ static CGFloat kCaptionHeight = 40.0f;
 -(void)startFeedRequest:(GRSubscription*)sub{
     [self setImageURLs:nil];
     [self.grClient clearAndCancel];
-    [self.grClient requestFeedWithIdentifier:sub.ID count:[NSNumber numberWithInt:2] startFrom:nil exclude:nil continuation:nil forceRefresh:NO needAuth:NO];
+    [self.grClient requestFeedWithIdentifier:sub.ID count:[NSNumber numberWithInt:2] startFrom:nil exclude:nil continuation:nil forceRefresh:NO needAuth:YES];
 }
 
 -(void)setObject:(id)obj{
@@ -477,7 +477,6 @@ static CGFloat kCaptionHeight = 40.0f;
         DebugLog(@"feed's ID is %@", feed.ID);
         [[BRImagePreviewCache sharedCache] storeImagePreviews:feed.imageURLs key:self.subscription.ID];
         NSMutableArray* images = [[feed.imageURLs mutableCopy] autorelease];
-        DebugLog(@"image count is %d", [images count]);
         [self setImageURLs:images];
     }
 }

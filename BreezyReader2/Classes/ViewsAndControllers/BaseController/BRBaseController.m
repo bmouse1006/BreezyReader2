@@ -18,6 +18,7 @@
 @implementation BRBaseController
 
 @synthesize backgroundView = _backgroundView;
+@synthesize mainContainer = _mainContainer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +32,7 @@
 
 -(void)dealloc{
     self.backgroundView = nil;
+    self.mainContainer = nil;
     [super dealloc];
 }
 

@@ -80,6 +80,8 @@
 		227E472F153652200057B706 /* GuoHeAdAdapter_Millennial.m in Sources */ = {isa = PBXBuildFile; fileRef = 227E4711153652200057B706 /* GuoHeAdAdapter_Millennial.m */; };
 		227E473C153652200057B706 /* libMMSDK_4.5.3_withoutJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 227E472D153652200057B706 /* libMMSDK_4.5.3_withoutJSON.a */; };
 		227E473E153652700057B706 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227E473D153652700057B706 /* AVFoundation.framework */; };
+		22917599153DC40A001252C5 /* BRFeedConfigMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22917597153DC40A001252C5 /* BRFeedConfigMenuController.m */; };
+		2291759A153DC40A001252C5 /* BRFeedConfigMenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22917598153DC40A001252C5 /* BRFeedConfigMenuController.xib */; };
 		22994A15152DC90D00EE50C5 /* BRReadingStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */; };
 		229B2D0915273CAE00700504 /* BRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9615273CAE00700504 /* BRAppDelegate.m */; };
 		229B2D0B15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */; };
@@ -464,6 +466,9 @@
 		227E472D153652200057B706 /* libMMSDK_4.5.3_withoutJSON.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_4.5.3_withoutJSON.a; sourceTree = "<group>"; };
 		227E472E153652200057B706 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
 		227E473D153652700057B706 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		22917596153DC409001252C5 /* BRFeedConfigMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFeedConfigMenuController.h; sourceTree = "<group>"; };
+		22917597153DC40A001252C5 /* BRFeedConfigMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFeedConfigMenuController.m; sourceTree = "<group>"; };
+		22917598153DC40A001252C5 /* BRFeedConfigMenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRFeedConfigMenuController.xib; sourceTree = "<group>"; };
 		22994A13152DC90D00EE50C5 /* BRReadingStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRReadingStatistics.h; sourceTree = "<group>"; };
 		22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRReadingStatistics.m; sourceTree = "<group>"; };
 		229B2B9615273CAE00700504 /* BRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAppDelegate.m; sourceTree = "<group>"; };
@@ -1531,6 +1536,12 @@
 			children = (
 				22B2479B152F253A009DC4F1 /* BRBottomToolBar.h */,
 				22B2479C152F253A009DC4F1 /* BRBottomToolBar.m */,
+				229E1BE0153D64FD00DDBE0B /* BRFeedActionMenuViewController.h */,
+				229E1BE1153D64FD00DDBE0B /* BRFeedActionMenuViewController.m */,
+				229E1BE2153D64FE00DDBE0B /* BRFeedActionMenuViewController.xib */,
+				22917596153DC409001252C5 /* BRFeedConfigMenuController.h */,
+				22917597153DC40A001252C5 /* BRFeedConfigMenuController.m */,
+				22917598153DC40A001252C5 /* BRFeedConfigMenuController.xib */,
 				229B2C2E15273CAE00700504 /* BRFeedDataSource.h */,
 				229B2C2F15273CAE00700504 /* BRFeedDataSource.m */,
 				229B2C3015273CAE00700504 /* BRFeedDragDownController.h */,
@@ -1548,9 +1559,6 @@
 				229B2C3915273CAE00700504 /* BRFeedViewController.h */,
 				229B2C3A15273CAE00700504 /* BRFeedViewController.m */,
 				229B2C3B15273CAE00700504 /* BRFeedViewController.xib */,
-				229E1BE0153D64FD00DDBE0B /* BRFeedActionMenuViewController.h */,
-				229E1BE1153D64FD00DDBE0B /* BRFeedActionMenuViewController.m */,
-				229E1BE2153D64FE00DDBE0B /* BRFeedActionMenuViewController.xib */,
 			);
 			path = FeedViewController;
 			sourceTree = "<group>";
@@ -2443,6 +2451,7 @@
 				229E1BDE153D639300DDBE0B /* arrow_up.png in Resources */,
 				229E1BDF153D639300DDBE0B /* arrow_up@2x.png in Resources */,
 				229E1BE4153D64FE00DDBE0B /* BRFeedActionMenuViewController.xib in Resources */,
+				2291759A153DC40A001252C5 /* BRFeedConfigMenuController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2653,6 +2662,7 @@
 				22DBB93F153C46DB00747AEB /* URLConnection.m in Sources */,
 				22DBB940153C46DB00747AEB /* WeiboClient.m in Sources */,
 				229E1BE3153D64FE00DDBE0B /* BRFeedActionMenuViewController.m in Sources */,
+				22917599153DC40A001252C5 /* BRFeedConfigMenuController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

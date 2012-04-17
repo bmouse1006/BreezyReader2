@@ -37,6 +37,7 @@
 @property (nonatomic, retain) BRFeedDataSource* dataSource;
 
 -(IBAction)backButtonClicked:(id)sender;
+-(IBAction)configButtonClicked:(id)sender;
 -(IBAction)scrollToTop:(id)sender;
 -(IBAction)showSearch:(id)sender;
 -(IBAction)showActionMenuButtonClicked:(id)sender;
