@@ -192,9 +192,6 @@
 }
 
 -(void)updateReadColor{
-    if (self.item.isReadStateLocked){
-        return;
-    }
     if (self.item.isReaded){
         self.titleLabel.textColor = [UIColor grayColor];
     }else{

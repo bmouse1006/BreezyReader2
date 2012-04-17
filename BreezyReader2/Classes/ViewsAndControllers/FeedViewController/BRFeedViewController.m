@@ -21,6 +21,8 @@
     BOOL _okToLoadMore;
     BOOL _isRefreshing;
     BOOL _isLoadingMore;
+    
+    BOOL _showMenu;
 }
 
 @property (nonatomic, assign) BOOL okToRefresh;
@@ -42,6 +44,7 @@
 @implementation BRFeedViewController
 
 @synthesize tableView = _tableView, dragController = _dragController;
+@synthesize actionMenuController = _actionMenuController;
 @synthesize subscription = _subscription, dataSource = _dataSource;
 @synthesize loadMoreController = _loadMoreController;
 @synthesize loadingView = _loadingView;
@@ -53,6 +56,7 @@
 @synthesize client = _client;
 @synthesize clients = _clients, itemIDs = _itemIDs;
 @synthesize adView = _adView;
+@synthesize menuButton = _menuButton;
 
 static CGFloat insetsTop = 0.0f;
 static CGFloat insetsBottom = 0.0f;
@@ -63,6 +67,7 @@ static CGFloat refreshDistance = 60.0f;
     self.tableView = nil;
     self.dragController = nil;
     self.subscription = nil;
+    self.actionMenuController = nil;
     self.dataSource = nil;
     self.loadMoreController = nil;
     self.loadingView = nil;
@@ -76,6 +81,7 @@ static CGFloat refreshDistance = 60.0f;
     self.clients = nil;
     self.itemIDs = nil;
     self.adView = nil;
+    self.menuButton = nil;
     [super dealloc];
 }
 
@@ -99,6 +105,10 @@ static CGFloat refreshDistance = 60.0f;
     [nc addObserver:self selector:@selector(markArticleAsRead:) name:NOTIFICATION_MARKITEMASREAD object:nil];
     [nc addObserver:self selector:@selector(markArticleAsUnread:) name:NOTIFICATION_MARKITEMASUNREAD object:nil];
     [nc addObserver:self selector:@selector(adLoaded:) name:NOTIFICATION_ADLOADED object:nil];
+    [nc addObserver:self selector:@selector(markAllAsReadButtonClicked:) name:NOTIFICATION_MENUACTION_MARKALLASREAD object:nil];
+    [nc addObserver:self selector:@selector(showUnreadOnly:) name:NOTIFICATION_MENUACTION_UNREADONLY object:nil];
+    [nc addObserver:self selector:@selector(showAllArticles:) name:NOTIFICAITON_MENUACTION_ALLARTICLES object:nil];
+    [nc addObserver:self selector:@selector(actionMenuDisappeared:) name:NOTIFICATION_MENUACTION_DISAPPEAR object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -125,8 +135,7 @@ static CGFloat refreshDistance = 60.0f;
     insetsTop = 0;
     insetsBottom = -self.loadMoreController.view.frame.size.height;
     self.title = self.subscription.title;
-    self.tableView = [[[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain] autorelease];
-    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.tableView = [[[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain] autorelease];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = kFeedTableRowHeight;
     UIPinchGestureRecognizer* gesture = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonClicked:)] autorelease];
@@ -140,7 +149,6 @@ static CGFloat refreshDistance = 60.0f;
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.titleView];
-    [self.view addSubview:self.bottomToolBar];
     
     self.loadingLabel.font = [UIFont boldSystemFontOfSize:12];
     self.loadingLabel.textAlignment = UITextAlignmentCenter;
@@ -163,13 +171,10 @@ static CGFloat refreshDistance = 60.0f;
     UIView* adView = [[BRADManager sharedManager] adView];
     if (adView){
         self.adView = adView;
-        CGRect frame = adView.frame;
-        frame.origin.x = 0;
-        frame.origin.y = self.view.bounds.size.height-self.bottomToolBar.frame.size.height-frame.size.height;
-        adView.frame = frame;
         [self.view addSubview:adView];
-        [self.view bringSubviewToFront:self.bottomToolBar];
     }
+    
+    [self.view addSubview:self.actionMenuController.view];
 }
 
 - (void)viewDidUnload
@@ -183,12 +188,14 @@ static CGFloat refreshDistance = 60.0f;
     self.titleLabel = nil;
     self.bottomToolBar = nil;
     self.adView = nil;
+    self.menuButton = nil;
+    self.actionMenuController = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 -(void)viewDidLayoutSubviews{
-    
+    [super viewDidLayoutSubviews];
     CGRect frame = self.titleView.frame;
     frame.origin.y = 0;
     self.titleView.frame = frame;
@@ -199,11 +206,26 @@ static CGFloat refreshDistance = 60.0f;
     
     frame = self.tableView.frame;
     frame.origin.y = 0;
-    frame.size.height = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
+    frame.origin.x = 0;
+    frame.size.height = self.bottomToolBar.frame.origin.y;
+    frame.size.width = self.view.bounds.size.width;
     self.tableView.frame = frame;
     
+    frame = self.adView.frame;
+    frame.origin.x = 0;
+    frame.origin.y = self.view.bounds.size.height-self.bottomToolBar.frame.size.height-frame.size.height;
+    self.adView.frame = frame;
+    
+    frame = self.actionMenuController.view.frame;
+    frame.size.width = 165;
+    frame.size.height = 137;
+    self.actionMenuController.view.frame = frame;
+    self.actionMenuController.view.hidden = YES;
+    
     [self.view bringSubviewToFront:self.titleView];
+    [self.view bringSubviewToFront:self.adView];
     [self.view bringSubviewToFront:self.bottomToolBar];
+    [self.view bringSubviewToFront:self.actionMenuController.view];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -236,6 +258,29 @@ static CGFloat refreshDistance = 60.0f;
     CGRect frame = self.dragController.view.frame;
     frame.origin.y = -frame.size.height;
     self.dragController.view.frame = frame;
+}
+
+-(void)updateMenuButton{
+    self.menuButton.userInteractionEnabled = NO;
+    [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (_showMenu){
+            self.menuButton.transform = CGAffineTransformMakeRotation(M_PI);
+        }else{
+            self.menuButton.transform = CGAffineTransformIdentity;        
+        }
+    } completion:^(BOOL finished){
+        self.menuButton.userInteractionEnabled = YES;
+    }];
+}
+
+-(void)showHideMenu{
+    if (_showMenu){
+        CGFloat x = self.view.frame.size.width - 3;
+        CGFloat y = self.bottomToolBar.frame.origin.y - 3;
+        [self.actionMenuController showMenuInPosition:CGPointMake(x, y) anchorPoint:CGPointMake(1, 1)];
+    }else{
+        [self.actionMenuController dismiss];
+    }
 }
 
 #pragma mark - setter and getter
@@ -282,7 +327,7 @@ static CGFloat refreshDistance = 60.0f;
         self.okToRefresh = NO;
     }
     
-    if (offset.y + self.tableView.frame.size.height + self.tableView.contentInset.top - self.tableView.contentSize.height + self.dragController.view.frame.size.height > 40){
+    if (offset.y + self.tableView.frame.size.height + self.tableView.contentInset.top - self.tableView.contentSize.height + self.dragController.view.frame.size.height > 60){
         DebugLog(@"it's time to load more", nil);
         self.okToLoadMore = YES;
     }else{
@@ -323,11 +368,11 @@ static CGFloat refreshDistance = 60.0f;
     
 }
 
--(IBAction)markAllAsReadButtonClicked:(id)sender{
-    DebugLog(@"mark all as read", nil);
-    GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(didMarkAllAsReadReceived:)];
-    [self.clients addObject:client];
-    [client markAllAsRead:self.subscription.ID];    
+-(IBAction)showActionMenuButtonClicked:(id)sender{
+    _showMenu = !_showMenu;
+    [self showHideMenu];
+    [self updateMenuButton];
+    
 }
 
 #pragma mark - data source delegate
@@ -425,6 +470,27 @@ static CGFloat refreshDistance = 60.0f;
     [self.itemIDs setObject:itemID forKey:[NSValue valueWithNonretainedObject:client]];
     [client markArticleAsUnread:itemID];
 }
+     
+-(void)markAllAsReadButtonClicked:(NSNotification*)notification{
+    DebugLog(@"mark all as read", nil);
+    GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(didMarkAllAsReadReceived:)];
+    [self.clients addObject:client];
+    [client markAllAsRead:self.subscription.ID];    
+}
+
+-(void)showAllArticles:(NSNotification*)notification{
+    self.dataSource.unreadOnly = NO;
+    [self.dataSource loadDataMore:NO forceRefresh:NO];    
+}
+
+-(void)showUnreadOnly:(NSNotification*)notification{
+    self.dataSource.unreadOnly = YES;
+    [self.dataSource loadDataMore:NO forceRefresh:NO];
+}
+
+-(void)actionMenuDisappeared:(NSNotification*)notification{
+    
+}
 
 #pragma mark - google reader client call back
 -(void)didReceiveStarResonponse:(GoogleReaderClient*)client{
@@ -486,12 +552,6 @@ static CGFloat refreshDistance = 60.0f;
     }
     
     [self.clients removeObject:client];  
-}
-
-#pragma mark - switch delegate
-- (void)valueChanged:(BOOL)switchValue{
-    self.dataSource.unreadOnly = !switchValue;
-    [self.dataSource loadDataMore:NO forceRefresh:NO];
 }
 
 @end

@@ -213,7 +213,7 @@ NSString *TWITTERFON_FORM_BOUNDARY = @"0194784892923";
     
     NSString* msg = [NSString stringWithFormat:@"Error: %@ %@",
                      [error localizedDescription],
-                     [[error userInfo] objectForKey:NSErrorFailingURLStringKey]];
+                     [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]];
     
     NSLog(@"Connection failed: %@", msg);
     

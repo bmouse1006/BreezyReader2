@@ -181,7 +181,7 @@
 
 -(BOOL)isReaded{
 
-	return (_keptUnread)?NO:_readed;
+	return (self.isReadStateLocked)?YES:((_keptUnread)?NO:_readed);
 }
 
 -(BOOL)isStarred{

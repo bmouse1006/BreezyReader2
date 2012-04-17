@@ -8,9 +8,6 @@
 
 #import "GlobalCore.h"
 
-
-@implementation GlobalCore
-
 // No-ops for non-retaining objects.
 static const void* RetainNoOp(CFAllocatorRef allocator, const void *value) { return value; }
 static void ReleaseNoOp(CFAllocatorRef allocator, const void *value) { }
@@ -128,6 +125,3 @@ CGRect RectInset(CGRect rect, UIEdgeInsets insets) {
 					  rect.size.width - (insets.left + insets.right),
 					  rect.size.height - (insets.top + insets.bottom));
 }
-
-
-@end

@@ -194,7 +194,6 @@ static BOOL _startFetchToken = NO;
         NSLog(@"stream id should not be nil");
         return;
     }
-    
 	NSString* url = [API_STREAM_CONTENTS stringByAppendingString:[identifer stringByAddingPercentEscapesAndReplacingHTTPCharacter]];
     [self.request clearDelegatesAndCancel];
     self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:parameterSet APIType:API_LIST];
@@ -548,10 +547,7 @@ static BOOL _startFetchToken = NO;
 -(void)editItem:(NSString*)itemID 
             addTag:(NSString*)tagToAdd 
          removeTag:(NSString*)tagToRemove{
-    GRItem* item = [[self itemPool] objectForKey:itemID];
-    if (item.isReadStateLocked){
-        return;
-    }
+    
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_TAG2];
 	//Prepare parameters
 	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
