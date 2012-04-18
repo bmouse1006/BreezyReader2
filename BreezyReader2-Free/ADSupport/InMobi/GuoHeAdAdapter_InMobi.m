@@ -43,7 +43,7 @@
 	NSArray *keyArray = [keyInfo componentsSeparatedByString:@"|;|"];
     if ([keyArray count]>1) {
         CGRect frame = CGRectMake(self.adView.adParentView.frame.origin.x, self.adView.adParentView.frame.origin.y, adsize.width, adsize.height);
-        self.adBannerView = [[[IMAdView alloc] initWithFrame:frame imAppId:[keyArray objectAtIndex:0] imAdUnit:[self computeImAdUnit:adsize] rootViewController:[self.adView.delegate viewControllerForPresentingModalView]] autorelease];
+        self.adBannerView = [[IMAdView alloc] initWithFrame:frame imAppId:[keyArray objectAtIndex:0] imAdUnit:[self computeImAdUnit:adsize] rootViewController:[self.adView.delegate viewControllerForPresentingModalView]];
         
         [_adBannerView setDelegate: self];
         _adBannerView.refreshInterval = REFRESH_INTERVAL_OFF;

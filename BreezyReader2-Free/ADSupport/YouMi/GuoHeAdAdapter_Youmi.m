@@ -35,7 +35,7 @@
         GHLogWarn(@"App YouMi size wrong..");
         adSizeIndetifier = YouMiBannerContentSizeIdentifierUnknow;
     }
-    self.youMiView = [[[YouMiView alloc] initWithContentSizeIdentifier:adSizeIndetifier delegate:self] autorelease];
+    self.youMiView = [[YouMiView alloc] initWithContentSizeIdentifier:adSizeIndetifier delegate:self];
     NSArray *keyArray = [keyInfo componentsSeparatedByString:@"|;|"];
     if ([keyArray count]>1) {
         _youMiView.appID = [keyArray objectAtIndex:0];

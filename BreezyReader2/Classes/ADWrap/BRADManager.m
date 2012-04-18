@@ -8,7 +8,12 @@
 
 #import "BRADManager.h"
 #import "UserPreferenceDefine.h"
+
+#ifdef FREEVERSION
+
 #import "GHAdView.h"
+
+#endif
 
 @interface BRADManager ()
 
@@ -54,15 +59,18 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
     [manager stopUpdatingLocation];
 }
 
--(GHAdView*)adView{
+-(UIView*)adView{
     if ([UserPreferenceDefine shouldLoadAD] == NO){
         return nil;
     }
-    
-    GHAdView* adView = [[[GHAdView alloc] initWithAdUnitId:GHUNITID size:CGSizeMake(320, 50)] autorelease];
+    UIView* adView = nil;
+#ifdef FREEVERSION
+    adView = [[[GHAdView alloc] initWithAdUnitId:GHUNITID size:CGSizeMake(320, 50)] autorelease];
     adView.delegate = self;
     adView.hidden = YES;
     [adView loadAd];
+#endif
+    
     return adView;
 }
 
@@ -70,12 +78,12 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
     return [UIApplication sharedApplication].keyWindow.rootViewController;
 }
 
--(void)adViewDidLoadAd:(GHAdView *)view{
+-(void)adViewDidLoadAd:(UIView *)view{
     NSLog(@"ad is loaded");
     view.hidden = NO;
 }
 
--(void)adViewDidFailToLoadAd:(GHAdView *)view{
+-(void)adViewDidFailToLoadAd:(UIView *)view{
     NSLog(@"ad is loaded failure");
 }
 
