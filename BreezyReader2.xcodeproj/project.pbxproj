@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2207BD6714B731DC00ED0BE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2207BD6614B731DC00ED0BE6 /* SystemConfiguration.framework */; };
 		2207BD6914B731E700ED0BE6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2207BD6814B731E700ED0BE6 /* Security.framework */; };
+		2210232D153EA0F10072AE19 /* NSDate+simpleFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E530931539D77E001A3C60 /* NSDate+simpleFormat.m */; };
 		221943E1153329AD00A0C4E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C7F15273CAE00700504 /* InfoPlist.strings */; };
 		221943E515332BAB00A0C4E4 /* BRArticleScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943E315332BAB00A0C4E4 /* BRArticleScrollViewController.m */; };
 		221943E615332BAB00A0C4E4 /* BRArticleScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 221943E415332BAB00A0C4E4 /* BRArticleScrollViewController.xib */; };
@@ -3133,6 +3134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2210232D153EA0F10072AE19 /* NSDate+simpleFormat.m in Sources */,
 				229E2399153E80BC00DDBE0B /* ASIAuthenticationDialog.m in Sources */,
 				229E239A153E80BC00DDBE0B /* ASIDataCompressor.m in Sources */,
 				229E239B153E80BC00DDBE0B /* ASIDataDecompressor.m in Sources */,
