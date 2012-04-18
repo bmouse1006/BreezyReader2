@@ -359,12 +359,20 @@ static BOOL _startFetchToken = NO;
     }];
 }
 
--(void)recommendationStream:(NSString*)streamID{
+-(void)viewRecommendationStream:(NSString*)streamID{
+    [self editRecommendationStream:streamID action:@"view"];
+}
+
+-(void)dismissRecommendationStream:(NSString*)streamID{
+    [self editRecommendationStream:streamID action:@"dismiss"];
+}
+
+-(void)editRecommendationStream:(NSString*)streamID action:(NSString*)action{
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_RECOMMENDATION_EDIT];
     
     URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
     [paramSet setParameterForKey:EDIT_ARGS_FEED withValue:streamID];
-    [paramSet setParameterForKey:EDIT_ARGS_IMPRESSION withValue:[NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]*1000000]];
+    [paramSet setParameterForKey:EDIT_ARGS_RECOMMENDATION_ACTION withValue:action];
     self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
     __block typeof(self) blockSelf = self;
     [self addTokenToRequest:(ASIFormDataRequest*)self.request completionBlock:^(NSError* error){

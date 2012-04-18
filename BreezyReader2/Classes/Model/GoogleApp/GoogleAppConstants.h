@@ -96,6 +96,7 @@ extern NSString * const ATOM_ARGS_CLIENT;
 extern NSString * const ATOM_ARGS_TIMESTAMP;
 
 extern NSString * const EDIT_ARGS_IMPRESSION;
+extern NSString * const EDIT_ARGS_RECOMMENDATION_ACTION;
 extern NSString * const EDIT_ARGS_FEED;
 extern NSString * const EDIT_ARGS_ITEM;
 extern NSString * const EDIT_ARGS_ADD;

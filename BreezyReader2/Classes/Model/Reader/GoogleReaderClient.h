@@ -50,7 +50,8 @@
 -(void)markArticleAsUnread:(NSString*)itemID;
 -(void)keepArticleUnread:(NSString*)itemID;
 -(void)markAllAsRead:(NSString*)streamID;
--(void)recommendationStream:(NSString*)streamID;
+-(void)viewRecommendationStream:(NSString*)streamID;
+-(void)dismissRecommendationStream:(NSString*)streamID;
 +(void)setToken:(NSString*)token;
 +(NSString*)token;
 //sub, tag and unread count

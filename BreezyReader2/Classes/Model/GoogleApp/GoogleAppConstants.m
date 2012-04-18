@@ -90,6 +90,7 @@ NSString * const ATOM_ARGS_CLIENT			= @"client";
 NSString * const ATOM_ARGS_TIMESTAMP		= @"ck";
 
 NSString * const EDIT_ARGS_IMPRESSION		= @"impression";
+NSString * const EDIT_ARGS_RECOMMENDATION_ACTION = @"action";
 NSString * const EDIT_ARGS_FEED				= @"s";
 NSString * const EDIT_ARGS_ITEM			    = @"i";
 NSString * const EDIT_ARGS_ADD				= @"a";		

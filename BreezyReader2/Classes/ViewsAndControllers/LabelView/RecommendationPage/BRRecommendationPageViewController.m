@@ -39,7 +39,7 @@
 -(void)mediaLibTableViewCell:(JJMediaLibTableViewCell *)cell didSelectMediaAtIndex:(NSInteger)index{
     [super mediaLibTableViewCell:cell didSelectMediaAtIndex:index];
     GRSubscription* sub = [self.source mediaAtIndex:index];
-    [self.client recommendationStream:sub.ID];
+    [self.client viewRecommendationStream:sub.ID];
 }
 
 #pragma mark - data source delegate
