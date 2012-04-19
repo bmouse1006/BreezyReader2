@@ -275,7 +275,7 @@ static double kTransitionAnimationDuration = 0.2f;
     [top removeFromParentViewController];
     [top didMoveToParentViewController:nil];
     
-    [self.view addSubview:second.view];
+    [self.view insertSubview:second.view belowSubview:top.view];
     second.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
     
     top.view.userInteractionEnabled = NO;
@@ -285,7 +285,7 @@ static double kTransitionAnimationDuration = 0.2f;
     [top viewWillDisappear:YES];
     
     [UIView animateWithDuration:kTransitionAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
-        [self.view bringSubviewToFront:top.view];
+//        [self.view bringSubviewToFront:top.view];
         CGAffineTransform translate = CGAffineTransformMakeTranslation(self.view.bounds.size.width, 0);
         top.view.transform = translate;
         second.view.transform = CGAffineTransformIdentity;

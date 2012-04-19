@@ -70,6 +70,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         [container addChildViewController:verifyController];
     }
     self.window.rootViewController = container;
+    [self.window makeKeyAndVisible];
     //setup global appearence
     [self setupGlobalAppearence];
     
@@ -109,7 +110,6 @@ void uncaughtExceptionHandler(NSException *exception) {
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     [self.client refreshUnreadCount];
-    [self.window makeKeyAndVisible];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

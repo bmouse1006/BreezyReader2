@@ -82,22 +82,6 @@
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
-   <SymbolicBreakpoints>
-      <SymbolicBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         symbolName = "_NSLockError"
-         moduleName = "">
-         <Actions>
-            <BreakpointActionProxy
-               ActionType = "Xcode.BreakpointAction.DebuggerCommand">
-               <ActionContent>
-               </ActionContent>
-            </BreakpointActionProxy>
-         </Actions>
-      </SymbolicBreakpoint>
-   </SymbolicBreakpoints>
    <ExceptionBreakpoints>
       <ExceptionBreakpoint
          shouldBeEnabled = "Yes"
