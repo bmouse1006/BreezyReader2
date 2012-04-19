@@ -81,7 +81,7 @@ static double kTransitionAnimationDuration = 0.2f;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation != UIInterfaceOrientationPortrait);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 -(void)zoomOutViewController:(UIViewController*)controller fromRect:(CGRect)rect{
@@ -92,18 +92,21 @@ static double kTransitionAnimationDuration = 0.2f;
     UIViewController* top = [self.childViewControllers lastObject];
     [controller willMoveToParentViewController:self];
     [self addChildViewController:controller];
+    [controller didMoveToParentViewController:self];
+    [top viewWillDisappear:YES];
+    [controller viewWillAppear:YES];
     if (top == nil){
         [self.view addSubview:controller.view];
-        [controller didMoveToParentViewController:self];
+        [controller viewDidAppear:YES];
     }else{
         double duration = (animated)?kTransitionAnimationDuration:0.0f;
         controller.view.alpha = 0.0f;
         [self transitionFromViewController:top toViewController:controller duration:duration options:UIViewAnimationOptionTransitionNone animations:^{
             controller.view.alpha = 1.0f;
-        }completion:^(BOOL finished){
-            if (finished){
-                [controller didMoveToParentViewController:self];
-            }
+        } completion:^(BOOL finished){
+            [top.view removeFromSuperview];
+            [top viewDidDisappear:YES];
+            [controller viewDidAppear:YES];
         }];
     }
 }
@@ -112,21 +115,24 @@ static double kTransitionAnimationDuration = 0.2f;
     CGFloat duration = (animated)?kTransitionAnimationDuration:0.0f;
     
     UIViewController* top = [self.childViewControllers lastObject];
-    UIView* topView = top.view;
     if (top){
         [top willMoveToParentViewController:nil];
         [top removeFromParentViewController];
+        [top didMoveToParentViewController:nil];
         UIViewController* current = [self.childViewControllers lastObject];
+        [top viewWillDisappear:YES];
+        [current viewWillAppear:YES];
         if (current){
-            [self.view insertSubview:current.view belowSubview:topView];
+            [self.view insertSubview:current.view belowSubview:top.view];
         }
         
         [UIView animateWithDuration:duration animations:^{
-            topView.alpha = 0.0f;
+            top.view.alpha = 0.0f;
         } completion:^(BOOL finished){
             if (finished){
-                [topView removeFromSuperview];
-                [top didMoveToParentViewController:nil];
+                [top.view removeFromSuperview];
+                [top viewDidDisappear:YES];
+                [current viewDidAppear:YES];
             }
         }];
 
@@ -139,6 +145,7 @@ static double kTransitionAnimationDuration = 0.2f;
     
     [viewController willMoveToParentViewController:self];
     [self addChildViewController:viewController];
+    [viewController didMoveToParentViewController:self];
     
     CGRect fromRect = [fromView convertRect:fromView.bounds toView:self.view];
     CGRect toRect = self.view.bounds;
@@ -164,16 +171,21 @@ static double kTransitionAnimationDuration = 0.2f;
     preController.view.userInteractionEnabled = NO;
     view.userInteractionEnabled = NO;
     
-    [self transitionFromViewController:preController toViewController:viewController duration:kTransitionAnimationDuration options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [preController viewWillDisappear:YES];
+    [viewController viewWillAppear:YES];
+    
+    [UIView animateWithDuration:kTransitionAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
         viewController.view.transform = CGAffineTransformIdentity;
         viewController.view.alpha = 1;
         preController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);  
     }completion:^(BOOL finished){
         if (finished){
+            [preController.view removeFromSuperview];
+            [preController viewDidDisappear:YES];
+            [viewController viewDidAppear:YES];
             preController.view.transform = CGAffineTransformIdentity;
             preController.view.userInteractionEnabled = YES;
             view.userInteractionEnabled = YES;
-            [viewController didMoveToParentViewController:self];
         }
     }];
 }
@@ -187,6 +199,10 @@ static double kTransitionAnimationDuration = 0.2f;
         second = [self.childViewControllers objectAtIndex:index-1];
     }
     
+    [top willMoveToParentViewController:nil];
+    [top removeFromParentViewController];
+    [top didMoveToParentViewController:nil];
+    
     NSValue* key = [NSValue valueWithNonretainedObject:top];
     CGAffineTransform transform = [[self.boomedTransforms objectForKey:key] CGAffineTransformValue];
     [self.boomedTransforms removeObjectForKey:[NSValue valueWithNonretainedObject:key]];
@@ -197,7 +213,6 @@ static double kTransitionAnimationDuration = 0.2f;
     top.view.userInteractionEnabled = NO;
     second.view.userInteractionEnabled = NO;
     
-    [top willMoveToParentViewController:nil];
     [second viewWillAppear:YES];
     [top viewWillDisappear:YES];
     
@@ -210,8 +225,6 @@ static double kTransitionAnimationDuration = 0.2f;
         [second viewDidAppear:YES];
         [top.view removeFromSuperview];
         [top viewDidDisappear:YES];
-        [top didMoveToParentViewController:nil];
-        [top removeFromParentViewController];
     }];
 }
 
@@ -221,27 +234,31 @@ static double kTransitionAnimationDuration = 0.2f;
     
     [viewController willMoveToParentViewController:self];
     [self addChildViewController:viewController];
- 
-    UIView* view = viewController.view;
+    [viewController didMoveToParentViewController:self];
     
-    [self.view addSubview:view];
+    [self.view addSubview:viewController.view];
     
-    view.frame = self.view.bounds;
+    viewController.view.frame = self.view.bounds;
     
     CGAffineTransform translate = CGAffineTransformMakeTranslation(self.view.bounds.size.width, 0);
-    view.transform = translate;
+    viewController.view.transform = translate;
     
     currentController.view.userInteractionEnabled = NO;
-    view.userInteractionEnabled = NO;
+    viewController.view.userInteractionEnabled = NO;
     
-    [self transitionFromViewController:currentController toViewController:viewController duration:kTransitionAnimationDuration options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [currentController viewWillDisappear:YES];
+    [viewController viewWillAppear:YES];
+    
+    [UIView animateWithDuration:kTransitionAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
         viewController.view.transform = CGAffineTransformIdentity;
         currentController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
     }completion:^(BOOL finished){
         if (finished){
+            [currentController.view removeFromSuperview];
+            [currentController viewDidDisappear:YES];
+            [viewController viewDidAppear:YES];
             currentController.view.transform = CGAffineTransformIdentity;
-            view.userInteractionEnabled = YES;
-            [viewController didMoveToParentViewController:self];
+            viewController.view.userInteractionEnabled = YES;
         }
     }];
 }
@@ -254,23 +271,29 @@ static double kTransitionAnimationDuration = 0.2f;
         second = [self.childViewControllers objectAtIndex:index-1];
     }
     
+    [top willMoveToParentViewController:nil];
+    [top removeFromParentViewController];
+    [top didMoveToParentViewController:nil];
+    
     [self.view addSubview:second.view];
     second.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
     
     top.view.userInteractionEnabled = NO;
     second.view.userInteractionEnabled = NO;
     
-    [top willMoveToParentViewController:nil];
+    [second viewWillAppear:YES];
+    [top viewWillDisappear:YES];
     
-    [self transitionFromViewController:top toViewController:second duration:kTransitionAnimationDuration options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:kTransitionAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
         [self.view bringSubviewToFront:top.view];
         CGAffineTransform translate = CGAffineTransformMakeTranslation(self.view.bounds.size.width, 0);
         top.view.transform = translate;
         second.view.transform = CGAffineTransformIdentity;
     }completion:^(BOOL finished){
         if (finished){
-            [top removeFromParentViewController];
-            [top didMoveToParentViewController:nil];
+            [top.view removeFromSuperview];
+            [top viewDidDisappear:YES];
+            [second viewDidAppear:YES];
             second.view.userInteractionEnabled = YES;
         }
     }];

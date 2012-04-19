@@ -255,7 +255,6 @@ static GRDataManager *readerDM = nil;
 	}else{
 		tempList = [NSMutableArray arrayWithObjects:0];
 		@synchronized(_processedSubDict){
-			GRTag* tag = [self.processedTagDict objectForKey:tagID];
 //			for (NSString* subID in tag.subscriptions){
 //				[tempList addObject:[self.processedSubDict objectForKey:subID]];
 //			}

@@ -97,25 +97,25 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
 -(void)getReadyForSearch{
     self.view.alpha = 1.0f;
     [self.searchDisplayController.searchBar becomeFirstResponder];
-//    self.searchDisplayController.searchBar.alpha = 0;
-//    self.searchDisplayController.searchBar.hidden = NO;
-//    [UIView animateWithDuration:0.2 animations:^{
-//        self.searchDisplayController.searchBar.alpha = 1;
-//    }];
+    self.searchDisplayController.searchBar.alpha = 0;
+    self.searchDisplayController.searchBar.hidden = NO;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.searchDisplayController.searchBar.alpha = 1;
+    }];
 }
 
 #pragma mark - search bar delegate
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-//    [UIView animateWithDuration:0.4 animations:^{
-////        self.searchDisplayController.searchBar.alpha = 0;
-//        self.view.alpha = 0;
-//    } completion:^(BOOL finished){
-//        if (finished){
-//            self.searchDisplayController.searchBar.hidden = YES;
-//            [self dismissSearchView];
-//        }
-//    }];
-    [[self topContainer] popViewController:YES];
+    [UIView animateWithDuration:0.4 animations:^{
+//        self.searchDisplayController.searchBar.alpha = 0;
+        self.view.alpha = 0;
+    } completion:^(BOOL finished){
+        if (finished){
+            self.searchDisplayController.searchBar.hidden = YES;
+            [self dismissSearchView];
+        }
+    }];
+//    [[self topContainer] popViewController:YES];
 }
 
 -(IBAction)loadMoreButtonClicked:(id)sender{

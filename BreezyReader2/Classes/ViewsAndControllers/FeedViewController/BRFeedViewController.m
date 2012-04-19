@@ -119,12 +119,6 @@ static CGFloat refreshDistance = 60.0f;
     // Release any cached data, images, etc that aren't in use.
 }
 
--(void)willMoveToParentViewController:(UIViewController *)parent{
-    if ([self isMovingToParentViewController] == NO){
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
-    }
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -239,7 +233,6 @@ static CGFloat refreshDistance = 60.0f;
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated{

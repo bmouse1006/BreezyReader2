@@ -89,11 +89,6 @@
     self.navigationController.toolbarHidden = NO;
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    self.navigationController.toolbarHidden = YES;
-}
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -157,7 +152,6 @@
     {
         
         if([subview isKindOfClass:[UIImageView class]]){
-            DebugLog(@"%@", [subview description]);
             subview.hidden = YES;
         }
         

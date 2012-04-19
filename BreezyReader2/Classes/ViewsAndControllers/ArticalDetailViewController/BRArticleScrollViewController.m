@@ -149,7 +149,9 @@
     webController.URL = [NSURL URLWithString:item.alternateLink];
     
     UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:webController] autorelease];
-    [[self topContainer] presentViewController:nav animated:YES completion:NULL];
+//    [self presentModalViewController:nav animated:YES];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav animated:YES completion:NULL];
+//    [self presentViewController:nav animated:YES completion:NULL];
 }
 
 -(IBAction)scrollCurrentPageToTop:(id)sender{

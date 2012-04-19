@@ -12,7 +12,6 @@
 #import "NSObject+Notifications.h"
 #import "GoogleAppConstants.h"
 #import "GoogleAuthManager.h"
-#import "GRDataManager.h"
 #import "BRAlertHandler.h"
 #import "BRErrorHandler.h"
 #import "ASIHTTPRequest.h"
@@ -20,31 +19,39 @@
 #import "BRTopContainer.h"
 #import "GoogleReaderClient.h"
 
+void uncaughtExceptionHandler(NSException *exception);
+
 @interface BRAppDelegate ()
 
 -(void)setupGlobalAppearence;
 
-@property (nonatomic, retain) NSMutableSet* clients;
+@property (nonatomic, retain) GoogleReaderClient* client;
 
 @end
 
 @implementation BRAppDelegate
 
-@synthesize clients = _clients;
+@synthesize client = _client;
 @synthesize window = _window;
+
+void uncaughtExceptionHandler(NSException *exception) {
+    NSLog(@"CRASH: %@", exception);
+    NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
+    // Internal error reporting
+}
 
 - (void)dealloc
 {
     [_window release];
-    [self.clients enumerateObjectsUsingBlock:^(id obj, BOOL* stop){
-        [obj performSelector:@selector(clearAndCancel)];
-    }];
-    self.clients = nil;
+    self.client = nil;
     [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    
+    self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];
     //setup request cache
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
     [self registerNotifications];
@@ -101,6 +108,7 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    [self.client refreshUnreadCount];
     [self.window makeKeyAndVisible];
 }
 

@@ -9,7 +9,7 @@
 #import "BRSubFavoriteSource.h"
 #import "BRReadingStatistics.h"
 #import "GRSubscription.h"
-#import "GRDataManager.h"
+#import "GoogleReaderClient.h"
 
 #define kFavoriteSubCount 10
 
@@ -24,7 +24,7 @@
     NSArray* subKeys = [statistics mostReadSubscriptionIDsCount:kFavoriteSubCount];
     NSMutableArray* subs = [NSMutableArray array];
     for (NSString* key in subKeys){
-        id sub = [[GRDataManager shared] getUpdatedGRSub:key];
+        id sub = [GoogleReaderClient subscriptionWithID:key];
         if (sub){
             [subs addObject:sub];
         }

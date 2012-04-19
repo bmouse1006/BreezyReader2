@@ -8,7 +8,6 @@
 
 #import "BRMainScreenController.h"
 #import "MainScreenDataSource.h"
-#import "GRDataManager.h"
 #import "GoogleAuthManager.h"
 #import "NSObject+Notifications.h"
 #import "GoogleAppConstants.h"
@@ -24,8 +23,6 @@
 
 @property (nonatomic, retain) MainScreenDataSource* dataSource;
 @property (nonatomic, retain) GoogleReaderClient* client;
-
--(void)recreateLayouts;
 
 -(void)reload;
 
@@ -128,7 +125,7 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:NO];
     [self.labelViewControllers makeObjectsPerformSelector:@selector(viewWillAppear:) withObject:[NSNumber numberWithBool:animated]];
 }
 
@@ -219,7 +216,7 @@
     [self.dataSource.controllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop){
         [self addChildViewController:obj];
     }];
-//    [self addChildViewController:self.searchController];
+    [self addChildViewController:self.searchController];
 }
 #pragma mark - delegate methods for infinity scroll view
 -(void)scrollView:(InfinityScrollView *)scrollView didStopAtChildViewOfIndex:(NSInteger)index{
@@ -236,9 +233,9 @@
 
 #pragma mark - NOTIFICATOIN call back
 -(void)showSearchUI:(NSNotification*)notification{
-//    [self.view addSubview:self.searchController.view];
-//    [self.searchController getReadyForSearch];
-    [[self topContainer] addToTop:self.searchController animated:YES];
+    [self.view addSubview:self.searchController.view];
+    [self.searchController getReadyForSearch];
+//    [[self topContainer] addToTop:self.searchController animated:YES];
 }
 
 -(void)showStarItems:(NSNotification*)notification{

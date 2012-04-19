@@ -41,9 +41,11 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
 -(id)init{
     self = [super init];
     if (self){
+#ifdef FREEVERSION
         CLLocationManager* manager = [[CLLocationManager alloc] init];
         manager.delegate = self;
         [manager startUpdatingLocation];
+#endif
     }
     
     return self;

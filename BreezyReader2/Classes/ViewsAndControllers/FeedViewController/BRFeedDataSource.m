@@ -11,7 +11,6 @@
 #import "SBJSON.h"
 #import "BROperationQueues.h"
 #import "BRReadingStatistics.h"
-#import "GRDataManager.h"
 
 @interface BRFeedDataSource(){
     BOOL _loading;
@@ -100,7 +99,7 @@
         _loading = YES;
         [self.delegate dataSource:self didStartLoading:NO];
         [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:self.exclude continuation:nil forceRefresh:refresh needAuth:YES];
-        if([[GRDataManager shared] getUpdatedGRSub:self.subscription.ID]){
+        if([GoogleReaderClient subscriptionWithID:self.subscription.ID]){
             [[BRReadingStatistics statistics] readFeed:self.subscription.ID];
         }
     }

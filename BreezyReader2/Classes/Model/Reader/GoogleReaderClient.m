@@ -84,10 +84,8 @@ static BOOL _startFetchToken = NO;
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [self clearAndCancel];
-    self.requestQueue = nil;
-    self.request = nil;
-    self.tokenRequest = nil;
     [super dealloc];
 }
 
@@ -96,7 +94,14 @@ static BOOL _startFetchToken = NO;
     if (self){
         self.delegate = delegate;
         self.action = action;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearCache:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+        
+        static dispatch_once_t classNotification;
+        
+        dispatch_once(&classNotification, ^{ 
+            [[NSNotificationCenter defaultCenter] addObserver:[self class] selector:@selector(clearCache:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:[self class] selector:@selector(saveReaderStructure) name:UIApplicationWillResignActiveNotification object:nil];
+        }); 
+        
     }
     
     return self;
@@ -106,11 +111,19 @@ static BOOL _startFetchToken = NO;
     [self.request clearDelegatesAndCancel];
     [self.requestQueue reset];
     [self.tokenRequest clearDelegatesAndCancel];
+    self.requestQueue = nil;
+    self.request = nil;
+    self.tokenRequest = nil;
 }
 
 +(void)clearCache:(NSNotification*)notification{
-    [[self itemPool] removeAllObjects];
-    [[self itemsForFeed] removeAllObjects];
+    DebugLog(@"Clear cached data in Google Reader Client");
+    @synchronized(UniversalItemPool){
+        [UniversalItemPool removeAllObjects];
+    }
+    @synchronized([self itemsForFeed]){
+        [[self itemsForFeed] removeAllObjects];
+    }
 }
 
 #pragma mark - static containers
@@ -181,7 +194,7 @@ static BOOL _startFetchToken = NO;
     return _unread;
 }
 
--(NSLock*)locker{
++(NSLock*)locker{
     static dispatch_once_t predLock;
     static NSLock* _lock = nil;
     
@@ -216,8 +229,7 @@ static BOOL _startFetchToken = NO;
 
 #pragma mark - reader structure
 +(BOOL)isReaderLoaded{
-    GoogleReaderClient* client = [self clientWithDelegate:nil action:NULL];
-    [client restoreReaderStructure];
+    [self restoreReaderStructure];
     return ([[self subscriptions] count] > 0 || [[self tags] count] > 0);
 }
 
@@ -428,7 +440,7 @@ static BOOL _startFetchToken = NO;
     [self refreshUnreadCount];
 }
                             
--(void)saveReaderStructure{
++(void)saveReaderStructure{
     [[self locker] lock];
     
     [NSKeyedArchiver archiveRootObject:UniversalTagList toFile:[self filePathWithName:@"taglist"]];
@@ -438,15 +450,8 @@ static BOOL _startFetchToken = NO;
     [[self locker] unlock];
 }
 
--(void)restoreReaderStructure{
++(void)restoreReaderStructure{
     [[self locker] lock];
-//    NSString *thePath = [documentsDirectory stringByAppendingPathComponent:TAGLISTFILE];
-//	self.tagDict = [NSDictionary dictionaryWithContentsOfFile:thePath];
-//	thePath = [documentsDirectory stringByAppendingPathComponent:SUBSCRIPTIONLISTFILE];
-//	self.subDict = [NSDictionary dictionaryWithContentsOfFile:thePath];
-//	thePath = [documentsDirectory stringByAppendingPathComponent:UNREADCOUNTFILE];
-//	self.unreadCount = [NSDictionary dictionaryWithContentsOfFile:thePath];
-//	thePath = [documentsDirectory stringByAppendingPathComponent:FAVORITELISTFILE];
     [UniversalSubList setDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self filePathWithName:@"sublist"]]];
     [UniversalTagList setDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self filePathWithName:@"taglist"]]];
     [UniversalUnreadCount setDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self filePathWithName:@"unreadcount"]]];
@@ -454,7 +459,7 @@ static BOOL _startFetchToken = NO;
     [[self locker] unlock];
 }
      
--(NSString*)filePathWithName:(NSString*)name{
++(NSString*)filePathWithName:(NSString*)name{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     if (!documentsDirectory) {
@@ -704,21 +709,35 @@ static BOOL _startFetchToken = NO;
 -(GRFeed*)responseFeed{
     GRFeed* feed = [GRFeed objWithJSON:self.responseJSONValue];
     if (self.request.didUseCachedResponse == NO){
-        NSMutableArray* items = [[[self class] itemsForFeed] objectForKey:feed.ID];
-        if (items == nil){
-            items = [NSMutableArray array];
-            [[[self class] itemsForFeed] setObject:items forKey:feed.ID];
+        NSMutableDictionary* itemsForFeed = [[self class] itemsForFeed];
+        NSMutableArray* items = nil;
+        @synchronized(itemsForFeed){
+            items = [itemsForFeed objectForKey:feed.ID];
+            if (items == nil){
+                items = [NSMutableArray array];
+                [[[self class] itemsForFeed] setObject:items forKey:feed.ID];
+            }
+            [items addObjectsFromArray:feed.items];
         }
+        
         [feed.items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
             GRItem* item = obj;
-            [UniversalItemPool setObject:item forKey:item.ID];
+            @synchronized(UniversalItemPool){
+                [UniversalItemPool setObject:item forKey:item.ID];
+            }
             [items addObject:item];
         }];
     }else{
         NSMutableArray* items = [NSMutableArray array];
         for (GRItem* item in feed.items){
-            GRItem* origItem = [UniversalItemPool objectForKey:item.ID];
-            [items addObject:origItem];
+            @synchronized(UniversalItemPool){
+                GRItem* origItem = [UniversalItemPool objectForKey:item.ID];
+                if (origItem == nil){
+                    [UniversalItemPool setObject:item forKey:item.ID];
+                    origItem = item;
+                }
+                [items addObject:origItem];
+            }
         }
         feed.items = items;
     }
