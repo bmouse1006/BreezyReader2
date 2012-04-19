@@ -43,7 +43,7 @@
         if (self.autoResize){
             [self resizeToFitText];
         }
-        [self setNeedsDisplay];
+        [self performSelector:@selector(setNeedsDisplay)];
     }
 }
 
@@ -51,13 +51,13 @@
     if (_textColor != textColor){
         [_textColor release];
         _textColor = [textColor retain];
-        [self setNeedsDisplay];
+        [self performSelector:@selector(setNeedsDisplay)];
     }
 }
 
 -(void)setShadowEnable:(CGFloat)shadowEnable{
     _shadowEnable = shadowEnable;
-    [self setNeedsDisplay];
+    [self performSelector:@selector(setNeedsDisplay)];
 }
 //- (CGRect)textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines{
 //    return UIEdgeInsetsInsetRect(bounds, _insets);
@@ -110,23 +110,9 @@
             break;
     }
     
-//    switch (self.textAlignment) {
-//        case UITextAlignmentRight:
-//            newRect.origin.x += rect.size.width - newRect.size.width;
-//            break;
-//        case UITextAlignmentLeft:
-//            break;
-//        case UITextAlignmentCenter:
-//            newRect.origin.x += (rect.size.width - newRect.size.width)/2;
-//            break;
-//        default:
-//            break;
-//    }
-    
     
     [self.text drawInRect:newRect withFont:self.font lineBreakMode:UILineBreakModeTailTruncation alignment:self.textAlignment];
-//    [self.text drawInRect:UIEdgeInsetsInsetRect(rect, _insets) withFont:self.font];
-    
+
     CGContextRestoreGState(ctx);
 }
 

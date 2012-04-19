@@ -41,7 +41,7 @@ static CGFloat kTitleLabelHeight = 60.0f;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSource:) name:UIApplicationDidBecomeActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSource:) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
 }
