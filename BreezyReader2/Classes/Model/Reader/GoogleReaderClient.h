@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "GRItem.h"
 #import "GRFeed.h"
+#import "GRTag.h"
+#import "GRSubscription.h"
 #import "ASIHTTPRequest.h"
 
 @interface GoogleReaderClient : NSObject<ASIHTTPRequestDelegate>
@@ -34,14 +36,15 @@
                     continuation:(NSString*)continuationStr
                     forceRefresh:(BOOL)refresh 
                         needAuth:(BOOL)needAuth;
+//reader structure
+-(GRTag*)tagWithID:(NSString*)tagID;
+-(GRSubscription*)subscriptionWithID:(NSString*)subID;
+-(NSArray*)subscriptionsWithTagID:(NSString*)tagID;
 //list api
 -(void)getStreamDetails:(NSString*)streamID;
 -(void)queryContentsWithIDs:(NSArray*)IDArray;
 -(void)searchArticlesWithKeywords:(NSString*)keywords;
 -(void)searchFeedsWithKeywords:(NSString*)keywords;
--(void)requestSubscriptionList;
--(void)requestTagList;
--(void)requestUnreadCount;
 -(void)requestRecommendationList;
 //edit api
 -(void)starArticle:(NSString*)itemID;
@@ -52,11 +55,22 @@
 -(void)markAllAsRead:(NSString*)streamID;
 -(void)viewRecommendationStream:(NSString*)streamID;
 -(void)dismissRecommendationStream:(NSString*)streamID;
+-(void)addSubscription:(NSString*)subscription 
+             withTitle:(NSString*)title 
+                 toTag:(NSString*)tags;
+-(void)removeSubscription:(NSString*)subscription;
+-(void)renameSubscription:(NSString*)subscription withNewName:(NSString*)newName;
+-(void)editSubscription:(NSString*)subscription 
+               tagsToAdd:(NSArray*)tagsToAdd
+            tagsToRemove:(NSArray*)tagsToRemove;
+//token
 +(void)setToken:(NSString*)token;
 +(NSString*)token;
 //sub, tag and unread count
 -(void)refreshUnreadCount;
--(void)refreshTagAndSubscription;
+-(void)refreshReaderStructure;
+-(void)refreshSubscriptionList;
+-(NSInteger)unreadCountWithID:(NSString*)ID;
 //labels
 +(NSString*)readArticleTag;
 +(NSString*)starTag;

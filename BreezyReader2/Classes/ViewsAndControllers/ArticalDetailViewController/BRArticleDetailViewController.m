@@ -202,9 +202,7 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 }
 
 -(void)singleTapAction:(UITapGestureRecognizer*)gesture{
-    NSLog(@"%@", NSStringFromSelector(_cmd));
     CGPoint pt = [gesture locationInView:self.webView]; 
-    NSLog(@"%@", NSStringFromCGPoint(pt));
     NSString *js = [NSString stringWithFormat:@"document.elementFromPoint(%f, %f).tagName", pt.x, pt.y];
     NSString * tagName = [self.webView stringByEvaluatingJavaScriptFromString:js]; 
     if ([[tagName lowercaseString] isEqualToString:@"img"]) { 
@@ -217,7 +215,6 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
         NSInteger index = [imageList indexOfObject:imageUrl];
         BRImageScrollController* imageScroller = [[[BRImageScrollController alloc] initWithTheNibOfSameName] autorelease];
         [imageScroller setImageList:imageList startIndex:index];
-//        [self presentViewController:imageScroller animated:YES completion:NULL];
         [[self topContainer] addToTop:imageScroller animated:YES];
     }else{
         _imageClicked = NO;

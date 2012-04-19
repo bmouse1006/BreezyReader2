@@ -29,8 +29,6 @@
 @synthesize sortArray = _sortArray;
 @synthesize subscriptionID = _subscriptionID;
 
-@synthesize isUnreadOnly = _isUnreadOnly;
-
 @synthesize imageURLs = _imageURLs;
 
 @synthesize desc = _desc;
@@ -49,14 +47,7 @@
 }
 
 -(NSString*)keyString{
-	NSString* tail;
-	if (self.isUnreadOnly){
-		tail = @"_unread";
-	}else {
-		tail = @"_all";
-	}
-	
-	return [self.subscriptionID stringByAppendingString:tail];
+	return self.subscriptionID;
 }
 
 -(void)sortItems{
@@ -153,8 +144,6 @@
 		self.itemIDs = [NSMutableSet setWithCapacity:0];
 		[tempSort1 release];
 		self.refreshed = [NSDate date];
-		
-		self.isUnreadOnly = YES;
 	}
 	
 	return self;
@@ -197,6 +186,59 @@
     }
 
     return feed;
+}
+
+-(id)initWithCoder:(NSCoder*)aDecoder{
+    self = [super init];
+    if (self){
+        self.generator = [aDecoder decodeObjectForKey:@"generator"];
+        self.generator_URI = [aDecoder decodeObjectForKey:@"generator_URI"];
+        self.ID = [aDecoder decodeObjectForKey:@"ID"];
+        self.selfLink = [aDecoder decodeObjectForKey:@"selfLink"];
+        self.alternateLink = [aDecoder decodeObjectForKey:@"alternateLink"];
+        self.title = [aDecoder decodeObjectForKey:@"title"];
+        self.subTitle = [aDecoder decodeObjectForKey:@"subTitle"];
+        self.gr_continuation = [aDecoder decodeObjectForKey:@"gr_continuation"];
+        self.author = [aDecoder decodeObjectForKey:@"author"];
+        
+        self.updated = [aDecoder decodeObjectForKey:@"updated"];
+        self.published = [aDecoder decodeObjectForKey:@"published"];
+        self.refreshed = [aDecoder decodeObjectForKey:@"refreshed"];
+        self.sourceXML = [aDecoder decodeObjectForKey:@"sourceXML"];
+        
+        self.items = [aDecoder decodeObjectForKey:@"items"];
+        self.itemIDs = [aDecoder decodeObjectForKey:@"itemIDs"];
+        
+        self.sortArray = [aDecoder decodeObjectForKey:@"sortArray"];
+        self.subscriptionID = [aDecoder decodeObjectForKey:@"subscriptionID"];
+        
+        self.desc = [aDecoder decodeObjectForKey:@"desc"];
+        self.direction = [aDecoder decodeObjectForKey:@"direction"];
+    }
+            
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.generator forKey:@"generator"];
+    [aCoder encodeObject:self.generator_URI forKey:@"generator_URI"];
+    [aCoder encodeObject:self.ID forKey:@"ID"];
+    [aCoder encodeObject:self.selfLink forKey:@"selfLink"];
+    [aCoder encodeObject:self.alternateLink forKey:@"alternateLink"];
+    [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeObject:self.subTitle forKey:@"subTitle"];
+    [aCoder encodeObject:self.gr_continuation forKey:@"gr_continuation"];
+    [aCoder encodeObject:self.author forKey:@"author"];
+    [aCoder encodeObject:self.updated forKey:@"updated"];
+    [aCoder encodeObject:self.published forKey:@"published"];
+    [aCoder encodeObject:self.refreshed forKey:@"refreshed"];
+    [aCoder encodeObject:self.sourceXML forKey:@"sourceXML"];
+    [aCoder encodeObject:self.items forKey:@"items"];
+    [aCoder encodeObject:self.itemIDs forKey:@"itemIDs"];
+    [aCoder encodeObject:self.sortArray forKey:@"sortArray"];
+    [aCoder encodeObject:self.subscriptionID forKey:@"subscriptionID"];
+    [aCoder encodeObject:self.desc forKey:@"desc"];
+    [aCoder encodeObject:self.direction forKey:@"direction"];
 }
 
 @end

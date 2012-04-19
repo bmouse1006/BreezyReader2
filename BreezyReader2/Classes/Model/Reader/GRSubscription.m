@@ -18,7 +18,7 @@
 @synthesize categories = _categories;
 @synthesize downloadedDate = _downloadedDate;
 
-@synthesize unread;
+@synthesize unreadCount = _unreadCount;
 @synthesize newestItemTimestampUsec = _newestItemTimestampUsec;
 @synthesize isUnreadOnly;
 
@@ -61,10 +61,6 @@
 
 -(NSString*)presentationString{
 	return self.title;
-}
-
--(NSInteger)unreadCount{
-	return self.unread;
 }
 
 -(UIImage*)icon{
@@ -136,8 +132,7 @@
 		self.title = nil;
 		self.newestItemTimestampUsec = 0;
         self.firstItemMSec = 0;
-		unread = 0;
-		isUnreadOnly = YES;
+		self.unreadCount = 0;
 	}
 	return self;
 }
@@ -152,6 +147,31 @@
     [_firstItemDate release];
     [_newestItemDate release];
 	[super dealloc];
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if (self){
+        self.ID = [aDecoder decodeObjectForKey:@"ID"];
+        self.title = [aDecoder decodeObjectForKey:@"title"];
+        self.sortID = [aDecoder decodeObjectForKey:@"sortID"];
+        self.categories = [aDecoder decodeObjectForKey:@"categories"];
+        self.newestItemTimestampUsec = [[aDecoder decodeObjectForKey:@"newestItemTimestampUsec"] doubleValue];
+        self.firstItemMSec = [[aDecoder decodeObjectForKey:@"firstItemMSec"] doubleValue];
+        self.unreadCount = [[aDecoder decodeObjectForKey:@"unreadCount"] intValue];
+    }
+    
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.ID forKey:@"ID"];
+    [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeObject:self.sortID forKey:@"sortID"];
+    [aCoder encodeObject:self.categories forKey:@"categories"];
+    [aCoder encodeObject:[NSNumber numberWithDouble:self.newestItemTimestampUsec] forKey:@"newestItemTimestampUsec"];
+    [aCoder encodeObject:[NSNumber numberWithDouble:self.firstItemMSec] forKey:@"firstItemMSec"];
+    [aCoder encodeObject:[NSNumber numberWithInt:self.unreadCount] forKey:@"unreadCount"];
 }
 
 @end

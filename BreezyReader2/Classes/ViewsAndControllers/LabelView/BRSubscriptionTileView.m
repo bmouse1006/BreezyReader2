@@ -170,11 +170,11 @@ static CGFloat kCaptionHeight = 40.0f;
     
     self.caption.text = self.subscription.title;
     
-    if (self.subscription.unread == 0){
+    if (self.subscription.unreadCount == 0){
         self.unreadLabel.text = nil;
         [self.unreadImage setFrame:CGRectZero];
     }else{
-        self.unreadLabel.text = [[NSNumber numberWithInt:self.subscription.unread] description];
+        self.unreadLabel.text = [[NSNumber numberWithInt:self.subscription.unreadCount] description];
         CGRect frame = self.unreadLabel.frame;
         frame.origin.y = 5;
         frame.origin.x = self.frame.size.width - 5 - frame.size.width;

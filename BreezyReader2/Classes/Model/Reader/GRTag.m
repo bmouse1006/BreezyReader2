@@ -14,11 +14,9 @@
 @synthesize ID = _ID;
 @synthesize sortID = _sortID;
 @synthesize label = _label;
-@synthesize subscriptions = _subscriptions;
 
-@synthesize unread;
+@synthesize unreadCount;
 @synthesize newestItemTimestampUsec;
-@synthesize isUnreadOnly;
 
 -(BOOL)isEqual:(id)object{
 	BOOL equal = NO;
@@ -32,14 +30,7 @@
 }
 
 -(NSString*)keyString{
-	NSString* tail;
-	if (isUnreadOnly){
-		tail = @"_unread";
-	}else {
-		tail = @"_all";
-	}
-	
-	return [self.ID stringByAppendingString:tail];
+	return self.ID;
 }
 
 -(GRSubscription*)toSubscription{
@@ -47,7 +38,7 @@
 	sub.ID = self.ID;
 	sub.sortID = self.sortID;
 	sub.title = self.label;
-	sub.unread = self.unread;
+	sub.unreadCount = self.unreadCount;
 	sub.newestItemTimestampUsec = self.newestItemTimestampUsec;
 	
 	return sub;
@@ -55,10 +46,6 @@
 
 -(NSString*)presentationString{
 	return self.label;
-}
-
--(NSInteger)unreadCount{
-	return self.unread;
 }
 
 -(UIImage*)icon{
@@ -93,13 +80,11 @@
 -(id)init{
     self = [super init];
 	if (self){
-		self.subscriptions = [NSMutableSet setWithCapacity:0];
 		self.ID = nil;
 		self.sortID = nil;
 		self.label = nil;
 		newestItemTimestampUsec = 0;
-		unread = 0;
-		isUnreadOnly = YES;
+		unreadCount = 0;
 	}
 	return self;
 }
@@ -119,8 +104,28 @@
     self.ID = nil;
     self.sortID = nil;
     self.label = nil;
-    self.subscriptions = nil;
 	[super dealloc];
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if (self){
+        self.ID = [aDecoder decodeObjectForKey:@"ID"];
+        self.sortID = [aDecoder decodeObjectForKey:@"sortID"];
+        self.label = [aDecoder decodeObjectForKey:@"label"];
+        self.newestItemTimestampUsec = [[aDecoder decodeObjectForKey:@"newestItemTimestampUsec"] doubleValue];
+        self.unreadCount = [[aDecoder decodeObjectForKey:@"unreadCount"] intValue];
+    }
+    
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.ID forKey:@"ID"];
+    [aCoder encodeObject:self.sortID forKey:@"sortID"];
+    [aCoder encodeObject:self.label forKey:@"label"];
+    [aCoder encodeObject:[NSNumber numberWithDouble:self.newestItemTimestampUsec] forKey:@"newestItemTimestampUsec"];
+    [aCoder encodeObject:[NSNumber numberWithInt:self.unreadCount] forKey:@"unreadCount"];
 }
 
 @end

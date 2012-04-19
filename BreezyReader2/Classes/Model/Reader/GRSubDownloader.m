@@ -134,7 +134,7 @@
 	DebugLog(@"GR Sub Downloader started");
 	//did start downloading subscription
 	[self.delegate didStartDownloadingSubscription:self.subscription];
-	NSUInteger unreadCount = self.subscription.unread;
+	NSUInteger unreadCount = self.subscription.unreadCount;
 	NSUInteger itemCount = [UserPreferenceDefine defaultNumberOfDownloaderItems];
 	
 	GoogleReaderController* grController = [[GoogleReaderController alloc] initWithDelegate:self];
@@ -273,7 +273,7 @@
 -(void)initNumbersAndStates{
 	self.currentDownloaderPool = [NSMutableDictionary dictionary];
 	self.numberOfDownloadedItems = 0;
-	self.numberOfTotalItems = self.subscription.unread;
+	self.numberOfTotalItems = self.subscription.unreadCount;
 	self.numberOfSuccessDownload = 0;
 	self.numberOfFailedDownload = 0;
 	self.itemLoadingDone = NO;

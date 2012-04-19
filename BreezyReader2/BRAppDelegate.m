@@ -23,28 +23,27 @@
 
 -(void)setupGlobalAppearence;
 
-@property (nonatomic, retain) NSMutableSet* adSet;
-@property (nonatomic, retain) GoogleReaderClient* client;
+@property (nonatomic, retain) NSMutableSet* clients;
 
 @end
 
 @implementation BRAppDelegate
 
-@synthesize adSet = _adSet;
-@synthesize client = _client;
+@synthesize clients = _clients;
 @synthesize window = _window;
 
 - (void)dealloc
 {
     [_window release];
-    self.adSet = nil;
-    self.client = nil;
+    [self.clients enumerateObjectsUsingBlock:^(id obj, BOOL* stop){
+        [obj performSelector:@selector(clearAndCancel)];
+    }];
+    self.clients = nil;
     [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];
     //setup request cache
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
     [self registerNotifications];
@@ -117,6 +116,9 @@
 -(void)registerNotifications{
     NSNotificationCenter* defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(logoutNeeded:) name:LOGOUTNEEDED object:nil];
+    [defaultCenter addObserver:self selector:@selector(needRefreshReader:) name:nil object:nil];
+    [defaultCenter addObserver:self selector:@selector(needRefreshUnreadCount:) name:nil object:nil];
+    [defaultCenter addObserver:self selector:@selector(needRefreshSubscriptionList:) name:nil object:nil];
 }
 
 -(void)logoutNeeded:(NSNotification*)notification{

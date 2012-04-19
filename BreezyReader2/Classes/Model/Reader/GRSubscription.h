@@ -10,7 +10,7 @@
 #import "GRBaseProtocol.h"
 #import "GRRecFeed.h"
 
-@interface GRSubscription : NSObject<GRBaseProtocol>
+@interface GRSubscription : NSObject<GRBaseProtocol, NSCoding>
 
 @property (nonatomic, retain) NSString* ID;
 @property (nonatomic, retain) NSString* title;
@@ -18,7 +18,7 @@
 @property (nonatomic, retain) NSMutableSet* categories;
 @property (nonatomic, retain) NSDate* downloadedDate;
 
-@property (nonatomic, assign) NSInteger unread;
+@property (nonatomic, assign) NSInteger unreadCount;
 @property (nonatomic, assign) NSTimeInterval newestItemTimestampUsec;
 @property (nonatomic, assign) NSTimeInterval firstItemMSec;
 @property (nonatomic, assign) BOOL isUnreadOnly;
@@ -27,7 +27,6 @@
 @property (nonatomic, readonly) NSDate* newestItemDate;
 
 -(NSString*)presentationString;
--(NSInteger)unreadCount;
 -(UIImage*)icon;
 -(NSString*)keyString;
 

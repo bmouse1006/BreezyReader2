@@ -181,9 +181,6 @@ static GRDataManager *readerDM = nil;
 		NSNumber* defaultItemCount = [NSNumber numberWithInt:[UserPreferenceDefine defaultNumberOfDownloaderItems]];//read default item
 		
 		NSString* excludeLabel = nil;
-		if (feed.isUnreadOnly){
-			excludeLabel = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_READ];
-		}
 		
 		continuedfeed = [self.grController getFeedForID:feed.subscriptionID
 							  count:defaultItemCount
@@ -226,7 +223,6 @@ static GRDataManager *readerDM = nil;
 		[pool release];
 		return;
 	}
-	feed.isUnreadOnly = subscription.isUnreadOnly;
 	NSString* subKey = [subscription keyString];
 	GRFeed* origFeed = [self.feedPool objectForKey:subKey];
 	if (!origFeed){//if this feed is not cached before
@@ -698,10 +694,10 @@ static GRDataManager *readerDM = nil;
 		NSDictionary* unread = [allUnreadUnit objectForKey:tempTag.ID];
 		
 		if (unread){
-			tempTag.unread = [(NSString*)[unread objectForKey:@"count"] intValue];
+			tempTag.unreadCount = [(NSString*)[unread objectForKey:@"count"] intValue];
 			tempTag.newestItemTimestampUsec = [(NSString*)[unread objectForKey:@"newestItemTimestampUsec"] doubleValue];
 		}else {
-			tempTag.unread = 0;
+			tempTag.unreadCount = 0;
 		}
 
 	}
@@ -712,10 +708,10 @@ static GRDataManager *readerDM = nil;
 		NSDictionary* unread = [allUnreadUnit objectForKey:tempSub.ID];
 		
 		if (unread){
-			tempSub.unread = [(NSString*)[unread objectForKey:@"count"] intValue];
+			tempSub.unreadCount = [(NSString*)[unread objectForKey:@"count"] intValue];
 			tempSub.newestItemTimestampUsec = [(NSString*)[unread objectForKey:@"newestItemTimestampUsec"] doubleValue];
 		}else {
-			tempSub.unread = 0;
+			tempSub.unreadCount = 0;
 		}
 
 	}

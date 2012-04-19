@@ -10,7 +10,7 @@
 #import "GRBaseProtocol.h"
 #import "GRItem.h"
 
-@interface GRFeed : NSObject<GRBaseProtocol>
+@interface GRFeed : NSObject<GRBaseProtocol, NSCoding>
 
 @property (nonatomic, retain) NSString*	generator;
 @property (nonatomic, retain) NSString*	generator_URI;
@@ -30,8 +30,6 @@
 @property (nonatomic, retain) NSString* subscriptionID;
 
 @property (nonatomic, retain) NSMutableArray* sortArray;
-
-@property (nonatomic, assign) BOOL isUnreadOnly;
 
 @property (nonatomic, readonly) NSArray* imageURLs; 
 

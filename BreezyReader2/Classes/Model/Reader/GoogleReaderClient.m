@@ -9,10 +9,14 @@
 #import "GoogleReaderClient.h"
 #import "URLParameterSet.h"
 #import "ASIFormDataRequest.h"
+#import "ASINetworkQueue.h"
 #import "GoogleAuthManager.h"
 #import "GRFeed.h"
 #import "NSString+SBJSON.h"
 #import "NSString+Addtion.h"
+
+#define TAGLIST_STORE_KEY @"TAGLIST_STORE_KEY"
+#define SUBLIST_STORE_KEY @"SUBLIST_STORE_KEY"
 
 @interface FetchTokenArg: NSObject
 
@@ -40,6 +44,7 @@
 
 @property (nonatomic, retain) ASIHTTPRequest* request;
 @property (nonatomic, retain) ASIHTTPRequest* tokenRequest;
+@property (nonatomic, retain) ASINetworkQueue* requestQueue;
 
 
 //add/remove tag to one subscription
@@ -60,6 +65,7 @@
 @synthesize responseData, responseString, responseJSONValue, error = _error, isResponseOK, responseFeed;
 @synthesize responseFeedSearchingJSONValue = _responseFeedSearchingJSONValue;
 @synthesize tokenRequest = _tokenRequest;
+@synthesize requestQueue = _requestQueue;
 
 static NSString* _token = nil;
 static long long _tokenFetchTimeInterval = 0;
@@ -69,7 +75,41 @@ static BOOL _startFetchToken = NO;
     return [[[self alloc] initWithDelegate:delegate action:action] autorelease];
 }
 
+#pragma mark - life cycle
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self clearAndCancel];
+    self.requestQueue = nil;
+    self.request = nil;
+    self.tokenRequest = nil;
+    [super dealloc];
+}
+
+-(id)initWithDelegate:(id)delegate action:(SEL)action{
+    self = [super init];
+    if (self){
+        self.delegate = delegate;
+        self.action = action;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearCache:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+    }
+    
+    return self;
+}
+
+-(void)clearAndCancel{
+    [self.request clearDelegatesAndCancel];
+    [self.requestQueue reset];
+    [self.tokenRequest clearDelegatesAndCancel];
+}
+
+-(void)clearCache:(NSNotification*)notification{
+    [[self itemPool] removeAllObjects];
+    [[self itemsForFeed] removeAllObjects];
+}
+
 #pragma mark - static containers
+
 -(NSMutableArray*)addTokenQueue{
     static dispatch_once_t predTokenQueue;
     static NSMutableArray* _addTokenQueue = nil;
@@ -125,6 +165,28 @@ static BOOL _startFetchToken = NO;
     return _subs;
 }
 
+-(NSMutableDictionary*)unreadCountMap{
+    static dispatch_once_t predUnread;
+    static NSMutableDictionary* _unread = nil;
+    
+    dispatch_once(&predUnread, ^{ 
+        _unread = [[NSMutableDictionary alloc] init]; 
+    }); 
+    
+    return _unread;
+}
+
+-(NSLock*)locker{
+    static dispatch_once_t predLock;
+    static NSLock* _lock = nil;
+    
+    dispatch_once(&predLock, ^{ 
+        _lock = [[NSLock alloc] init]; 
+    }); 
+    
+    return _lock;    
+}
+
 #pragma mark - token
 
 
@@ -147,38 +209,215 @@ static BOOL _startFetchToken = NO;
     _token = [token copy];
 }
 
--(void)refreshUnreadCount{
+#pragma mark - reader structure
+
+-(NSInteger)unreadCountWithID:(NSString*)key{
+    NSDictionary* dict = [self unreadCountMap];
+    NSInteger unreadCount;
+    [[self locker] lock];
+    unreadCount = [[dict objectForKey:key] intValue];
+    [[self locker] unlock];
     
+    return unreadCount;
 }
 
--(void)refreshTagAndSubscription{
-    
+-(GRTag*)tagWithID:(NSString*)key{
+    NSDictionary* dict = [self tags];
+    id obj = nil;
+    [[self locker] lock];
+    obj = [dict objectForKey:key];
+    [[self locker] unlock];
+    return obj;
 }
 
-#pragma mark - life cycle
-
--(void)dealloc{
-    self.delegate = nil;
-    [self.request clearDelegatesAndCancel];
-    self.request = nil;
-    [self.tokenRequest clearDelegatesAndCancel];
-    self.tokenRequest = nil;
-    [super dealloc];
-}
-
--(id)initWithDelegate:(id)delegate action:(SEL)action{
-    self = [super init];
-    if (self){
-        self.delegate = delegate;
-        self.action = action;
+-(GRSubscription*)subscriptionWithID:(NSString*)key{
+    NSDictionary* dict = [self subscriptions];
+    id obj = nil;
+    @synchronized(dict){
+        obj = [dict objectForKey:key];
     }
-    
-    return self;
+    return obj;
 }
 
--(void)clearAndCancel{
+-(NSArray*)subscriptionsWithTagID:(NSString*)tagID{
+    __block NSMutableArray* subs = nil;
+
+    [[self locker] lock];
+    [[self subscriptions] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop){
+        GRSubscription* sub = obj;
+        if ([sub.categories containsObject:tagID]){
+            if (subs == nil){
+                subs = [NSMutableArray array];
+            }
+            [subs addObject:sub];
+        }
+    }];
+    [[self locker] unlock];
+    
+    return subs;
+}
+
+-(void)refreshUnreadCount{
+    NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_UNREAD_COUNT];
+	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+    [paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     [self.request clearDelegatesAndCancel];
-    self.request = nil;
+    self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_LIST];
+    __block typeof(self) blockSelf = self;
+    
+    self.request.didFinishSelector = @selector(unreadCountRequestFinished:);
+    
+    [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
+        if (error == nil){
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BEGIN_UPDATEUNREADCOUNT object:nil];
+            [blockSelf.request startAsynchronous];
+        }
+    }];
+}
+
+-(void)unreadCountRequestFinished:(ASIHTTPRequest*)request{
+    NSArray* tempUnreadArray = [[request.responseString JSONValue] objectForKey:@"unreadcounts"];
+    NSMutableDictionary* unreadCount = [self unreadCountMap];
+    
+    [[self locker] lock];
+    [unreadCount removeAllObjects];
+    [tempUnreadArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop){
+        NSString* ID = [obj objectForKey:@"id"];
+        NSTimeInterval timeStamp = [[unreadCount objectForKey:@"newestItemTimestampUsec"] doubleValue];
+        [unreadCount setObject:[obj objectForKey:@"count"] forKey:ID];
+        if ([ID hasPrefix:@"feed"]){
+            GRSubscription* sub = [self subscriptionWithID:ID];
+            sub.newestItemTimestampUsec = timeStamp;
+        }else{
+            GRTag* tag = [self tagWithID:ID];
+            tag.newestItemTimestampUsec = timeStamp;
+        }
+    }];
+    [[self locker] unlock];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATEUNREADCOUNT object:nil];
+    [self performCallBack];
+}
+
+-(void)refreshReaderStructure{
+    
+    [self.requestQueue reset];
+    ASINetworkQueue* queue = [ASINetworkQueue queue];
+    queue.shouldCancelAllRequestsOnFailure = YES;
+    queue.maxConcurrentOperationCount = 1;
+    queue.queueDidFinishSelector = @selector(tagAndSubRequestFinished:);
+    ASIHTTPRequest* subReq = [self requestForSubscriptionList];
+    ASIHTTPRequest* tagReq = [self requestForTagList];
+    [queue addOperation:tagReq];
+    [queue addOperation:subReq];
+    
+    self.requestQueue = queue;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BEGIN_UPDATEREADERSTRUCTURE object:nil];
+    __block typeof(self) blockSelf = self;
+    
+    [[GoogleAuthManager shared] authRequest:tagReq completionBlock:^(NSError* error){
+        if (error == nil){
+            [[GoogleAuthManager shared] authRequest:subReq completionBlock:^(NSError* error){
+                if (error == nil){
+                    [blockSelf.requestQueue go];
+                }
+            }];
+        }
+    }];
+}
+
+-(void)refreshSubscriptionList{
+    [self.request clearDelegatesAndCancel];
+    self.request = [self requestForSubscriptionList];
+    __block typeof(self) blockSelf = self;
+    [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
+        if (error == nil){
+            [blockSelf.request startAsynchronous];
+        }
+    }];
+}
+
+-(ASIHTTPRequest*)requestForTagList{
+    
+    NSString* taglistString = [URI_PREFIX_API stringByAppendingString:API_LIST_TAG];
+    URLParameterSet* tagParam = [[[URLParameterSet alloc] init] autorelease];
+    [tagParam setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
+    ASIHTTPRequest* tagRequest = [self requestWithURL:[self fullURLFromBaseString:taglistString] parameters:tagParam APIType:API_LIST]; 
+    tagRequest.didFailSelector = @selector(tagRequestStarted:);
+    tagRequest.didFinishSelector = @selector(tagRequestFinished:);
+    
+    return tagRequest;
+}
+
+-(ASIHTTPRequest*)requestForSubscriptionList{
+    NSString* sublistString = [URI_PREFIX_API stringByAppendingString:API_LIST_SUBSCRIPTION];
+    URLParameterSet* subParam = [[[URLParameterSet alloc] init] autorelease];
+    [subParam setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
+    
+    ASIHTTPRequest* subRequest = [self requestWithURL:[self fullURLFromBaseString:sublistString] parameters:subParam APIType:API_LIST];
+    subRequest.didFinishSelector = @selector(subRequestFinished:);
+    subRequest.didStartSelector = @selector(subRequestStarted:);
+    
+    return subRequest;
+}
+
+-(void)subRequestStarted:(ASIHTTPRequest*)request{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BEGIN_UPDATESUBSCRIPTIONLIST object:nil];
+}
+
+-(void)subRequestFinished:(ASIHTTPRequest*)request{
+    NSArray* subs = [[request.responseString JSONValue] objectForKey:@"subscriptions"];
+    NSMutableDictionary* subMap = [self subscriptions];
+    [[self locker] lock];
+    [subMap removeAllObjects];
+    [subs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+        GRSubscription* sub = [GRSubscription subscriptionWithJSONObject:obj];
+        [subMap setObject:sub forKey:sub.ID];
+    }];
+    [[self locker] unlock];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATESUBSCRIPTIONLIST object:nil];
+}
+
+-(void)tagRequestStarted:(ASIHTTPRequest*)request{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BEGIN_UPDATETAGLIST object:nil];
+}
+
+-(void)tagRequestFinished:(ASIHTTPRequest*)request{
+    NSArray* tags = [[request.responseString JSONValue] objectForKey:@"tags"];
+    NSMutableDictionary* tagMap = [self tags];
+    [[self locker] lock];
+    [tagMap removeAllObjects];
+    [tags enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+        GRTag* tag = [GRTag tagWithJSONObject:obj];
+        [tagMap setObject:tag forKey:tag.ID];
+    }];
+    [[self locker] unlock];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATETAGLIST object:nil];
+}
+
+-(void)tagAndSubRequestFinished:(ASINetworkQueue*)queue{
+    //save tag and sub list
+    [self saveReaderStructure];
+    //send out notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATEREADERSTRUCTURE object:nil];
+    [self refreshUnreadCount];
+}
+                            
+-(void)saveReaderStructure{
+    [[self locker] lock];
+    [[NSUserDefaults standardUserDefaults] setObject:[self tags]  forKey:TAGLIST_STORE_KEY];
+    [[NSUserDefaults standardUserDefaults] setObject:[self subscriptions] forKey:SUBLIST_STORE_KEY];
+    [[self locker] unlock];
+}
+
+-(void)restoreReaderStructure{
+    [[self locker] lock];
+    NSMutableDictionary* tags = [self tags];
+    [tags setDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:TAGLIST_STORE_KEY]];
+    NSMutableDictionary* subs = [self subscriptions];
+    [subs setDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SUBLIST_STORE_KEY]];
+    [[self locker] unlock];
 }
 
 #pragma mark - list api
@@ -279,25 +518,32 @@ static BOOL _startFetchToken = NO;
 	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
 	[paramSet setParameterForKey:ATOM_ARGS_COUNT withValue:@"99999"];
 	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
-    [self.request clearDelegatesAndCancel];
-    self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_LIST];
-    [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
-        if (error == nil){
-            [self.request startAsynchronous];
-        }
-    }];
+    [self listRequestWithURL:[self fullURLFromBaseString:url] parameters:paramSet];
 }
 
 -(void)requestSubscriptionList{
-    
+    NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_SUBSCRIPTION];
+	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+    [paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
+    [self listRequestWithURL:[self fullURLFromBaseString:url] parameters:paramSet];
 }
 
 -(void)requestTagList{
-    
+    NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_TAG];
+	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+    [paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
+    [self listRequestWithURL:[self fullURLFromBaseString:url] parameters:paramSet];
 }
 
--(void)requestUnreadCount{
-    
+-(void)listRequestWithURL:(NSURL*)url parameters:(URLParameterSet*)parameters{
+    [self.request clearDelegatesAndCancel];
+    self.request = [self requestWithURL:url parameters:parameters APIType:API_LIST];
+    __block typeof(self) blockSelf = self;
+    [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
+        if (error == nil){
+            [blockSelf.request startAsynchronous];
+        }
+    }];
 }
 
 #pragma mark - edit api
@@ -702,5 +948,6 @@ static BOOL _startFetchToken = NO;
 +(NSString*)starTag{
     return [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_STARRED];
 }
+     
 
 @end

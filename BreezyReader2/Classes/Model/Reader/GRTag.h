@@ -12,16 +12,14 @@
 
 #define NOLABEL @"BR_nolabel"
 
-@interface GRTag : NSObject<GRBaseProtocol> 
+@interface GRTag : NSObject<GRBaseProtocol, NSCoding> 
 
 @property (nonatomic, retain) NSString* ID;
 @property (nonatomic, retain) NSString* sortID;
 @property (nonatomic, retain) NSString* label;
-@property (nonatomic, retain) NSMutableSet* subscriptions;
 
-@property (nonatomic, assign) NSInteger unread;
+@property (nonatomic, assign) NSInteger unreadCount;
 @property (nonatomic, assign) NSTimeInterval newestItemTimestampUsec;
-@property (nonatomic, assign) BOOL isUnreadOnly;
 
 -(GRSubscription*)toSubscription;
 -(NSString*)presentationString;
