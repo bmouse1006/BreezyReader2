@@ -97,6 +97,10 @@
 	newSub.title = [JSONSub objectForKey:@"title"];
 	newSub.sortID = [JSONSub objectForKey:@"sortid"];
 	newSub.firstItemMSec = [[JSONSub objectForKey:@"firstitemmsec"] doubleValue];
+    
+    for (NSDictionary* dic in [JSONSub objectForKey:@"categories"]){
+        [newSub.categories addObject:[dic objectForKey:@"id"]];
+    }
 	
 	return newSub;
 

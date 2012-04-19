@@ -13,6 +13,11 @@
 #import "GRSubscription.h"
 #import "ASIHTTPRequest.h"
 
+typedef enum{
+    BRTagTypeLabel,
+    BRTagTypeState
+} BRTagType;
+
 @interface GoogleReaderClient : NSObject<ASIHTTPRequestDelegate>
 
 @property (nonatomic, readonly) NSError* error;
@@ -37,9 +42,12 @@
                     forceRefresh:(BOOL)refresh 
                         needAuth:(BOOL)needAuth;
 //reader structure
--(GRTag*)tagWithID:(NSString*)tagID;
--(GRSubscription*)subscriptionWithID:(NSString*)subID;
--(NSArray*)subscriptionsWithTagID:(NSString*)tagID;
++(GRTag*)tagWithID:(NSString*)tagID;
++(GRSubscription*)subscriptionWithID:(NSString*)subID;
++(NSArray*)subscriptionsWithTagID:(NSString*)tagID;
++(NSArray*)tagListWithType:(BRTagType)type;
++(NSInteger)unreadCountWithID:(NSString*)ID;
++(BOOL)isReaderLoaded;
 //list api
 -(void)getStreamDetails:(NSString*)streamID;
 -(void)queryContentsWithIDs:(NSArray*)IDArray;
@@ -67,10 +75,9 @@
 +(void)setToken:(NSString*)token;
 +(NSString*)token;
 //sub, tag and unread count
--(void)refreshUnreadCount;
 -(void)refreshReaderStructure;
+-(void)refreshUnreadCount;
 -(void)refreshSubscriptionList;
--(NSInteger)unreadCountWithID:(NSString*)ID;
 //labels
 +(NSString*)readArticleTag;
 +(NSString*)starTag;

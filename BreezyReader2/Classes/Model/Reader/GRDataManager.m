@@ -256,9 +256,9 @@ static GRDataManager *readerDM = nil;
 		tempList = [NSMutableArray arrayWithObjects:0];
 		@synchronized(_processedSubDict){
 			GRTag* tag = [self.processedTagDict objectForKey:tagID];
-			for (NSString* subID in tag.subscriptions){
-				[tempList addObject:[self.processedSubDict objectForKey:subID]];
-			}
+//			for (NSString* subID in tag.subscriptions){
+//				[tempList addObject:[self.processedSubDict objectForKey:subID]];
+//			}
 		}
 	}
 	
@@ -663,7 +663,7 @@ static GRDataManager *readerDM = nil;
 				if (tempLabel && ![tempLabel isEqualToString:@""]){
 					tempTag.label = tempLabel;
 				}
-				[tempTag.subscriptions addObject:newSub.ID];
+//				[tempTag.subscriptions addObject:newSub.ID];
 			}
 		}
 	}

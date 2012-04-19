@@ -15,6 +15,7 @@
 #import "BRViewControllerNotification.h"
 #import "BRFeedAndArticlesSearchController.h"
 #import "BRFeedViewController.h"
+#import "GoogleReaderClient.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface BRMainScreenController (){
@@ -22,6 +23,7 @@
 }
 
 @property (nonatomic, retain) MainScreenDataSource* dataSource;
+@property (nonatomic, retain) GoogleReaderClient* client;
 
 -(void)recreateLayouts;
 
@@ -40,6 +42,8 @@
 @synthesize searchController = _searchController;
 @synthesize subOverrviewController = _subOverrviewController;
 
+@synthesize client = _client;
+
 #pragma mark - init and dealloc
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -48,12 +52,15 @@
     if (self) {
         // Custom initialization
         self.wantsFullScreenLayout = YES;
+        self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(clientFinished:)];
     }
     return self;
 }
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.client clearAndCancel];
+    self.client = nil;
     self.infinityScroll = nil;
     self.sideMenuController = nil;
     self.dataSource = nil;
@@ -91,8 +98,11 @@
     
     [self switchContentViewsToViews:[NSArray arrayWithObjects:self.infinityScroll, self.sideMenuController.view, nil] animated:YES];
     
-    [[GRDataManager shared] reloadData_new];
-    [self reload];
+    if ([GoogleReaderClient isReaderLoaded] == NO){
+        [self.client refreshReaderStructure];
+    }else{
+        [self reload];
+    }
 }
 
 - (void)viewDidUnload
@@ -137,17 +147,11 @@
     [self.labelViewControllers makeObjectsPerformSelector:@selector(viewDidDisappear:) withObject:[NSNumber numberWithBool:animated]];
 }
 
-#pragma mark - create subviews
--(void)recreateLayouts{
-    //create scroll view, title label and control panel
-    
-}
-
 #pragma mark - notifications register and handler
 -(void)registerNotifications{
     NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(syncBegan:) name:BEGANSYNCDATA object:nil];
-    [nc addObserver:self selector:@selector(syncEnd:) name:ENDSYNCDATA object:nil];
+    [nc addObserver:self selector:@selector(syncBegan:) name:NOTIFICATION_BEGIN_UPDATEREADERSTRUCTURE object:nil];
+    [nc addObserver:self selector:@selector(syncEnd:) name:NOTIFICAITON_END_UPDATEREADERSTRUCTURE object:nil];
     [nc addObserver:self selector:@selector(tagOrSubChanged:) name:TAGORSUBCHANGED object:nil];
     [nc addObserver:self selector:@selector(loginStatusChanged:) name:NOTIFICATION_LOGINSTATUSCHANGED object:nil];
     [nc addObserver:self selector:@selector(startFlipTile:) name:NOTIFICATION_STARTFLIPSUBTILEVIEW object:nil];
@@ -163,8 +167,7 @@
 -(void)oauth2UserSignedIn:(NSNotification*)notification{
     //start to reload and fetch data
     DebugLog(@"user signed in", nil);
-    [[GRDataManager shared] removeSavedFiles];
-    [[GRDataManager shared] reloadData];
+    [self.client refreshReaderStructure];
     //setup loading view
     _initialLoading = YES;
 }
@@ -175,6 +178,7 @@
 
 -(void)syncEnd:(NSNotification*)notification{
     DebugLog(@"end of syncing reader data", nil);
+    [self reload];
 //    [self performSelectorOnMainThread:@selector(reload) withObject:nil waitUntilDone:NO];
 }
 
@@ -215,7 +219,7 @@
     [self.dataSource.controllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop){
         [self addChildViewController:obj];
     }];
-    [self addChildViewController:self.searchController];
+//    [self addChildViewController:self.searchController];
 }
 #pragma mark - delegate methods for infinity scroll view
 -(void)scrollView:(InfinityScrollView *)scrollView didStopAtChildViewOfIndex:(NSInteger)index{
@@ -232,8 +236,9 @@
 
 #pragma mark - NOTIFICATOIN call back
 -(void)showSearchUI:(NSNotification*)notification{
-    [self.view addSubview:self.searchController.view];
-    [self.searchController getReadyForSearch];
+//    [self.view addSubview:self.searchController.view];
+//    [self.searchController getReadyForSearch];
+    [[self topContainer] addToTop:self.searchController animated:YES];
 }
 
 -(void)showStarItems:(NSNotification*)notification{
@@ -257,6 +262,14 @@
 
 -(void)showConfigUI:(NSNotification*)notification{
     DebugLog(@"show config UI");
+}
+
+#pragma mark - reader client call back
+-(void)clientFinished:(GoogleReaderClient*)client{
+    if (client.error){
+        //handle error
+        DebugLog(@"error happened %@", [client.error localizedDescription]);
+    }
 }
 
 @end

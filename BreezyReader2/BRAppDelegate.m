@@ -116,9 +116,6 @@
 -(void)registerNotifications{
     NSNotificationCenter* defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(logoutNeeded:) name:LOGOUTNEEDED object:nil];
-    [defaultCenter addObserver:self selector:@selector(needRefreshReader:) name:nil object:nil];
-    [defaultCenter addObserver:self selector:@selector(needRefreshUnreadCount:) name:nil object:nil];
-    [defaultCenter addObserver:self selector:@selector(needRefreshSubscriptionList:) name:nil object:nil];
 }
 
 -(void)logoutNeeded:(NSNotification*)notification{

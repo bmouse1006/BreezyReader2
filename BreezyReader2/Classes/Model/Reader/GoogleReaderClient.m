@@ -18,6 +18,11 @@
 #define TAGLIST_STORE_KEY @"TAGLIST_STORE_KEY"
 #define SUBLIST_STORE_KEY @"SUBLIST_STORE_KEY"
 
+#define UniversalTagList [[self class] tags]
+#define UniversalSubList [[self class] subscriptions]
+#define UniversalItemPool [[self class] itemPool]
+#define UniversalUnreadCount [[self class] unreadCountMap]
+
 @interface FetchTokenArg: NSObject
 
 @property (nonatomic, retain) id request;
@@ -103,14 +108,14 @@ static BOOL _startFetchToken = NO;
     [self.tokenRequest clearDelegatesAndCancel];
 }
 
--(void)clearCache:(NSNotification*)notification{
++(void)clearCache:(NSNotification*)notification{
     [[self itemPool] removeAllObjects];
     [[self itemsForFeed] removeAllObjects];
 }
 
 #pragma mark - static containers
 
--(NSMutableArray*)addTokenQueue{
++(NSMutableArray*)addTokenQueue{
     static dispatch_once_t predTokenQueue;
     static NSMutableArray* _addTokenQueue = nil;
     
@@ -121,7 +126,7 @@ static BOOL _startFetchToken = NO;
     return _addTokenQueue;
 }
 
--(NSMutableDictionary*)itemPool{
++(NSMutableDictionary*)itemPool{
     static dispatch_once_t predItems;
     static NSMutableDictionary* _items = nil;
     
@@ -132,7 +137,7 @@ static BOOL _startFetchToken = NO;
     return _items;
 }
 
--(NSMutableDictionary*)itemsForFeed{
++(NSMutableDictionary*)itemsForFeed{
     static dispatch_once_t predFeeds;
     static NSMutableDictionary* _feeds = nil;
     
@@ -143,7 +148,7 @@ static BOOL _startFetchToken = NO;
     return _feeds;
 }
 
--(NSMutableDictionary*)tags{
++(NSMutableDictionary*)tags{
     static dispatch_once_t predTags;
     static NSMutableDictionary* _tags = nil;
     
@@ -154,7 +159,7 @@ static BOOL _startFetchToken = NO;
     return _tags;
 }
 
--(NSMutableDictionary*)subscriptions{
++(NSMutableDictionary*)subscriptions{
     static dispatch_once_t predSubs;
     static NSMutableDictionary* _subs = nil;
     
@@ -165,7 +170,7 @@ static BOOL _startFetchToken = NO;
     return _subs;
 }
 
--(NSMutableDictionary*)unreadCountMap{
++(NSMutableDictionary*)unreadCountMap{
     static dispatch_once_t predUnread;
     static NSMutableDictionary* _unread = nil;
     
@@ -210,28 +215,24 @@ static BOOL _startFetchToken = NO;
 }
 
 #pragma mark - reader structure
++(BOOL)isReaderLoaded{
+    GoogleReaderClient* client = [self clientWithDelegate:nil action:NULL];
+    [client restoreReaderStructure];
+    return ([[self subscriptions] count] > 0 || [[self tags] count] > 0);
+}
 
--(NSInteger)unreadCountWithID:(NSString*)key{
-    NSDictionary* dict = [self unreadCountMap];
++(NSInteger)unreadCountWithID:(NSString*)key{
+    NSDictionary* dict = UniversalUnreadCount;
     NSInteger unreadCount;
-    [[self locker] lock];
-    unreadCount = [[dict objectForKey:key] intValue];
-    [[self locker] unlock];
+    @synchronized(dict){
+        unreadCount = [[dict objectForKey:key] intValue];
+    }
     
     return unreadCount;
 }
 
--(GRTag*)tagWithID:(NSString*)key{
-    NSDictionary* dict = [self tags];
-    id obj = nil;
-    [[self locker] lock];
-    obj = [dict objectForKey:key];
-    [[self locker] unlock];
-    return obj;
-}
-
--(GRSubscription*)subscriptionWithID:(NSString*)key{
-    NSDictionary* dict = [self subscriptions];
++(GRTag*)tagWithID:(NSString*)key{
+    NSDictionary* dict = UniversalTagList;
     id obj = nil;
     @synchronized(dict){
         obj = [dict objectForKey:key];
@@ -239,20 +240,40 @@ static BOOL _startFetchToken = NO;
     return obj;
 }
 
--(NSArray*)subscriptionsWithTagID:(NSString*)tagID{
-    __block NSMutableArray* subs = nil;
-
-    [[self locker] lock];
-    [[self subscriptions] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop){
-        GRSubscription* sub = obj;
-        if ([sub.categories containsObject:tagID]){
-            if (subs == nil){
-                subs = [NSMutableArray array];
-            }
-            [subs addObject:sub];
++(NSArray*)tagListWithType:(BRTagType)type{
+    NSMutableArray* tags = [NSMutableArray array];
+    NSString* typeString = (type == BRTagTypeLabel)?@"label":@"state";
+    
+    [UniversalTagList enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop){
+        GRTag* tag = obj;
+        if ([tag.typeString isEqualToString:typeString]){
+            [tags addObject:tag];
         }
     }];
-    [[self locker] unlock];
+    
+    return tags;
+}
+
++(GRSubscription*)subscriptionWithID:(NSString*)key{
+    NSDictionary* dict = UniversalSubList;
+    id obj = nil;
+    @synchronized(dict){
+        obj = [dict objectForKey:key];
+    }
+    return obj;
+}
+
++(NSArray*)subscriptionsWithTagID:(NSString*)tagID{
+    NSMutableArray* subs = [NSMutableArray array];
+
+    @synchronized(UniversalSubList){
+        [UniversalSubList enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop){
+            GRSubscription* sub = obj;
+            if ([sub.categories containsObject:tagID]||((tagID.length == 0) && [sub.categories count] == 0)){
+                [subs addObject:sub];
+            }
+        }];
+    }
     
     return subs;
 }
@@ -277,23 +298,21 @@ static BOOL _startFetchToken = NO;
 
 -(void)unreadCountRequestFinished:(ASIHTTPRequest*)request{
     NSArray* tempUnreadArray = [[request.responseString JSONValue] objectForKey:@"unreadcounts"];
-    NSMutableDictionary* unreadCount = [self unreadCountMap];
+    NSMutableDictionary* unreadCount = UniversalUnreadCount;
     
-    [[self locker] lock];
     [unreadCount removeAllObjects];
     [tempUnreadArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop){
         NSString* ID = [obj objectForKey:@"id"];
         NSTimeInterval timeStamp = [[unreadCount objectForKey:@"newestItemTimestampUsec"] doubleValue];
         [unreadCount setObject:[obj objectForKey:@"count"] forKey:ID];
         if ([ID hasPrefix:@"feed"]){
-            GRSubscription* sub = [self subscriptionWithID:ID];
+            GRSubscription* sub = [[self class] subscriptionWithID:ID];
             sub.newestItemTimestampUsec = timeStamp;
         }else{
-            GRTag* tag = [self tagWithID:ID];
+            GRTag* tag = [[self class] tagWithID:ID];
             tag.newestItemTimestampUsec = timeStamp;
         }
     }];
-    [[self locker] unlock];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATEUNREADCOUNT object:nil];
     [self performCallBack];
@@ -303,6 +322,7 @@ static BOOL _startFetchToken = NO;
     
     [self.requestQueue reset];
     ASINetworkQueue* queue = [ASINetworkQueue queue];
+    queue.delegate = self;
     queue.shouldCancelAllRequestsOnFailure = YES;
     queue.maxConcurrentOperationCount = 1;
     queue.queueDidFinishSelector = @selector(tagAndSubRequestFinished:);
@@ -323,6 +343,8 @@ static BOOL _startFetchToken = NO;
                     [blockSelf.requestQueue go];
                 }
             }];
+        }else{ 
+            NSLog(@"auth log: %@", [error localizedDescription]);
         }
     }];
 }
@@ -344,7 +366,7 @@ static BOOL _startFetchToken = NO;
     URLParameterSet* tagParam = [[[URLParameterSet alloc] init] autorelease];
     [tagParam setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     ASIHTTPRequest* tagRequest = [self requestWithURL:[self fullURLFromBaseString:taglistString] parameters:tagParam APIType:API_LIST]; 
-    tagRequest.didFailSelector = @selector(tagRequestStarted:);
+    tagRequest.didStartSelector = @selector(tagRequestStarted:);
     tagRequest.didFinishSelector = @selector(tagRequestFinished:);
     
     return tagRequest;
@@ -363,42 +385,44 @@ static BOOL _startFetchToken = NO;
 }
 
 -(void)subRequestStarted:(ASIHTTPRequest*)request{
+    DebugLog(@"subscriptions list request started");
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BEGIN_UPDATESUBSCRIPTIONLIST object:nil];
 }
 
 -(void)subRequestFinished:(ASIHTTPRequest*)request{
     NSArray* subs = [[request.responseString JSONValue] objectForKey:@"subscriptions"];
-    NSMutableDictionary* subMap = [self subscriptions];
-    [[self locker] lock];
-    [subMap removeAllObjects];
-    [subs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-        GRSubscription* sub = [GRSubscription subscriptionWithJSONObject:obj];
-        [subMap setObject:sub forKey:sub.ID];
-    }];
-    [[self locker] unlock];
+    NSMutableDictionary* subMap = UniversalSubList;
+    @synchronized(subMap){
+        [subMap removeAllObjects];
+        [subs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+            GRSubscription* sub = [GRSubscription subscriptionWithJSONObject:obj];
+            [subMap setObject:sub forKey:sub.ID];
+        }];
+    }
+    DebugLog(@"subscriptions list request finished");
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATESUBSCRIPTIONLIST object:nil];
 }
 
 -(void)tagRequestStarted:(ASIHTTPRequest*)request{
+    DebugLog(@"tags list request started");
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BEGIN_UPDATETAGLIST object:nil];
 }
 
 -(void)tagRequestFinished:(ASIHTTPRequest*)request{
     NSArray* tags = [[request.responseString JSONValue] objectForKey:@"tags"];
-    NSMutableDictionary* tagMap = [self tags];
-    [[self locker] lock];
-    [tagMap removeAllObjects];
-    [tags enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-        GRTag* tag = [GRTag tagWithJSONObject:obj];
-        [tagMap setObject:tag forKey:tag.ID];
-    }];
-    [[self locker] unlock];
+    NSMutableDictionary* tagMap = UniversalTagList;
+    @synchronized(tagMap){
+        [tagMap removeAllObjects];
+        [tags enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+            GRTag* tag = [GRTag tagWithJSONObject:obj];
+            [tagMap setObject:tag forKey:tag.ID];
+        }];
+    }
+    DebugLog(@"tags list request finished");
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATETAGLIST object:nil];
 }
 
 -(void)tagAndSubRequestFinished:(ASINetworkQueue*)queue{
-    //save tag and sub list
-    [self saveReaderStructure];
     //send out notification
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATEREADERSTRUCTURE object:nil];
     [self refreshUnreadCount];
@@ -406,18 +430,39 @@ static BOOL _startFetchToken = NO;
                             
 -(void)saveReaderStructure{
     [[self locker] lock];
-    [[NSUserDefaults standardUserDefaults] setObject:[self tags]  forKey:TAGLIST_STORE_KEY];
-    [[NSUserDefaults standardUserDefaults] setObject:[self subscriptions] forKey:SUBLIST_STORE_KEY];
+    
+    [NSKeyedArchiver archiveRootObject:UniversalTagList toFile:[self filePathWithName:@"taglist"]];
+    [NSKeyedArchiver archiveRootObject:UniversalSubList toFile:[self filePathWithName:@"sublist"]];
+    [NSKeyedArchiver archiveRootObject:UniversalUnreadCount toFile:[self filePathWithName:@"unreadcount"]];
+    
     [[self locker] unlock];
 }
 
 -(void)restoreReaderStructure{
     [[self locker] lock];
-    NSMutableDictionary* tags = [self tags];
-    [tags setDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:TAGLIST_STORE_KEY]];
-    NSMutableDictionary* subs = [self subscriptions];
-    [subs setDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SUBLIST_STORE_KEY]];
+//    NSString *thePath = [documentsDirectory stringByAppendingPathComponent:TAGLISTFILE];
+//	self.tagDict = [NSDictionary dictionaryWithContentsOfFile:thePath];
+//	thePath = [documentsDirectory stringByAppendingPathComponent:SUBSCRIPTIONLISTFILE];
+//	self.subDict = [NSDictionary dictionaryWithContentsOfFile:thePath];
+//	thePath = [documentsDirectory stringByAppendingPathComponent:UNREADCOUNTFILE];
+//	self.unreadCount = [NSDictionary dictionaryWithContentsOfFile:thePath];
+//	thePath = [documentsDirectory stringByAppendingPathComponent:FAVORITELISTFILE];
+    [UniversalSubList setDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self filePathWithName:@"sublist"]]];
+    [UniversalTagList setDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self filePathWithName:@"taglist"]]];
+    [UniversalUnreadCount setDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self filePathWithName:@"unreadcount"]]];
+     
     [[self locker] unlock];
+}
+     
+-(NSString*)filePathWithName:(NSString*)name{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    if (!documentsDirectory) {
+        DebugLog(@"Documents directory not found!");
+        return @"";
+    }
+
+    return [documentsDirectory stringByAppendingPathComponent:name];
 }
 
 #pragma mark - list api
@@ -581,7 +626,7 @@ static BOOL _startFetchToken = NO;
     __block typeof(self) blockSelf = self;
     [self.request setCompletionBlock:^{
         DebugLog(@"mark all as read succeeded");
-        NSArray* items = [[blockSelf itemsForFeed] objectForKey:streamID];
+        NSArray* items = [[[blockSelf class] itemsForFeed] objectForKey:streamID];
         [items makeObjectsPerformSelector:@selector(markAsRead)];
         [blockSelf performCallBack];
         [blockSelf performSelectorOnMainThread:@selector(refreshUnreadCount) withObject:self waitUntilDone:NO];
@@ -659,20 +704,20 @@ static BOOL _startFetchToken = NO;
 -(GRFeed*)responseFeed{
     GRFeed* feed = [GRFeed objWithJSON:self.responseJSONValue];
     if (self.request.didUseCachedResponse == NO){
-        NSMutableArray* items = [[self itemsForFeed] objectForKey:feed.ID];
+        NSMutableArray* items = [[[self class] itemsForFeed] objectForKey:feed.ID];
         if (items == nil){
             items = [NSMutableArray array];
-            [[self itemsForFeed] setObject:items forKey:feed.ID];
+            [[[self class] itemsForFeed] setObject:items forKey:feed.ID];
         }
         [feed.items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
             GRItem* item = obj;
-            [[self itemPool] setObject:item forKey:item.ID];
+            [UniversalItemPool setObject:item forKey:item.ID];
             [items addObject:item];
         }];
     }else{
         NSMutableArray* items = [NSMutableArray array];
         for (GRItem* item in feed.items){
-            GRItem* origItem = [[self itemPool] objectForKey:item.ID];
+            GRItem* origItem = [UniversalItemPool objectForKey:item.ID];
             [items addObject:origItem];
         }
         feed.items = items;
@@ -819,7 +864,7 @@ static BOOL _startFetchToken = NO;
     [request setCompletionBlock:^{
         [blockSelf performCallBack];
         
-        GRItem* item = [[blockSelf itemPool] objectForKey:itemID];
+        GRItem* item = [[[blockSelf class] itemPool] objectForKey:itemID];
         [item removeCategory:tagToRemove];
         [item addCategory:tagToAdd];
     }];
@@ -848,7 +893,7 @@ static BOOL _startFetchToken = NO;
 //add token if only needed
 -(void)addTokenToRequest:(ASIFormDataRequest*)request completionBlock:(void(^)(NSError* error))block{
     NSString* token = [[self class] token];
-    NSMutableArray* addTokenQueue = [self addTokenQueue];
+    NSMutableArray* addTokenQueue = [[self class] addTokenQueue];
     if (token == nil){
         @synchronized(addTokenQueue){
             FetchTokenArg* arg = [[[FetchTokenArg alloc] init] autorelease];
@@ -880,7 +925,7 @@ static BOOL _startFetchToken = NO;
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlString]];
     [self.tokenRequest clearDelegatesAndCancel];
     self.tokenRequest = request;
-    NSMutableArray* addTokenQueue = [self addTokenQueue];
+    NSMutableArray* addTokenQueue = [[self class] addTokenQueue];
     [request setCompletionBlock:^{
         if (request.error == nil){
             NSString* tempToken = request.responseString;

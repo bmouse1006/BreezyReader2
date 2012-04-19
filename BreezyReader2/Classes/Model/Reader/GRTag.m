@@ -14,6 +14,7 @@
 @synthesize ID = _ID;
 @synthesize sortID = _sortID;
 @synthesize label = _label;
+@synthesize typeString = _typeString;
 
 @synthesize unreadCount;
 @synthesize newestItemTimestampUsec;
@@ -71,6 +72,9 @@
 	
 	newTag.ID = [JSONTag objectForKey:@"id"];
 	NSArray* tokens = [newTag.ID componentsSeparatedByString:@"/"];
+    if ([tokens count] >= 3){
+        newTag.typeString = [tokens objectAtIndex:2];
+    }
 	newTag.label = [tokens objectAtIndex:[tokens count]-1];
 	newTag.sortID = [JSONTag objectForKey:@"sortid"];
 	
@@ -104,6 +108,7 @@
     self.ID = nil;
     self.sortID = nil;
     self.label = nil;
+    self.typeString = nil;
 	[super dealloc];
 }
 
@@ -113,6 +118,7 @@
         self.ID = [aDecoder decodeObjectForKey:@"ID"];
         self.sortID = [aDecoder decodeObjectForKey:@"sortID"];
         self.label = [aDecoder decodeObjectForKey:@"label"];
+        self.typeString = [aDecoder decodeObjectForKey:@"typeString"];
         self.newestItemTimestampUsec = [[aDecoder decodeObjectForKey:@"newestItemTimestampUsec"] doubleValue];
         self.unreadCount = [[aDecoder decodeObjectForKey:@"unreadCount"] intValue];
     }
@@ -126,6 +132,7 @@
     [aCoder encodeObject:self.label forKey:@"label"];
     [aCoder encodeObject:[NSNumber numberWithDouble:self.newestItemTimestampUsec] forKey:@"newestItemTimestampUsec"];
     [aCoder encodeObject:[NSNumber numberWithInt:self.unreadCount] forKey:@"unreadCount"];
+    [aCoder encodeObject:self.typeString forKey:@"typeString"];
 }
 
 @end

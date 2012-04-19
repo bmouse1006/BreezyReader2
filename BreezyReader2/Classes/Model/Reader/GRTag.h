@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSString* ID;
 @property (nonatomic, retain) NSString* sortID;
 @property (nonatomic, retain) NSString* label;
+@property (nonatomic, retain) NSString* typeString;
 
 @property (nonatomic, assign) NSInteger unreadCount;
 @property (nonatomic, assign) NSTimeInterval newestItemTimestampUsec;

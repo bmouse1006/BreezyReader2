@@ -11,18 +11,18 @@
 #import "BRSubFavoritePageController.h"
 #import "BRRecommendationPageViewController.h"
 #import "BRReadingStatistics.h"
-#import "GRDataManager.h"
+#import "GoogleReaderClient.h"
 
 @interface MainScreenDataSource ()
 
-@property (nonatomic, retain) NSArray* labelList;
+@property (nonatomic, retain) NSArray* tagList;
 
 @end
 
 @implementation MainScreenDataSource
 
 @synthesize controllers = _controllers;
-@synthesize labelList = _labelList;
+@synthesize tagList = _tagList;
 
 -(id)init{
     self = [super init];
@@ -35,7 +35,7 @@
 
 -(void)dealloc{
     self.controllers = nil;
-    self.labelList = nil;
+    self.tagList = nil;
     [super dealloc];
 }
 
@@ -50,8 +50,8 @@
 -(void)reloadController{
     [self.controllers makeObjectsPerformSelector:@selector(removeFromParentViewController)];
     [self.controllers removeAllObjects];
-    self.labelList = [[GRDataManager shared] getLabelList];
-    for (GRTag* tag in self.labelList){
+    self.tagList = [GoogleReaderClient tagListWithType:BRTagTypeLabel];
+    for (GRTag* tag in self.tagList){
         BRSubGridViewController* controller = [[[BRSubGridViewController alloc] init] autorelease];
         controller.tag = tag;
         [self.controllers addObject:controller];

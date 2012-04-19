@@ -63,10 +63,7 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
 //    searchBar.backgroundImage = nil;
     searchBar.showsScopeBar = YES;
     searchBar.translucent = YES;
-//    searchBar.barStyle = UIBarStyleBlack;
-//    26，78，138
-//    searchBar.tintColor = [UIColor colorWithRed:26/255 green:78/255 blue:138/255 alpha:0.5];
-    searchBar.hidden = YES;
+//    searchBar.hidden = YES;
     
     UITableView* tableView = self.searchDisplayController.searchResultsTableView;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -87,6 +84,11 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
     self.view = nil;
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.searchDisplayController.searchBar becomeFirstResponder];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -95,24 +97,25 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
 -(void)getReadyForSearch{
     self.view.alpha = 1.0f;
     [self.searchDisplayController.searchBar becomeFirstResponder];
-    self.searchDisplayController.searchBar.alpha = 0;
-    self.searchDisplayController.searchBar.hidden = NO;
-    [UIView animateWithDuration:0.2 animations:^{
-        self.searchDisplayController.searchBar.alpha = 1;
-    }];
+//    self.searchDisplayController.searchBar.alpha = 0;
+//    self.searchDisplayController.searchBar.hidden = NO;
+//    [UIView animateWithDuration:0.2 animations:^{
+//        self.searchDisplayController.searchBar.alpha = 1;
+//    }];
 }
 
 #pragma mark - search bar delegate
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    [UIView animateWithDuration:0.4 animations:^{
-//        self.searchDisplayController.searchBar.alpha = 0;
-        self.view.alpha = 0;
-    } completion:^(BOOL finished){
-        if (finished){
-            self.searchDisplayController.searchBar.hidden = YES;
-            [self dismissSearchView];
-        }
-    }];
+//    [UIView animateWithDuration:0.4 animations:^{
+////        self.searchDisplayController.searchBar.alpha = 0;
+//        self.view.alpha = 0;
+//    } completion:^(BOOL finished){
+//        if (finished){
+//            self.searchDisplayController.searchBar.hidden = YES;
+//            [self dismissSearchView];
+//        }
+//    }];
+    [[self topContainer] popViewController:YES];
 }
 
 -(IBAction)loadMoreButtonClicked:(id)sender{
