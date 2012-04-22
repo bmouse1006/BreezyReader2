@@ -32,6 +32,8 @@ typedef enum{
 
 -(id)initWithDelegate:(id)delegate action:(SEL)action;
 
+-(BOOL)needRefreshUnreadCount;
+
 -(void)clearAndCancel;
 
 -(void)requestFeedWithIdentifier:(NSString*)identifer
@@ -54,6 +56,7 @@ typedef enum{
 -(void)searchArticlesWithKeywords:(NSString*)keywords;
 -(void)searchFeedsWithKeywords:(NSString*)keywords;
 -(void)requestRecommendationList;
+-(void)requestRelatedSubscriptions:(NSString*)streamID;
 //edit api
 -(void)starArticle:(NSString*)itemID;
 -(void)unstartArticle:(NSString*)itemID;

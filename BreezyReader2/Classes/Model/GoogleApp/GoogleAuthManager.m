@@ -28,7 +28,6 @@
 @implementation GoogleAuthManager
 
 @synthesize loginStatus = _loginStatus;
-@synthesize token = _token;
 
 @synthesize oauth = _oauth;
 @synthesize error = _error;
@@ -163,75 +162,6 @@ static GoogleAuthManager *shareAuthManager = nil;
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
-#pragma mark - token
-
--(NSString*)getValidToken:(NSError **)mError{
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	@synchronized(_token){
-		if (!self.token){
-			NSError* error = nil;
-			
-			NSString* urlString = [URI_PREFIX_API stringByAppendingString:API_TOKEN];
-			NSMutableURLRequest* request = [self URLRequestFromString:urlString];
-			
-			NSData* data = [NSURLConnection sendSynchronousRequest:request
-												 returningResponse:nil 
-															 error:&error];
-			
-			if (error){//error happened
-				if (mError){
-					*mError = error;
-				}
-				return nil;
-			}
-			NSString* tempToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-			
-			
-			DebugLog(@"token is %@", tempToken);
-			
-			if (tempToken != nil && [tempToken length] <= 57){
-				self.token = [tempToken substringFromIndex:2];
-			}else {
-				self.token = nil;
-			}
-			
-			[tempToken release];
-		}
-	}
-	[pool release];
-	return self.token;
-}
-
-//task for update token every 5 minutes
-
--(void)updateToken{
-    [self performSelectorInBackground:@selector(getValidToken:) withObject:nil];
-}
-
--(void)updateTokenAsync{
-    NSString* urlString = [URI_PREFIX_API stringByAppendingString:API_TOKEN];
-    ASIHTTPRequest* request = [self ASIRequestFromString:urlString];
-    [request setCompletionBlock:^{
-        NSString* tempToken = [[NSString alloc] initWithData:request.responseData encoding:NSUTF8StringEncoding];
-        
-        DebugLog(@"token is %@", tempToken);
-        
-        if (tempToken.length > 0 && [tempToken length] <= 57){
-            self.token = tempToken;//[tempToken substringFromIndex:2];
-        }else {
-            self.token = nil;
-        }
-        
-        [tempToken release];
-    }];
-    [request setFailedBlock:^{
-      //handle error  
-    }];
-    [self authRequest:request completionBlock:^(NSError* error){
-        [request startAsynchronous];
-    }];
-}
-
 -(void)authRequest:(id)request{
     [self.oauth authorizeRequest:request];
 }
@@ -248,11 +178,6 @@ static GoogleAuthManager *shareAuthManager = nil;
 	@synchronized(self){
 		if (self = [super init]){
 			self.loginStatus = LOGIN_NOTIN;
-			[NSTimer scheduledTimerWithTimeInterval:300
-											 target:self
-										   selector:@selector(updateToken)
-										   userInfo:nil
-											repeats:YES];
             [self registerNotifications];
             self.oauth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName clientID:kOAuth2ClientID clientSecret:kOAuth2ClientSecret];
 		}
@@ -261,7 +186,6 @@ static GoogleAuthManager *shareAuthManager = nil;
 }
 
 -(void)dealloc{
-    self.token = nil;
     self.oauth = nil;
     self.error = nil;
 	[super dealloc];

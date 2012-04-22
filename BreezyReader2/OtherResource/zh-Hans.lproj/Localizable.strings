@@ -23,6 +23,7 @@
 "title_loading" = "载入中...";
 "title_recommendation" = "推荐的内容";
 "title_starred" = "加星标的";
+"title_label" = "标签";
 
 "msg_searching" = "搜索中...";
 "msg_unstarfailed" = "去星标失败啦";

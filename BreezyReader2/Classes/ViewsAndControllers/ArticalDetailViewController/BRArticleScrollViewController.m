@@ -42,6 +42,7 @@
     self.backButton = nil;
     self.bottomToolBar = nil;
     self.articleDetailControllers = nil;
+    [self.clients makeObjectsPerformSelector:@selector(clearAndCancel)];
     self.clients = nil;
     self.adView = nil;
     self.starButton = nil;

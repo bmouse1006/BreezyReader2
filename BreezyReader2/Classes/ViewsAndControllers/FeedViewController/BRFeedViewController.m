@@ -43,6 +43,7 @@
 
 @implementation BRFeedViewController
 
+@synthesize configViewController = _configViewController;
 @synthesize tableView = _tableView, dragController = _dragController;
 @synthesize actionMenuController = _actionMenuController;
 @synthesize subscription = _subscription, dataSource = _dataSource;
@@ -82,6 +83,7 @@ static CGFloat refreshDistance = 60.0f;
     self.itemIDs = nil;
     self.adView = nil;
     self.menuButton = nil;
+    self.configViewController = nil;
     [super dealloc];
 }
 
@@ -124,6 +126,9 @@ static CGFloat refreshDistance = 60.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.configViewController.subscription = self.subscription;
+    [self addChildViewController:self.configViewController];
 //    insetsTop = self.navigationController.navigationBar.frame.size.height;
     
     insetsTop = 0;
@@ -140,6 +145,8 @@ static CGFloat refreshDistance = 60.0f;
     self.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     self.titleLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
     self.titleLabel.text = self.title;
+    UISwipeGestureRecognizer* swipeLeft = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showConfigMenu)] autorelease];
+    [self.titleLabel addGestureRecognizer:swipeLeft];
     
     [self.mainContainer addSubview:self.tableView];
     [self.mainContainer addSubview:self.titleView];
@@ -184,13 +191,14 @@ static CGFloat refreshDistance = 60.0f;
     self.adView = nil;
     self.menuButton = nil;
     self.actionMenuController = nil;
+    self.configViewController = nil;
+    [self.configViewController removeFromParentViewController];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    self.mainContainer.frame = self.view.bounds;
     
     CGRect frame = self.titleView.frame;
     frame.origin.y = 0;
@@ -355,6 +363,12 @@ static CGFloat refreshDistance = 60.0f;
 #pragma mark - action mathods
 -(IBAction)configButtonClicked:(id)sender{
     //insert menu to 
+    [self showConfigMenu];
+}
+
+-(void)showConfigMenu{
+    self.secondaryView = self.configViewController.view;
+    [self slideShowSecondaryView];
 }
 
 -(IBAction)backButtonClicked:(id)sender{
@@ -363,10 +377,6 @@ static CGFloat refreshDistance = 60.0f;
 
 -(IBAction)scrollToTop:(id)sender{
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-}
-
--(IBAction)showSearch:(id)sender{
-    
 }
 
 -(IBAction)showActionMenuButtonClicked:(id)sender{

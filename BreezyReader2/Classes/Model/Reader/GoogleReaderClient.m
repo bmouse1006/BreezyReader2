@@ -51,7 +51,6 @@
 @property (nonatomic, retain) ASIHTTPRequest* tokenRequest;
 @property (nonatomic, retain) ASINetworkQueue* requestQueue;
 
-
 //add/remove tag to one subscription
 -(void)editSubscription:(NSString*)subscription 
 					tagToAdd:(NSString*)tagToAdd 
@@ -76,16 +75,47 @@ static NSString* _token = nil;
 static long long _tokenFetchTimeInterval = 0;
 static BOOL _startFetchToken = NO;
 
+static BOOL _needRefreshUnreadCount = NO;
+
+static long long _lastUnreadCountRefreshTime;
+
 +(id)clientWithDelegate:(id)delegate action:(SEL)action{
     return [[[self alloc] initWithDelegate:delegate action:action] autorelease];
+}
+
+#pragma mark - reader status
+-(BOOL)needRefreshUnreadCount{
+    return (_needRefreshUnreadCount)?YES:([[NSDate date] timeIntervalSince1970] - _lastUnreadCountRefreshTime > 25*60);
+}
+
+-(NSLock*)refreshingUnreadCountLock{
+    static dispatch_once_t predUnreadLock;
+    static NSLock* unreadCountLock = nil;
+    
+    dispatch_once(&predUnreadLock, ^{ 
+        unreadCountLock = [[NSLock alloc] init]; 
+    }); 
+    
+    return unreadCountLock;
+}
+
+-(NSLock*)refreshingReaderStructureLock{
+    static dispatch_once_t predStructureLock;
+    static NSLock* structureLock = nil;
+    
+    dispatch_once(&predStructureLock, ^{ 
+        structureLock = [[NSLock alloc] init]; 
+    }); 
+    
+    return structureLock;
 }
 
 #pragma mark - life cycle
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [self clearAndCancel];
+    self.delegate = nil;
+    [self clearAllRequests];
     [super dealloc];
 }
 
@@ -98,8 +128,9 @@ static BOOL _startFetchToken = NO;
         static dispatch_once_t classNotification;
         
         dispatch_once(&classNotification, ^{ 
-            [[NSNotificationCenter defaultCenter] addObserver:[self class] selector:@selector(clearCache:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:[self class] selector:@selector(saveReaderStructure) name:UIApplicationWillResignActiveNotification object:nil];
+            NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+            [nc addObserver:[self class] selector:@selector(clearCache:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+            [nc addObserver:[self class] selector:@selector(saveReaderStructure) name:UIApplicationWillResignActiveNotification object:nil];
         }); 
         
     }
@@ -108,6 +139,12 @@ static BOOL _startFetchToken = NO;
 }
 
 -(void)clearAndCancel{
+    [self clearAllRequests];
+    self.delegate = nil;
+    self.action = NULL;
+}
+
+-(void)clearAllRequests{
     [self.request clearDelegatesAndCancel];
     [self.requestQueue reset];
     [self.tokenRequest clearDelegatesAndCancel];
@@ -299,16 +336,20 @@ static BOOL _startFetchToken = NO;
     __block typeof(self) blockSelf = self;
     
     self.request.didFinishSelector = @selector(unreadCountRequestFinished:);
+    self.request.cachePolicy = ASIDoNotReadFromCacheCachePolicy;
     
     [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
         if (error == nil){
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BEGIN_UPDATEUNREADCOUNT object:nil];
+            [self postNotification:NOTIFICATION_BEGIN_UPDATEUNREADCOUNT object:nil];
             [blockSelf.request startAsynchronous];
         }
     }];
 }
 
 -(void)unreadCountRequestFinished:(ASIHTTPRequest*)request{
+    _needRefreshUnreadCount = NO;
+    _lastUnreadCountRefreshTime = [[NSDate date] timeIntervalSince1970];
+    DebugLog(@"received response is %@", request.responseString);
     NSArray* tempUnreadArray = [[request.responseString JSONValue] objectForKey:@"unreadcounts"];
     NSMutableDictionary* unreadCount = UniversalUnreadCount;
     
@@ -326,7 +367,8 @@ static BOOL _startFetchToken = NO;
         }
     }];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATEUNREADCOUNT object:nil];
+    DebugLog(@"unread count refresh finished");
+    [self postNotification:NOTIFICAITON_END_UPDATEUNREADCOUNT object:nil];
     [self performCallBack];
 }
 
@@ -345,7 +387,7 @@ static BOOL _startFetchToken = NO;
     
     self.requestQueue = queue;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BEGIN_UPDATEREADERSTRUCTURE object:nil];
+    [self postNotification:NOTIFICATION_BEGIN_UPDATEREADERSTRUCTURE object:nil];
     __block typeof(self) blockSelf = self;
     
     [[GoogleAuthManager shared] authRequest:tagReq completionBlock:^(NSError* error){
@@ -398,7 +440,7 @@ static BOOL _startFetchToken = NO;
 
 -(void)subRequestStarted:(ASIHTTPRequest*)request{
     DebugLog(@"subscriptions list request started");
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BEGIN_UPDATESUBSCRIPTIONLIST object:nil];
+    [self postNotification:NOTIFICATION_BEGIN_UPDATESUBSCRIPTIONLIST object:nil];
 }
 
 -(void)subRequestFinished:(ASIHTTPRequest*)request{
@@ -412,12 +454,12 @@ static BOOL _startFetchToken = NO;
         }];
     }
     DebugLog(@"subscriptions list request finished");
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATESUBSCRIPTIONLIST object:nil];
+    [self postNotification:NOTIFICAITON_END_UPDATESUBSCRIPTIONLIST object:nil];
 }
 
 -(void)tagRequestStarted:(ASIHTTPRequest*)request{
     DebugLog(@"tags list request started");
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BEGIN_UPDATETAGLIST object:nil];
+    [self postNotification:NOTIFICATION_BEGIN_UPDATETAGLIST object:nil];
 }
 
 -(void)tagRequestFinished:(ASIHTTPRequest*)request{
@@ -431,12 +473,12 @@ static BOOL _startFetchToken = NO;
         }];
     }
     DebugLog(@"tags list request finished");
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATETAGLIST object:nil];
+    [self postNotification:NOTIFICAITON_END_UPDATETAGLIST object:nil];
 }
 
 -(void)tagAndSubRequestFinished:(ASINetworkQueue*)queue{
     //send out notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_END_UPDATEREADERSTRUCTURE object:nil];
+    [self postNotification:NOTIFICAITON_END_UPDATEREADERSTRUCTURE object:nil];
     [self refreshUnreadCount];
 }
                             
@@ -494,9 +536,10 @@ static BOOL _startFetchToken = NO;
     self.request.cachePolicy = policy;
     self.request.delegate = self;
     if (needAuth){
+        __block typeof(self) blockSelf = self;
         [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
             if (error == nil){
-                [self.request startAsynchronous];
+                [blockSelf.request startAsynchronous];
             }
         }];
     }else{
@@ -511,6 +554,7 @@ static BOOL _startFetchToken = NO;
     [parameters setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     [self.request clearDelegatesAndCancel];
     self.request = [self requestWithURL:[self fullURLFromBaseString:API_STREAM_DETAILS] parameters:parameters APIType:API_LIST];
+    self.request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
     [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
         if (error == nil){
             [self.request startAsynchronous];
@@ -524,7 +568,7 @@ static BOOL _startFetchToken = NO;
         [request addPostValue:[ID objectForKey:@"id"] forKey:CONTENTS_ARGS_ID];
         [request addPostValue:@"0" forKey:CONTENTS_ARGS_IT];
     }
-    [self clearAndCancel];
+    [self clearAllRequests];
     self.request = request;
     [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
         if (error == nil){
@@ -538,7 +582,7 @@ static BOOL _startFetchToken = NO;
     [paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     [paramSet setParameterForKey:SEARCH_ARGS_NUMBER withValue:[NSNumber numberWithInt:100]];
     [paramSet setParameterForKey:SEARCH_ARGS_QUERY withValue:keywords];
-    [self clearAndCancel];
+    [self clearAllRequests];
     self.request = [self requestWithURL:[self fullURLFromBaseString:API_SEARCH_ARTICLES] parameters:paramSet APIType:API_LIST];
     [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
         if (error == nil){
@@ -550,8 +594,7 @@ static BOOL _startFetchToken = NO;
 -(void)searchFeedsWithKeywords:(NSString*)keywords{
     static NSString* feedSearchFormat = @"https://www.google.com/uds/GfindFeeds?rsz=8&callback=completion&context=0&hl=zh_CN&key=notsupplied&v=1.0&q=";
     
-    [self clearAndCancel];
-    self.request = nil;
+    [self clearAllRequests];
     NSString* urlString = [feedSearchFormat stringByAppendingString:[keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     DebugLog(@"searching url string is %@", urlString);
     NSURL* url = [NSURL URLWithString:urlString];
@@ -571,17 +614,11 @@ static BOOL _startFetchToken = NO;
     [self listRequestWithURL:[self fullURLFromBaseString:url] parameters:paramSet];
 }
 
--(void)requestSubscriptionList{
-    NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_SUBSCRIPTION];
+-(void)requestRelatedSubscriptions:(NSString*)streamID{
+    NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_RELATED];
 	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
-    [paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
-    [self listRequestWithURL:[self fullURLFromBaseString:url] parameters:paramSet];
-}
-
--(void)requestTagList{
-    NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_TAG];
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
-    [paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
+	[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:streamID];
+	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     [self listRequestWithURL:[self fullURLFromBaseString:url] parameters:paramSet];
 }
 
@@ -607,10 +644,12 @@ static BOOL _startFetchToken = NO;
 }
 
 -(void)markArticleAsRead:(NSString*)itemID{
+    _needRefreshUnreadCount = YES;
     [self editItem:itemID addTag:[[self class] readArticleTag] removeTag:nil];
 }
 
 -(void)markArticleAsUnread:(NSString*)itemID{
+    _needRefreshUnreadCount = YES;
     [self editItem:itemID addTag:nil removeTag:[[self class] readArticleTag]];
 }
 
@@ -620,13 +659,14 @@ static BOOL _startFetchToken = NO;
 }
 
 -(void)markAllAsRead:(NSString*)streamID{
+    _needRefreshUnreadCount = YES;
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_MARK_ALL_AS_READ];
 	//Prepare parameters
 	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
 	
 	[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:streamID];//add feed URI
     
-    [self clearAndCancel];
+    [self clearAllRequests];
     self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
     __block typeof(self) blockSelf = self;
     [self.request setCompletionBlock:^{
@@ -729,8 +769,8 @@ static BOOL _startFetchToken = NO;
         }];
     }else{
         NSMutableArray* items = [NSMutableArray array];
-        for (GRItem* item in feed.items){
-            @synchronized(UniversalItemPool){
+       @synchronized(UniversalItemPool){
+           for (GRItem* item in feed.items){
                 GRItem* origItem = [UniversalItemPool objectForKey:item.ID];
                 if (origItem == nil){
                     [UniversalItemPool setObject:item forKey:item.ID];
@@ -1011,6 +1051,13 @@ static BOOL _startFetchToken = NO;
 
 +(NSString*)starTag{
     return [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_STARRED];
+}
+
+#pragma mark - send notification
+-(void)postNotification:(NSString*)name object:(id)object{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:name object:object];
+    });
 }
      
 

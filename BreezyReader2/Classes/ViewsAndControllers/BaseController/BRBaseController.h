@@ -13,8 +13,15 @@
 @interface BRBaseController : UIViewController
 
 @property (nonatomic, retain) IBOutlet UIView* backgroundView;
-@property (nonatomic, retain) IBOutlet UIView* mainContainer;
+@property (nonatomic, retain) IBOutlet UIView* mainContainer; 
+
+@property (nonatomic, retain) IBOutlet UIView* secondaryView;
+
+@property (nonatomic, readonly) BOOL secondaryViewIsShown;
 
 -(void)switchContentViewsToViews:(NSArray*)views animated:(BOOL)animated;
+
+-(void)slideShowSecondaryView;
+-(void)slideHideSecondaryView;
 
 @end

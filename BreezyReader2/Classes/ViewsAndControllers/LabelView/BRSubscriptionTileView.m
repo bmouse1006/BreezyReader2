@@ -76,20 +76,24 @@ static CGFloat kCaptionHeight = 40.0f;
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self){
-        self.grClient = [GoogleReaderClient clientWithDelegate:self action:@selector(receivedGRResponse:)];
         self.backgroundColor = [UIColor colorWithRed:26/255.0 green:78/255.0 blue:138/255.0 alpha:0.6];
         _isAppearring = YES;
         _allowAnimation = YES;
         [self createSubviews];
-        NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-        [nc addObserver:self selector:@selector(enableAnimation:) name:NOTIFICATION_ALLOWFLIPANIMATION object:nil];
-        [nc addObserver:self selector:@selector(disableAnimation:) name:NOTIFICATION_FORBIDDENFLIPANIMATION object:nil];
-        [nc addObserver:self selector:@selector(disableTimers:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [nc addObserver:self selector:@selector(enableTimers:) name:UIApplicationDidBecomeActiveNotification object:nil];
-        [nc addObserver:self selector:@selector(filpFinished:) name:NOTIFICATION_FINISHEDFLIPSUBTILEVIEW object:self];
+        [self registerNotifications];
     }
     
     return self;
+}
+
+-(void)registerNotifications{
+    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(enableAnimation:) name:NOTIFICATION_ALLOWFLIPANIMATION object:nil];
+    [nc addObserver:self selector:@selector(disableAnimation:) name:NOTIFICATION_FORBIDDENFLIPANIMATION object:nil];
+    [nc addObserver:self selector:@selector(disableTimers:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [nc addObserver:self selector:@selector(enableTimers:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [nc addObserver:self selector:@selector(filpFinished:) name:NOTIFICATION_FINISHEDFLIPSUBTILEVIEW object:self];
+    [nc addObserver:self selector:@selector(updateUnreadCountLabel:) name:NOTIFICAITON_END_UPDATEUNREADCOUNT object:nil];
 }
 
 -(void)dealloc{
@@ -179,7 +183,8 @@ static CGFloat kCaptionHeight = 40.0f;
         self.unreadLabel.text = [[NSNumber numberWithInt:urCount] description];
         CGRect frame = self.unreadLabel.frame;
         frame.origin.y = 5;
-        frame.origin.x = self.frame.size.width - 5 - frame.size.width;
+//        frame.origin.x = self.frame.size.width - 5 - frame.size.width;
+        frame.origin.x = 5;
         [self.unreadLabel setFrame:frame];
         [self.unreadImage setFrame:frame];
         self.unreadImage.image = [self.unreadLabel snapshot];
@@ -206,7 +211,7 @@ static CGFloat kCaptionHeight = 40.0f;
     self.caption.textColor = [UIColor whiteColor];
     self.caption.textAlignment = UITextAlignmentCenter;
     self.caption.verticalAlignment = JJTextVerticalAlignmentBottom;
-    self.caption.shadowBlur = 3;
+    self.caption.shadowBlur = 2;
     self.caption.shadowColor = [UIColor blackColor];
     self.caption.shadowOffset = CGSizeMake(1, 1);
     self.caption.shadowEnable = NO;
@@ -218,12 +223,12 @@ static CGFloat kCaptionHeight = 40.0f;
     
     self.unreadLabel = [[[JJLabel alloc] initWithFrame:CGRectZero] autorelease];
     self.unreadLabel.backgroundColor = [UIColor clearColor];
-    self.unreadLabel.shadowBlur = 3;
+    self.unreadLabel.shadowBlur = 2;
     self.unreadLabel.shadowColor = [UIColor blackColor];
-    self.unreadLabel.shadowOffset = CGSizeMake(0, 0);
+    self.unreadLabel.shadowOffset = CGSizeMake(1, 1);
     self.unreadLabel.shadowEnable = NO;
     self.unreadLabel.clipsToBounds = YES;
-    self.unreadLabel.font = [UIFont systemFontOfSize:10];
+    self.unreadLabel.font = [UIFont boldSystemFontOfSize:12];
     self.unreadLabel.autoResize = YES;
     self.unreadLabel.textColor = [UIColor whiteColor];
     [self.unreadLabel setContentEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 2)];
@@ -244,7 +249,7 @@ static CGFloat kCaptionHeight = 40.0f;
 //    [self addSubview:self.caption];
     [self addSubview:self.indicator];
     [self addSubview:self.unreadImage];
-    [self addSubview:self.infoButton];
+//    [self addSubview:self.infoButton];
     [self addSubview:self.captionImage];
 }
 
@@ -294,7 +299,7 @@ static CGFloat kCaptionHeight = 40.0f;
                 }
             }];
         }
-        [self bringSubviewToFront:self.infoButton];
+//        [self bringSubviewToFront:self.infoButton];
         [self bringSubviewToFront:self.unreadImage];
         [self bringSubviewToFront:self.captionImage];
     }
@@ -367,6 +372,7 @@ static CGFloat kCaptionHeight = 40.0f;
 -(void)startFeedRequest:(GRSubscription*)sub{
     [self setImageURLs:nil];
     [self.grClient clearAndCancel];
+    self.grClient = [GoogleReaderClient clientWithDelegate:self action:@selector(receivedGRResponse:)];
     [self.grClient requestFeedWithIdentifier:sub.ID count:[NSNumber numberWithInt:2] startFrom:nil exclude:nil continuation:nil forceRefresh:NO needAuth:YES];
 }
 
@@ -443,6 +449,10 @@ static CGFloat kCaptionHeight = 40.0f;
 }
 
 #pragma mark - notification call back
+-(void)updateUnreadCountLabel:(NSNotification*)notification{
+    [self setNeedsLayout];
+}
+
 -(void)enableAnimation:(NSNotification*)notification{
     self.allowAnimation = YES;
 }

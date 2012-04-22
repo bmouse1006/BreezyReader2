@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GRSubscription.h"
+#import "JJLabel.h"
 
-@interface BRFeedConfigViewController : UIViewController
+@interface BRFeedConfigViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, retain) GRSubscription* subscription;
+@property (nonatomic, retain) IBOutlet UITableView* tableView;
+
+@property (nonatomic, retain) NSMutableArray* feedOpertaionControllers;
 
 @end

@@ -55,6 +55,7 @@ NSString * const API_EDIT_ITEM              = @"item/edit";
 
 NSString * const API_EDIT_MARK_ALL_AS_READ  = @"mark-all-as-read";
 
+NSString * const API_LIST_RELATED           = @"related/list";
 NSString * const API_LIST_RECOMMENDATION	= @"recommendation/list";
 NSString * const API_LIST_PREFERENCE		= @"preference/list";
 NSString * const API_LIST_SUBSCRIPTION		= @"subscription/list";

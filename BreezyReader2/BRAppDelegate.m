@@ -109,7 +109,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
-    [self.client refreshUnreadCount];
+    if ([self.client needRefreshUnreadCount]){
+        [self.client refreshUnreadCount];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

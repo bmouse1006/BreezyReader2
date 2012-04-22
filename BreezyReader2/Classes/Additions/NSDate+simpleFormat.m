@@ -20,4 +20,27 @@
     return [self stringWithFormat:@"yyyy-MM-dd"];
 }
 
+-(NSString*)shortString{
+    NSDate* today = [NSDate date];
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    
+    [formatter setTimeZone:[NSTimeZone localTimeZone]];
+    [formatter setDateFormat:@"yyyy.MM.dd"];
+    
+    today = [formatter dateFromString:[formatter stringFromDate:today]];
+    NSDate* dayOfDate = [formatter dateFromString:[formatter stringFromDate:self]];
+    
+    if ([today isEqualToDate:dayOfDate]){
+        [formatter setDateFormat:@"HH:mm"];
+    }else {
+        [formatter setDateFormat:@"MM/dd"];
+    }
+    
+    [formatter setTimeZone:[NSTimeZone localTimeZone]];
+    NSString* output = [formatter stringFromDate:self];
+    [formatter release];
+    
+    return output;
+}
+
 @end

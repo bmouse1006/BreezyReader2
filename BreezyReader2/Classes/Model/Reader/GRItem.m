@@ -10,6 +10,7 @@
 #import "RegexKitLite.h"
 #import "NSString+MD5.h"
 #import "NSString+Addtion.h"
+#import "NSDate+simpleFormat.h"
 #import "ImageFilter.h"
 
 #define PATTERN @"<.*?>"
@@ -153,24 +154,7 @@
 -(NSString*)getShortUpdatedDateTime{
 	
 	if (!self.shortPresentDateTime){
-		NSDate* today = [NSDate date];
-		NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-		
-		[formatter setTimeZone:[NSTimeZone localTimeZone]];
-		[formatter setDateFormat:@"yyyy.MM.dd"];
-		
-		today = [formatter dateFromString:[formatter stringFromDate:today]];
-		NSDate* modifiedUpdatedDate = [formatter dateFromString:[formatter stringFromDate:self.updated]];
-		
-		if ([today isEqualToDate:modifiedUpdatedDate]){
-			[formatter setDateFormat:@"HH:mm"];
-		}else {
-			[formatter setDateFormat:@"MM/dd"];
-		}
-		
-		[formatter setTimeZone:[NSTimeZone localTimeZone]];
-		self.shortPresentDateTime = [formatter stringFromDate:self.updated];
-		[formatter release];
+		self.shortPresentDateTime = [self.updated shortString];
 	}
 	return self.shortPresentDateTime;
 }

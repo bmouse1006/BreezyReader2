@@ -63,6 +63,7 @@ extern NSString * const API_EDIT_MARK_ALL_AS_READ;
 
 extern NSString * const API_EDIT_ITEM;              
 
+extern NSString * const API_LIST_RELATED;
 extern NSString * const API_LIST_RECOMMENDATION;
 extern NSString * const API_LIST_PREFERENCE;
 extern NSString * const API_LIST_SUBSCRIPTION;

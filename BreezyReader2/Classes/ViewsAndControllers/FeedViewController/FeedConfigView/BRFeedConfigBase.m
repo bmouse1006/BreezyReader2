@@ -1,18 +1,25 @@
 //
-//  BRFeedOperationViewController.m
+//  BRFeedConfigBase.m
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-4-22.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "BRFeedOperationViewController.h"
+#import "BRFeedConfigBase.h"
 
-@interface BRFeedOperationViewController ()
+@interface BRFeedConfigBase ()
 
 @end
 
-@implementation BRFeedOperationViewController
+@implementation BRFeedConfigBase
+
+@synthesize subscription = _subscription;
+
+-(void)dealloc{
+    self.subscription = nil;
+    [super dealloc];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,9 +42,28 @@
     // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+-(NSString*)sectionTitle{
+    return nil;
+}
+
+-(UIView*)sectionView{
+    return nil;
+}
+
+-(NSInteger)numberOfRowsInSection{
+    return 0;
+}
+
+-(id)cellForRow:(NSInteger)row{
+    return nil;
+}
+
+-(CGFloat)heightOfRowAtIndex:(NSInteger)index{
+    return 44;
+}
+
+-(CGFloat)heightForHeader{
+    return 0.0f;
 }
 
 @end

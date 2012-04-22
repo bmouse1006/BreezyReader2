@@ -29,6 +29,7 @@
 -(NSString*)presentationString;
 -(UIImage*)icon;
 -(NSString*)keyString;
+-(NSArray*)keysForLabels;
 
 -(GRRecFeed*)recFeedFromSubscription;
 

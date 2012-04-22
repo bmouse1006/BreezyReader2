@@ -99,7 +99,6 @@
     [self dismissModalViewControllerAnimated:YES];
 //    self.loginButton.hidden = YES;
     [[self topContainer] popViewController:NO];
-    [[GoogleAuthManager shared] getValidToken:NULL];
 }
 
 -(void)loginNeeded:(NSNotification*)notification{

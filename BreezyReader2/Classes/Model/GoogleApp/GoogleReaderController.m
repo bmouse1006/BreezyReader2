@@ -354,7 +354,7 @@
 	do{
 			
 		if ([type isEqualToString:API_EDIT]){
-			if (gaManager.token == nil){
+//			if (gaManager.token == nil){
 				//token is empty and get token failed, then return nil
                 NSError* error = nil;
                 [gaManager getValidToken:&error];
@@ -365,8 +365,8 @@
                     [self.delegate didReceiveErrorWhileRequestingData:error];
                     return nil;
                 }
-			}
-			[parameters setParameterForKey:EDIT_ARGS_TOKEN withValue:gaManager.token];
+//			}
+//			[parameters setParameterForKey:EDIT_ARGS_TOKEN withValue:gaManager.token];
 			[request setHTTPMethod:@"POST"];//POST method for list api
 			[request setHTTPBody:[[parameters parameterString] dataUsingEncoding:NSUTF8StringEncoding]];
 			URLParameterSet* additionalParameters = [[URLParameterSet alloc] init];

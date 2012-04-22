@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRFeedConfigBase.h"
 
-@interface BRFeedControlViewController : UIViewController
+@interface BRFeedControlViewController : BRFeedConfigBase
+
+@property (nonatomic, retain) IBOutlet UIView* container;
+
+-(IBAction)unsubscriebButtonClicked:(id)sender;
+-(IBAction)renameButtonClicked:(id)sender;
 
 @end

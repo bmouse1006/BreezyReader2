@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRFeedConfigBase.h"
 
-@interface BRRelatedFeedViewController : UIViewController
+@interface BRRelatedFeedViewController : BRFeedConfigBase
 
 @end

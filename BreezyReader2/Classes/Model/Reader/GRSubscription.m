@@ -63,6 +63,18 @@
 	return self.title;
 }
 
+-(NSArray*)keysForLabels{
+    NSMutableArray* keys = [NSMutableArray array];
+    [self.categories enumerateObjectsUsingBlock:^(id obj, BOOL* stop){
+        NSString* key = obj;
+        if ([key hasPrefix:@"label/"]){
+            [keys addObject:key];
+        }
+    }];
+    
+    return keys;
+}
+
 -(UIImage*)icon{
 	static NSString* DefaultIconName = @"text.png";
 	

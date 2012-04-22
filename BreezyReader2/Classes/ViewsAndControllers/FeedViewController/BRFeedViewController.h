@@ -17,6 +17,7 @@
 #import "JJImageView.h"
 #import "JJLabel.h"
 #import "BRBottomToolBar.h"
+#import "BRFeedConfigViewController.h"
 
 @interface BRFeedViewController : BRBaseController <UITableViewDelegate, BRBaseDataSourceDelegate>
 
@@ -24,6 +25,7 @@
 @property (nonatomic, retain) IBOutlet BRFeedDragDownController* dragController;
 @property (nonatomic, retain) IBOutlet BRFeedLoadMoreController* loadMoreController;
 @property (nonatomic, retain) IBOutlet BRFeedActionMenuViewController* actionMenuController;
+@property (nonatomic, retain) IBOutlet BRFeedConfigViewController* configViewController;
 
 @property (nonatomic, retain) IBOutlet UIView* loadingView;
 @property (nonatomic, retain) IBOutlet JJLabel* loadingLabel;
@@ -39,7 +41,6 @@
 -(IBAction)backButtonClicked:(id)sender;
 -(IBAction)configButtonClicked:(id)sender;
 -(IBAction)scrollToTop:(id)sender;
--(IBAction)showSearch:(id)sender;
 -(IBAction)showActionMenuButtonClicked:(id)sender;
 
 @end

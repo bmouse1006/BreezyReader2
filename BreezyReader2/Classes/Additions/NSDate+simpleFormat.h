@@ -12,5 +12,6 @@
 
 -(NSString*)stringWithFormat:(NSString*)format;
 -(NSString*)simpleDateString;
+-(NSString*)shortString;
 
 @end

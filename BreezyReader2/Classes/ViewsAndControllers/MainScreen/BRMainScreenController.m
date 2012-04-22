@@ -127,6 +127,10 @@
     [UIApplication sharedApplication].statusBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:NO];
     [self.labelViewControllers makeObjectsPerformSelector:@selector(viewWillAppear:) withObject:[NSNumber numberWithBool:animated]];
+    
+    if ([self.client needRefreshUnreadCount]){
+        [self.client refreshUnreadCount];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{

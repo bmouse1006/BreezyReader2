@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JJLabel.h"
+#import "BRFeedConfigBase.h"
 
-@interface BRFeedDetailViewController : UIViewController
+@interface BRFeedDetailViewController : BRFeedConfigBase
+
+@property (nonatomic, retain) IBOutlet JJLabel* titleLabel;
+@property (nonatomic, retain) IBOutlet JJLabel* urlLabel;
+@property (nonatomic, retain) IBOutlet JJLabel* descLabel;
+@property (nonatomic, retain) IBOutlet JJLabel* weeklyArticleCountLabel;
+@property (nonatomic, retain) IBOutlet JJLabel* subscriberLabel;
+@property (nonatomic, retain) IBOutlet JJLabel* lastUpdateLabel;
+
+@property (nonatomic, retain) IBOutlet UIView* container;
 
 @end

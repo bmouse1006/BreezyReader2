@@ -7,6 +7,7 @@
 //
 
 #import "BRFeedActionMenuViewController.h"
+#import "BRViewControllerNotification.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface BRFeedActionMenuViewController ()

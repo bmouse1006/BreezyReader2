@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/Model/Reader/GoogleReaderClient.m"
-         timestampString = "356535127.467146"
+         timestampString = "356799073.839603"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "813"
-         endingLineNumber = "813"
+         startingLineNumber = "853"
+         endingLineNumber = "853"
          landmarkName = "-requestWithURL:parameters:APIType:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/Model/Reader/GRItem.m"
-         timestampString = "356188348.457835"
+         timestampString = "356779066.609227"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "339"
-         endingLineNumber = "339"
+         startingLineNumber = "323"
+         endingLineNumber = "323"
          landmarkName = "-addCategory:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/FeedViewController/BRFeedViewController.m"
-         timestampString = "356542432.373624"
+         timestampString = "356773514.048858"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "432"
-         endingLineNumber = "432"
+         startingLineNumber = "438"
+         endingLineNumber = "438"
          landmarkName = "-setupTableViewEdgeInsetByStatus"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,13 +73,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/FeedViewController/BRFeedViewController.m"
-         timestampString = "356542432.373624"
+         timestampString = "356773514.048858"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "251"
-         endingLineNumber = "251"
-         landmarkName = "-addHeaderAndFooterForTableView"
-         landmarkType = "5">
+         startingLineNumber = "257"
+         endingLineNumber = "257"
+         landmarkName = "@implementation BRFeedViewController"
+         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
    <ExceptionBreakpoints>

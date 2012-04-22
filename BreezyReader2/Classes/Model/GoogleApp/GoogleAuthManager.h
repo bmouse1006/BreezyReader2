@@ -24,7 +24,6 @@
 
 @interface GoogleAuthManager : NSObject
 
-@property (copy) NSString* token;
 @property (nonatomic, copy) NSError* error;
 @property (nonatomic, copy, setter = setLoginStatus:) NSString* loginStatus;
 
@@ -45,7 +44,5 @@
 
 -(void)authRequest:(id)request;
 -(void)authRequest:(id)request completionBlock:(void(^)(NSError*))block;
-
--(void)updateTokenAsync;
 
 @end

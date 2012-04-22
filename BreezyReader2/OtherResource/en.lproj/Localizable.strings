@@ -24,6 +24,7 @@
 "title_loading" = "Loading...";
 "title_recommendation" = "Recommendation";
 "title_starred" = "Starred";
+"title_label" = "Label";
 
 "msg_searching" = "Searching...";
 "msg_unstarfailed" = "Failed to remove star";
