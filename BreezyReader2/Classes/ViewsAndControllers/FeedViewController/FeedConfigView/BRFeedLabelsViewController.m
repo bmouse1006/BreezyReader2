@@ -1,18 +1,18 @@
 //
-//  BRFeedConfigMenuController.m
+//  BRFeedLabelsViewController.m
 //  BreezyReader2
 //
-//  Created by 金 津 on 12-4-17.
+//  Created by 金 津 on 12-4-22.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "BRFeedConfigMenuController.h"
+#import "BRFeedLabelsViewController.h"
 
-@interface BRFeedConfigMenuController ()
+@interface BRFeedLabelsViewController ()
 
 @end
 
-@implementation BRFeedConfigMenuController
+@implementation BRFeedLabelsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
