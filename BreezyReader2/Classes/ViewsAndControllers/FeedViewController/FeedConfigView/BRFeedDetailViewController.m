@@ -54,7 +54,7 @@
     self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(receivedFeedDetails:)];
     [self.client getStreamDetails:self.subscription.ID];
     
-    [((UITableViewCell*)self.view).contentView addSubview:self.container];
+    [self.view addSubview:self.container];
 }
 
 -(void)setupLabel:(JJLabel*)label{
@@ -96,7 +96,7 @@
 }
 
 -(CGFloat)heightOfRowAtIndex:(NSInteger)index{
-    return 133.0f;
+    return 135.0f;
 }
 
 #pragma mark - google reader client call back

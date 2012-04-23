@@ -25,6 +25,9 @@
 "title_recommendation" = "Recommendation";
 "title_starred" = "Starred";
 "title_label" = "Label";
+"title_addnewlabel" = "Add new label";
+"title_relatedfeed" = "Related feed";
+"title_feedoperation" = "Operation";
 
 "msg_searching" = "Searching...";
 "msg_unstarfailed" = "Failed to remove star";

@@ -46,10 +46,6 @@
     return nil;
 }
 
--(UIView*)sectionView{
-    return nil;
-}
-
 -(NSInteger)numberOfRowsInSection{
     return 0;
 }

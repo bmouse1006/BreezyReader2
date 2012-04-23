@@ -121,7 +121,7 @@ static CGFloat distance = 0.0f;
 #pragma mark - show/hide covered list menu
 -(void)slideShowSecondaryView{
     
-    distance = self.mainContainer.frame.size.width/3*2;
+    distance = self.mainContainer.frame.size.width/4*3;
     
     //add shadow
     UIImageView* shadow = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 6, self.view.bounds.size.height)] autorelease];

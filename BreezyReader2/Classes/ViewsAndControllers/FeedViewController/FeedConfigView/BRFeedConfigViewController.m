@@ -5,13 +5,14 @@
 //  Created by 金 津 on 12-4-21.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
-
+#import "UIViewController+BRAddtion.h"
 #import "BRFeedConfigViewController.h"
 #import "BRFeedControlViewController.h"
 #import "BRRelatedFeedViewController.h"
 #import "BRFeedDetailViewController.h"
 #import "BRFeedLabelsViewController.h"
 #import "BRViewControllerNotification.h"
+#import "BRRelatedFeedViewController.h"
 
 @interface BRFeedConfigViewController ()
 
@@ -54,13 +55,17 @@
     [super viewDidLoad];
     self.feedOpertaionControllers = [NSMutableArray array];
     //add detail view controller
-    BRFeedDetailViewController* detailController = [[[BRFeedDetailViewController alloc] init] autorelease];
+    BRFeedDetailViewController* detailController = [[[BRFeedDetailViewController alloc] initWithTheNibOfSameName] autorelease];
     detailController.subscription = self.subscription;
-    BRFeedLabelsViewController* labelsController = [[[BRFeedLabelsViewController alloc] init] autorelease];
+    BRFeedLabelsViewController* labelsController = [[[BRFeedLabelsViewController alloc] initWithTheNibOfSameName] autorelease];
     labelsController.subscription = self.subscription;
-    BRFeedControlViewController* controlsController = [[[BRFeedControlViewController alloc] init] autorelease];
+    BRFeedControlViewController* controlsController = [[[BRFeedControlViewController alloc] initWithTheNibOfSameName] autorelease];
+    controlsController.subscription = self.subscription;
+    BRRelatedFeedViewController* relatedFeedController = [[[BRRelatedFeedViewController alloc] initWithTheNibOfSameName] autorelease];
+    relatedFeedController.subscription = self.subscription;
     [self.feedOpertaionControllers addObject:detailController];
     [self.feedOpertaionControllers addObject:labelsController];
+    [self.feedOpertaionControllers addObject:relatedFeedController];
     [self.feedOpertaionControllers addObject:controlsController];
     //add labels view controller
     //add related feed view controller

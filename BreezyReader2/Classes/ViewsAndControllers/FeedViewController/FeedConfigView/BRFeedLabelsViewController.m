@@ -8,26 +8,26 @@
 
 #import "BRFeedLabelsViewController.h"
 #import "GoogleReaderClient.h"
+#import "BRFeedLabelCell.h"
+#import "BRFeedLabelNewCell.h"
 
 @interface BRFeedLabelsViewController ()
 
-@property (nonatomic, retain) NSArray* tags;
+@property (nonatomic, retain) NSArray* allLabels;
 
 @end
 
 @implementation BRFeedLabelsViewController
 
-@synthesize subscription = _subscription;
 @synthesize titleLabel = _titleLabel;
-@synthesize tags = _tags;   
-@synthesize topBlack = _topBlack, topWhite = _topWhite, bottomBlack = _bottomBlack, bottomWhite = _bottomWhite;
+@synthesize allLabels = _allLabels;   
+@synthesize topBlack = _topBlack, topWhite = _topWhite;
 
 -(void)dealloc{
     self.titleLabel = nil;
     self.topWhite = nil;
     self.topBlack = nil;
-    self.bottomBlack = nil;
-    self.bottomWhite = nil;
+    self.allLabels = nil;
     [super dealloc];
 }
 
@@ -40,31 +40,15 @@
     return self;
 }
 
--(void)setSubscription:(GRSubscription *)subscription{
-    if (_subscription != subscription){
-        [_subscription release];
-        _subscription = [subscription retain];
-        NSArray* keysForLabels = [subscription keysForLabels];
-        NSMutableArray* tags = [NSMutableArray array];
-        [keysForLabels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop){
-            [tags addObject:[GoogleReaderClient tagWithID:obj]];
-        }];
-        
-        self.tags = tags;
-    }
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setupLabel:self.titleLabel];
-//    self.titleLabel.textColor = [UIColor blackColor];
-    self.titleLabel.text = NSLocalizedString(@"title_label", nil);
     // Do any additional setup after loading the view from its nib.
     [self.view addSubview:self.topBlack];
     [self.view addSubview:self.topWhite];
-    [self.view addSubview:self.bottomBlack];
-    [self.view addSubview:self.bottomWhite];
+    
+    self.allLabels = [GoogleReaderClient tagListWithType:BRTagTypeLabel];
 }
 
 - (void)viewDidUnload
@@ -76,17 +60,12 @@
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    CGFloat inset = 5.0;
+    self.titleLabel.text = NSLocalizedString(@"title_label", nil);
     CGFloat width = self.view.bounds.size.width;
-    CGFloat height = self.view.bounds.size.height;
     CGRect frame = CGRectMake(0, 0, width, 0.5);
     self.topBlack.frame = frame;
     frame = CGRectMake(0, 0.5, width, 0.5);
     self.topWhite.frame = frame;
-    frame = CGRectMake(inset, height-0.5, width - inset*2, 0.5);
-    self.bottomBlack.frame = frame;
-    frame = CGRectMake(inset, height, width - inset*2, 0.5);
-    self.bottomWhite.frame = frame;
 }
 
 -(UIView*)sectionView{
@@ -98,10 +77,25 @@
 }
 
 -(NSInteger)numberOfRowsInSection{
-    return [self.tags count];
+    return [self.allLabels count]+1;
 }
 
 -(id)cellForRow:(NSInteger)row{
+    id cell = nil;
+    if (row != [self.allLabels count]){
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"BRFeedLabelCell" owner:nil options:nil] objectAtIndex:0];
+        GRTag* tag = [self.allLabels objectAtIndex:row];
+        ((BRFeedLabelCell*)cell).title = tag.label;
+        if ([self.subscription.categories containsObject:tag.ID]){
+            ((BRFeedLabelCell*)cell).isChecked = YES;
+        }else{
+            ((BRFeedLabelCell*)cell).isChecked = NO;
+        }
+    }else{
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"BRFeedLabelNewCell" owner:nil options:nil] objectAtIndex:0];
+    }
+    
+    return cell;
 }
 
 -(CGFloat)heightOfRowAtIndex:(NSInteger)index{
@@ -111,7 +105,7 @@
 -(void)setupLabel:(JJLabel*)label{
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
-    label.font = [UIFont boldSystemFontOfSize:13];
+    label.font = [UIFont boldSystemFontOfSize:14];
     label.verticalAlignment = JJTextVerticalAlignmentMiddle;
     label.shadowBlur = 3;
     label.shadowColor = [UIColor blackColor];

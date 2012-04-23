@@ -34,7 +34,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [((UITableViewCell*)self.view).contentView addSubview:self.container];
+//    [self.view addSubview:self.container];
 }
 
 - (void)viewDidUnload
@@ -44,12 +44,22 @@
     // e.g. self.myOutlet = nil;
 }
 
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    self.titleLabel.text = NSLocalizedString(@"title_feedoperation", nil);
+}
+
+-(UIView*)sectionView{
+    return self.view;
+}
+
 -(NSInteger)numberOfRowsInSection{
-    return 1;
+    return 0;
 }
 
 -(id)cellForRow:(NSInteger)row{
-    return self.view;
+//    return self.view;
+    return nil;
 }
 
 -(CGFloat)heightOfRowAtIndex:(NSInteger)index{

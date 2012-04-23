@@ -24,6 +24,9 @@
 "title_recommendation" = "推荐的内容";
 "title_starred" = "加星标的";
 "title_label" = "标签";
+"title_addnewlabel" = "添加新标签";
+"title_relatedfeed" = "相关的源";
+"title_feedoperation" = "操作";
 
 "msg_searching" = "搜索中...";
 "msg_unstarfailed" = "去星标失败啦";

@@ -114,8 +114,7 @@ static long long _lastUnreadCountRefreshTime;
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.delegate = nil;
-    [self clearAllRequests];
+    [self clearAndCancel];
     [super dealloc];
 }
 

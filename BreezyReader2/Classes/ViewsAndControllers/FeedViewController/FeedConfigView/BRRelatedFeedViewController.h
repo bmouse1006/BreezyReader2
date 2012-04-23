@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BRFeedConfigBase.h"
+#import "BRFeedLabelsViewController.h"
 
-@interface BRRelatedFeedViewController : BRFeedConfigBase
+@interface BRRelatedFeedViewController : BRFeedLabelsViewController
+
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activity;
 
 @end

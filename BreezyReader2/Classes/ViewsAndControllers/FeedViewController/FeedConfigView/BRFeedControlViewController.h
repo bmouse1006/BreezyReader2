@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BRFeedConfigBase.h"
+#import "BRFeedLabelsViewController.h"
 
-@interface BRFeedControlViewController : BRFeedConfigBase
+@interface BRFeedControlViewController : BRFeedLabelsViewController
 
 @property (nonatomic, retain) IBOutlet UIView* container;
 
