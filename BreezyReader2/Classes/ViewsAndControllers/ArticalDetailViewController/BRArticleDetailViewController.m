@@ -188,7 +188,10 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 
 -(NSString*)preprocessContent:(NSString*)content{
     //remove iframe and ad
-    NSString* temp = [content stringByReplacingOccurrencesOfRegex:@"<iframe\\s*.*\\s*iframe>" withString:@""];
+    NSString* temp = content;
+//    NSString* temp = [temp stringByReplacingOccurrencesOfRegex:@"<iframe\\s*.*\\s*iframe>" withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfRegex:@"<iframe\\s*[^>]*>" withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfRegex:@"<[^>]*/iframe>" withString:@""];
 //    temp = [temp stringByReplacingOccurrencesOfRegex:@"<font[^>]*>" withString:@"<span>"];
 //    temp = [temp stringByReplacingOccurrencesOfRegex:@"<[^>]*/font>" withString:@"</span>"];
 //    temp = [temp stringByReplacingOccurrencesOfRegex:@"<br[^>]*>" withString:@"<p>"];
