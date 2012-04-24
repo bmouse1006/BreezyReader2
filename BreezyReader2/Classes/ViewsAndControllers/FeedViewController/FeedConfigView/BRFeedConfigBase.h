@@ -10,6 +10,8 @@
 #import "GRSubscription.h"
 #import "BRViewControllerNotification.h"
 
+@class BRFeedConfigViewController;
+
 @protocol BRFeedConfigBase<NSObject>
 
 @optional
@@ -17,14 +19,19 @@
 
 @end
 
-@interface BRFeedConfigBase : UIViewController<BRFeedConfigBase>
+@interface BRFeedConfigBase : NSObject<BRFeedConfigBase>
 
 @property (nonatomic, retain) GRSubscription* subscription;
 
+@property (nonatomic, assign) BRFeedConfigViewController* containerController;
+
 -(NSString*)sectionTitle;
 -(NSInteger)numberOfRowsInSection;
--(id)cellForRow:(NSInteger)index;
+-(id)tableView:(UITableView*)tableView cellForRow:(NSInteger)index;
 -(CGFloat)heightOfRowAtIndex:(NSInteger)index;
 -(CGFloat)heightForHeader;
+
+-(void)didSelectRowAtIndex:(NSInteger)index;
+-(void)subscriptionChanged:(GRSubscription*)newSub;
 
 @end

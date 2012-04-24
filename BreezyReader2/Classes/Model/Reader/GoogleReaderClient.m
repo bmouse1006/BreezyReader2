@@ -614,11 +614,22 @@ static long long _lastUnreadCountRefreshTime;
 }
 
 -(void)requestRelatedSubscriptions:(NSString*)streamID{
+    if (streamID.length == 0){
+        return;
+    }
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_RELATED];
 	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
 	[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:streamID];
 	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
-    [self listRequestWithURL:[self fullURLFromBaseString:url] parameters:paramSet];
+    [self.request clearDelegatesAndCancel];
+    self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_LIST];
+    self.request.cacheStoragePolicy = ASICachePermanentlyCacheStoragePolicy;
+    __block typeof(self) blockSelf = self;
+    [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
+        if (error == nil){
+            [blockSelf.request startAsynchronous];
+        }
+    }];
 }
 
 -(void)listRequestWithURL:(NSURL*)url parameters:(URLParameterSet*)parameters{

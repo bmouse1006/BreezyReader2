@@ -12,6 +12,15 @@
 
 @synthesize topBlack = _topBlack, topWhite = _topWhite;
 
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self){
+        [self setupCell];
+    }
+    
+    return self;
+}
+
 -(void)dealloc{
     self.topBlack = nil;
     self.topWhite = nil;
@@ -20,6 +29,13 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
+    [self setupCell];
+//    UIView* selectedView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
+//    selectedView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+//    self.selectedBackgroundView = selectedView;
+}
+
+-(void)setupCell{
     self.topBlack = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
     self.topWhite = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
     self.topBlack.backgroundColor = [UIColor darkGrayColor];
@@ -29,29 +45,14 @@
     UIView* backgroundView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
     backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
     self.backgroundView = backgroundView;
-//    UIView* selectedView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
-//    selectedView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-//    self.selectedBackgroundView = selectedView;
-}
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    
+    self.textLabel.textColor = [UIColor whiteColor];
+    self.textLabel.font = [UIFont boldSystemFontOfSize:13];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    if (selected){
-        self.accessoryType = UITableViewCellAccessoryCheckmark;
-    }else{
-        self.accessoryType = UITableViewCellAccessoryNone;
-    }
-    // Configure the view for the selected state
 }
 
 -(void)layoutSubviews{

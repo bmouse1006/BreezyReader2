@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JJLabel.h"
 
 @interface BRFeedConfigSectionView : UIView
+
+@property (nonatomic, retain) IBOutlet JJLabel* titleLabel;
+
+@property (nonatomic, retain) IBOutlet UIView* topWhite;
+@property (nonatomic, retain) IBOutlet UIView* topBlack;
 
 @end

@@ -15,31 +15,21 @@
 @implementation BRFeedConfigBase
 
 @synthesize subscription = _subscription;
+@synthesize containerController = _containerController;
 
 -(void)dealloc{
     self.subscription = nil;
+    self.containerController = nil;
     [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
         // Custom initialization
     }
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 -(NSString*)sectionTitle{
@@ -50,7 +40,7 @@
     return 0;
 }
 
--(id)cellForRow:(NSInteger)row{
+-(id)tableView:(UITableView*)tableView cellForRow:(NSInteger)index{
     return nil;
 }
 
@@ -60,6 +50,22 @@
 
 -(CGFloat)heightForHeader{
     return 0.0f;
+}
+
+-(void)didSelectRowAtIndex:(NSInteger)index{
+    
+}
+
+-(void)setSubscription:(GRSubscription *)subscription{
+    if (_subscription != subscription){
+        [_subscription release];
+        _subscription = [subscription retain];
+        [self subscriptionChanged:_subscription];
+    }
+}
+
+-(void)subscriptionChanged:(GRSubscription *)newSub{
+    
 }
 
 @end

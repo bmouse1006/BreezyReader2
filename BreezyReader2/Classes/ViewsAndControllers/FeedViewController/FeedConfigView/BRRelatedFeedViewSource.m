@@ -1,31 +1,36 @@
 //
-//  BRRelatedFeedViewController.m
+//  BRRelatedFeedViewSource.m
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-4-22.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "BRRelatedFeedViewController.h"
+#import "BRRelatedFeedViewSource.h"
 #import "GoogleReaderClient.h"
+#import "BRRelatedFeedCell.h"
+#import "BRFeedConfigViewController.h"
 
-@interface BRRelatedFeedViewController ()
+@interface BRRelatedFeedViewSource ()
 
 @property (nonatomic, retain) NSMutableArray* relatedSubs;
 @property (nonatomic, retain) GoogleReaderClient* client;
 
 @end
 
-@implementation BRRelatedFeedViewController
+@implementation BRRelatedFeedViewSource
 
 @synthesize relatedSubs = _relatedSubs;
 @synthesize client = _client;
 @synthesize activity = _activity;
+@synthesize sectionView = _sectionView;
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+-(id)init{
+    self = [super init];
     if (self){
         self.relatedSubs = [NSMutableArray array];
+        [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil];
+        self.sectionView.titleLabel.text = NSLocalizedString(@"title_relatedfeed", nil);
     }
     
     return self;
@@ -38,41 +43,36 @@
     [super dealloc];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+-(void)subscriptionChanged:(GRSubscription *)newSub{
     [self.client clearAndCancel];
     self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(didReceivedRelatedSubscriptions:)];
-    [self.client requestRelatedSubscriptions:self.subscription.ID];
-    // Do any additional setup after loading the view from its nib
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
--(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    self.titleLabel.text = NSLocalizedString(@"title_relatedfeed", nil);
+    [self.client requestRelatedSubscriptions:newSub.ID];
 }
 
 -(UIView*)sectionView{
-    return self.view;
+    return _sectionView;
 }
 
 -(CGFloat)heightForHeader{
-    return self.view.bounds.size.height;
+    return self.sectionView.bounds.size.height;
 }
 
 -(NSInteger)numberOfRowsInSection{
     return [self.relatedSubs count];
 }
 
--(id)cellForRow:(NSInteger)row{
-    return nil;
+-(id)tableView:(UITableView*)tableView cellForRow:(NSInteger)index{
+    BRRelatedFeedCell* cell = [tableView dequeueReusableCellWithIdentifier:@"BRRelatedFeedCell"];
+    if (cell == nil){
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"BRRelatedFeedCell" owner:nil options:nil] objectAtIndex:0];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    GRSubscription* sub = [self.relatedSubs objectAtIndex:index];
+    cell.textLabel.text = sub.title;
+    
+    return cell;
+    
 }
 
 -(void)didReceivedRelatedSubscriptions:(GoogleReaderClient*)client{
@@ -86,7 +86,14 @@
             GRSubscription* sub = [GRSubscription subscriptionForGRRecFeed:recFeed];
             [self.relatedSubs addObject:sub];
         }
+        
+        [self.containerController reloadSectionFromSource:self];
     }
+}
+
+-(void)didSelectRowAtIndex:(NSInteger)index{
+    GRSubscription* sub = [self.relatedSubs objectAtIndex:index];
+    [self.containerController showSubscription:sub];
 }
 
 @end

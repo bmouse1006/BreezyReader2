@@ -1,22 +1,22 @@
 //
-//  BRFeedDetailViewController.m
+//  BRFeedDetailViewSource.m
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-4-22.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "BRFeedDetailViewController.h"
+#import "BRFeedDetailViewSource.h"
 #import "GoogleReaderClient.h"
 #import "NSDate+simpleFormat.h"
 
-@interface BRFeedDetailViewController ()
+@interface BRFeedDetailViewSource ()
 
 @property (nonatomic, retain) GoogleReaderClient* client;
 
 @end
 
-@implementation BRFeedDetailViewController
+@implementation BRFeedDetailViewSource
 
 @synthesize titleLabel = _titleLabel, urlLabel = _urlLabel, descLabel = _descLabel, weeklyArticleCountLabel = _weeklyArticleCountLabel, subscriberLabel = _subscriberLabel, lastUpdateLabel = _lastUpdateLabel;
 @synthesize container = _container;
@@ -36,9 +36,12 @@
     [super dealloc];
 }
 
-- (void)viewDidLoad
+- (UITableViewCell*)loadCell
 {
-    [super viewDidLoad];
+    if (self.container == nil){
+        [[NSBundle mainBundle] loadNibNamed:@"BRFeedDetailViewSource" owner:self options:nil];
+    }
+    
     [self setupLabel:self.titleLabel];
     self.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     self.titleLabel.shadowEnable = YES;
@@ -48,13 +51,16 @@
     [self setupLabel:self.weeklyArticleCountLabel];
     [self setupLabel:self.subscriberLabel];
     [self setupLabel:self.lastUpdateLabel];
-    
+    self.titleLabel.text = self.subscription.title;
     //start load description
     [self.client clearAndCancel];
     self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(receivedFeedDetails:)];
     [self.client getStreamDetails:self.subscription.ID];
     
-    [self.view addSubview:self.container];
+    UITableViewCell* cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+    cell.backgroundColor = [UIColor clearColor];
+    [cell.contentView addSubview:self.container];
+    return cell;
 }
 
 -(void)setupLabel:(JJLabel*)label{
@@ -68,31 +74,12 @@
     label.shadowEnable = NO;
 }
 
--(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    self.titleLabel.text = self.subscription.title;
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    self.titleLabel = nil;
-    self.container = nil;
-    self.urlLabel = nil;
-    self.descLabel = nil;
-    self.weeklyArticleCountLabel = nil;
-    self.lastUpdateLabel = nil;
-    self.subscriberLabel = nil;
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
 -(NSInteger)numberOfRowsInSection{
     return 1;
 }
 
--(id)cellForRow:(NSInteger)row{
-    return self.view;
+-(id)tableView:(UITableView *)tableView cellForRow:(NSInteger)index{
+    return [self loadCell];
 }
 
 -(CGFloat)heightOfRowAtIndex:(NSInteger)index{

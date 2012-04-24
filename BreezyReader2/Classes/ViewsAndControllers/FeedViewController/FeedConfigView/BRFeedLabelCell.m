@@ -24,8 +24,6 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
-    self.textLabel.textColor = [UIColor whiteColor];
-    self.textLabel.font = [UIFont boldSystemFontOfSize:13];
     [self.contentView addSubview:self.button];
 }
 

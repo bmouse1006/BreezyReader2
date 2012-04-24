@@ -10,22 +10,64 @@
 
 @implementation BRFeedConfigSectionView
 
+@synthesize titleLabel = _titleLabel;
+@synthesize topBlack = _topBlack, topWhite = _topWhite;
+
+-(void)dealloc{
+    self.titleLabel = nil;
+    self.topWhite = nil;
+    self.topBlack = nil;
+    [super dealloc];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        [self createSubviews];
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    [self createSubviews];
 }
-*/
+
+-(void)createSubviews{
+    self.titleLabel = [[[JJLabel alloc] initWithFrame:CGRectZero] autorelease];
+    [self setupLabel:self.titleLabel];
+    self.topBlack = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.topWhite = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.topBlack.backgroundColor = [UIColor darkGrayColor];
+    self.topWhite.backgroundColor = [UIColor lightGrayColor];
+    [self addSubview:self.topWhite];
+    [self addSubview:self.topBlack];
+    [self addSubview:self.titleLabel];
+    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
+}
+
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    CGFloat width = self.bounds.size.width;
+    CGRect frame = CGRectMake(0, 0, width, 0.5);
+    self.topBlack.frame = frame;
+    frame = CGRectMake(0, 0.5, width, 0.5);
+    self.topWhite.frame = frame;
+    self.titleLabel.frame = self.bounds;
+}
+
+-(void)setupLabel:(JJLabel*)label{
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor whiteColor];
+    label.font = [UIFont boldSystemFontOfSize:14];
+    label.verticalAlignment = JJTextVerticalAlignmentMiddle;
+    label.shadowBlur = 3;
+    label.shadowColor = [UIColor blackColor];
+    label.shadowOffset = CGSizeMake(1, 1);
+    label.shadowEnable = NO;
+    [label setContentEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
+}
 
 @end

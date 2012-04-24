@@ -1,5 +1,5 @@
 //
-//  BRFeedControlViewController.h
+//  BRFeedControlViewSource.h
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-4-22.
@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "BRFeedConfigBase.h"
-#import "BRFeedLabelsViewController.h"
+#import "BRFeedConfigSectionView.h"
 
-@interface BRFeedControlViewController : BRFeedLabelsViewController
+@interface BRFeedControlViewSource : BRFeedConfigBase
 
+@property (nonatomic, retain) IBOutlet BRFeedConfigSectionView* sectionView;
 @property (nonatomic, retain) IBOutlet UIView* container;
 
 -(IBAction)unsubscriebButtonClicked:(id)sender;

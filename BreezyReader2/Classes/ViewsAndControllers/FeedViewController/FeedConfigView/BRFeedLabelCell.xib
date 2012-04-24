@@ -64,6 +64,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="222672148"/>
+				<string key="IBUIReuseIdentifier">BRFeedLabelCell</string>
 			</object>
 			<object class="IBUIButton" id="203564989">
 				<reference key="NSNextResponder"/>

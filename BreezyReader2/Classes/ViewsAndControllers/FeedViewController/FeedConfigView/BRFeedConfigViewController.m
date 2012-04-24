@@ -7,12 +7,13 @@
 //
 #import "UIViewController+BRAddtion.h"
 #import "BRFeedConfigViewController.h"
-#import "BRFeedControlViewController.h"
-#import "BRRelatedFeedViewController.h"
-#import "BRFeedDetailViewController.h"
-#import "BRFeedLabelsViewController.h"
+#import "BRFeedControlViewSource.h"
+#import "BRRelatedFeedViewSource.h"
+#import "BRFeedDetailViewSource.h"
+#import "BRFeedLabelsViewSource.h"
 #import "BRViewControllerNotification.h"
-#import "BRRelatedFeedViewController.h"
+#import "BRRelatedFeedViewSource.h"
+#import "BRFeedViewController.h"
 
 @interface BRFeedConfigViewController ()
 
@@ -55,14 +56,18 @@
     [super viewDidLoad];
     self.feedOpertaionControllers = [NSMutableArray array];
     //add detail view controller
-    BRFeedDetailViewController* detailController = [[[BRFeedDetailViewController alloc] initWithTheNibOfSameName] autorelease];
+    BRFeedDetailViewSource* detailController = [[[BRFeedDetailViewSource alloc] init] autorelease];
     detailController.subscription = self.subscription;
-    BRFeedLabelsViewController* labelsController = [[[BRFeedLabelsViewController alloc] initWithTheNibOfSameName] autorelease];
+    detailController.containerController = self;
+    BRFeedLabelsViewSource* labelsController = [[[BRFeedLabelsViewSource alloc] init] autorelease];
     labelsController.subscription = self.subscription;
-    BRFeedControlViewController* controlsController = [[[BRFeedControlViewController alloc] initWithTheNibOfSameName] autorelease];
+    labelsController.containerController = self;
+    BRFeedControlViewSource* controlsController = [[[BRFeedControlViewSource alloc] init] autorelease];
     controlsController.subscription = self.subscription;
-    BRRelatedFeedViewController* relatedFeedController = [[[BRRelatedFeedViewController alloc] initWithTheNibOfSameName] autorelease];
+    controlsController.containerController = self;
+    BRRelatedFeedViewSource* relatedFeedController = [[[BRRelatedFeedViewSource alloc] init] autorelease];
     relatedFeedController.subscription = self.subscription;
+    relatedFeedController.containerController = self;
     [self.feedOpertaionControllers addObject:detailController];
     [self.feedOpertaionControllers addObject:labelsController];
     [self.feedOpertaionControllers addObject:relatedFeedController];
@@ -85,6 +90,11 @@
 }
 
 #pragma mark - table view delegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    BRFeedConfigBase* controller = [self.feedOpertaionControllers objectAtIndex:indexPath.section];
+//    [controller
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     BRFeedConfigBase* controller = [self.feedOpertaionControllers objectAtIndex:indexPath.section];
     return [controller heightOfRowAtIndex:indexPath.row];
@@ -117,7 +127,14 @@
 
 - (id)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     BRFeedConfigBase* controller = [self.feedOpertaionControllers objectAtIndex:indexPath.section];
-    return [controller cellForRow:indexPath.row];
+    return [controller tableView:tableView cellForRow:indexPath.row];
+}
+
+-(void)reloadSectionFromSource:(BRFeedConfigBase*)source{
+    NSInteger index = [self.feedOpertaionControllers indexOfObject:source];
+    if (index != NSNotFound){
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 #pragma mark - notification callback
@@ -135,6 +152,31 @@
 
 -(void)removeTagFromFeed:(NSNotification*)notification{
 
+}
+
+#pragma mark - table callback action
+-(void)showSubscription:(GRSubscription*)subscription{
+    BRFeedViewController* feedController = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
+    feedController.subscription = subscription;
+}
+
+-(void)showAddNewTagVIew{
+    
+}
+-(void)addNewTag{
+    
+}
+-(void)addTag:(NSString*)addID removeTag:(NSString*)removeID{
+    
+}
+-(void)unsubscribeButtonClicked{
+    
+}
+-(void)subscribeButtonClicked{
+    
+}
+-(void)renameButtonClicked{
+    
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  BRRelatedFeedViewController.h
+//  BRRelatedFeedViewSource.h
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-4-22.
@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "BRFeedConfigBase.h"
-#import "BRFeedLabelsViewController.h"
+#import "BRFeedConfigSectionView.h"
 
-@interface BRRelatedFeedViewController : BRFeedLabelsViewController
+@interface BRRelatedFeedViewSource : BRFeedConfigBase
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activity;
+@property (nonatomic, retain) IBOutlet BRFeedConfigSectionView* sectionView;
 
 @end

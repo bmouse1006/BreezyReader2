@@ -1,5 +1,5 @@
 //
-//  BRFeedLabelsViewController.h
+//  BRFeedLabelsViewSource.h
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-4-22.
@@ -8,13 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BRFeedConfigBase.h"
-#import "JJLabel.h"
+#import "BRFeedConfigSectionView.h"
 
-@interface BRFeedLabelsViewController : BRFeedConfigBase
+@interface BRFeedLabelsViewSource : BRFeedConfigBase
 
-@property (nonatomic, retain) IBOutlet JJLabel* titleLabel;
-
-@property (nonatomic, retain) IBOutlet UIView* topWhite;
-@property (nonatomic, retain) IBOutlet UIView* topBlack;
+@property (nonatomic, retain) IBOutlet BRFeedConfigSectionView* sectionView;
 
 @end

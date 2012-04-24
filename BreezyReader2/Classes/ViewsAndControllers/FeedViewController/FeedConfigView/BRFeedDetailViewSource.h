@@ -1,5 +1,5 @@
 //
-//  BRFeedDetailViewController.h
+//  BRFeedDetailViewSource.h
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-4-22.
@@ -10,7 +10,7 @@
 #import "JJLabel.h"
 #import "BRFeedConfigBase.h"
 
-@interface BRFeedDetailViewController : BRFeedConfigBase
+@interface BRFeedDetailViewSource : BRFeedConfigBase
 
 @property (nonatomic, retain) IBOutlet JJLabel* titleLabel;
 @property (nonatomic, retain) IBOutlet JJLabel* urlLabel;

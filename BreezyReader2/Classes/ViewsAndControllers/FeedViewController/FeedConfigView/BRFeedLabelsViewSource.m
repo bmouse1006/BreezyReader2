@@ -1,90 +1,65 @@
 //
-//  BRFeedLabelsViewController.m
+//  BRFeedLabelsViewSource.m
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-4-22.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "BRFeedLabelsViewController.h"
+#import "BRFeedLabelsViewSource.h"
 #import "GoogleReaderClient.h"
 #import "BRFeedLabelCell.h"
 #import "BRFeedLabelNewCell.h"
 
-@interface BRFeedLabelsViewController ()
+@interface BRFeedLabelsViewSource ()
 
 @property (nonatomic, retain) NSArray* allLabels;
 
 @end
 
-@implementation BRFeedLabelsViewController
+@implementation BRFeedLabelsViewSource
 
-@synthesize titleLabel = _titleLabel;
-@synthesize allLabels = _allLabels;   
-@synthesize topBlack = _topBlack, topWhite = _topWhite;
+@synthesize allLabels = _allLabels;  
+@synthesize sectionView = _sectionView;
 
 -(void)dealloc{
-    self.titleLabel = nil;
-    self.topWhite = nil;
-    self.topBlack = nil;
+    self.sectionView = nil;
     self.allLabels = nil;
     [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
         // Custom initialization
+        self.allLabels = [GoogleReaderClient tagListWithType:BRTagTypeLabel];
+        [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil];
+        self.sectionView.titleLabel.text = NSLocalizedString(@"title_label", nil);
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self setupLabel:self.titleLabel];
-    // Do any additional setup after loading the view from its nib.
-    [self.view addSubview:self.topBlack];
-    [self.view addSubview:self.topWhite];
-    
-    self.allLabels = [GoogleReaderClient tagListWithType:BRTagTypeLabel];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
--(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    self.titleLabel.text = NSLocalizedString(@"title_label", nil);
-    CGFloat width = self.view.bounds.size.width;
-    CGRect frame = CGRectMake(0, 0, width, 0.5);
-    self.topBlack.frame = frame;
-    frame = CGRectMake(0, 0.5, width, 0.5);
-    self.topWhite.frame = frame;
-}
-
 -(UIView*)sectionView{
-    return self.view;
+    return _sectionView;
 }
 
 -(CGFloat)heightForHeader{
-    return self.view.bounds.size.height;
+    return self.sectionView.bounds.size.height;
 }
 
 -(NSInteger)numberOfRowsInSection{
     return [self.allLabels count]+1;
 }
 
--(id)cellForRow:(NSInteger)row{
+-(id)tableView:(UITableView*)tableView cellForRow:(NSInteger)index{
     id cell = nil;
-    if (row != [self.allLabels count]){
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"BRFeedLabelCell" owner:nil options:nil] objectAtIndex:0];
-        GRTag* tag = [self.allLabels objectAtIndex:row];
+    if (index != [self.allLabels count]){
+        cell = [tableView dequeueReusableCellWithIdentifier:@"BRFeedLabelCell"];
+        if (cell == nil){
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"BRFeedLabelCell" owner:nil options:nil] objectAtIndex:0];
+        }
+        GRTag* tag = [self.allLabels objectAtIndex:index];
         ((BRFeedLabelCell*)cell).title = tag.label;
         if ([self.subscription.categories containsObject:tag.ID]){
             ((BRFeedLabelCell*)cell).isChecked = YES;
@@ -100,17 +75,6 @@
 
 -(CGFloat)heightOfRowAtIndex:(NSInteger)index{
     return 40.0f;
-}
-
--(void)setupLabel:(JJLabel*)label{
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont boldSystemFontOfSize:14];
-    label.verticalAlignment = JJTextVerticalAlignmentMiddle;
-    label.shadowBlur = 3;
-    label.shadowColor = [UIColor blackColor];
-    label.shadowOffset = CGSizeMake(1, 1);
-    label.shadowEnable = NO;
 }
 
 @end
