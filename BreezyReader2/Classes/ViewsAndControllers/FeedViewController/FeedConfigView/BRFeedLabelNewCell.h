@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JJLabel.h"
 #import "BRFeedConfigBaseCell.h"
 
 @interface BRFeedLabelNewCell : BRFeedConfigBaseCell
 
 @property (nonatomic, retain) IBOutlet UIButton* addNewButton;
+@property (nonatomic, retain) IBOutlet JJLabel* addNewLabel;
 
 @end

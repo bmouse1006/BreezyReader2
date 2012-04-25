@@ -21,7 +21,7 @@
 -(void)reloadSectionFromSource:(BRFeedConfigBase*)source;
 
 -(void)showSubscription:(GRSubscription*)subscription;
--(void)showAddNewTagVIew;
+-(void)showAddNewTagView;
 -(void)addNewTag;
 -(void)addTag:(NSString*)tagID removeTag:(NSString*)tagID;
 -(void)unsubscribeButtonClicked;

@@ -58,20 +58,27 @@
     //add detail view controller
     BRFeedDetailViewSource* detailController = [[[BRFeedDetailViewSource alloc] init] autorelease];
     detailController.subscription = self.subscription;
-    detailController.containerController = self;
+    detailController.tableController = self;
     BRFeedLabelsViewSource* labelsController = [[[BRFeedLabelsViewSource alloc] init] autorelease];
     labelsController.subscription = self.subscription;
-    labelsController.containerController = self;
+    labelsController.tableController = self;
     BRFeedControlViewSource* controlsController = [[[BRFeedControlViewSource alloc] init] autorelease];
     controlsController.subscription = self.subscription;
-    controlsController.containerController = self;
+    controlsController.tableController = self;
     BRRelatedFeedViewSource* relatedFeedController = [[[BRRelatedFeedViewSource alloc] init] autorelease];
     relatedFeedController.subscription = self.subscription;
-    relatedFeedController.containerController = self;
+    relatedFeedController.tableController = self;
     [self.feedOpertaionControllers addObject:detailController];
-    [self.feedOpertaionControllers addObject:labelsController];
+    if ([GoogleReaderClient containsSubscription:self.subscription.ID] == NO){
+        [self.feedOpertaionControllers addObject:controlsController];        
+    }
     [self.feedOpertaionControllers addObject:relatedFeedController];
-    [self.feedOpertaionControllers addObject:controlsController];
+    if ([GoogleReaderClient containsSubscription:self.subscription.ID] == YES){
+        [self.feedOpertaionControllers addObject:labelsController];
+    }
+    if ([GoogleReaderClient containsSubscription:self.subscription.ID] == YES){
+        [self.feedOpertaionControllers addObject:controlsController];        
+    }
     //add labels view controller
     //add related feed view controller
     //add feed operation view controller
@@ -92,6 +99,8 @@
 #pragma mark - table view delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BRFeedConfigBase* controller = [self.feedOpertaionControllers objectAtIndex:indexPath.section];
+    [controller didSelectRowAtIndex:indexPath.row];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //    [controller
 }
 
@@ -158,9 +167,12 @@
 -(void)showSubscription:(GRSubscription*)subscription{
     BRFeedViewController* feedController = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
     feedController.subscription = subscription;
+//    [[self topContainer] popViewController:YES];
+//    [[self topContainer] addToTop:feedController animated:YES];
+    [[self topContainer] replaceTopByController:feedController animated:YES];
 }
 
--(void)showAddNewTagVIew{
+-(void)showAddNewTagView{
     
 }
 -(void)addNewTag{

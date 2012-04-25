@@ -28,6 +28,8 @@
 "title_addnewlabel" = "Add new label";
 "title_relatedfeed" = "Related feed";
 "title_feedoperation" = "Operation";
+"title_unsubscribe" = "Unsubscribe";
+"title_subscribe" = "Subscribe";
 
 "msg_searching" = "Searching...";
 "msg_unstarfailed" = "Failed to remove star";

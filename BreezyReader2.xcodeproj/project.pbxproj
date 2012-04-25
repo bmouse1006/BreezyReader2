@@ -71,6 +71,14 @@
 		228053371546F95E00F0ECF2 /* BRFeedConfigSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 228053361546F95D00F0ECF2 /* BRFeedConfigSectionView.m */; };
 		228053381546F95E00F0ECF2 /* BRFeedConfigSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 228053361546F95D00F0ECF2 /* BRFeedConfigSectionView.m */; };
 		2280533A1547099500F0ECF2 /* NSDate+simpleFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E530931539D77E001A3C60 /* NSDate+simpleFormat.m */; };
+		228053421548282F00F0ECF2 /* button_LargeGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 228053401548282F00F0ECF2 /* button_LargeGreen.png */; };
+		228053431548282F00F0ECF2 /* button_LargeGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 228053401548282F00F0ECF2 /* button_LargeGreen.png */; };
+		228053441548282F00F0ECF2 /* button_LargeGreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 228053411548282F00F0ECF2 /* button_LargeGreen@2x.png */; };
+		228053451548282F00F0ECF2 /* button_LargeGreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 228053411548282F00F0ECF2 /* button_LargeGreen@2x.png */; };
+		2280537E15482E9700F0ECF2 /* MOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2280537B15482E9700F0ECF2 /* MOButton.m */; };
+		2280537F15482E9700F0ECF2 /* MOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2280537B15482E9700F0ECF2 /* MOButton.m */; };
+		2280538015482E9700F0ECF2 /* MOGlassButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2280537D15482E9700F0ECF2 /* MOGlassButton.m */; };
+		2280538115482E9700F0ECF2 /* MOGlassButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2280537D15482E9700F0ECF2 /* MOGlassButton.m */; };
 		22994A15152DC90D00EE50C5 /* BRReadingStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */; };
 		229B2D0915273CAE00700504 /* BRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9615273CAE00700504 /* BRAppDelegate.m */; };
 		229B2D0B15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */; };
@@ -764,6 +772,12 @@
 		227F0DCF154593B800F03A04 /* BRFeedLabelNewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRFeedLabelNewCell.xib; sourceTree = "<group>"; };
 		228053351546F95D00F0ECF2 /* BRFeedConfigSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFeedConfigSectionView.h; sourceTree = "<group>"; };
 		228053361546F95D00F0ECF2 /* BRFeedConfigSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFeedConfigSectionView.m; sourceTree = "<group>"; };
+		228053401548282F00F0ECF2 /* button_LargeGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_LargeGreen.png; sourceTree = "<group>"; };
+		228053411548282F00F0ECF2 /* button_LargeGreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_LargeGreen@2x.png"; sourceTree = "<group>"; };
+		2280537A15482E9700F0ECF2 /* MOButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOButton.h; sourceTree = "<group>"; };
+		2280537B15482E9700F0ECF2 /* MOButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOButton.m; sourceTree = "<group>"; };
+		2280537C15482E9700F0ECF2 /* MOGlassButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOGlassButton.h; sourceTree = "<group>"; };
+		2280537D15482E9700F0ECF2 /* MOGlassButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOGlassButton.m; sourceTree = "<group>"; };
 		22994A13152DC90D00EE50C5 /* BRReadingStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRReadingStatistics.h; sourceTree = "<group>"; };
 		22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRReadingStatistics.m; sourceTree = "<group>"; };
 		229B2B9615273CAE00700504 /* BRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAppDelegate.m; sourceTree = "<group>"; };
@@ -1431,6 +1445,17 @@
 			path = RecommendationPage;
 			sourceTree = "<group>";
 		};
+		2280537915482E8500F0ECF2 /* GlassButton */ = {
+			isa = PBXGroup;
+			children = (
+				2280537A15482E9700F0ECF2 /* MOButton.h */,
+				2280537B15482E9700F0ECF2 /* MOButton.m */,
+				2280537C15482E9700F0ECF2 /* MOGlassButton.h */,
+				2280537D15482E9700F0ECF2 /* MOGlassButton.m */,
+			);
+			name = GlassButton;
+			sourceTree = "<group>";
+		};
 		22994A11152DC8BB00EE50C5 /* FeedReadingStatistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1925,6 +1950,8 @@
 		229B2C8715273CAE00700504 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				228053401548282F00F0ECF2 /* button_LargeGreen.png */,
+				228053411548282F00F0ECF2 /* button_LargeGreen@2x.png */,
 				22A7530E1545B1AB0035D7B2 /* checkmark.png */,
 				22A7530F1545B1AB0035D7B2 /* checkmark@2x.png */,
 				22E191B0154445A500F787CB /* disclosure-arrow.png */,
@@ -1994,6 +2021,7 @@
 		229B2CA415273CAE00700504 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				2280537915482E8500F0ECF2 /* GlassButton */,
 				229E1B6A153BBC0000DDBE0B /* SocialNetworkSDK */,
 				229B2CA515273CAE00700504 /* ASIHTTPRequest */,
 				229B2CDD15273CAE00700504 /* JJMediaLib */,
@@ -2933,6 +2961,8 @@
 				22A753111545B1AB0035D7B2 /* checkmark.png in Resources */,
 				22A753131545B1AB0035D7B2 /* checkmark@2x.png in Resources */,
 				223AEDA31546D67F00D5581C /* BRRelatedFeedCell.xib in Resources */,
+				228053431548282F00F0ECF2 /* button_LargeGreen.png in Resources */,
+				228053451548282F00F0ECF2 /* button_LargeGreen@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3055,6 +3085,8 @@
 				22A753101545B1AB0035D7B2 /* checkmark.png in Resources */,
 				22A753121545B1AB0035D7B2 /* checkmark@2x.png in Resources */,
 				223AEDA21546D67F00D5581C /* BRRelatedFeedCell.xib in Resources */,
+				228053421548282F00F0ECF2 /* button_LargeGreen.png in Resources */,
+				228053441548282F00F0ECF2 /* button_LargeGreen@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3277,6 +3309,8 @@
 				227F0DCE154592A700F03A04 /* BRFeedLabelNewCell.m in Sources */,
 				223AEDA01546D57E00D5581C /* BRRelatedFeedCell.m in Sources */,
 				228053381546F95E00F0ECF2 /* BRFeedConfigSectionView.m in Sources */,
+				2280537F15482E9700F0ECF2 /* MOButton.m in Sources */,
+				2280538115482E9700F0ECF2 /* MOGlassButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3476,6 +3510,8 @@
 				227F0DCD154592A700F03A04 /* BRFeedLabelNewCell.m in Sources */,
 				223AED9F1546D57E00D5581C /* BRRelatedFeedCell.m in Sources */,
 				228053371546F95E00F0ECF2 /* BRFeedConfigSectionView.m in Sources */,
+				2280537E15482E9700F0ECF2 /* MOButton.m in Sources */,
+				2280538015482E9700F0ECF2 /* MOGlassButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

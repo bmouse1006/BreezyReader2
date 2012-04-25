@@ -23,7 +23,7 @@
 
 @property (nonatomic, retain) GRSubscription* subscription;
 
-@property (nonatomic, assign) BRFeedConfigViewController* containerController;
+@property (nonatomic, assign) BRFeedConfigViewController* tableController;
 
 -(NSString*)sectionTitle;
 -(NSInteger)numberOfRowsInSection;

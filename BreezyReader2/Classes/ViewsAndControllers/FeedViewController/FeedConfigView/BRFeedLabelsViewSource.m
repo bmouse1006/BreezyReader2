@@ -5,7 +5,7 @@
 //  Created by 金 津 on 12-4-22.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
-
+#import "BRFeedConfigViewController.h"
 #import "BRFeedLabelsViewSource.h"
 #import "GoogleReaderClient.h"
 #import "BRFeedLabelCell.h"
@@ -75,6 +75,13 @@
 
 -(CGFloat)heightOfRowAtIndex:(NSInteger)index{
     return 40.0f;
+}
+
+-(void)didSelectRowAtIndex:(NSInteger)index{
+    if (index == [self.allLabels count]){
+        //add new selected;
+        [self.tableController showAddNewTagView];
+    }
 }
 
 @end

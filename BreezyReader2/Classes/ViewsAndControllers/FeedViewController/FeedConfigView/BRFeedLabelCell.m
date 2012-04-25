@@ -54,9 +54,4 @@
     }
 }
 
--(IBAction)buttonClicked:(id)sender{
-    self.isChecked = !self.isChecked;
-    [self setNeedsLayout];
-}
-
 @end

@@ -27,6 +27,8 @@
 "title_addnewlabel" = "添加新标签";
 "title_relatedfeed" = "相关的源";
 "title_feedoperation" = "操作";
+"title_unsubscribe" = "取消订阅";
+"title_subscribe" = "订阅";
 
 "msg_searching" = "搜索中...";
 "msg_unstarfailed" = "去星标失败啦";

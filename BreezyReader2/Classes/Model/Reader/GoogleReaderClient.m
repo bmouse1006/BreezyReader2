@@ -311,6 +311,10 @@ static long long _lastUnreadCountRefreshTime;
     return obj;
 }
 
++(BOOL)containsSubscription:(NSString*)subID{
+    return [UniversalSubList objectForKey:subID] != nil;
+}
+
 +(NSArray*)subscriptionsWithTagID:(NSString*)tagID{
     NSMutableArray* subs = [NSMutableArray array];
 

@@ -36,7 +36,6 @@
 				<string key="NSFrameSize">{240, 28}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -139,6 +138,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">BRFeedLabelsViewSource</string>
 					<string key="superclassName">BRFeedConfigBase</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">addNewLabelButtonClicked:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">addNewLabelButtonClicked:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">addNewLabelButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">sectionView</string>
 						<string key="NS.object.0">BRFeedConfigSectionView</string>

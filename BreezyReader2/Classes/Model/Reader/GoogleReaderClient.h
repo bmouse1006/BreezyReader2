@@ -46,6 +46,7 @@ typedef enum{
 //reader structure
 +(GRTag*)tagWithID:(NSString*)tagID;
 +(GRSubscription*)subscriptionWithID:(NSString*)subID;
++(BOOL)containsSubscription:(NSString*)subID;
 +(NSArray*)subscriptionsWithTagID:(NSString*)tagID;
 +(NSArray*)tagListWithType:(BRTagType)type;
 +(NSInteger)unreadCountWithID:(NSString*)ID;

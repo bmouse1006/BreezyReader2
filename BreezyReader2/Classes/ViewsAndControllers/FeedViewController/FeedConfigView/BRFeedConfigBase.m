@@ -15,11 +15,11 @@
 @implementation BRFeedConfigBase
 
 @synthesize subscription = _subscription;
-@synthesize containerController = _containerController;
+@synthesize tableController = _tableController;
 
 -(void)dealloc{
     self.subscription = nil;
-    self.containerController = nil;
+    self.tableController = nil;
     [super dealloc];
 }
 

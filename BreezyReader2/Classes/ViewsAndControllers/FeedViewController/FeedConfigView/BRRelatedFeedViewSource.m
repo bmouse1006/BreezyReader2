@@ -65,7 +65,7 @@
     BRRelatedFeedCell* cell = [tableView dequeueReusableCellWithIdentifier:@"BRRelatedFeedCell"];
     if (cell == nil){
         cell = [[[NSBundle mainBundle] loadNibNamed:@"BRRelatedFeedCell" owner:nil options:nil] objectAtIndex:0];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     GRSubscription* sub = [self.relatedSubs objectAtIndex:index];
@@ -87,13 +87,13 @@
             [self.relatedSubs addObject:sub];
         }
         
-        [self.containerController reloadSectionFromSource:self];
+        [self.tableController reloadSectionFromSource:self];
     }
 }
 
 -(void)didSelectRowAtIndex:(NSInteger)index{
     GRSubscription* sub = [self.relatedSubs objectAtIndex:index];
-    [self.containerController showSubscription:sub];
+    [self.tableController showSubscription:sub];
 }
 
 @end

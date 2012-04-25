@@ -11,17 +11,27 @@
 @implementation BRFeedLabelNewCell
 
 @synthesize addNewButton = _addNewButton;
+@synthesize addNewLabel = _addNewLabel;
 
 -(void)dealloc{
     self.addNewButton = nil;
+    self.addNewLabel = nil;
     [super dealloc];
 }
 
 -(void)awakeFromNib{
     [super awakeFromNib];
+    [self.contentView addSubview:self.addNewLabel];
+    self.addNewLabel.text = NSLocalizedString(@"title_addnewlabel", nil);
+    self.addNewLabel.font = [UIFont boldSystemFontOfSize:13];
+    self.addNewLabel.backgroundColor = [UIColor clearColor];
+    self.addNewLabel.textAlignment = UITextAlignmentCenter;
+    self.addNewLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
+    self.addNewLabel.textColor = [UIColor whiteColor];
+    
     [self.addNewButton setTitle:NSLocalizedString(@"title_addnewlabel", nil) forState:UIControlStateNormal];
     [self.addNewButton setTitle:NSLocalizedString(@"title_addnewlabel", nil) forState:UIControlStateSelected];
-    [self.contentView addSubview:self.addNewButton];
+//    [self.contentView addSubview:self.addNewButton];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -42,9 +52,8 @@
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    CGRect frame = self.addNewButton.frame;
-    frame.size.width = self.bounds.size.width;
-    self.addNewButton.frame = frame;
+    self.addNewButton.frame = self.bounds;
+    self.addNewLabel.frame = self.bounds;
 }
 
 @end

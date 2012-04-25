@@ -299,4 +299,37 @@ static double kTransitionAnimationDuration = 0.2f;
     }];
 }
 
+-(void)replaceTopByController:(UIViewController*)viewController animated:(BOOL)animated{
+    UIViewController* top = [self topController];
+    [top willMoveToParentViewController:nil];
+    [top removeFromParentViewController];
+    [top didMoveToParentViewController:nil];
+    
+    NSValue* key = [NSValue valueWithNonretainedObject:top];
+    CGAffineTransform transform = [[self.boomedTransforms objectForKey:key] CGAffineTransformValue];
+    [self.boomedTransforms removeObjectForKey:[NSValue valueWithNonretainedObject:key]];
+    [self.boomedTransforms setObject:[NSValue valueWithCGAffineTransform:transform] forKey:[NSValue valueWithNonretainedObject:viewController]];
+    
+    [viewController willMoveToParentViewController:self];
+    [self addChildViewController:viewController];
+    [viewController didMoveToParentViewController:self];
+    
+    [top viewWillDisappear:animated];
+    [viewController viewWillAppear:animated];
+    viewController.view.userInteractionEnabled = NO;
+    
+    [self.view addSubview:viewController.view];
+    viewController.view.frame = self.view.bounds;
+    viewController.view.alpha = 0.0f;
+    [UIView animateWithDuration:kTransitionAnimationDuration animations:^{
+        viewController.view.alpha = 1.0f;
+        top.view.alpha = 0.0f;
+    } completion:^(BOOL finished){
+        [top.view removeFromSuperview];
+        [top viewDidDisappear:animated];
+        [viewController viewDidAppear:animated];
+        viewController.view.userInteractionEnabled = YES;
+    }];
+}
+
 @end

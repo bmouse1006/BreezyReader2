@@ -40,11 +40,15 @@
     self.topWhite = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
     self.topBlack.backgroundColor = [UIColor darkGrayColor];
     self.topWhite.backgroundColor = [UIColor lightGrayColor];
-    [self addSubview:self.topBlack];
-    [self addSubview:self.topWhite];
+    [self.contentView addSubview:self.topBlack];
+    [self.contentView addSubview:self.topWhite];
     UIView* backgroundView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
     backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
     self.backgroundView = backgroundView;
+    
+    UIView* selectedBackgroundView =  [[[UIView alloc] initWithFrame:self.bounds] autorelease];
+    selectedBackgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+    self.selectedBackgroundView = selectedBackgroundView;
     
     self.textLabel.textColor = [UIColor whiteColor];
     self.textLabel.font = [UIFont boldSystemFontOfSize:13];
