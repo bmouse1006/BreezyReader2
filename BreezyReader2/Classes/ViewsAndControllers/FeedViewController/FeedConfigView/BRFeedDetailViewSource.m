@@ -43,7 +43,7 @@
     }
     
     [self setupLabel:self.titleLabel];
-    self.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
     self.titleLabel.shadowEnable = YES;
     // Do any additional setup after loading the view from its nib.
     [self setupLabel:self.urlLabel];

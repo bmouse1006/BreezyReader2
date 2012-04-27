@@ -10,6 +10,44 @@
 #import "NSString+Addtion.h"
 #import "GoogleAppConstants.h"
 
+@implementation ParameterPair
+
+@synthesize key = _key, value = _value;
+
+-(void)dealloc{
+    self.key = nil;
+    self.value = nil;
+    [super dealloc];
+}
+
++(id)paireWithKey:(NSString *)key andValue:(id)value{
+    ParameterPair* pair = [[[ParameterPair alloc] init] autorelease];
+    
+    pair.key = key;
+    if ([value isKindOfClass:[NSString class]]){
+        pair.value = value;
+    }
+    
+    if ([value isKindOfClass:[NSDate class]]){
+        NSTimeInterval secondes = [(NSDate*)value timeIntervalSince1970];
+        pair.value = [NSString stringWithFormat:@"%d", secondes];
+    }
+    
+    if ([value isKindOfClass:[NSNumber class]]){
+        pair.value = [(NSNumber*)value stringValue];
+    }		
+    
+    return pair;
+}
+
+@end
+
+@interface URLParameterSet()
+
+@property (nonatomic, retain) NSMutableArray* parameters;
+
+@end
+
 @implementation URLParameterSet
 
 @synthesize parameters = _parameters;
@@ -18,26 +56,25 @@
 
 	NSMutableString* compliedString = [[NSMutableString alloc] init];
 	
-	NSArray* keys = [self.parameters allKeys];
-	
-	for (NSString* key in keys){
+	for (ParameterPair* pair in self.parameters){
 		
-		NSObject* parameter = [self.parameters objectForKey:key];
+        id key = pair.key;
+        id value = pair.value;
 		
 		[compliedString appendString:key];
 		[compliedString appendString:@"="];
 		
-		if ([parameter isKindOfClass:[NSString class]]){
-			[compliedString appendString:(NSString*)parameter];
+		if ([value isKindOfClass:[NSString class]]){
+			[compliedString appendString:(NSString*)value];
 		}
 		
-		if ([parameter isKindOfClass:[NSDate class]]){
-			NSTimeInterval secondes = [(NSDate*)parameter timeIntervalSince1970];
+		if ([value isKindOfClass:[NSDate class]]){
+			NSTimeInterval secondes = [(NSDate*)value timeIntervalSince1970];
 			[compliedString appendFormat:@"%d", secondes];
 		}
 		
-		if ([parameter isKindOfClass:[NSNumber class]]){
-			[compliedString appendString:[(NSNumber*)parameter stringValue]];
+		if ([value isKindOfClass:[NSNumber class]]){
+			[compliedString appendString:[(NSNumber*)value stringValue]];
 		}								  
 			[compliedString appendString:@"&"];								  
 	}
@@ -56,12 +93,20 @@
 }
 
 -(void)setParameterForKey:(NSString*)key withValue:(NSObject*)value{
-	[self.parameters setObject:value forKey:key];
+    
+    if (key.length > 0 && value){
+        ParameterPair* pair = [ParameterPair paireWithKey:key andValue:value];
+        [self.parameters addObject:pair];
+    }
+}
+
+-(NSArray*)allPairs{
+    return [NSArray arrayWithArray:self.parameters];
 }
 
 -(id)init{
 	if (self = [super init]){
-		self.parameters = [NSMutableDictionary dictionary];
+        self.parameters = [NSMutableArray array];
 		//default parameter for all request
 		[self setParameterForKey:@"client" withValue:CLIENT_IDENTIFIER];
 	}

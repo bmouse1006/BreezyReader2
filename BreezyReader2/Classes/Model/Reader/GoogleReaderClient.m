@@ -34,6 +34,10 @@
 
 @synthesize request = _request, completionHandler = _completionHandler;
 
+-(void)setCompletionHandler:(id)completionHandler{
+    
+}
+
 -(void)dealloc{
     self.request = nil;
     self.completionHandler = nil;
@@ -163,6 +167,17 @@ static long long _lastUnreadCountRefreshTime;
 }
 
 #pragma mark - static containers
+
+-(NSLock*)tokenFetchingLock{
+    static dispatch_once_t predTokenLock;
+    static NSLock* _tokenFetchingLock = nil;
+    
+    dispatch_once(&predTokenLock, ^{ 
+        _tokenFetchingLock = [[NSLock alloc] init]; 
+    }); 
+    
+    return _tokenFetchingLock;
+}
 
 +(NSMutableArray*)addTokenQueue{
     static dispatch_once_t predTokenQueue;
@@ -566,11 +581,16 @@ static long long _lastUnreadCountRefreshTime;
 }
 
 -(void)queryContentsWithIDs:(NSArray*)IDArray{
-    ASIFormDataRequest* request = [self requestWithURL:[self fullURLFromBaseString:API_STREAM_ITEMS_CONTENTS] parameters:nil APIType:API_EDIT];
+    
+    URLParameterSet* parameters = [[[URLParameterSet alloc] init] autorelease];
+    
     for (NSDictionary* ID in IDArray){
-        [request addPostValue:[ID objectForKey:@"id"] forKey:CONTENTS_ARGS_ID];
-        [request addPostValue:@"0" forKey:CONTENTS_ARGS_IT];
+        [parameters setParameterForKey:CONTENTS_ARGS_ID withValue:[ID objectForKey:@"id"]];
+        [parameters setParameterForKey:CONTENTS_ARGS_IT withValue:@"0"];
     }
+    
+    ASIFormDataRequest* request = [self requestWithURL:[self fullURLFromBaseString:API_STREAM_ITEMS_CONTENTS] parameters:parameters APIType:API_EDIT];
+
     [self clearAllRequests];
     self.request = request;
     [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
@@ -734,8 +754,65 @@ static long long _lastUnreadCountRefreshTime;
     }];
 }
 
+-(void)addSubscription:(NSString*)subscription 
+             withTitle:(NSString*)title 
+                 toTag:(NSString*)tags{
+    
+}
+
+-(void)removeSubscription:(NSString*)subscription{
+
+}
+
+-(void)renameSubscription:(NSString*)subscription 
+              withNewName:(NSString*)newName{
+    
+}
+
+-(void)editSubscription:(NSString*)subscription 
+               tagToAdd:(NSString*)tagToAdd
+            tagToRemove:(NSString*)tagToRemove;{
+    
+    if (tagToAdd.length == 0 && tagToRemove.length == 0){
+        return;
+    }
+
+    GRSubscription* sub = [[self class] subscriptionWithID:subscription];
+    URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+    
+    if (tagToAdd.length != 0){
+        [paramSet setParameterForKey:EDIT_ARGS_ADD withValue:tagToAdd];//tag name to add
+        [sub.categories addObject:tagToAdd];
+    };
+    if (tagToRemove.length != 0){
+        [sub.categories removeObject:tagToRemove];
+        [paramSet setParameterForKey:EDIT_ARGS_REMOVE withValue:tagToRemove];
+    };
+    
+    [paramSet setParameterForKey:EDIT_ARGS_FEED withValue:subscription];//add feed URI
+	[paramSet setParameterForKey:EDIT_ARGS_ACTION withValue:@"edit"];//add API action. Here is 'edit'
+    
+   [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NEED_UPATEREADERSTRUCTURE object:nil];
+    //get complete feed URI in Google Reader
+	NSString* urlString = [URI_PREFIX_API stringByAppendingString:API_EDIT_SUBSCRIPTION];
+	
+    self.request = [self requestWithURL:[self fullURLFromBaseString:urlString] 
+                             parameters:paramSet
+                                APIType:API_EDIT];
+    
+    __block typeof(self) blockSelf = self;
+    [self addTokenToRequest:(ASIFormDataRequest*)self.request completionBlock:^(NSError* error){
+        if (error == nil){
+            [[GoogleAuthManager shared] authRequest:blockSelf.request completionBlock:^(NSError* error){
+                [blockSelf.request startAsynchronous];
+            }];
+        }
+    }];
+}
+
 #pragma mark - request delegate
 -(void)requestStarted:(ASIHTTPRequest*)request{
+    DebugLog(@"request started");
 }
 
 -(void)requestFailed:(ASIHTTPRequest*)request{
@@ -762,7 +839,10 @@ static long long _lastUnreadCountRefreshTime;
 
 -(GRFeed*)responseFeed{
     GRFeed* feed = [GRFeed objWithJSON:self.responseJSONValue];
-    if (self.request.didUseCachedResponse == NO){
+    if (feed == nil){
+        DebugLog(@"%@", self.responseString);
+    }
+    if (self.request.didUseCachedResponse == NO && feed){
         NSMutableDictionary* itemsForFeed = [[self class] itemsForFeed];
         NSMutableArray* items = nil;
         @synchronized(itemsForFeed){
@@ -870,13 +950,13 @@ static long long _lastUnreadCountRefreshTime;
         request = [ASIFormDataRequest requestWithURL:baseURL];
         request.requestMethod = @"POST";//POST method for list api
         
-        for (NSString* key in parameters.parameters.allKeys){
-            [(ASIFormDataRequest*)request addPostValue:[parameters.parameters objectForKey:key] forKey:key];
+        for (ParameterPair* pair in [parameters allPairs]){
+            [(ASIFormDataRequest*)request addPostValue:pair.value forKey:pair.key];
         }
         URLParameterSet* additionalParameters = [[URLParameterSet alloc] init];
         
         [additionalParameters setParameterForKey:EDIT_ARGS_CLIENT withValue:CLIENT_IDENTIFIER];
-        [additionalParameters setParameterForKey:EDIT_ARGS_SOURCE withValue:EDIT_ARGS_SOURCE_RECOMMENDATION];
+//        [additionalParameters setParameterForKey:EDIT_ARGS_SOURCE withValue:EDIT_ARGS_SOURCE_RECOMMENDATION];
         
         NSString* temp = [request.url absoluteString];
         temp = [temp stringByAppendingString:@"?"];
@@ -911,11 +991,6 @@ static long long _lastUnreadCountRefreshTime;
 
 #pragma mark - private methods
 //add/remove tag to one subscription
--(void)editSubscription:(NSString*)subscription 
-					tagToAdd:(NSString*)tagToAdd 
-				 tagToRemove:(NSString*)tagToRemove{
-    
-}
      
 -(void)editItem:(NSString*)itemID 
             addTag:(NSString*)tagToAdd 
@@ -975,11 +1050,10 @@ static long long _lastUnreadCountRefreshTime;
             
             [addTokenQueue addObject:arg];
         
-            if (_startFetchToken == NO){
+//            if (_startFetchToken == NO){
                 //start fetch token
-                _startFetchToken = YES;
-                [self startFetchToken];
-            }
+            [self startFetchToken];
+//            }
         }
                 
     }else{
@@ -991,7 +1065,10 @@ static long long _lastUnreadCountRefreshTime;
 }
 
 -(void)startFetchToken{
-    
+    if ([[self tokenFetchingLock] tryLock] == NO){
+        return;
+    }
+//    _startFetchToken = YES;
     NSString* urlString = [URI_PREFIX_API stringByAppendingString:API_TOKEN];
     urlString = [GOOGLE_SCHEME_SSL stringByAppendingString:urlString];
     
@@ -1026,10 +1103,12 @@ static long long _lastUnreadCountRefreshTime;
                 }
             }
         }
-        _startFetchToken = NO;
+         [[self tokenFetchingLock] unlock];
+//        _startFetchToken = NO;
     }];
     
     [request setFailedBlock:^{
+        [[self tokenFetchingLock] unlock];
         @synchronized(addTokenQueue){
             NSArray* args = [NSArray arrayWithArray:addTokenQueue];
             [addTokenQueue removeAllObjects];
@@ -1041,7 +1120,7 @@ static long long _lastUnreadCountRefreshTime;
                 }
             }
         }
-        _startFetchToken = NO;
+//        _startFetchToken = NO;
     }];
     
     [[GoogleAuthManager shared] authRequest:request completionBlock:^(NSError* error){

@@ -68,4 +68,8 @@
     
 }
 
+-(void)viewDidDisappear{
+    //do nothing here
+}
+
 @end

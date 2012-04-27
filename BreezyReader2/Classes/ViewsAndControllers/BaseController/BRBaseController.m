@@ -156,6 +156,7 @@ static CGFloat distance = 0.0f;
     positionAnimation.delegate = self;
     positionAnimation.removedOnCompletion = NO;
     
+    [self secondaryViewWillShow];
     [self.mainContainer.layer addAnimation:positionAnimation forKey:@"show"];
     
     self.mainContainer.center = CGPointMake(center.x-distance, center.y);
@@ -164,6 +165,7 @@ static CGFloat distance = 0.0f;
 }
 
 -(void)slideHideSecondaryView{
+    [self secondaryViewWillHide];
     [UIView animateWithDuration:kAnimationTransitionDuration delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.mainContainer.frame = self.view.bounds;
     }completion:^(BOOL finished){
@@ -173,7 +175,24 @@ static CGFloat distance = 0.0f;
         [_hideButton removeFromSuperview];
         _sideShadow = nil;
         _hideButton = nil;
+        [self secondaryViewDidHide];
     }];
+}
+
+-(void)secondaryViewWillShow{
+    
+}
+
+-(void)secondaryViewDidShow{
+    
+}
+
+-(void)secondaryViewWillHide{
+    
+}
+
+-(void)secondaryViewDidHide{
+    
 }
 
 - (void)animationDidStart:(CAAnimation *)anim{
@@ -186,6 +205,7 @@ static CGFloat distance = 0.0f;
 //    frame.origin.x =  -distance;
 //    self.mainContainer.frame = frame;
     [self.mainContainer bringSubviewToFront:_hideButton];
+    [self secondaryViewDidShow];
 }
 
 #pragma mark - private methods

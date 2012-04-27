@@ -73,8 +73,8 @@ typedef enum{
 -(void)removeSubscription:(NSString*)subscription;
 -(void)renameSubscription:(NSString*)subscription withNewName:(NSString*)newName;
 -(void)editSubscription:(NSString*)subscription 
-               tagsToAdd:(NSArray*)tagsToAdd
-            tagsToRemove:(NSArray*)tagsToRemove;
+               tagToAdd:(NSString*)tagToAdd
+            tagToRemove:(NSString*)tagToRemove;
 //token
 +(void)setToken:(NSString*)token;
 +(NSString*)token;

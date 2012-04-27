@@ -7,13 +7,15 @@
 //
 #import "BRFeedConfigViewController.h"
 #import "BRFeedLabelsViewSource.h"
-#import "GoogleReaderClient.h"
 #import "BRFeedLabelCell.h"
 #import "BRFeedLabelNewCell.h"
+#import "GoogleReaderClient.h"
+#import "GoogleReaderClientHelper.h"
 
 @interface BRFeedLabelsViewSource ()
 
 @property (nonatomic, retain) NSArray* allLabels;
+@property (nonatomic, retain) NSMutableSet* selectedTags;
 
 @end
 
@@ -21,10 +23,12 @@
 
 @synthesize allLabels = _allLabels;  
 @synthesize sectionView = _sectionView;
+@synthesize selectedTags = _selectedTags;
 
 -(void)dealloc{
     self.sectionView = nil;
     self.allLabels = nil;
+    self.selectedTags = nil;
     [super dealloc];
 }
 
@@ -38,6 +42,10 @@
         self.sectionView.titleLabel.text = NSLocalizedString(@"title_label", nil);
     }
     return self;
+}
+
+-(void)subscriptionChanged:(GRSubscription *)newSub{
+    self.selectedTags = [NSMutableSet setWithSet:newSub.categories];
 }
 
 -(UIView*)sectionView{
@@ -61,7 +69,7 @@
         }
         GRTag* tag = [self.allLabels objectAtIndex:index];
         ((BRFeedLabelCell*)cell).title = tag.label;
-        if ([self.subscription.categories containsObject:tag.ID]){
+        if ([self.selectedTags containsObject:tag.ID]){
             ((BRFeedLabelCell*)cell).isChecked = YES;
         }else{
             ((BRFeedLabelCell*)cell).isChecked = NO;
@@ -81,7 +89,50 @@
     if (index == [self.allLabels count]){
         //add new selected;
         [self.tableController showAddNewTagView];
+    }else{
+        GRTag* tag = [self.allLabels objectAtIndex:index];
+        if ([self.selectedTags containsObject:tag.ID]){
+            [self.selectedTags removeObject:tag.ID];
+        }else{
+            [self.selectedTags addObject:tag.ID];
+        }
+        
+        [self.tableController reloadRowsFromSource:self row:index animated:NO];
     }
+}
+
+-(void)viewDidDisappear{
+    //commit label change
+    NSSet* conjoint = [self.selectedTags objectsPassingTest:^(id obj, BOOL* stop){
+        if ([self.subscription.categories containsObject:obj]){
+            return YES;
+        }
+        return NO;
+    }];
+    
+    NSSet* tagToAdd = [self.selectedTags objectsPassingTest:^(id obj, BOOL* stop){
+        if ([conjoint containsObject:obj]){
+            return NO;
+        }
+        return YES;
+    }];
+    
+    NSSet* tagToRemove = [self.subscription.categories objectsPassingTest:^(id obj, BOOL* stop){
+        if ([conjoint containsObject:obj]){
+            return NO;
+        }
+        return YES;
+    }];
+    DebugLog(@"tag to add: %@", tagToAdd);
+    DebugLog(@"tag to remove: %@", tagToRemove);
+    for (NSString* tag in tagToAdd){
+        GoogleReaderClient* client = [GoogleReaderClientHelper client];
+        [client editSubscription:self.subscription.ID tagToAdd:tag tagToRemove:nil];
+    }    
+    for (NSString* tag in tagToRemove){
+        GoogleReaderClient* client = [GoogleReaderClientHelper client];
+        [client editSubscription:self.subscription.ID tagToAdd:nil tagToRemove:tag];
+    } 
 }
 
 @end

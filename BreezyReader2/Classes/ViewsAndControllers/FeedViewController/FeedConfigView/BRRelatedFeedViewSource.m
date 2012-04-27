@@ -93,6 +93,9 @@
 
 -(void)didSelectRowAtIndex:(NSInteger)index{
     GRSubscription* sub = [self.relatedSubs objectAtIndex:index];
+    if([GoogleReaderClient containsSubscription:sub.ID]){
+        sub = [GoogleReaderClient subscriptionWithID:sub.ID];
+    }
     [self.tableController showSubscription:sub];
 }
 

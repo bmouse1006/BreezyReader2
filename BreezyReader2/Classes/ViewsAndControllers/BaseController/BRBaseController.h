@@ -24,4 +24,8 @@
 -(void)slideShowSecondaryView;
 -(void)slideHideSecondaryView;
 
+-(void)secondaryViewWillShow;
+-(void)secondaryViewDidShow;
+-(void)secondaryViewWillHide;
+-(void)secondaryViewDidHide;
 @end

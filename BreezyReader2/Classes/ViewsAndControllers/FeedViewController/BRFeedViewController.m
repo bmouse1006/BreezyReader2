@@ -232,6 +232,22 @@ static CGFloat refreshDistance = 60.0f;
     [self.mainContainer bringSubviewToFront:self.bottomToolBar];
 }
 
+-(void)secondaryViewWillShow{
+    [self.configViewController viewWillAppear:YES];
+}
+
+-(void)secondaryViewDidShow{
+    [self.configViewController viewDidAppear:YES];
+}
+
+-(void)secondaryViewWillHide{
+    [self.configViewController viewWillDisappear:YES];
+}
+
+-(void)secondaryViewDidHide{
+    [self.configViewController viewDidDisappear:YES];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations

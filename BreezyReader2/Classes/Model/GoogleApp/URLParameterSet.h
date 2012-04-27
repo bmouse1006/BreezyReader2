@@ -9,11 +9,20 @@
 #import <Foundation/Foundation.h>
 
 
+@interface ParameterPair : NSObject
+
+@property (nonatomic, copy) NSString* key;
+@property (nonatomic, copy) NSString* value;
+
++(id)paireWithKey:(NSString*)key andValue:(id)value;
+
+@end
+
 @interface URLParameterSet : NSObject 
 
-@property (nonatomic, retain) NSMutableDictionary* parameters;
-
 -(NSString*)parameterString;
+
+-(NSArray*)allPairs;
 
 -(void)setParameterForKey:(NSString*)key withValue:(NSObject*)value;
 

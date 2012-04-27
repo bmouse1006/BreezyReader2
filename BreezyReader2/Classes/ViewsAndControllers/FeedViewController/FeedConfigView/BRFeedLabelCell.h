@@ -14,8 +14,6 @@
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, assign) BOOL isChecked;
 
-@property (nonatomic, retain) IBOutlet UIButton* button;
 @property (nonatomic, retain) IBOutlet UIImageView* checkmark;
--(IBAction)buttonClicked:(id)sender;
 
 @end

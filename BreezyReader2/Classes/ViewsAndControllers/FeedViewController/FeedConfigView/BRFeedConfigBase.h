@@ -34,4 +34,6 @@
 -(void)didSelectRowAtIndex:(NSInteger)index;
 -(void)subscriptionChanged:(GRSubscription*)newSub;
 
+-(void)viewDidDisappear;
+
 @end

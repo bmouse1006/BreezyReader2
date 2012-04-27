@@ -92,8 +92,9 @@
     self.feedOpertaionControllers = nil;
 }
 
--(void)viewWillLayoutSubviews{
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.feedOpertaionControllers makeObjectsPerformSelector:@selector(viewDidDisappear)];
 }
 
 #pragma mark - table view delegate
@@ -146,6 +147,17 @@
     }
 }
 
+-(void)reloadRowsFromSource:(BRFeedConfigBase*)source row:(NSInteger)row animated:(BOOL)animated{
+    NSInteger section = [self.feedOpertaionControllers indexOfObject:source];
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+    
+    UITableViewRowAnimation animation = UITableViewRowAnimationNone;
+    if(animated){
+        animation = UITableViewRowAnimationAutomatic;
+    }
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:animation];
+}
+
 #pragma mark - notification callback
 -(void)unsubscribeFeed:(NSNotification*)notification{
 
@@ -167,8 +179,6 @@
 -(void)showSubscription:(GRSubscription*)subscription{
     BRFeedViewController* feedController = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
     feedController.subscription = subscription;
-//    [[self topContainer] popViewController:YES];
-//    [[self topContainer] addToTop:feedController animated:YES];
     [[self topContainer] replaceTopByController:feedController animated:YES];
 }
 

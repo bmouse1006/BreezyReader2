@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSMutableArray* feedOpertaionControllers;
 
 -(void)reloadSectionFromSource:(BRFeedConfigBase*)source;
+-(void)reloadRowsFromSource:(BRFeedConfigBase*)source row:(NSInteger)row animated:(BOOL)animated;
 
 -(void)showSubscription:(GRSubscription*)subscription;
 -(void)showAddNewTagView;

@@ -79,6 +79,8 @@
 		2280537F15482E9700F0ECF2 /* MOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2280537B15482E9700F0ECF2 /* MOButton.m */; };
 		2280538015482E9700F0ECF2 /* MOGlassButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2280537D15482E9700F0ECF2 /* MOGlassButton.m */; };
 		2280538115482E9700F0ECF2 /* MOGlassButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2280537D15482E9700F0ECF2 /* MOGlassButton.m */; };
+		2280538815499A0200F0ECF2 /* GoogleReaderClientHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22805387154999FF00F0ECF2 /* GoogleReaderClientHelper.m */; };
+		2280538915499A0200F0ECF2 /* GoogleReaderClientHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22805387154999FF00F0ECF2 /* GoogleReaderClientHelper.m */; };
 		22994A15152DC90D00EE50C5 /* BRReadingStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */; };
 		229B2D0915273CAE00700504 /* BRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9615273CAE00700504 /* BRAppDelegate.m */; };
 		229B2D0B15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */; };
@@ -778,6 +780,8 @@
 		2280537B15482E9700F0ECF2 /* MOButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOButton.m; sourceTree = "<group>"; };
 		2280537C15482E9700F0ECF2 /* MOGlassButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOGlassButton.h; sourceTree = "<group>"; };
 		2280537D15482E9700F0ECF2 /* MOGlassButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOGlassButton.m; sourceTree = "<group>"; };
+		22805386154999FE00F0ECF2 /* GoogleReaderClientHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleReaderClientHelper.h; sourceTree = "<group>"; };
+		22805387154999FF00F0ECF2 /* GoogleReaderClientHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleReaderClientHelper.m; sourceTree = "<group>"; };
 		22994A13152DC90D00EE50C5 /* BRReadingStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRReadingStatistics.h; sourceTree = "<group>"; };
 		22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRReadingStatistics.m; sourceTree = "<group>"; };
 		229B2B9615273CAE00700504 /* BRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAppDelegate.m; sourceTree = "<group>"; };
@@ -1629,6 +1633,8 @@
 			children = (
 				229B2BDF15273CAE00700504 /* GoogleReaderClient.h */,
 				229B2BE015273CAE00700504 /* GoogleReaderClient.m */,
+				22805386154999FE00F0ECF2 /* GoogleReaderClientHelper.h */,
+				22805387154999FF00F0ECF2 /* GoogleReaderClientHelper.m */,
 				229B2BE115273CAE00700504 /* GRBaseProtocol.h */,
 				229B2BE215273CAE00700504 /* GRDataManager.h */,
 				229B2BE315273CAE00700504 /* GRDataManager.m */,
@@ -3311,6 +3317,7 @@
 				228053381546F95E00F0ECF2 /* BRFeedConfigSectionView.m in Sources */,
 				2280537F15482E9700F0ECF2 /* MOButton.m in Sources */,
 				2280538115482E9700F0ECF2 /* MOGlassButton.m in Sources */,
+				2280538915499A0200F0ECF2 /* GoogleReaderClientHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3512,6 +3519,7 @@
 				228053371546F95E00F0ECF2 /* BRFeedConfigSectionView.m in Sources */,
 				2280537E15482E9700F0ECF2 /* MOButton.m in Sources */,
 				2280538015482E9700F0ECF2 /* MOGlassButton.m in Sources */,
+				2280538815499A0200F0ECF2 /* GoogleReaderClientHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

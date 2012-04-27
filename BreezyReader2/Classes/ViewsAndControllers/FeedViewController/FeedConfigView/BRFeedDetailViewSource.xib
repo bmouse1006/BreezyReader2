@@ -38,24 +38,10 @@
 					<object class="IBUIView" id="755571168">
 						<reference key="NSNextResponder" ref="717735700"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{6, 3}, {228, 40}}</string>
+						<string key="NSFrame">{{6, 3}, {228, 62}}</string>
 						<reference key="NSSuperview" ref="717735700"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1058635129"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MCAwLjUwMTk2MDgxNCAwAA</bytes>
-						</object>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-					</object>
-					<object class="IBUIView" id="1058635129">
-						<reference key="NSNextResponder" ref="717735700"/>
-						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{6, 45}, {228, 21}}</string>
-						<reference key="NSSuperview" ref="717735700"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="711486712"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -211,14 +197,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">urlLabel</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1058635129"/>
-					</object>
-					<int key="connectionID">23</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">weeklyArticleCountLabel</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="485578633"/>
@@ -274,7 +252,6 @@
 						<reference key="object" ref="717735700"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="755571168"/>
-							<reference ref="1058635129"/>
 							<reference ref="711486712"/>
 							<reference ref="485578633"/>
 							<reference ref="758524602"/>
@@ -287,11 +264,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">8</int>
 						<reference key="object" ref="755571168"/>
-						<reference key="parent" ref="717735700"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">12</int>
-						<reference key="object" ref="1058635129"/>
 						<reference key="parent" ref="717735700"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -331,8 +303,6 @@
 				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="12.CustomClassName">JJLabel</string>
-				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="17.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="18.CustomClassName">JJLabel</string>
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
