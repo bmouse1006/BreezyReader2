@@ -77,25 +77,29 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
-    
-    self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
+    UIColor* patternColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
+    self.backgroundColor = patternColor;
     
     self.titleLabel.verticalAlignment = JJTextVerticalAlignmentTop;
     self.titleLabel.font = [UIFont boldSystemFontOfSize:15];
     self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel.backgroundColor = patternColor;
     
     self.previewLabel.verticalAlignment = JJTextVerticalAlignmentTop;
     self.previewLabel.font = [UIFont systemFontOfSize:13];
     self.previewLabel.textColor = [UIColor darkGrayColor];
+    self.previewLabel.backgroundColor = patternColor;
     
     self.timeLabel.verticalAlignment = JJTextVerticalAlignmentBottom;
     self.timeLabel.font = [UIFont systemFontOfSize:10];
     self.timeLabel.textColor = [UIColor lightGrayColor];
     self.timeLabel.textAlignment = UITextAlignmentRight;
+    self.timeLabel.backgroundColor = patternColor;
     
     self.authorLabel.verticalAlignment = JJTextVerticalAlignmentBottom;
     self.authorLabel.font = [UIFont systemFontOfSize:10];
     self.authorLabel.textColor = [UIColor lightGrayColor];
+    self.authorLabel.backgroundColor = patternColor;
     
     self.urlImageView.defaultImage = [UIImage imageNamed:@"photo"];
     self.urlImageView.defautImageMode = UIViewContentModeCenter;

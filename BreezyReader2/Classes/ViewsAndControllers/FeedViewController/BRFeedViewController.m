@@ -139,6 +139,8 @@ static CGFloat refreshDistance = 60.0f;
     self.tableView.rowHeight = kFeedTableRowHeight;
     UIPinchGestureRecognizer* gesture = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonClicked:)] autorelease];
     [self.tableView addGestureRecognizer:gesture];
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
+    
     [self setupTableViewEdgeInsetByStatus];
     
     self.titleLabel.textColor = [UIColor darkGrayColor];
