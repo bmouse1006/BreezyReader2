@@ -35,6 +35,9 @@
     [self.indicator stopAnimating];
     self.bottomLine = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
     self.bottomLine.backgroundColor = [UIColor lightGrayColor];
+    
+//    self.backgroundColor = [UIColor colorWith
+    
     [self.view addSubview:self.bottomLine];
 }
 

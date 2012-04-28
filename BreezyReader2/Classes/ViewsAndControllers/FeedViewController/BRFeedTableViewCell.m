@@ -77,6 +77,9 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
+    
+    self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
+    
     self.titleLabel.verticalAlignment = JJTextVerticalAlignmentTop;
     self.titleLabel.font = [UIFont boldSystemFontOfSize:15];
     self.titleLabel.textColor = [UIColor blackColor];
