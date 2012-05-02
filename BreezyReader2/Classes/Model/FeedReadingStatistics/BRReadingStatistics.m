@@ -10,6 +10,7 @@
 #define kReadingCount @"kReadingCount"
 
 #import "BRReadingStatistics.h"
+#import "GoogleReaderClient.h"
 
 @interface BRReadingStatistics()
 
@@ -102,9 +103,16 @@ static NSMutableDictionary* _readingCount = nil;
     return [[self firstReadTimestamp] count];
 }
 
--(NSArray*)mostReadSubscriptionIDsCount:(NSInteger)count{
+-(NSArray*)mostReadSubscriptions:(NSInteger)count{
     NSArray* keys = [[self firstReadTimestamp] allKeys];
-    NSArray* sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
+    NSPredicate* predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary* bingdings){
+        if ([GoogleReaderClient containsSubscription:evaluatedObject]){
+            return YES;
+        }
+        return NO;
+    }];
+    NSArray* availableKeys = [keys filteredArrayUsingPredicate:predicate];
+    NSArray* sortedKeys = [availableKeys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
         double frequency1 = [self readingFrequencyForFeed:obj1]; 
         double frequency2 = [self readingFrequencyForFeed:obj2]; 
         NSComparisonResult result = NSOrderedSame;

@@ -38,12 +38,12 @@
 -(void)createSubviews{
     self.titleLabel = [[[JJLabel alloc] initWithFrame:CGRectZero] autorelease];
     [self setupLabel:self.titleLabel];
-    self.topBlack = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+//    self.topBlack = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
     self.topWhite = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-    self.topBlack.backgroundColor = [UIColor darkGrayColor];
-    self.topWhite.backgroundColor = [UIColor lightGrayColor];
+//    self.topBlack.backgroundColor = [UIColor darkGrayColor];
+    self.topWhite.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.4f];;
     [self addSubview:self.topWhite];
-    [self addSubview:self.topBlack];
+//    [self addSubview:self.topBlack];
     [self addSubview:self.titleLabel];
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
 }
@@ -52,10 +52,11 @@
     [super layoutSubviews];
     CGFloat width = self.bounds.size.width;
     CGRect frame = CGRectMake(0, 0, width, 0.5);
-    self.topBlack.frame = frame;
-    frame = CGRectMake(0, 0.5, width, 0.5);
+//    self.topBlack.frame = frame;
+//    frame = CGRectMake(0, 0.5, width, 0.5);
     self.topWhite.frame = frame;
     self.titleLabel.frame = self.bounds;
+    [self sendSubviewToBack:self.titleLabel];
 }
 
 -(void)setupLabel:(JJLabel*)label{

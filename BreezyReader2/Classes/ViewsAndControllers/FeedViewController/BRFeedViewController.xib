@@ -44,7 +44,6 @@
 						<string key="NSFrame">{{80, 179}, {160, 31}}</string>
 						<reference key="NSSuperview" ref="187554327"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="352757407">
 							<int key="NSColorSpace">3</int>
@@ -138,7 +137,6 @@
 						<string key="NSFrame">{{0, 25}, {320, 3}}</string>
 						<reference key="NSSuperview" ref="297087220"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -263,7 +261,6 @@
 										<string key="NSFrame">{{266, 3}, {38, 38}}</string>
 										<reference key="NSSuperview" ref="55016307"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<reference key="IBUIBackgroundColor" ref="352757407"/>
 										<bool key="IBUIOpaque">NO</bool>
@@ -420,6 +417,14 @@
 						<reference key="destination" ref="879827035"/>
 					</object>
 					<int key="connectionID">99</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">configButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="770065311"/>
+					</object>
+					<int key="connectionID">101</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -621,7 +626,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100</int>
+			<int key="maxID">101</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -701,20 +706,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">BRFeedConfigViewController</string>
 					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="relatedFeedController">BRRelatedFeedViewController</string>
-						<string key="titleLabel">JJLabel</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="relatedFeedController">
-							<string key="name">relatedFeedController</string>
-							<string key="candidateClassName">BRRelatedFeedViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">tableView</string>
+						<string key="NS.object.0">UITableView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">tableView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">tableView</string>
+							<string key="candidateClassName">UITableView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="titleLabel">
-							<string key="name">titleLabel</string>
-							<string key="candidateClassName">JJLabel</string>
-						</object>
-					</dictionary>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/BRFeedConfigViewController.h</string>
@@ -799,6 +801,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="actionMenuController">BRFeedActionMenuViewController</string>
 						<string key="bottomToolBar">BRBottomToolBar</string>
+						<string key="configButton">UIButton</string>
 						<string key="configViewController">BRFeedConfigViewController</string>
 						<string key="dragController">BRFeedDragDownController</string>
 						<string key="loadMoreController">BRFeedLoadMoreController</string>
@@ -817,6 +820,10 @@
 						<object class="IBToOneOutletInfo" key="bottomToolBar">
 							<string key="name">bottomToolBar</string>
 							<string key="candidateClassName">BRBottomToolBar</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="configButton">
+							<string key="name">configButton</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="configViewController">
 							<string key="name">configViewController</string>
@@ -858,14 +865,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/BRFeedViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">BRRelatedFeedViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/BRRelatedFeedViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

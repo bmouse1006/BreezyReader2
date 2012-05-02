@@ -36,7 +36,10 @@
 {
     [super viewDidLoad];
     self.menu.layer.masksToBounds = YES;
-    self.menu.layer.cornerRadius = 4.0f;
+    self.menu.layer.cornerRadius = 5.0f;
+    self.menu.layer.borderColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.4f].CGColor;
+    self.menu.layer.borderWidth = 0.5f;
+    self.menu.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
     // Do any additional setup after loading the view from its nib.
 //    self.view.autoresizingMask = UIViewAuto;
 }
@@ -49,9 +52,7 @@
 }
 
 -(void)viewDidLayoutSubviews{
-    CGRect frame = self.menu.frame;
-    frame = self.view.bounds;
-    self.menu.frame = frame;
+    self.menu.frame = self.view.bounds;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

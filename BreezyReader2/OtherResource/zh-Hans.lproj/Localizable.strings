@@ -27,8 +27,23 @@
 "title_addnewlabel" = "添加新标签";
 "title_relatedfeed" = "相关的源";
 "title_feedoperation" = "操作";
-"title_unsubscribe" = "取消订阅";
-"title_subscribe" = "订阅";
+"title_unsubscribe" = "- 取消订阅 -";
+"title_subscribe" = "+ 添加订阅 +";
+"title_cancel" = "取消";
+"title_ok" = "确定";
+"title_pleaseinputlabelname" = "请输入标签名";
+"message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
+"message_subscribe" = "您想要订阅 \"%@\" 吗?";
+"message_unsubscribing" = "取消订阅";
+"message_addnewtag" = "添加新标签";
+"message_subscribing" = "订阅中";
+"message_unsubscribefailed" = "取消订阅失败!";
+"message_subscribefailed" = "订阅失败!";
+"message_unknownerror" = "未知错误!";
+"message_unsubscribesucceded" = "取消订阅成功!";
+"message_subscribesucceded" = "订阅成功!";
+"message_addnewtagsucceded" = "完成!";
+"message_addnewtagfailed" = "添加失败!";
 
 "msg_searching" = "搜索中...";
 "msg_unstarfailed" = "去星标失败啦";

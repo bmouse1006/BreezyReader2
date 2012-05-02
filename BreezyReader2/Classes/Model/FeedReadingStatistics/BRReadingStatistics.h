@@ -13,11 +13,10 @@
 +(id)statistics;
 
 -(NSArray*)sortedSubscriptionsByReadingFrequency:(NSArray*)subscriptions;
-
 -(void)readFeed:(NSString*)ID;
 
 -(NSUInteger)countOfRecordedReadingFrequency;
 
--(NSArray*)mostReadSubscriptionIDsCount:(NSInteger)count;
+-(NSArray*)mostReadSubscriptions:(NSInteger)count;
 
 @end

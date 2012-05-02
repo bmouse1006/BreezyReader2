@@ -21,8 +21,8 @@
 
 -(void)switchContentViewsToViews:(NSArray*)views animated:(BOOL)animated;
 
--(void)slideShowSecondaryView;
--(void)slideHideSecondaryView;
+-(void)slideShowSecondaryViewWithCompletionBlock:(void(^)())block;
+-(void)slideHideSecondaryViewWithCompletionBlock:(void(^)())block;
 
 -(void)secondaryViewWillShow;
 -(void)secondaryViewDidShow;

@@ -9,15 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "BRFeedConfigBase.h"
 #import "BRFeedConfigSectionView.h"
-#import "MOGlassButton.h"
 
 @interface BRFeedControlViewSource : BRFeedConfigBase
 
 @property (nonatomic, retain) IBOutlet BRFeedConfigSectionView* sectionView;
 @property (nonatomic, retain) IBOutlet UIView* container;
 
-@property (nonatomic, retain) IBOutlet MOGlassButton* greenButton;
-@property (nonatomic, retain) IBOutlet MOGlassButton* redButton;
+@property (nonatomic, retain) IBOutlet UIButton* greenButton;
+@property (nonatomic, retain) IBOutlet UIButton* redButton;
 
 -(IBAction)unsubscriebButtonClicked:(id)sender;
 -(IBAction)subscribeButtonClicked:(id)sender;

@@ -9,6 +9,7 @@
 #import "BRFeedControlViewSource.h"
 #import "BRFeedConfigBaseCell.h"
 #import "BRFeedConfigViewController.h"
+#import "BRFeedConfigBaseCell.h"
 
 @interface BRFeedControlViewSource ()
 
@@ -41,10 +42,10 @@
 
 -(void)setupViews{
     self.sectionView.titleLabel.text = NSLocalizedString(@"title_feedoperation", nil);
-    [self.redButton setupAsRedButton];
     [self.redButton setTitle:NSLocalizedString(@"title_unsubscribe", nil) forState:UIControlStateNormal];
-    [self.greenButton setupAsGreenButton];
+    self.redButton.frame = self.container.bounds;
     [self.greenButton setTitle:NSLocalizedString(@"title_subscribe", nil) forState:UIControlStateNormal];
+    self.greenButton.frame = self.container.bounds;
 }
 
 -(UIView*)sectionView{
@@ -59,16 +60,15 @@
     return 1;
 }
 
--(id)tableView:(UITableView*)tableView cellForRow:(NSInteger)index{
-//    return self.view;
-    UITableViewCell* cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
-    cell.backgroundColor = [UIColor clearColor];
-    [cell.contentView addSubview:self.container];
-    return cell;
-}
-
 -(CGFloat)heightOfRowAtIndex:(NSInteger)index{
     return self.container.bounds.size.height;
+}
+
+-(id)tableView:(UITableView*)tableView cellForRow:(NSInteger)index{
+//    return self.view;
+    BRFeedConfigBaseCell* cell = [[[BRFeedConfigBaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+    [cell.contentView addSubview:self.container];
+    return cell;
 }
 
 -(void)subscriptionChanged:(GRSubscription *)newSub{

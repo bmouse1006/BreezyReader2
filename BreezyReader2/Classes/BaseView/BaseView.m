@@ -11,14 +11,21 @@
 @implementation BaseView
 
 @synthesize superView = _superView;
+@synthesize touchToDismiss = _touchToDismiss;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.touchToDismiss = YES;
     }
     return self;
+}
+
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    self.touchToDismiss = YES;
 }
 
 /*
@@ -38,7 +45,9 @@
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    [self dismiss];
+    if (self.touchToDismiss){
+        [self dismiss];
+    }
     [self.nextResponder touchesEnded:touches withEvent:event];
 }
 

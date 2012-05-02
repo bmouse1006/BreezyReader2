@@ -15,19 +15,26 @@
 
 @interface MainScreenDataSource ()
 
-@property (nonatomic, retain) NSArray* tagList;
+@property (nonatomic, retain) NSMutableSet* tagIDSet;
+@property (nonatomic, retain) NSMutableDictionary* tagControllers;
+
+@property (nonatomic, retain) BRRecommendationPageViewController* recommendationPage;
+@property (nonatomic, retain) BRSubFavoritePageController* favoritePage;
 
 @end
 
 @implementation MainScreenDataSource
 
 @synthesize controllers = _controllers;
-@synthesize tagList = _tagList;
+@synthesize tagIDSet = _tagIDSet, tagControllers = _tagControllers;
+@synthesize recommendationPage = _recommendationPage, favoritePage = _favoritePage;
 
 -(id)init{
     self = [super init];
     if (self){
         self.controllers = [NSMutableArray arrayWithCapacity:0];
+        self.tagIDSet = [NSMutableSet set];
+        self.tagControllers = [NSMutableDictionary dictionary];
     }
     
     return self;
@@ -35,7 +42,10 @@
 
 -(void)dealloc{
     self.controllers = nil;
-    self.tagList = nil;
+    self.tagIDSet = nil;
+    self.recommendationPage = nil;
+    self.favoritePage = nil;
+    self.tagControllers = nil;
     [super dealloc];
 }
 
@@ -48,32 +58,69 @@
 }
 
 -(void)reloadController{
-    [self.controllers makeObjectsPerformSelector:@selector(removeFromParentViewController)];
-    [self.controllers removeAllObjects];
-    self.tagList = [GoogleReaderClient tagListWithType:BRTagTypeLabel];
-    for (GRTag* tag in self.tagList){
-        BRSubGridViewController* controller = [[[BRSubGridViewController alloc] init] autorelease];
-        controller.tag = tag;
-        [self.controllers addObject:controller];
-    }
+
+    NSMutableArray* allLabels = [NSMutableArray arrayWithArray:[GoogleReaderClient tagListWithType:BRTagTypeLabel]];
+    GRTag* emptyLabel = [GRTag tagWithNoLabel];
+    [allLabels addObject:emptyLabel];
     
-    BRSubGridViewController* controller = [[[BRSubGridViewController alloc] init] autorelease];
-    GRTag* tag = [[[GRTag alloc] init] autorelease];
-    tag.ID = @"";
-    tag.label = NSLocalizedString(@"title_nolabel", nil);
-    controller.tag = tag;
-    [self.controllers addObject:controller];
+    NSSet* showedLabels = [NSSet setWithSet:self.tagIDSet];
+    
+//    self.tagList = tags;
+    [showedLabels enumerateObjectsUsingBlock:^(id obj, BOOL* stop){
+        NSString* tagID = obj;
+        if ([[GoogleReaderClient subscriptionsWithTagID:tagID] count] == 0){
+            [self.tagIDSet removeObject:tagID];
+            [self.tagControllers removeObjectForKey:tagID];
+        }
+    }];
+    
+    [allLabels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop){
+        GRTag* tag = obj;
+        if ([[GoogleReaderClient subscriptionsWithTagID:tag.ID] count] > 0 && [self.tagIDSet containsObject:tag.ID] == NO){
+            [self.tagIDSet addObject:tag.ID];
+            BRSubGridViewController* controller = [[[BRSubGridViewController alloc] init] autorelease];
+            controller.tag = tag;
+            [self.tagControllers setObject:controller forKey:tag.ID];
+        }
+    }];
     
     //load favorite page
-    if ([[BRReadingStatistics statistics] countOfRecordedReadingFrequency] >= 6){
-        BRSubFavoritePageController* favoritePage = [[[BRSubFavoritePageController alloc] init] autorelease];
-        [self.controllers insertObject:favoritePage atIndex:0];
+    if (self.favoritePage == nil){
+        if ([[BRReadingStatistics statistics] countOfRecordedReadingFrequency] >= 6){
+            self.favoritePage = [[[BRSubFavoritePageController alloc] init] autorelease];
+        }else{
+            self.favoritePage = nil;
+        }
+    }
+    //load recommendation page
+    if (self.recommendationPage == nil){
+        self.recommendationPage = [[[BRRecommendationPageViewController alloc] init] autorelease];
     }
     
-    //load recommendation page
-    BRRecommendationPageViewController* recPage = [[[BRRecommendationPageViewController alloc] init] autorelease];
-    [self.controllers addObject:recPage];
+    [self composeControllerList];
+}
+
+-(void)composeControllerList{
+    [self.controllers removeAllObjects];
+    if (self.favoritePage){
+        [self.controllers addObject:self.favoritePage];
+    }
     
+    NSArray* sortedKeys = [[self.tagControllers allKeys] sortedArrayUsingComparator:^(id obj1, id obj2){
+        NSString* sortID1 = [GoogleReaderClient tagWithID:obj1].sortID;
+        sortID1 = (sortID1.length==0)?@"ZZZZZZZ":sortID1;
+        NSString* sortID2 = [GoogleReaderClient tagWithID:obj2].sortID;
+        sortID2 = (sortID2.length==0)?@"ZZZZZZZ":sortID2;
+        return [sortID1 compare:sortID2];
+    }];
+    
+    [sortedKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop){
+        [self.controllers addObject:[self.tagControllers objectForKey:obj]];
+    }];
+
+    if (self.recommendationPage){
+        [self.controllers addObject:self.recommendationPage];
+    }
 }
 
 -(NSInteger)numberOfContentViewsInScrollView:(InfinityScrollView *)scrollView{
@@ -87,6 +134,18 @@
 
 -(void)reload{
     [self reloadController];
+}
+
+-(BRSubGridViewController*)controllerForTag:(NSString*)tagID{
+    for (BRSubGridViewController* controller in self.controllers){
+        if ([controller respondsToSelector:@selector(tag)]){
+            if ([controller.tag.ID isEqualToString:tagID]){
+                return controller;
+            }
+        }
+    }
+    
+    return nil;
 }
 
 @end

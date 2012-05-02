@@ -8,27 +8,21 @@
 
 #import "BRRecommendationPageViewController.h"
 #import "BRRecommendationDataSource.h"
-#import "GoogleReaderClient.h"
+#import "GoogleReaderClientHelper.h"
 
 @interface BRRecommendationPageViewController ()
-
-@property (nonatomic, retain) GoogleReaderClient* client;
 
 @end
 
 @implementation BRRecommendationPageViewController
 
-@synthesize client = _client;
-
 -(void)dealloc{
-    [self.client clearAndCancel];
-    self.client = nil;
     [super dealloc];
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];
+    [self.source loadSourceMore:NO];
 }
 
 -(void)createSource{
@@ -39,7 +33,14 @@
 -(void)mediaLibTableViewCell:(JJMediaLibTableViewCell *)cell didSelectMediaAtIndex:(NSInteger)index{
     [super mediaLibTableViewCell:cell didSelectMediaAtIndex:index];
     GRSubscription* sub = [self.source mediaAtIndex:index];
-    [self.client viewRecommendationStream:sub.ID];
+    GoogleReaderClient* client = [GoogleReaderClientHelper client];
+    [client viewRecommendationStream:sub.ID];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    if ([GoogleReaderClient needRefreshReaderStructure]){
+        
+    }
 }
 
 #pragma mark - data source delegate

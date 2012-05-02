@@ -63,7 +63,7 @@
 				</object>
 				<object class="NSCustomResource" key="IBUINormalImage">
 					<string key="NSClassName">NSImage</string>
-					<string key="NSResourceName">star_complete.png</string>
+					<string key="NSResourceName">star_complete_24.png</string>
 				</object>
 				<object class="IBUIFontDescription" key="IBUIFontDescription" id="138125160">
 					<int key="type">2</int>
@@ -180,13 +180,13 @@
 										<reference key="IBUINormalTitleShadowColor" ref="538971536"/>
 										<object class="NSCustomResource" key="IBUINormalImage">
 											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">star_black.png</string>
+											<string key="NSResourceName">star_empty_24.png</string>
 										</object>
 										<reference key="IBUIFontDescription" ref="138125160"/>
 										<reference key="IBUIFont" ref="74109680"/>
 									</object>
 								</array>
-								<string key="NSFrame">{{141, 2}, {38, 38}}</string>
+								<string key="NSFrame">{{141, 3}, {38, 38}}</string>
 								<reference key="NSSuperview" ref="569774252"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="97789381"/>
@@ -505,7 +505,7 @@
 				<string key="18.CustomClassName">JJPageScrollView</string>
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="1" key="26.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="0.0" key="26.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="0.0" key="29.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -631,8 +631,8 @@
 			<string key="bookmark.png">{24, 24}</string>
 			<string key="globe.png">{24, 24}</string>
 			<string key="sendto.png">{24, 24}</string>
-			<string key="star_black.png">{32, 32}</string>
-			<string key="star_complete.png">{24, 24}</string>
+			<string key="star_complete_24.png">{24, 22}</string>
+			<string key="star_empty_24.png">{24, 22}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1179</string>
 	</data>

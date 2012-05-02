@@ -6,6 +6,9 @@
 //  Copyright 2010 Openlab. All rights reserved.
 //
 
+void RGBtoHSV(float r, float g, float b, float* h, float* s, float* v) ;
+void HSVtoRGB( float *r, float *g, float *b, float h, float s, float v );
+
 #import "UIColorAdditions.h"
 
 

@@ -41,8 +41,7 @@
 		if (0 == regexec(&re, [self UTF8String], nmatch, pmatch, 0)) {
 			result = YES;
 			if (substring  != nil){
-				int i = 1;
-				for (i; i < nmatch; i++){
+				for (int i = 1; i < nmatch; i++){
 					if (pmatch[i].rm_so == pmatch[i].rm_eo & pmatch[i].rm_so == -1) {
 						// there is no matching charaters for this partial expression
 						[substring addObject:@""];

@@ -18,7 +18,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 	
 	for (;*p ;p++) {
 		unsigned char c = *p;
-		if ('0' <= c && c <= '9' || 'a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || c == '-' || c == '_') {
+		if (('0' <= c && c <= '9') || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || c == '-' || c == '_') {
 			[result appendFormat:@"%c", c];
 		} else {
 			[result appendFormat:@"%%%02X", c];

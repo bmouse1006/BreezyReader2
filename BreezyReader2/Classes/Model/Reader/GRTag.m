@@ -81,6 +81,13 @@
 	return newTag;
 }
 
++(GRTag*)tagWithNoLabel{
+    GRTag* tag = [[[GRTag alloc] init] autorelease];
+    tag.ID = @"";
+    tag.label = NSLocalizedString(@"title_nolabel", nil);
+    return tag;
+}
+
 -(id)init{
     self = [super init];
 	if (self){

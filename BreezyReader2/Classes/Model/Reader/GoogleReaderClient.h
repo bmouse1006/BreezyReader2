@@ -32,7 +32,8 @@ typedef enum{
 
 -(id)initWithDelegate:(id)delegate action:(SEL)action;
 
--(BOOL)needRefreshUnreadCount;
++(BOOL)needRefreshUnreadCount;
++(BOOL)needRefreshReaderStructure;
 
 -(void)clearAndCancel;
 
@@ -69,7 +70,7 @@ typedef enum{
 -(void)dismissRecommendationStream:(NSString*)streamID;
 -(void)addSubscription:(NSString*)subscription 
              withTitle:(NSString*)title 
-                 toTag:(NSString*)tags;
+                 toTag:(NSString*)tag;
 -(void)removeSubscription:(NSString*)subscription;
 -(void)renameSubscription:(NSString*)subscription withNewName:(NSString*)newName;
 -(void)editSubscription:(NSString*)subscription 

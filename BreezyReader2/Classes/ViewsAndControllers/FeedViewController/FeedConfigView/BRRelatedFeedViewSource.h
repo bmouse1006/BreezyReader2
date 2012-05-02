@@ -13,6 +13,9 @@
 @interface BRRelatedFeedViewSource : BRFeedConfigBase
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activity;
+@property (nonatomic, retain) IBOutlet UIButton* showButton;
 @property (nonatomic, retain) IBOutlet BRFeedConfigSectionView* sectionView;
+
+-(IBAction)showButtonClicked:(id)sender;
 
 @end

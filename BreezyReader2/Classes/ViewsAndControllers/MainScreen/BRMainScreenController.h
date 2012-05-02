@@ -12,13 +12,14 @@
 #import "SideMenuController.h"
 #import "BRFeedAndArticlesSearchController.h"
 #import "SubOverviewController.h"
+#import "BRTagAndSubListViewController.h"
 
 @interface BRMainScreenController : BRBaseController <InfinityScrollViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (nonatomic, retain) InfinityScrollView* infinityScroll;
-@property (nonatomic, retain) NSArray* labelViewControllers;
 @property (nonatomic, retain) IBOutlet SideMenuController* sideMenuController;
 @property (nonatomic, retain) IBOutlet BRFeedAndArticlesSearchController* searchController;
+@property (nonatomic, retain) IBOutlet BRTagAndSubListViewController* allSubListController;
 @property (nonatomic, retain) SubOverviewController* subOverrviewController;
 
 @end

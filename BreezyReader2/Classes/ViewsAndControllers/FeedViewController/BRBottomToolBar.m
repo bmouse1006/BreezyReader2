@@ -15,12 +15,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        [self setupBackground];
     }
     return self;
 }
 
 -(void)awakeFromNib{
     [super awakeFromNib];
+    [self setupBackground];
+}
+
+-(void)setupBackground{
     UIView* black = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0.5)] autorelease];
     black.backgroundColor = [UIColor lightGrayColor];
     UIView* white = [[[UIView alloc] initWithFrame:CGRectMake(0, 0.5, 320, 0.5)] autorelease];
@@ -28,6 +33,8 @@
     
     [self addSubview:black];
     [self addSubview:white];
+    
+    self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
 }
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

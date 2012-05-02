@@ -36,8 +36,6 @@
 -(BOOL)canAuthorize;
 -(BOOL)hadAuthorized:(NSURLRequest*)request;
 
--(NSString*)getValidToken:(NSError **)mError;
-
 -(NSMutableURLRequest*)URLRequestFromString:(NSString*)urlString;
 
 -(UIViewController*)GOAuthController;

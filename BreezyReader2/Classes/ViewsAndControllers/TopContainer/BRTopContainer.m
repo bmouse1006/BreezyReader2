@@ -213,7 +213,7 @@ static double kTransitionAnimationDuration = 0.2f;
     top.view.userInteractionEnabled = NO;
     second.view.userInteractionEnabled = NO;
     
-    [second viewWillAppear:YES];
+//    [second viewWillAppear:YES];
     [top viewWillDisappear:YES];
     
     [UIView animateWithDuration:kTransitionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -222,7 +222,7 @@ static double kTransitionAnimationDuration = 0.2f;
         second.view.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished){
         second.view.userInteractionEnabled = YES;
-        [second viewDidAppear:YES];
+//        [second viewDidAppear:YES];
         [top.view removeFromSuperview];
         [top viewDidDisappear:YES];
     }];

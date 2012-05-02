@@ -58,6 +58,7 @@
 @synthesize clients = _clients, itemIDs = _itemIDs;
 @synthesize adView = _adView;
 @synthesize menuButton = _menuButton;
+@synthesize configButton = _configButton;
 
 static CGFloat insetsTop = 0.0f;
 static CGFloat insetsBottom = 0.0f;
@@ -84,6 +85,7 @@ static CGFloat refreshDistance = 60.0f;
     self.adView = nil;
     self.menuButton = nil;
     self.configViewController = nil;
+    self.configButton = nil;
     [super dealloc];
 }
 
@@ -127,8 +129,13 @@ static CGFloat refreshDistance = 60.0f;
 {
     [super viewDidLoad];
     
-    self.configViewController.subscription = self.subscription;
-    [self addChildViewController:self.configViewController];
+    if ([self.subscription.ID hasPrefix:@"feed"]){
+        self.configViewController.subscription = self.subscription;
+        [self addChildViewController:self.configViewController];
+        self.configButton.hidden = NO;
+    }else{
+        self.configButton.hidden = YES;
+    }
 //    insetsTop = self.navigationController.navigationBar.frame.size.height;
     
     insetsTop = 0;
@@ -136,10 +143,9 @@ static CGFloat refreshDistance = 60.0f;
     self.title = self.subscription.title;
     self.tableView = [[[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain] autorelease];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.rowHeight = kFeedTableRowHeight;
+//    self.tableView.rowHeight = kFeedTableRowHeight;
     UIPinchGestureRecognizer* gesture = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonClicked:)] autorelease];
     [self.tableView addGestureRecognizer:gesture];
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
     
     [self setupTableViewEdgeInsetByStatus];
     
@@ -195,6 +201,7 @@ static CGFloat refreshDistance = 60.0f;
     self.actionMenuController = nil;
     self.configViewController = nil;
     [self.configViewController removeFromParentViewController];
+    self.configButton = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -234,21 +241,21 @@ static CGFloat refreshDistance = 60.0f;
     [self.mainContainer bringSubviewToFront:self.bottomToolBar];
 }
 
--(void)secondaryViewWillShow{
-    [self.configViewController viewWillAppear:YES];
-}
-
--(void)secondaryViewDidShow{
-    [self.configViewController viewDidAppear:YES];
-}
-
--(void)secondaryViewWillHide{
-    [self.configViewController viewWillDisappear:YES];
-}
-
--(void)secondaryViewDidHide{
-    [self.configViewController viewDidDisappear:YES];
-}
+//-(void)secondaryViewWillShow{
+//    [self.configViewController viewWillAppear:YES];
+//}
+//
+//-(void)secondaryViewDidShow{
+//    [self.configViewController viewDidAppear:YES];
+//}
+//
+//-(void)secondaryViewWillHide{
+//    [self.configViewController viewWillDisappear:YES];
+//}
+//
+//-(void)secondaryViewDidHide{
+//    [self.configViewController viewDidDisappear:YES];
+//}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -334,7 +341,23 @@ static CGFloat refreshDistance = 60.0f;
     }
 }
 
+-(void)setSubscription:(GRSubscription *)subscription{
+    if (_subscription != subscription){
+        NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+        [nc removeObserver:self name:NOTIFICATION_FEED_UNSUBSCRIBED object:_subscription.ID];
+        [nc removeObserver:self name:NOTIFICATION_FEED_SUBSCRIBED object:_subscription.ID];
+        [_subscription release];
+        _subscription = [subscription retain];
+        [nc addObserver:self selector:@selector(feedUnsubscribed:) name:NOTIFICATION_FEED_UNSUBSCRIBED object:_subscription.ID];
+        [nc addObserver:self selector:@selector(feedSubscribed:) name:NOTIFICATION_FEED_SUBSCRIBED object:_subscription.ID];
+    }
+}
+
 #pragma mark - table view delegate
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return (indexPath.row % 10)?70.0f:97.0f;
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (_isRefreshing){
         return;
@@ -386,7 +409,7 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)showConfigMenu{
     self.secondaryView = self.configViewController.view;
-    [self slideShowSecondaryView];
+    [self slideShowSecondaryViewWithCompletionBlock:NULL];
 }
 
 -(IBAction)backButtonClicked:(id)sender{
@@ -520,6 +543,17 @@ static CGFloat refreshDistance = 60.0f;
 -(void)actionMenuDisappeared:(NSNotification*)notification{
     _showMenu = NO;
     [self updateMenuButton];
+}
+
+-(void)feedUnsubscribed:(NSNotification*)notification{
+    __block typeof (self) blockSelf = self;
+    [self slideHideSecondaryViewWithCompletionBlock:^{
+        [blockSelf backButtonClicked:nil];
+    }];
+}
+
+-(void)feedSubscribed:(NSNotification*)notification{
+    [self.dataSource loadDataMore:NO forceRefresh:YES];
 }
 
 #pragma mark - google reader client call back

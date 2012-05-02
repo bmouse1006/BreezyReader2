@@ -23,6 +23,8 @@
     if (self){
         self.clientQueue = [NSMutableArray array];
     }
+    
+    return self;
 }
 
 -(void)dealloc{

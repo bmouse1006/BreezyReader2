@@ -92,11 +92,11 @@
     static double authLabelHeight = 18.0f;
     
     CGFloat width = self.frame.size.width;
-    self.authorLabel.frame = CGRectMake(0, 0, width, authLabelHeight);
-    self.timeLabel.frame = CGRectMake(0, authLabelHeight, width, authLabelHeight);
+    self.timeLabel.frame = CGRectMake(0, 6, width, authLabelHeight);
+    self.authorLabel.frame = CGRectMake(0, authLabelHeight+6, width, authLabelHeight);
     CGRect frame = self.buttonContainer.frame;
     frame.origin.x = width-35;
-    frame.origin.y = 3;
+    frame.origin.y = 10;
     self.buttonContainer.frame = frame;
     
     self.container.backgroundColor = [self.item.ID colorForString];

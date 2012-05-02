@@ -28,8 +28,23 @@
 "title_addnewlabel" = "Add new label";
 "title_relatedfeed" = "Related feed";
 "title_feedoperation" = "Operation";
-"title_unsubscribe" = "Unsubscribe";
-"title_subscribe" = "Subscribe";
+"title_unsubscribe" = "- Unsubscribe -";
+"title_subscribe" = "+ Subscribe +";
+"title_cancel" = "Cancel";
+"title_ok" = "OK";
+"title_pleaseinputlabelname" = "Please input label name";
+"message_unsubscribe" = "Do you want to unsubscribe \"%@?\"";
+"message_subscribe" = "Do you want to subscribe \"%@?\"";
+"message_unsubscribing" = "Unsubscribe feed";
+"message_subscribing" = "Subscribe feed";
+"message_unsubscribefailed" = "Unsubscribe failed!";
+"message_subscribefailed" = "Subscribe failed!";
+"message_unknownerror" = "Unknown error!";
+"message_unsubscribesucceded" = "Unsubscribe succeded!";
+"message_subscribesucceded" = "Subscribe succeded!";
+"message_addnewtag" = "Add new Label";
+"message_addnewtagsucceded" = "Done!";
+"message_addnewtagfailed" = "Failed!";
 
 "msg_searching" = "Searching...";
 "msg_unstarfailed" = "Failed to remove star";

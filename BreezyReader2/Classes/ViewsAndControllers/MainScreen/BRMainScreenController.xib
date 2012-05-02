@@ -38,11 +38,12 @@
 				<string key="NSFrameSize">{320, 480}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:196</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
-					<object class="NSColorSpace" key="NSCustomColorSpace">
+					<object class="NSColorSpace" key="NSCustomColorSpace" id="938996832">
 						<int key="NSID">2</int>
 					</object>
 				</object>
@@ -70,6 +71,7 @@
 				<string key="NSFrameSize">{320, 480}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:567</string>
 				<int key="IBUIContentMode">2</int>
 				<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -96,6 +98,31 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
+			</object>
+			<object class="IBUIViewController" id="831180092">
+				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
+				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
+					<int key="IBUIInterfaceOrientation">1</int>
+					<int key="interfaceOrientation">1</int>
+				</object>
+				<bool key="IBUIWantsFullScreenLayout">YES</bool>
+				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+				<bool key="IBUIHorizontal">NO</bool>
+			</object>
+			<object class="IBUIView" id="233104559">
+				<reference key="NSNextResponder"/>
+				<int key="NSvFlags">292</int>
+				<string key="NSFrameSize">{320, 480}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
+				<string key="NSReuseIdentifierKey">_NS:9</string>
+				<object class="NSColor" key="IBUIBackgroundColor">
+					<int key="NSColorSpace">3</int>
+					<bytes key="NSWhite">MQA</bytes>
+					<reference key="NSCustomColorSpace" ref="938996832"/>
+				</object>
+				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -131,6 +158,22 @@
 						<reference key="destination" ref="786064002"/>
 					</object>
 					<int key="connectionID">34</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">allSubListController</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="831180092"/>
+					</object>
+					<int key="connectionID">38</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">mainContainer</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="233104559"/>
+					</object>
+					<int key="connectionID">40</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -173,6 +216,16 @@
 						<reference key="object" ref="786064002"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">37</int>
+						<reference key="object" ref="831180092"/>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">39</int>
+						<reference key="object" ref="233104559"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -185,30 +238,41 @@
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="33.CustomClassName">BRFeedAndArticlesSearchController</string>
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="37.CustomClassName">BRTagAndSubListViewController</string>
+				<string key="37.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="39.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">36</int>
+			<int key="maxID">40</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">BRBaseController</string>
 					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">backgroundView</string>
-						<string key="NS.object.0">UIView</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">backgroundView</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="backgroundView">UIView</string>
+						<string key="mainContainer">UIView</string>
+						<string key="secondaryView">UIView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="backgroundView">
 							<string key="name">backgroundView</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
-					</object>
+						<object class="IBToOneOutletInfo" key="mainContainer">
+							<string key="name">mainContainer</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="secondaryView">
+							<string key="name">secondaryView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/BRBaseController.h</string>
@@ -251,11 +315,15 @@
 					<string key="className">BRMainScreenController</string>
 					<string key="superclassName">BRBaseController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="allSubListController">BRTagAndSubListViewController</string>
 						<string key="searchController">BRFeedAndArticlesSearchController</string>
 						<string key="sideMenuController">SideMenuController</string>
-						<string key="subOverrviewController">SubOverviewController</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="allSubListController">
+							<string key="name">allSubListController</string>
+							<string key="candidateClassName">BRTagAndSubListViewController</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="searchController">
 							<string key="name">searchController</string>
 							<string key="candidateClassName">BRFeedAndArticlesSearchController</string>
@@ -264,10 +332,6 @@
 							<string key="name">sideMenuController</string>
 							<string key="candidateClassName">SideMenuController</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="subOverrviewController">
-							<string key="name">subOverrviewController</string>
-							<string key="candidateClassName">SubOverviewController</string>
-						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -275,11 +339,22 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">JJImageView</string>
-					<string key="superclassName">UIImageView</string>
+					<string key="className">BRTagAndSubListViewController</string>
+					<string key="superclassName">BRBaseController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">tableView</string>
+						<string key="NS.object.0">UITableView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">tableView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">tableView</string>
+							<string key="candidateClassName">UITableView</string>
+						</object>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/JJImageView.h</string>
+						<string key="minorKey">./Classes/BRTagAndSubListViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -290,6 +365,8 @@
 						<string key="downloadButtonClicked:">id</string>
 						<string key="logoutButtonClicked:">id</string>
 						<string key="searchButtonClicked:">id</string>
+						<string key="showSubListButtonClicked:">id</string>
+						<string key="starButtonClicked:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="configButtonClicked:">
@@ -308,88 +385,18 @@
 							<string key="name">searchButtonClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="showSubListButtonClicked:">
+							<string key="name">showSubListButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="starButtonClicked:">
+							<string key="name">starButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/SideMenuController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SubOverviewController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">dismiss:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">dismiss:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">dismiss:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="container">UIView</string>
-						<string key="dimBackground">UIView</string>
-						<string key="dismissButton">UIButton</string>
-						<string key="imageView1">JJImageView</string>
-						<string key="imageView2">JJImageView</string>
-						<string key="imageView3">JJImageView</string>
-						<string key="imageView4">JJImageView</string>
-						<string key="subDetailView">UIView</string>
-						<string key="subscriberCountLabel">UILabel</string>
-						<string key="titleLabel">UILabel</string>
-						<string key="velocityLabel">UILabel</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="container">
-							<string key="name">container</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dimBackground">
-							<string key="name">dimBackground</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dismissButton">
-							<string key="name">dismissButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imageView1">
-							<string key="name">imageView1</string>
-							<string key="candidateClassName">JJImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imageView2">
-							<string key="name">imageView2</string>
-							<string key="candidateClassName">JJImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imageView3">
-							<string key="name">imageView3</string>
-							<string key="candidateClassName">JJImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imageView4">
-							<string key="name">imageView4</string>
-							<string key="candidateClassName">JJImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="subDetailView">
-							<string key="name">subDetailView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="subscriberCountLabel">
-							<string key="name">subscriberCountLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="titleLabel">
-							<string key="name">titleLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="velocityLabel">
-							<string key="name">velocityLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/SubOverviewController.h</string>
 					</object>
 				</object>
 			</array>

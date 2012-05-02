@@ -35,6 +35,8 @@
 @property (nonatomic, retain) IBOutlet BRBottomToolBar* bottomToolBar;
 @property (nonatomic, retain) IBOutlet UIButton* menuButton;
 
+@property (nonatomic, retain) IBOutlet UIButton* configButton;
+
 @property (nonatomic, retain) GRSubscription* subscription;
 @property (nonatomic, retain) BRFeedDataSource* dataSource;
 

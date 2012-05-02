@@ -12,16 +12,17 @@
 #import "ASINetworkQueue.h"
 #import "GoogleAuthManager.h"
 #import "GRFeed.h"
+#import "BRReadingStatistics.h"
 #import "NSString+SBJSON.h"
 #import "NSString+Addtion.h"
 
 #define TAGLIST_STORE_KEY @"TAGLIST_STORE_KEY"
 #define SUBLIST_STORE_KEY @"SUBLIST_STORE_KEY"
 
-#define UniversalTagList [[self class] tags]
-#define UniversalSubList [[self class] subscriptions]
-#define UniversalItemPool [[self class] itemPool]
-#define UniversalUnreadCount [[self class] unreadCountMap]
+#define UniversalTagList [GoogleReaderClient tags]
+#define UniversalSubList [GoogleReaderClient subscriptions]
+#define UniversalItemPool [GoogleReaderClient itemPool]
+#define UniversalUnreadCount [GoogleReaderClient unreadCountMap]
 
 @interface FetchTokenArg: NSObject
 
@@ -33,10 +34,6 @@
 @implementation FetchTokenArg
 
 @synthesize request = _request, completionHandler = _completionHandler;
-
--(void)setCompletionHandler:(id)completionHandler{
-    
-}
 
 -(void)dealloc{
     self.request = nil;
@@ -55,6 +52,8 @@
 @property (nonatomic, retain) ASIHTTPRequest* tokenRequest;
 @property (nonatomic, retain) ASINetworkQueue* requestQueue;
 
+@property (nonatomic, copy) id requestCompletionBlock;
+
 //add/remove tag to one subscription
 -(void)editSubscription:(NSString*)subscription 
 					tagToAdd:(NSString*)tagToAdd 
@@ -68,6 +67,7 @@
 
 @implementation GoogleReaderClient
 
+@synthesize requestCompletionBlock = _requestCompletionBlock;
 @synthesize delegate = _delegate, action = _action;
 @synthesize request = _request;
 @synthesize responseData, responseString, responseJSONValue, error = _error, isResponseOK, responseFeed;
@@ -77,19 +77,30 @@
 
 static NSString* _token = nil;
 static long long _tokenFetchTimeInterval = 0;
-static BOOL _startFetchToken = NO;
 
 static BOOL _needRefreshUnreadCount = NO;
+static BOOL _needRefreshReaderStructure = NO;
+static BOOL _needRefreshRecommendation = NO;
 
 static long long _lastUnreadCountRefreshTime;
+
+static NSString* _userID = nil;
 
 +(id)clientWithDelegate:(id)delegate action:(SEL)action{
     return [[[self alloc] initWithDelegate:delegate action:action] autorelease];
 }
 
 #pragma mark - reader status
--(BOOL)needRefreshUnreadCount{
++(BOOL)needRefreshUnreadCount{
     return (_needRefreshUnreadCount)?YES:([[NSDate date] timeIntervalSince1970] - _lastUnreadCountRefreshTime > 25*60);
+}
+
++(BOOL)needRefreshReaderStructure{
+    return _needRefreshReaderStructure;
+}
+
++(BOOL)needRefreshRecommendation{
+    return _needRefreshRecommendation;
 }
 
 -(NSLock*)refreshingUnreadCountLock{
@@ -398,8 +409,10 @@ static long long _lastUnreadCountRefreshTime;
     queue.shouldCancelAllRequestsOnFailure = YES;
     queue.maxConcurrentOperationCount = 1;
     queue.queueDidFinishSelector = @selector(tagAndSubRequestFinished:);
+    queue.requestDidFailSelector = @selector(tagAndSubRequestFailed:);
     ASIHTTPRequest* subReq = [self requestForSubscriptionList];
     ASIHTTPRequest* tagReq = [self requestForTagList];
+    tagReq.didReceiveResponseHeadersSelector = @selector(receivedResponseHeader:);
     [queue addOperation:tagReq];
     [queue addOperation:subReq];
     
@@ -422,8 +435,10 @@ static long long _lastUnreadCountRefreshTime;
 }
 
 -(void)refreshSubscriptionList{
-    [self.request clearDelegatesAndCancel];
+    [self clearAllRequests];
     self.request = [self requestForSubscriptionList];
+    self.request.didFinishSelector = @selector(requestFinished:);
+    self.request.didFailSelector = @selector(requestFailed:);
     __block typeof(self) blockSelf = self;
     [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
         if (error == nil){
@@ -454,6 +469,12 @@ static long long _lastUnreadCountRefreshTime;
     subRequest.didStartSelector = @selector(subRequestStarted:);
     
     return subRequest;
+}
+
+-(void)request:(ASIHTTPRequest *)request didReceiveResponseHeaders:(NSDictionary *)responseHeaders{
+    if (_userID == nil){
+        _userID = [[responseHeaders objectForKey:@"X-Reader-User"] retain];
+    }
 }
 
 -(void)subRequestStarted:(ASIHTTPRequest*)request{
@@ -496,8 +517,13 @@ static long long _lastUnreadCountRefreshTime;
 
 -(void)tagAndSubRequestFinished:(ASINetworkQueue*)queue{
     //send out notification
+    _needRefreshReaderStructure = NO;
     [self postNotification:NOTIFICAITON_END_UPDATEREADERSTRUCTURE object:nil];
     [self refreshUnreadCount];
+}
+
+-(void)tagAndSubRequestFailed:(ASINetworkQueue*)queue{
+    [self postNotification:NOTIFICAITON_FAILED_UPDATEREADERSTRUCTURE object:nil];
 }
                             
 +(void)saveReaderStructure{
@@ -634,6 +660,11 @@ static long long _lastUnreadCountRefreshTime;
 	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
 	[paramSet setParameterForKey:ATOM_ARGS_COUNT withValue:@"99999"];
 	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
+    void(^completionBlock)(ASIHTTPRequest*) = ^(ASIHTTPRequest* request){
+        _needRefreshRecommendation = NO;
+    };
+    self.requestCompletionBlock = completionBlock;
+    
     [self listRequestWithURL:[self fullURLFromBaseString:url] parameters:paramSet];
 }
 
@@ -715,7 +746,7 @@ static long long _lastUnreadCountRefreshTime;
         [blockSelf performCallBack];
     }];
     
-    [self addTokenToRequest:(ASIFormDataRequest*)_request completionBlock:^(NSError* error){
+    [self addTokenToRequest:_request completionBlock:^(NSError* error){
         if (error){
             [blockSelf performCallBack];
         }else{
@@ -745,7 +776,7 @@ static long long _lastUnreadCountRefreshTime;
     [paramSet setParameterForKey:EDIT_ARGS_RECOMMENDATION_ACTION withValue:action];
     self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
     __block typeof(self) blockSelf = self;
-    [self addTokenToRequest:(ASIFormDataRequest*)self.request completionBlock:^(NSError* error){
+    [self addTokenToRequest:self.request completionBlock:^(NSError* error){
         if (error == nil){
             [[GoogleAuthManager shared] authRequest:blockSelf.request completionBlock:^(NSError* error){
                 [blockSelf.request startAsynchronous];
@@ -754,60 +785,114 @@ static long long _lastUnreadCountRefreshTime;
     }];
 }
 
--(void)addSubscription:(NSString*)subscription 
+-(void)addSubscription:(NSString*)streamID 
              withTitle:(NSString*)title 
-                 toTag:(NSString*)tags{
-    
+                 toTag:(NSString*)tag{
+    [self editSubscription:streamID action:@"subscribe" tagToAdd:tag tagToRemove:nil newName:title completionBlock:^(ASIHTTPRequest* request){
+        _needRefreshReaderStructure = YES;
+        _needRefreshRecommendation = YES;
+        GRSubscription* sub = [[[GRSubscription alloc] init] autorelease];
+        sub.ID = streamID;
+        sub.title = title;
+        [UniversalSubList setObject:sub forKey:streamID];
+    }];
 }
 
 -(void)removeSubscription:(NSString*)subscription{
-
+    [self editSubscription:subscription action:@"unsubscribe" tagToAdd:nil tagToRemove:nil newName:nil completionBlock:^(ASIHTTPRequest* request){
+         _needRefreshRecommendation = YES;
+        [UniversalSubList removeObjectForKey:subscription];
+        [GoogleReaderClient saveReaderStructure];
+    }];
 }
 
 -(void)renameSubscription:(NSString*)subscription 
               withNewName:(NSString*)newName{
-    
+    [self editSubscription:subscription action:@"rename" tagToAdd:nil tagToRemove:nil newName:newName completionBlock:^(ASIHTTPRequest* request){
+        _needRefreshReaderStructure = YES;
+        GRSubscription* sub = [GoogleReaderClient subscriptionWithID:subscription];
+        sub.title = newName;
+        [GoogleReaderClient saveReaderStructure];
+    }]; 
 }
 
 -(void)editSubscription:(NSString*)subscription 
                tagToAdd:(NSString*)tagToAdd
-            tagToRemove:(NSString*)tagToRemove;{
-    
-    if (tagToAdd.length == 0 && tagToRemove.length == 0){
-        return;
-    }
+            tagToRemove:(NSString*)tagToRemove{
+    [self editSubscription:subscription action:@"edit" tagToAdd:tagToAdd tagToRemove:tagToRemove newName:nil completionBlock:^(ASIHTTPRequest* request){
+        _needRefreshReaderStructure = YES;
+        GRSubscription* sub = [GoogleReaderClient subscriptionWithID:subscription];
+        NSString* newTag = tagToAdd;
+        if (newTag.length > 0){
+            if ([newTag hasPrefix:@"user/"] == NO){
+                _needRefreshReaderStructure = YES;
+                newTag = [NSString stringWithFormat:@"user/%@/label/%@", _userID, tagToAdd];
+            }
+            [sub.categories addObject:newTag];
+            
+            GRTag* tag = [GoogleReaderClient tagWithID:newTag];
+            if (!tag){
+                tag = [[[GRTag alloc] init] autorelease];
+                tag.ID = newTag;
+                tag.label = [[newTag componentsSeparatedByString:@"/"] lastObject];
+                @synchronized(UniversalTagList){
+                    [UniversalTagList setObject:tag forKey:tag.ID];
+                }
+            }
+        }
+        
+        if (tagToRemove.length > 0){
+            [sub.categories removeObject:tagToRemove];
+        }
+        [GoogleReaderClient saveReaderStructure];
+    }];
+}
 
-    GRSubscription* sub = [[self class] subscriptionWithID:subscription];
+-(void)editSubscription:(NSString *)subscription action:(NSString*)action tagToAdd:(NSString *)tagToAdd tagToRemove:(NSString *)tagToRemove newName:(NSString*)newName completionBlock:(void(^)(ASIHTTPRequest*))block{
+    
+    NSAssert(action.length > 0, @"action of subscrition edit should not be nil!");
     URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
     
     if (tagToAdd.length != 0){
+        if ([tagToAdd hasPrefix:@"user/"] == NO){
+            tagToAdd = [NSString stringWithFormat:@"user/%@/label/%@", _userID, tagToAdd];
+        }
         [paramSet setParameterForKey:EDIT_ARGS_ADD withValue:tagToAdd];//tag name to add
-        [sub.categories addObject:tagToAdd];
     };
     if (tagToRemove.length != 0){
-        [sub.categories removeObject:tagToRemove];
         [paramSet setParameterForKey:EDIT_ARGS_REMOVE withValue:tagToRemove];
     };
-    
+    if (newName.length != 0){
+        [paramSet setParameterForKey:EDIT_ARGS_TITLE withValue:newName];
+    }
     [paramSet setParameterForKey:EDIT_ARGS_FEED withValue:subscription];//add feed URI
-	[paramSet setParameterForKey:EDIT_ARGS_ACTION withValue:@"edit"];//add API action. Here is 'edit'
+	[paramSet setParameterForKey:EDIT_ARGS_ACTION withValue:action];//add API action. edit, subscribe, unsubscribe
     
-   [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NEED_UPATEREADERSTRUCTURE object:nil];
     //get complete feed URI in Google Reader
 	NSString* urlString = [URI_PREFIX_API stringByAppendingString:API_EDIT_SUBSCRIPTION];
 	
     self.request = [self requestWithURL:[self fullURLFromBaseString:urlString] 
                              parameters:paramSet
                                 APIType:API_EDIT];
+    self.request.didFinishSelector = @selector(subscriptionEditFinished:);
+    self.requestCompletionBlock = block;
     
     __block typeof(self) blockSelf = self;
-    [self addTokenToRequest:(ASIFormDataRequest*)self.request completionBlock:^(NSError* error){
+    [self addTokenToRequest:self.request completionBlock:^(NSError* error){
         if (error == nil){
             [[GoogleAuthManager shared] authRequest:blockSelf.request completionBlock:^(NSError* error){
                 [blockSelf.request startAsynchronous];
             }];
         }
     }];
+}
+
+-(void)subscriptionEditFinished:(ASIHTTPRequest*)request{
+    if ([self isResponseOK] == YES){
+        [self performRequestCompletionBlock:request];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NEED_UPATEREADERSTRUCTURE object:nil];
+    }
+    [self performCallBack];
 }
 
 #pragma mark - request delegate
@@ -816,15 +901,20 @@ static long long _lastUnreadCountRefreshTime;
 }
 
 -(void)requestFailed:(ASIHTTPRequest*)request{
+//    [self performRequestCompletionBlock:request];
     [self performCallBack];
 }
 
 -(void)requestFinished:(ASIHTTPRequest*)request{
+    [self performRequestCompletionBlock:request];
     [self performCallBack];
 }
 
 #pragma mark - getter and setter
 -(NSString*)responseString{
+    if (self.request.didUseCachedResponse){
+        DebugLog(@"this request use cache");
+    }
     return self.request.responseString;
 }
 
@@ -905,6 +995,7 @@ static long long _lastUnreadCountRefreshTime;
 }
 
 -(BOOL)isResponseOK{
+    DebugLog(@"response string is %@", self.request.responseString);
     return [self.request.responseString compare:@"ok" options:NSCaseInsensitiveSearch] == NSOrderedSame;
 }
 
@@ -977,6 +1068,8 @@ static long long _lastUnreadCountRefreshTime;
         request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
     }
     
+    request.timeOutSeconds = 5;
+    request.shouldAttemptPersistentConnection = NO;
     request.delegate = self;
     request.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;
     
@@ -1039,7 +1132,11 @@ static long long _lastUnreadCountRefreshTime;
 }
 
 //add token if only needed
--(void)addTokenToRequest:(ASIFormDataRequest*)request completionBlock:(void(^)(NSError* error))block{
+-(void)addTokenToRequest:(id)request completionBlock:(void(^)(NSError* error))block{
+    if ([request isKindOfClass:[ASIFormDataRequest class]] == NO){
+        return;
+    }
+    
     NSString* token = [[self class] token];
     NSMutableArray* addTokenQueue = [[self class] addTokenQueue];
     if (token == nil){
@@ -1050,10 +1147,7 @@ static long long _lastUnreadCountRefreshTime;
             
             [addTokenQueue addObject:arg];
         
-//            if (_startFetchToken == NO){
-                //start fetch token
             [self startFetchToken];
-//            }
         }
                 
     }else{
@@ -1073,6 +1167,7 @@ static long long _lastUnreadCountRefreshTime;
     urlString = [GOOGLE_SCHEME_SSL stringByAppendingString:urlString];
     
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlString]];
+    request.cachePolicy = ASIDoNotReadFromCacheCachePolicy;
     [self.tokenRequest clearDelegatesAndCancel];
     self.tokenRequest = request;
     NSMutableArray* addTokenQueue = [[self class] addTokenQueue];
@@ -1134,6 +1229,14 @@ static long long _lastUnreadCountRefreshTime;
 -(void)performCallBack{
     if (self.action){
         [self.delegate performSelectorOnMainThread:self.action withObject:self waitUntilDone:NO];
+    }
+}
+
+-(void)performRequestCompletionBlock:(ASIHTTPRequest*)request{
+    if (self.requestCompletionBlock){
+        void(^block)(ASIHTTPRequest*) = self.requestCompletionBlock;
+        block(request);
+        self.requestCompletionBlock = nil;
     }
 }
 

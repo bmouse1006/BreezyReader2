@@ -24,6 +24,7 @@
 @synthesize client = _client;
 @synthesize activity = _activity;
 @synthesize sectionView = _sectionView;
+@synthesize showButton = _showButton;
 
 -(id)init{
     self = [super init];
@@ -31,6 +32,7 @@
         self.relatedSubs = [NSMutableArray array];
         [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil];
         self.sectionView.titleLabel.text = NSLocalizedString(@"title_relatedfeed", nil);
+        [self.activity stopAnimating];
     }
     
     return self;
@@ -40,13 +42,8 @@
     self.relatedSubs = nil;
     self.client = nil;
     self.activity = nil;
+    self.showButton = nil;
     [super dealloc];
-}
-
--(void)subscriptionChanged:(GRSubscription *)newSub{
-    [self.client clearAndCancel];
-    self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(didReceivedRelatedSubscriptions:)];
-    [self.client requestRelatedSubscriptions:newSub.ID];
 }
 
 -(UIView*)sectionView{
@@ -88,6 +85,8 @@
         }
         
         [self.tableController reloadSectionFromSource:self];
+    }else{
+        self.showButton.hidden = NO;
     }
 }
 
@@ -97,6 +96,14 @@
         sub = [GoogleReaderClient subscriptionWithID:sub.ID];
     }
     [self.tableController showSubscription:sub];
+}
+
+-(IBAction)showButtonClicked:(id)sender{
+    self.showButton.hidden = YES;
+    [self.activity startAnimating];
+    [self.client clearAndCancel];
+    self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(didReceivedRelatedSubscriptions:)];
+    [self.client requestRelatedSubscriptions:self.subscription.ID];
 }
 
 @end

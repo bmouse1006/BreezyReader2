@@ -15,10 +15,12 @@
 #import "BRFeedAndArticlesSearchController.h"
 #import "BRFeedViewController.h"
 #import "GoogleReaderClient.h"
+#import "BRTagAndSubListViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface BRMainScreenController (){
     BOOL _initialLoading;
+    NSInteger _scrollIndex;
 }
 
 @property (nonatomic, retain) MainScreenDataSource* dataSource;
@@ -31,9 +33,9 @@
 @implementation BRMainScreenController
 
 @synthesize infinityScroll = _infinityScroll;
+@synthesize allSubListController = _allSubListController;
 @synthesize dataSource = _dataSource;
 
-@synthesize labelViewControllers = _labelViewControllers;
 @synthesize sideMenuController = _sideMenuController;
 
 @synthesize searchController = _searchController;
@@ -50,6 +52,7 @@
         // Custom initialization
         self.wantsFullScreenLayout = YES;
         self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(clientFinished:)];
+        _scrollIndex = 0.0f;
     }
     return self;
 }
@@ -61,9 +64,9 @@
     self.infinityScroll = nil;
     self.sideMenuController = nil;
     self.dataSource = nil;
-    self.labelViewControllers = nil;
     self.searchController = nil;
     self.subOverrviewController = nil;
+    self.allSubListController = nil;
     [super dealloc];
 }
 
@@ -80,16 +83,17 @@
 {
     [super viewDidLoad];
     
-    self.infinityScroll = [[[InfinityScrollView alloc] initWithFrame:self.view.bounds] autorelease];
+    self.infinityScroll = [[[InfinityScrollView alloc] initWithFrame:self.mainContainer.bounds] autorelease];
     self.dataSource = [[[MainScreenDataSource alloc] init] autorelease];
     self.infinityScroll.dataSource = self.dataSource;
+    [self.infinityScroll setIndex:_scrollIndex];
     self.infinityScroll.infinityDelegate = self;
     self.infinityScroll.backgroundColor = [UIColor clearColor];
 
     CGRect menuRect = self.sideMenuController.view.frame;
-    menuRect.size.height = self.view.bounds.size.height;
+    menuRect.size.height = self.mainContainer.bounds.size.height;
     menuRect.size.width = 60;
-    menuRect.origin.x = self.view.bounds.size.width - menuRect.size.width;
+    menuRect.origin.x = self.mainContainer.bounds.size.width - menuRect.size.width;
     menuRect.origin.y = 0;
     [self.sideMenuController.view setFrame:menuRect];
     
@@ -97,8 +101,6 @@
     
     if ([GoogleReaderClient isReaderLoaded] == NO){
         [self.client refreshReaderStructure];
-    }else{
-        [self reload];
     }
 }
 
@@ -108,10 +110,10 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     self.infinityScroll = nil;
-    self.view = nil;
     self.sideMenuController = nil;
     self.searchController = nil;
     self.subOverrviewController = nil;
+    self.allSubListController = nil;
 //    self.
 }
 
@@ -121,31 +123,38 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    self.infinityScroll.frame = self.mainContainer.bounds;
+    DebugLog(@"%@", self.infinityScroll);
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:NO];
-    [self.labelViewControllers makeObjectsPerformSelector:@selector(viewWillAppear:) withObject:[NSNumber numberWithBool:animated]];
     
-    if ([self.client needRefreshUnreadCount]){
+    if ([GoogleReaderClient needRefreshReaderStructure]){
+        [self.client refreshReaderStructure];
+    }else if ([GoogleReaderClient needRefreshUnreadCount]){
         [self.client refreshUnreadCount];
     }
+    
+    [self performSelectorOnMainThread:@selector(reload) withObject:nil waitUntilDone:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self.labelViewControllers makeObjectsPerformSelector:@selector(viewDidAppear:) withObject:[NSNumber numberWithBool:animated]];
+//    [self performSelectorOnMainThread:@selector(reload) withObject:nil waitUntilDone:NO];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.labelViewControllers makeObjectsPerformSelector:@selector(viewWillDisappear:) withObject:[NSNumber numberWithBool:animated]];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [self.labelViewControllers makeObjectsPerformSelector:@selector(viewDidDisappear:) withObject:[NSNumber numberWithBool:animated]];
 }
 
 #pragma mark - notifications register and handler
@@ -153,6 +162,7 @@
     NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(syncBegan:) name:NOTIFICATION_BEGIN_UPDATEREADERSTRUCTURE object:nil];
     [nc addObserver:self selector:@selector(syncEnd:) name:NOTIFICAITON_END_UPDATEREADERSTRUCTURE object:nil];
+    [nc addObserver:self selector:@selector(syncFailed:) name:NOTIFICAITON_FAILED_UPDATEREADERSTRUCTURE object:nil];
     [nc addObserver:self selector:@selector(tagOrSubChanged:) name:TAGORSUBCHANGED object:nil];
     [nc addObserver:self selector:@selector(loginStatusChanged:) name:NOTIFICATION_LOGINSTATUSCHANGED object:nil];
     [nc addObserver:self selector:@selector(startFlipTile:) name:NOTIFICATION_STARTFLIPSUBTILEVIEW object:nil];
@@ -165,14 +175,6 @@
     [nc addObserver:self selector:@selector(finishedFlipTile:) name:NOTIFICATION_FINISHEDFLIPSUBTILEVIEW object:nil];
 }
 
--(void)oauth2UserSignedIn:(NSNotification*)notification{
-    //start to reload and fetch data
-    DebugLog(@"user signed in", nil);
-    [self.client refreshReaderStructure];
-    //setup loading view
-    _initialLoading = YES;
-}
-
 -(void)syncBegan:(NSNotification*)notification{
     DebugLog(@"start to sync reader data", nil);
 }
@@ -181,6 +183,10 @@
     DebugLog(@"end of syncing reader data", nil);
     [self reload];
 //    [self performSelectorOnMainThread:@selector(reload) withObject:nil waitUntilDone:NO];
+}
+
+-(void)syncFailed:(NSNotification*)notification{
+    DebugLog(@"end of syncing reader data", nil);
 }
 
 -(void)tagOrSubChanged:(NSNotification*)notification{
@@ -204,7 +210,7 @@
     if (self.subOverrviewController == nil){
         self.subOverrviewController = [[[SubOverviewController alloc] initWithTheNibOfSameName] autorelease];
     }
-    [self.subOverrviewController showOverviewForSub:[notification.userInfo objectForKey:@"subscription"] inView:self.view flipFrom:notification.object];
+    [self.subOverrviewController showOverviewForSub:[notification.userInfo objectForKey:@"subscription"] inView:self.mainContainer flipFrom:notification.object];
 }
 
 -(void)finishedFlipTile:(NSNotification*)notification{
@@ -212,19 +218,23 @@
 }
 
 -(void)reload{
-    [self.childViewControllers makeObjectsPerformSelector:@selector(viewWillDisappear:)];
+    [self.childViewControllers makeObjectsPerformSelector:@selector(willMoveToParentViewController:) withObject:nil];
+    [self.childViewControllers makeObjectsPerformSelector:@selector(removeFromParentViewController)];
+    [self.childViewControllers makeObjectsPerformSelector:@selector(didMoveToParentViewController:) withObject:nil];
+    
     [self.dataSource reload];
     [self.infinityScroll reloadData];
     
-    [self.childViewControllers makeObjectsPerformSelector:@selector(removeFromParentViewController)];
     [self.dataSource.controllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop){
         [self addChildViewController:obj];
     }];
     [self addChildViewController:self.searchController];
+    [self addChildViewController:self.allSubListController];
 }
 #pragma mark - delegate methods for infinity scroll view
 -(void)scrollView:(InfinityScrollView *)scrollView didStopAtChildViewOfIndex:(NSInteger)index{
     //add more code here
+    _scrollIndex = index;
 }
 
 -(void)scrollView:(InfinityScrollView *)scrollView userDraggingOffset:(CGPoint)offset{
@@ -237,7 +247,7 @@
 
 #pragma mark - NOTIFICATOIN call back
 -(void)showSearchUI:(NSNotification*)notification{
-    [self.view addSubview:self.searchController.view];
+    [self.mainContainer addSubview:self.searchController.view];
     [self.searchController getReadyForSearch];
 //    [[self topContainer] addToTop:self.searchController animated:YES];
 }
@@ -250,7 +260,8 @@
 }
 
 -(void)showSubscriptionList:(NSNotification*)notification{
-    
+    self.secondaryView = self.allSubListController.view;
+    [self slideShowSecondaryViewWithCompletionBlock:NULL];
 }
 
 -(void)switchDownloadMode:(NSNotification*)notification{

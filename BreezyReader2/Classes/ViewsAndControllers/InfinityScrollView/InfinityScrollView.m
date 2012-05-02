@@ -11,6 +11,7 @@
 
 @interface InfinityScrollView() {
     NSInteger _count;
+    NSInteger _index;
 }
 
 @property (nonatomic, retain) NSMutableSet* containers;
@@ -45,6 +46,7 @@
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         self.autoresizesSubviews = NO;
         self.pagingEnabled = YES;
+        _index = 0;
     }
     
     return self;
@@ -69,6 +71,10 @@
     self.pagingEnabled = YES;
 }
 
+-(void)setIndex:(NSInteger)index{
+    _index = index;
+}
+
 -(void)initialize{
     //setup
     [self generateAndSetupContainers];
@@ -85,6 +91,10 @@
         [sub removeFromSuperview];
     }
     
+    _index = (_index > _count - 1)?_count-1:_index;
+    NSInteger leftIndex = (_index - 1 < 0)?_count-1:_index-1;
+    NSInteger rightIndex = (_index+1>_count-1)?0:_index+1;
+    
     CGRect frame = self.bounds;
     frame.origin.x = 0;
     frame.origin.y = 0;
@@ -93,13 +103,13 @@
     InfinityScrollContainer* right = [[InfinityScrollContainer alloc] initWithContainerFrame:frame];
     left.leftContainer = right;
     left.rightContainer = mid;
-    left.index = _count - 1;
+    left.index = leftIndex;
     mid.leftContainer = left;
     mid.rightContainer = right;
-    mid.index = 0;
+    mid.index = _index;
     right.leftContainer = mid;
     right.rightContainer = left;
-    right.index = 1;
+    right.index = rightIndex;
     [self.containers addObject:left];
     [self.containers addObject:right];
     [self.containers addObject:mid];
@@ -139,14 +149,16 @@
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if (decelerate == NO){
+        _index = [self indexOfSelectedChildView];
         [self.infinityDelegate scrollView:self 
-                didStopAtChildViewOfIndex:[self indexOfSelectedChildView]];
+                didStopAtChildViewOfIndex:_index];
     }
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    _index = [self indexOfSelectedChildView];
     [self.infinityDelegate scrollView:self 
-            didStopAtChildViewOfIndex:[self indexOfSelectedChildView]];
+            didStopAtChildViewOfIndex:_index];
 }
 
 -(void)rearrangeContainers:(CGPoint)translate{
@@ -197,7 +209,7 @@
 }
 
 -(NSInteger)indexOfSelectedChildView{
-    return (NSInteger)self.contentOffset.x % (NSInteger)self.bounds.size.width;
+    return self.middleContainer.index;
 }
 
 -(void)moveToChildViewAtIndex:(NSInteger)index direction:(InfinityScrollViewDirection)direction animated:(BOOL)animated{

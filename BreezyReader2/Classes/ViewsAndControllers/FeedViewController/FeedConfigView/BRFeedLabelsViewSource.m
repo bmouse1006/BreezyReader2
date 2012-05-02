@@ -99,9 +99,15 @@
         
         [self.tableController reloadRowsFromSource:self row:index animated:NO];
     }
+    
+    [self commitChange];
 }
 
 -(void)viewDidDisappear{
+
+}
+
+-(void)commitChange{
     //commit label change
     NSSet* conjoint = [self.selectedTags objectsPassingTest:^(id obj, BOOL* stop){
         if ([self.subscription.categories containsObject:obj]){

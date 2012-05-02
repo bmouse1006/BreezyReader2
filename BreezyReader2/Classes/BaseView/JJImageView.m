@@ -48,7 +48,7 @@
         if (imageURL != nil){
             __block typeof(self) blockSelf = self;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                UIImage* image = [JJThumbnailCache thumbnailForURL:imageURL andSize:self.bounds.size];
+                UIImage* image = [JJThumbnailCache thumbnailForURL:imageURL andSize:blockSelf.bounds.size];
                 if (image != nil){
                     [blockSelf changeToLoadedImage:image];
                     [blockSelf.delegate imageDidFinishLoading:blockSelf];

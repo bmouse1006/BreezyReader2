@@ -357,7 +357,7 @@
 //			if (gaManager.token == nil){
 				//token is empty and get token failed, then return nil
                 NSError* error = nil;
-                [gaManager getValidToken:&error];
+//                [gaManager getValidToken:&error];
                 if (!error){
                     [self.delegate didSuccessFinishedDataReceive:nil];
                 }else {
@@ -578,7 +578,7 @@
         [request addPostValue:[ID objectForKey:@"id"] forKey:CONTENTS_ARGS_ID];
         [request addPostValue:@"0" forKey:CONTENTS_ARGS_IT];
     }
-    [request addPostValue:[[GoogleAuthManager shared] token] forKey:EDIT_ARGS_TOKEN];
+//    [request addPostValue:[[GoogleAuthManager shared] token] forKey:EDIT_ARGS_TOKEN];
     
     return request;
 }

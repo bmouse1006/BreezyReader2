@@ -21,7 +21,7 @@
 
 -(void)loadSourceMore:(BOOL)more{
     BRReadingStatistics* statistics = [BRReadingStatistics statistics];
-    NSArray* subKeys = [statistics mostReadSubscriptionIDsCount:kFavoriteSubCount];
+    NSArray* subKeys = [statistics mostReadSubscriptions:kFavoriteSubCount];
     NSMutableArray* subs = [NSMutableArray array];
     for (NSString* key in subKeys){
         id sub = [GoogleReaderClient subscriptionWithID:key];

@@ -77,12 +77,10 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
-    UIColor* patternColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
-    self.backgroundColor = patternColor;
     
     self.titleLabel.verticalAlignment = JJTextVerticalAlignmentTop;
     self.titleLabel.font = [UIFont boldSystemFontOfSize:15];
-    self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel.textColor = [UIColor colorWithRed:41/255.0f green:41/255.0f blue:41/255.0f alpha:1];
     
     self.previewLabel.verticalAlignment = JJTextVerticalAlignmentTop;
     self.previewLabel.font = [UIFont systemFontOfSize:13];
@@ -129,14 +127,14 @@
         self.titleLabel.text = _item.title;
         self.timeLabel.text = [_item getShortUpdatedDateTime];
         
-        NSString* previewContent = nil;
-        if (_item.plainContent.length != 0){
-            previewContent = _item.plainContent;
-        }else if (_item.plainSummary != 0){
-            previewContent = _item.plainSummary;
-        }
-        
-        self.previewLabel.text = previewContent ;
+//        NSString* previewContent = nil;
+//        if (_item.plainContent.length != 0){
+//            previewContent = _item.plainContent;
+//        }else if (_item.plainSummary != 0){
+//            previewContent = _item.plainSummary;
+//        }
+//        
+//        self.previewLabel.text = previewContent ;
         
         self.authorLabel.text = _item.author;
     }

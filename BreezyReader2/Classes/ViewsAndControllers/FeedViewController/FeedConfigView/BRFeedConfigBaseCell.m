@@ -30,17 +30,14 @@
 -(void)awakeFromNib{
     [super awakeFromNib];
     [self setupCell];
-//    UIView* selectedView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
-//    selectedView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-//    self.selectedBackgroundView = selectedView;
 }
 
 -(void)setupCell{
-    self.topBlack = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+//    self.topBlack = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
     self.topWhite = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-    self.topBlack.backgroundColor = [UIColor darkGrayColor];
-    self.topWhite.backgroundColor = [UIColor lightGrayColor];
-    [self.contentView addSubview:self.topBlack];
+//    self.topBlack.backgroundColor = [UIColor darkGrayColor];
+    self.topWhite.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.4];
+//    [self.contentView addSubview:self.topBlack];
     [self.contentView addSubview:self.topWhite];
     UIView* backgroundView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
     backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
@@ -63,9 +60,9 @@
     [super layoutSubviews];
     CGFloat width = self.frame.size.width;
     CGFloat inset = 5.0f;
+//    CGRect frame = CGRectMake(inset, 0, width-inset*2, 0.5);
+//    self.topBlack.frame = frame;
     CGRect frame = CGRectMake(inset, 0, width-inset*2, 0.5);
-    self.topBlack.frame = frame;
-    frame = CGRectMake(inset, 0.5, width-inset*2, 0.5);
     self.topWhite.frame = frame;
 }
 

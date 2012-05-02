@@ -11,7 +11,7 @@
 #import "JJLabel.h"
 #import "BRFeedConfigBase.h"
 
-@interface BRFeedConfigViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface BRFeedConfigViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 
 @property (nonatomic, retain) GRSubscription* subscription;
 @property (nonatomic, retain) IBOutlet UITableView* tableView;

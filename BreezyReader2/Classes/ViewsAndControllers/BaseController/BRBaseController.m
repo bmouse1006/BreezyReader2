@@ -19,6 +19,9 @@
 
 -(void)setupBackgroundView:(UIView*)backgroundView;
 
+@property (nonatomic, copy) id slideCompletionBlock;
+@property (nonatomic, copy) id unslideCompletionBlock;
+
 @end
 
 @implementation BRBaseController
@@ -27,6 +30,8 @@
 @synthesize mainContainer = _mainContainer;
 @synthesize secondaryView = _secondaryView;
 @synthesize secondaryViewIsShown = _secondaryViewIsShown;
+@synthesize slideCompletionBlock = _slideCompletionBlock;
+@synthesize unslideCompletionBlock = _unslideCompletionBlock;
 
 static CGFloat distance = 0.0f;
 
@@ -44,6 +49,8 @@ static CGFloat distance = 0.0f;
     self.backgroundView = nil;
     self.mainContainer = nil;
     self.secondaryView = nil;
+    self.slideCompletionBlock = nil;
+    self.unslideCompletionBlock = nil;
     [super dealloc];
 }
 
@@ -62,14 +69,14 @@ static CGFloat distance = 0.0f;
         duration = 0.0f;
     }
     NSMutableArray* contentViews = [NSMutableArray array];
-    for (UIView* view in self.view.subviews){
+    for (UIView* view in self.mainContainer.subviews){
         if (view != self.backgroundView){
             [contentViews addObject:view];
         }
     }
     for (UIView* view in views){
         view.alpha = 0.0f;
-        [self.view addSubview:view];
+        [self.mainContainer addSubview:view];
     }
     [UIView animateWithDuration:duration animations:^{
         [contentViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
@@ -93,7 +100,12 @@ static CGFloat distance = 0.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.autoresizesSubviews = YES;
+    self.mainContainer.autoresizesSubviews = YES;
+    self.mainContainer.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self setupBackgroundView:self.backgroundView];
+    [self.view addSubview:self.mainContainer];
+//    self.mainContainer.bounds = self.view.bounds;
 }
 
 
@@ -119,14 +131,16 @@ static CGFloat distance = 0.0f;
 }
 
 #pragma mark - show/hide covered list menu
--(void)slideShowSecondaryView{
+-(void)slideShowSecondaryViewWithCompletionBlock:(void(^)())block{
+    
+    self.slideCompletionBlock = block;
     
     distance = self.mainContainer.frame.size.width/4*3;
-    
+ 
     //add shadow
-    UIImageView* shadow = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 6, self.view.bounds.size.height)] autorelease];
+    UIImageView* shadow = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, self.view.bounds.size.height)] autorelease];
     shadow.contentMode = UIViewContentModeScaleToFill;
-    shadow.image = [UIImage imageNamed:@"right_shadow"];
+    shadow.image = [UIImage imageNamed:@"menu-left-shadow"];
     _sideShadow = shadow;
     [self.mainContainer addSubview:_sideShadow];
     CGRect frame = _sideShadow.frame;
@@ -139,6 +153,7 @@ static CGFloat distance = 0.0f;
     _hideButton = hideButton;
     [self.mainContainer addSubview:hideButton];
     
+    self.secondaryView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view insertSubview:self.secondaryView belowSubview:self.mainContainer];
     
     CAKeyframeAnimation* positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
@@ -151,6 +166,7 @@ static CGFloat distance = 0.0f;
     CGPathAddLineToPoint(path, NULL, center.x-distance+dx, center.y);
     CGPathAddLineToPoint(path, NULL, center.x-distance, center.y);
     positionAnimation.path = path;
+
     positionAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     CGPathRelease(path);
     positionAnimation.delegate = self;
@@ -160,11 +176,19 @@ static CGFloat distance = 0.0f;
     [self.mainContainer.layer addAnimation:positionAnimation forKey:@"show"];
     
     self.mainContainer.center = CGPointMake(center.x-distance, center.y);
+
     
     _secondaryViewIsShown = YES;
 }
 
 -(void)slideHideSecondaryView{
+    [self slideHideSecondaryViewWithCompletionBlock:NULL];
+}
+
+-(void)slideHideSecondaryViewWithCompletionBlock:(void(^)())block{
+    
+    self.unslideCompletionBlock = block;
+    
     [self secondaryViewWillHide];
     [UIView animateWithDuration:kAnimationTransitionDuration delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.mainContainer.frame = self.view.bounds;
@@ -176,6 +200,9 @@ static CGFloat distance = 0.0f;
         _sideShadow = nil;
         _hideButton = nil;
         [self secondaryViewDidHide];
+        if (block){
+            block();
+        }
     }];
 }
 
@@ -206,13 +233,17 @@ static CGFloat distance = 0.0f;
 //    self.mainContainer.frame = frame;
     [self.mainContainer bringSubviewToFront:_hideButton];
     [self secondaryViewDidShow];
+    if (self.slideCompletionBlock){
+        void(^block)() = self.slideCompletionBlock;
+        block();
+    }
 }
 
 #pragma mark - private methods
 
 -(void)setupBackgroundView:(UIView *)backgroundView{
-    [self.view addSubview:backgroundView];
-    [self.view sendSubviewToBack:backgroundView];
+    [self.mainContainer addSubview:backgroundView];
+    [self.mainContainer sendSubviewToBack:backgroundView];
 }
 
 @end

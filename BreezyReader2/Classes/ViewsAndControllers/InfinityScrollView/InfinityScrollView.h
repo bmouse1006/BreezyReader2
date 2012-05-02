@@ -38,6 +38,7 @@ typedef enum{
 @property (nonatomic, assign) IBOutlet id<InfinityScrollViewDataSource> dataSource;
 @property (nonatomic, assign) IBOutlet id<InfinityScrollViewDelegate> infinityDelegate;
 
+-(void)setIndex:(NSInteger)index;
 -(void)reloadData;
 -(void)moveToChildViewAtIndex:(NSInteger)index direction:(InfinityScrollViewDirection)direction animated:(BOOL)animated;
 

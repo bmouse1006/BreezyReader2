@@ -31,5 +31,6 @@
 -(id)initWithLabel:(NSString*)mLabel;
 
 +(GRTag*)tagWithJSONObject:(NSDictionary*)JSONTag;
++(GRTag*)tagWithNoLabel;
 
 @end

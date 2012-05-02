@@ -20,7 +20,7 @@
 -(void)awakeFromNib{
     [super awakeFromNib];
     self.contentView.layer.masksToBounds = YES;
-    self.contentView.layer.cornerRadius = 5.0f;
+    self.contentView.layer.cornerRadius = 8.0f;
 }
 
 -(void)setMessage:(NSString *)message{
