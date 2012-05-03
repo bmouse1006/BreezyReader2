@@ -33,6 +33,7 @@
 "title_cancel" = "Cancel";
 "title_ok" = "OK";
 "title_pleaseinputlabelname" = "Please input label name";
+"title_reloadalldata" = "Sync data with Google Reader";
 "message_unsubscribe" = "Do you want to unsubscribe \"%@?\"";
 "message_subscribe" = "Do you want to subscribe \"%@?\"";
 "message_unsubscribing" = "Unsubscribe feed";
@@ -43,8 +44,12 @@
 "message_unsubscribesucceded" = "Unsubscribe succeded!";
 "message_subscribesucceded" = "Subscribe succeded!";
 "message_addnewtag" = "Add new Label";
-"message_addnewtagsucceded" = "Done!";
-"message_addnewtagfailed" = "Failed!";
+"message_addnewtagsucceded" = "Done";
+"message_addnewtagfailed" = "Failed";
+"message_reloadfinished" = "Sync done";
+"message_reloadfailed" = "Sync failed";
+"message_reloadalldata" = "Do you want to sync data with Google Reader?";
+"message_startloading" = "Synchronizing";
 
 "msg_searching" = "Searching...";
 "msg_unstarfailed" = "Failed to remove star";
