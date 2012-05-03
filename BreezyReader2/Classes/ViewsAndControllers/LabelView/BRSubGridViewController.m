@@ -114,13 +114,13 @@ static CGFloat kTitleLabelHeight = 60.0f;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [self.tableView.visibleCells makeObjectsPerformSelector:@selector(willAppear:) withObject:[NSNumber numberWithBool:animated]];
+    [self.tableView.visibleCells makeObjectsPerformSelector:@selector(willAppear:) withObject:[NSNumber numberWithBool:animated]];
     [self.source loadSourceMore:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-//    [self.tableView.visibleCells makeObjectsPerformSelector:@selector(didAppear:) withObject:[NSNumber numberWithBool:animated]];
+    [self.tableView.visibleCells makeObjectsPerformSelector:@selector(didAppear:) withObject:[NSNumber numberWithBool:animated]];
 }
 
 -(void)layoutTableView{

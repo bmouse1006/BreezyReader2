@@ -66,4 +66,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOWAUBLISTBUTTONCLICKED object:sender];  
 }
 
+-(IBAction)reloadButtonClicked:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_RELOADBUTTONCLICKED object:sender];      
+}
+
 @end

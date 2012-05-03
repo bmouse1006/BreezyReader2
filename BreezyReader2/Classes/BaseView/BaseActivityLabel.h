@@ -14,4 +14,6 @@
 @property (nonatomic, retain) IBOutlet UILabel* label;
 @property (nonatomic, retain) NSString* message;
 
+-(void)dismissAfterDelay:(NSTimeInterval)delay;
+
 @end

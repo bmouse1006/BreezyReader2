@@ -34,5 +34,9 @@
    self.label.text = message; 
 }
 
+-(void)dismissAfterDelay:(NSTimeInterval)delay{
+    [self performSelector:@selector(dismiss) withObject:nil afterDelay:delay];
+}
+
 
 @end

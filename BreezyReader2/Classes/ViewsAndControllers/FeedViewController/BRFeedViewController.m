@@ -270,6 +270,7 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
     [[self.tableView visibleCells] makeObjectsPerformSelector:@selector(setNeedsLayout)];
     [self.adView performSelector:@selector(resumeAdRequest)];
 }

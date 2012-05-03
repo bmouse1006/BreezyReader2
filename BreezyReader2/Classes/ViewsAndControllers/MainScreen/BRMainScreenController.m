@@ -16,6 +16,7 @@
 #import "BRFeedViewController.h"
 #import "GoogleReaderClient.h"
 #import "BRTagAndSubListViewController.h"
+#import "BaseActivityLabel.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface BRMainScreenController (){
@@ -25,6 +26,7 @@
 
 @property (nonatomic, retain) MainScreenDataSource* dataSource;
 @property (nonatomic, retain) GoogleReaderClient* client;
+@property (nonatomic, retain) BaseActivityLabel* activityLabel;
 
 -(void)reload;
 
@@ -40,6 +42,8 @@
 
 @synthesize searchController = _searchController;
 @synthesize subOverrviewController = _subOverrviewController;
+
+@synthesize activityLabel = _activityLabel;
 
 @synthesize client = _client;
 
@@ -67,6 +71,7 @@
     self.searchController = nil;
     self.subOverrviewController = nil;
     self.allSubListController = nil;
+    self.activityLabel = nil;
     [super dealloc];
 }
 
@@ -114,6 +119,7 @@
     self.searchController = nil;
     self.subOverrviewController = nil;
     self.allSubListController = nil;
+    self.activityLabel = nil;
 //    self.
 }
 
@@ -168,6 +174,7 @@
     [nc addObserver:self selector:@selector(startFlipTile:) name:NOTIFICATION_STARTFLIPSUBTILEVIEW object:nil];
     [nc addObserver:self selector:@selector(showSearchUI:) name:NOTIFICATION_SERACHBUTTONCLICKED object:nil];
     [nc addObserver:self selector:@selector(switchDownloadMode:) name:NOTIFICATION_DOWNLOADBUTTONCLICKED object:nil];
+    [nc addObserver:self selector:@selector(refreshClientData:) name:NOTIFICATION_RELOADBUTTONCLICKED object:nil];
     [nc addObserver:self selector:@selector(showLogoutDialog:) name:NOTIFICATION_LOGOUTBUTTONCLICKED object:nil];
     [nc addObserver:self selector:@selector(showConfigUI:) name:NOTIFICATION_CONFIGBUTTONCLICKED object:nil];
     [nc addObserver:self selector:@selector(showStarItems:) name:NOTIFICATION_STARBUTTONCLICKED object:nil];
@@ -177,16 +184,22 @@
 
 -(void)syncBegan:(NSNotification*)notification{
     DebugLog(@"start to sync reader data", nil);
+    [self.activityLabel show];
 }
 
 -(void)syncEnd:(NSNotification*)notification{
     DebugLog(@"end of syncing reader data", nil);
-    [self reload];
-//    [self performSelectorOnMainThread:@selector(reload) withObject:nil waitUntilDone:NO];
+    self.activityLabel.message = NSLocalizedString(@"message_reloadfinished", nil);
+    [self.activityLabel dismissAfterDelay:1];
+    self.activityLabel = nil;
+    [self reload];    
 }
 
 -(void)syncFailed:(NSNotification*)notification{
     DebugLog(@"end of syncing reader data", nil);
+    self.activityLabel.message = NSLocalizedString(@"message_reloadfailed", nil);
+    [self.activityLabel dismissAfterDelay:1];
+    self.activityLabel = nil;
 }
 
 -(void)tagOrSubChanged:(NSNotification*)notification{
@@ -274,6 +287,24 @@
 
 -(void)showConfigUI:(NSNotification*)notification{
     DebugLog(@"show config UI");
+}
+
+-(void)refreshClientData:(NSNotification*)notification{
+    DebugLog(@"refresh client data");
+    UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"title_reloadalldata", nil) message:NSLocalizedString(@"message_reloadalldata", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) otherButtonTitles:NSLocalizedString(@"title_ok", nil), nil] autorelease];
+    [alertView show];
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1){
+        //ok button
+        //start refresh data
+        self.activityLabel = [BaseActivityLabel loadFromBundle];
+        self.activityLabel.message = NSLocalizedString(@"message_startloading", nil);
+        [self.client clearAndCancel];
+        self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(clientFinished:)];
+        [self.client refreshReaderStructure];
+    }
 }
 
 #pragma mark - reader client call back

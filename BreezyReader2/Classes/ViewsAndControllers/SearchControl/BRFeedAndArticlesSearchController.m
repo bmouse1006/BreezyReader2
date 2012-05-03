@@ -15,8 +15,8 @@
 #import "GRItem.h"
 #import "NSString+Addtion.h"
 
-static CGFloat kFeedSearchResultCellHeight = 97.0f;
-static CGFloat kArticleSearchResultCellHeight = 97.0f;
+static CGFloat kFeedSearchResultCellHeight = 84.0f;
+static CGFloat kArticleSearchResultCellHeight = 70.0f;
 
 @interface BRFeedAndArticlesSearchController ()
 
@@ -86,7 +86,8 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self.searchDisplayController.searchBar becomeFirstResponder];
+    UITableView* tableView = self.searchDisplayController.searchResultsTableView;
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -106,16 +107,7 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
 
 #pragma mark - search bar delegate
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    [UIView animateWithDuration:0.4 animations:^{
-//        self.searchDisplayController.searchBar.alpha = 0;
-        self.view.alpha = 0;
-    } completion:^(BOOL finished){
-        if (finished){
-            self.searchDisplayController.searchBar.hidden = YES;
-            [self dismissSearchView];
-        }
-    }];
-//    [[self topContainer] popViewController:YES];
+    [self performSelector:@selector(dismissSearchView) withObject:nil afterDelay:0.2];
 }
 
 -(IBAction)loadMoreButtonClicked:(id)sender{
@@ -129,7 +121,6 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
         case 0:
             //search articles
             self.searchDisplayController.searchResultsDataSource = self.articleSearchDataSource;
-            self.searchDisplayController.searchResultsTableView.rowHeight = kArticleSearchResultCellHeight;
             [self.searchDisplayController.searchResultsTableView reloadData];
             if ([currentKeywords isEqualToString:self.articleSearchDataSource.keywords] == NO){
                 [self.articleSearchDataSource startSearchWithKeywords:currentKeywords];
@@ -138,7 +129,6 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
         case 1:
             //search feeds
             self.searchDisplayController.searchResultsDataSource = self.feedSearchDataSource;
-            self.searchDisplayController.searchResultsTableView.rowHeight = kFeedSearchResultCellHeight;
             [self.searchDisplayController.searchResultsTableView reloadData];
             if ([currentKeywords isEqualToString:self.feedSearchDataSource.keywords] == NO){
                 [self.feedSearchDataSource startSearchWithKeywords:currentKeywords];
@@ -182,6 +172,14 @@ static CGFloat kArticleSearchResultCellHeight = 97.0f;
         [[self topContainer] boomOutViewController:feed fromView:[tableView cellForRowAtIndexPath:indexPath]];
     }
     
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.searchDisplayController.searchResultsDataSource == self.articleSearchDataSource){
+        return kArticleSearchResultCellHeight;
+    }else{
+        return kFeedSearchResultCellHeight;
+    }
 }
 
 #pragma mark - timer selector

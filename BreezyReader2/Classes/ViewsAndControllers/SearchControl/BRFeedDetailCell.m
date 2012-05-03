@@ -24,6 +24,7 @@
 @synthesize titleLabel = _titleLabel, snipetLabel = _snipetLabel, subscriberLabel = _subscriberLabel, velocityLabel = _velocityLabel;
 @synthesize client = _client;
 @synthesize item = _item;
+@synthesize topSeperateLine = _topSeperateLine;
 
 static NSMutableDictionary* velocityForFeed = nil;
 static NSMutableDictionary* subCountForFeed = nil;
@@ -38,6 +39,7 @@ static NSMutableDictionary* subCountForFeed = nil;
     self.snipetLabel = nil;
     self.subscriberLabel = nil;
     self.velocityLabel = nil;
+    self.topSeperateLine = nil;
     [super dealloc];
 }
 
@@ -52,14 +54,39 @@ static NSMutableDictionary* subCountForFeed = nil;
 
 -(void)awakeFromNib{
     [super awakeFromNib];
-    [self.contentView addSubview:self.container];
-    if (velocityForFeed == nil){
-        velocityForFeed = [[NSMutableDictionary dictionary] retain];
-    }
+    [self setupCell];
+}
+
+-(void)setupCell{
     
-    if (subCountForFeed == nil){
-        subCountForFeed = [[NSMutableDictionary dictionary] retain];
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (velocityForFeed == nil){
+            velocityForFeed = [[NSMutableDictionary dictionary] retain];
+        }
+        if (subCountForFeed == nil){
+            subCountForFeed = [[NSMutableDictionary dictionary] retain];
+        }
+    });
+    
+    [self.contentView addSubview:self.container];
+    
+    self.titleLabel.verticalAlignment = JJTextVerticalAlignmentTop;
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    self.titleLabel.textColor = [UIColor colorWithRed:41/255.0 green:41/255.0 blue:41/255.0 alpha:1];
+    self.titleLabel.shadowEnable = YES;
+    self.titleLabel.shadowColor = [UIColor whiteColor];
+    self.titleLabel.shadowOffset = CGSizeMake(0,1);
+    
+    CGRect frame = self.topSeperateLine.frame;
+    frame.size.height = 0.5f;
+    frame.size.width = self.bounds.size.width-20;
+    frame.origin.x = 10;
+    frame.origin.y = 0;
+    [self.topSeperateLine setFrame:frame];
+    
+    self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

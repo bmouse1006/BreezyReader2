@@ -19,4 +19,6 @@
 -(IBAction)starButtonClicked:(id)sender;
 -(IBAction)showSubListButtonClicked:(id)sender;
 
+-(IBAction)reloadButtonClicked:(id)sender;
+
 @end

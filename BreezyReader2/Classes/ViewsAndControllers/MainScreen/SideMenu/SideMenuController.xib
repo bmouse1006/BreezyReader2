@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1179</string>
+			<string key="NS.object.0">1181</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -40,6 +40,8 @@
 						<int key="NSvFlags">269</int>
 						<string key="NSFrame">{{47, 423}, {72, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="73670444">
 							<int key="NSColorSpace">3</int>
@@ -84,6 +86,7 @@
 						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{47, 80}, {72, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1005578550"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -113,7 +116,8 @@
 						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{47, 230}, {72, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView" ref="969202051"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="730694170"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -124,11 +128,10 @@
 						<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 						<reference key="IBUIHighlightedTitleColor" ref="60269738"/>
 						<reference key="IBUINormalTitleShadowColor" ref="983985909"/>
-						<object class="NSCustomResource" key="IBUIHighlightedImage" id="166079514">
+						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">download.png</string>
+							<string key="NSResourceName">reload.png</string>
 						</object>
-						<reference key="IBUINormalImage" ref="166079514"/>
 						<reference key="IBUIFontDescription" ref="548934695"/>
 						<reference key="IBUIFont" ref="795619113"/>
 					</object>
@@ -137,7 +140,8 @@
 						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{47, 180}, {72, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView" ref="730694170"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="345371712"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -165,7 +169,8 @@
 						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{47, 130}, {72, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView" ref="345371712"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="969202051"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -178,7 +183,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="983985909"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">star_white</string>
+							<string key="NSResourceName">star_white.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="548934695"/>
 						<reference key="IBUIFont" ref="795619113"/>
@@ -188,6 +193,7 @@
 						<int key="NSvFlags">269</int>
 						<string key="NSFrame">{{47, 373}, {72, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="98165403"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="73670444"/>
@@ -214,6 +220,7 @@
 				</array>
 				<string key="NSFrameSize">{166, 480}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="726155877"/>
 				<reference key="IBUIBackgroundColor" ref="73670444"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -249,12 +256,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">downloadButtonClicked:</string>
+						<string key="label">reloadButtonClicked:</string>
 						<reference key="source" ref="345371712"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">13</int>
+					<int key="connectionID">19</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -361,19 +368,69 @@
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="1" key="5.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="0.0" key="7.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="1" key="7.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="1" key="8.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="1" key="9.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="0.0" key="9.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">18</int>
+			<int key="maxID">19</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">SideMenuController</string>
+					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="configButtonClicked:">id</string>
+						<string key="downloadButtonClicked:">id</string>
+						<string key="logoutButtonClicked:">id</string>
+						<string key="reloadButtonClicked:">id</string>
+						<string key="searchButtonClicked:">id</string>
+						<string key="showSubListButtonClicked:">id</string>
+						<string key="starButtonClicked:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="configButtonClicked:">
+							<string key="name">configButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="downloadButtonClicked:">
+							<string key="name">downloadButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="logoutButtonClicked:">
+							<string key="name">logoutButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="reloadButtonClicked:">
+							<string key="name">reloadButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="searchButtonClicked:">
+							<string key="name">searchButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showSubListButtonClicked:">
+							<string key="name">showSubListButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="starButtonClicked:">
+							<string key="name">starButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SideMenuController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
@@ -384,12 +441,12 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="config_white.png">{24, 24}</string>
-			<string key="download.png">{24, 24}</string>
 			<string key="list.png">{24, 24}</string>
 			<string key="logout.png">{24, 24}</string>
+			<string key="reload.png">{24, 24}</string>
 			<string key="search.png">{24, 24}</string>
-			<string key="star_white">{16, 16}</string>
+			<string key="star_white.png">{24, 24}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1179</string>
+		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>
 </archive>
