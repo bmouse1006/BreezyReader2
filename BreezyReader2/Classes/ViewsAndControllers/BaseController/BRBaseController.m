@@ -32,6 +32,7 @@
 @synthesize secondaryViewIsShown = _secondaryViewIsShown;
 @synthesize slideCompletionBlock = _slideCompletionBlock;
 @synthesize unslideCompletionBlock = _unslideCompletionBlock;
+@synthesize actionMenuController = _actionMenuController;
 
 static CGFloat distance = 0.0f;
 
@@ -51,6 +52,7 @@ static CGFloat distance = 0.0f;
     self.secondaryView = nil;
     self.slideCompletionBlock = nil;
     self.unslideCompletionBlock = nil;
+    self.actionMenuController = nil;
     [super dealloc];
 }
 
@@ -106,6 +108,10 @@ static CGFloat distance = 0.0f;
     [self setupBackgroundView:self.backgroundView];
     [self.view addSubview:self.mainContainer];
 //    self.mainContainer.bounds = self.view.bounds;
+    CGRect frame = self.actionMenuController.view.frame;
+    [self.mainContainer addSubview:self.actionMenuController.view];
+    self.actionMenuController.view.frame = frame;
+    self.actionMenuController.view.hidden = YES;
 }
 
 
@@ -117,6 +123,7 @@ static CGFloat distance = 0.0f;
     self.mainContainer = nil;
     self.secondaryView = nil;
     self.backgroundView = nil;
+    self.actionMenuController = nil;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

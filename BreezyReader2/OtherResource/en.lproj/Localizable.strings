@@ -34,6 +34,10 @@
 "title_ok" = "OK";
 "title_pleaseinputlabelname" = "Please input label name";
 "title_reloadalldata" = "Sync data with Google Reader";
+"title_markallasread" = "Mark all as read";
+"title_showallarticles" = "Show all articles";
+"title_unreadonly" = "Show unread only";
+
 "message_unsubscribe" = "Do you want to unsubscribe \"%@?\"";
 "message_subscribe" = "Do you want to subscribe \"%@?\"";
 "message_unsubscribing" = "Unsubscribe feed";

@@ -24,7 +24,6 @@
 @property (nonatomic, retain) IBOutlet UITableView* tableView;
 @property (nonatomic, retain) IBOutlet BRFeedDragDownController* dragController;
 @property (nonatomic, retain) IBOutlet BRFeedLoadMoreController* loadMoreController;
-@property (nonatomic, retain) IBOutlet BRFeedActionMenuViewController* actionMenuController;
 @property (nonatomic, retain) IBOutlet BRFeedConfigViewController* configViewController;
 
 @property (nonatomic, retain) IBOutlet UIView* loadingView;

@@ -10,6 +10,7 @@
 #import "BRArticleDetailViewController.h"
 #import "BRArticleScrollViewController.h"
 #import "BRViewControllerNotification.h"
+#import "BRFeedActionMenuViewController.h"
 #import "GoogleReaderClient.h"
 #import "BRErrorHandler.h"
 #import "BRADManager.h"
@@ -45,7 +46,6 @@
 
 @synthesize configViewController = _configViewController;
 @synthesize tableView = _tableView, dragController = _dragController;
-@synthesize actionMenuController = _actionMenuController;
 @synthesize subscription = _subscription, dataSource = _dataSource;
 @synthesize loadMoreController = _loadMoreController;
 @synthesize loadingView = _loadingView;
@@ -69,7 +69,6 @@ static CGFloat refreshDistance = 60.0f;
     self.tableView = nil;
     self.dragController = nil;
     self.subscription = nil;
-    self.actionMenuController = nil;
     self.dataSource = nil;
     self.loadMoreController = nil;
     self.loadingView = nil;
@@ -182,8 +181,6 @@ static CGFloat refreshDistance = 60.0f;
         self.adView = adView;
         [self.mainContainer addSubview:adView];
     }
-    
-    [self.mainContainer addSubview:self.actionMenuController.view];
 }
 
 - (void)viewDidUnload
@@ -198,7 +195,6 @@ static CGFloat refreshDistance = 60.0f;
     self.bottomToolBar = nil;
     self.adView = nil;
     self.menuButton = nil;
-    self.actionMenuController = nil;
     self.configViewController = nil;
     [self.configViewController removeFromParentViewController];
     self.configButton = nil;
@@ -240,22 +236,6 @@ static CGFloat refreshDistance = 60.0f;
     [self.mainContainer bringSubviewToFront:self.actionMenuController.view];
     [self.mainContainer bringSubviewToFront:self.bottomToolBar];
 }
-
-//-(void)secondaryViewWillShow{
-//    [self.configViewController viewWillAppear:YES];
-//}
-//
-//-(void)secondaryViewDidShow{
-//    [self.configViewController viewDidAppear:YES];
-//}
-//
-//-(void)secondaryViewWillHide{
-//    [self.configViewController viewWillDisappear:YES];
-//}
-//
-//-(void)secondaryViewDidHide{
-//    [self.configViewController viewDidDisappear:YES];
-//}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -308,6 +288,11 @@ static CGFloat refreshDistance = 60.0f;
         CGFloat x = self.mainContainer.frame.size.width - 3;
         CGFloat y = self.bottomToolBar.frame.origin.y - 3;
         [self.actionMenuController showMenuInPosition:CGPointMake(x, y) anchorPoint:CGPointMake(1, 1)];
+        if (self.dataSource.unreadOnly){
+            [(BRFeedActionMenuViewController*)self.actionMenuController setActionStatus:BRFeedActoinMenuStatusUnreadOnly];
+        }else{
+            [(BRFeedActionMenuViewController*)self.actionMenuController setActionStatus:BRFeedActoinMenuStatusShowAllArticles];
+        }
     }else{
         [self.actionMenuController dismiss];
     }

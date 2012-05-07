@@ -7,17 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRActionMenuViewController.h"
 
-@interface BRFeedActionMenuViewController : UIViewController
+typedef enum{
+    BRFeedActoinMenuStatusShowAllArticles,
+    BRFeedActoinMenuStatusUnreadOnly
+} BRFeedActoinMenuStatus;
 
-@property (nonatomic, retain) IBOutlet UIView* menu;
+@interface BRFeedActionMenuViewController : BRActionMenuViewController
 
--(void)dismiss;
-
--(void)showMenuInPosition:(CGPoint)position anchorPoint:(CGPoint)anchor;
+@property (nonatomic, retain) IBOutlet UIButton* markAllAsReadButton;
+@property (nonatomic, retain) IBOutlet UIButton* unreadOnlyButton;
+@property (nonatomic, retain) IBOutlet UIButton* showAllButton;
 
 -(IBAction)showUnreadOnlyButtonClicked:(id)sender;
 -(IBAction)showAllArticlesButtonClicked:(id)sender;
 -(IBAction)markAllAsReadButtonClicked:(id)sender;
+
+-(void)setActionStatus:(BRFeedActoinMenuStatus)status;
 
 @end

@@ -33,6 +33,10 @@
 "title_ok" = "确定";
 "title_pleaseinputlabelname" = "请输入标签名";
 "title_reloadalldata" = "与Google Reader同步数据";
+"title_markallasread" = "标记所有文章为已读";
+"title_showallarticles" = "显示所有文章";
+"title_unreadonly" = "只显示未读文章";
+
 "message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
 "message_subscribe" = "您想要订阅 \"%@\" 吗?";
 "message_unsubscribing" = "取消订阅";

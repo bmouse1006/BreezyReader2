@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+BRAddtion.h"
 #import "BRTopContainer.h"
+#import "BRActionMenuViewController.h"
+#import "BRViewControllerNotification.h"
 
 @interface BRBaseController : UIViewController
 
 @property (nonatomic, retain) IBOutlet UIView* backgroundView;
 @property (nonatomic, retain) IBOutlet UIView* mainContainer; 
+@property (nonatomic, retain) IBOutlet BRActionMenuViewController* actionMenuController;
 
 @property (nonatomic, retain) IBOutlet UIView* secondaryView;
 

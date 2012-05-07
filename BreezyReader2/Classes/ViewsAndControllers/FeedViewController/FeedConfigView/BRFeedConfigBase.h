@@ -9,31 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "GRSubscription.h"
 #import "BRViewControllerNotification.h"
+#import "BRSettingDataSource.h"
 
 @class BRFeedConfigViewController;
 
-@protocol BRFeedConfigBase<NSObject>
-
-@optional
--(UIView*)sectionView;
-
-@end
-
-@interface BRFeedConfigBase : NSObject<BRFeedConfigBase>
+@interface BRFeedConfigBase : NSObject<BRSettingDataSource>
 
 @property (nonatomic, retain) GRSubscription* subscription;
 
 @property (nonatomic, assign) BRFeedConfigViewController* tableController;
 
--(NSString*)sectionTitle;
--(NSInteger)numberOfRowsInSection;
--(id)tableView:(UITableView*)tableView cellForRow:(NSInteger)index;
--(CGFloat)heightOfRowAtIndex:(NSInteger)index;
--(CGFloat)heightForHeader;
-
--(void)didSelectRowAtIndex:(NSInteger)index;
 -(void)subscriptionChanged:(GRSubscription*)newSub;
-
 -(void)viewDidDisappear;
 
 @end

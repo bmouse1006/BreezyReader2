@@ -8,18 +8,21 @@
 
 #import "BRFeedActionMenuViewController.h"
 #import "BRViewControllerNotification.h"
-#import <QuartzCore/QuartzCore.h>
 
-@interface BRFeedActionMenuViewController ()
+@interface BRFeedActionMenuViewController (){
+    BRFeedActoinMenuStatus _status;
+}
 
 @end
 
 @implementation BRFeedActionMenuViewController
 
-@synthesize menu = _menu;
+@synthesize showAllButton = _showAllButton, unreadOnlyButton = _unreadOnlyButton, markAllAsReadButton = _markAllAsReadButton;
 
 -(void)dealloc{
-    self.menu = nil;
+    self.showAllButton = nil;
+    self.unreadOnlyButton = nil;
+    self.markAllAsReadButton = nil;
     [super dealloc];
 }
 
@@ -35,13 +38,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.menu.layer.masksToBounds = YES;
-    self.menu.layer.cornerRadius = 5.0f;
-    self.menu.layer.borderColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.4f].CGColor;
-    self.menu.layer.borderWidth = 0.5f;
-    self.menu.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
     // Do any additional setup after loading the view from its nib.
 //    self.view.autoresizingMask = UIViewAuto;
+    
+    [self.markAllAsReadButton setTitle:NSLocalizedString(@"title_markallasread", nil) forState:UIControlStateNormal];
+    [self.showAllButton setTitle:NSLocalizedString(@"title_showallarticles", nil) forState:UIControlStateNormal];
+    [self.unreadOnlyButton setTitle:NSLocalizedString(@"title_unreadonly", nil) forState:UIControlStateNormal];
+    
+    [self refreshButtonsByStatus:_status];
 }
 
 - (void)viewDidUnload
@@ -49,63 +53,58 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.unreadOnlyButton = nil;
+    self.showAllButton = nil;
+    self.markAllAsReadButton = nil;
 }
 
 -(void)viewDidLayoutSubviews{
     self.menu.frame = self.view.bounds;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 -(void)dismiss{
-    self.menu.userInteractionEnabled = NO;
-    CGRect frame = self.menu.frame;
-    frame.origin.y = self.view.frame.size.height;
-    [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
-        self.menu.frame = frame;
-    } completion:^(BOOL finished){
-        self.menu.userInteractionEnabled = YES;
-        self.view.hidden = YES;
-    }];
+    [super dismiss];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MENUACTION_DISAPPEAR object:self.menu];
-}
-
--(void)showMenuInPosition:(CGPoint)position anchorPoint:(CGPoint)anchor{
-    
-    self.view.hidden = NO;
-    CGRect frame = self.view.frame;
-    frame.origin.x = position.x-frame.size.width*anchor.x;
-    frame.origin.y = position.y-frame.size.height*anchor.y;
-    self.view.frame = frame;
-    
-    frame = self.menu.frame;
-    frame.origin.y = self.view.frame.size.height;
-    self.menu.frame = frame;
-    frame.origin.y = 0;
-    self.menu.userInteractionEnabled = NO;
-    [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.menu.frame = frame;
-    } completion:^(BOOL finished){
-        self.menu.userInteractionEnabled = YES;
-    }];
 }
 
 -(IBAction)showUnreadOnlyButtonClicked:(id)sender{
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MENUACTION_UNREADONLY object:sender];
+    _status = BRFeedActoinMenuStatusUnreadOnly;
+    [self refreshButtonsByStatus:_status];
     [self dismiss];
 }
 
 -(IBAction)showAllArticlesButtonClicked:(id)sender{
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_MENUACTION_ALLARTICLES object:sender];
+    _status = BRFeedActoinMenuStatusShowAllArticles;
+    [self refreshButtonsByStatus:_status];
     [self dismiss];
 }
 
 -(IBAction)markAllAsReadButtonClicked:(id)sender{
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MENUACTION_MARKALLASREAD object:sender];
     [self dismiss];
+}
+
+-(void)setActionStatus:(BRFeedActoinMenuStatus)status{ 
+    _status = status;
+    [self refreshButtonsByStatus:_status];
+}
+
+-(void)refreshButtonsByStatus:(BRFeedActoinMenuStatus)status{
+    UIImage* checkMark = [UIImage imageNamed:@"checkmark"];
+    switch (status) {
+        case BRFeedActoinMenuStatusUnreadOnly:
+            [self.unreadOnlyButton setImage:checkMark forState:UIControlStateNormal];
+            [self.showAllButton setImage:nil forState:UIControlStateNormal];
+            break;
+        case BRFeedActoinMenuStatusShowAllArticles:
+            [self.showAllButton setImage:checkMark forState:UIControlStateNormal];
+            [self.unreadOnlyButton setImage:nil forState:UIControlStateNormal];
+            break;
+        default:
+            break;
+    }
 }
 
 @end

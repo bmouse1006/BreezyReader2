@@ -31,8 +31,7 @@
 
 @synthesize subscription = _subscription;
 
-@synthesize tableView = _tableView;
-@synthesize feedOpertaionControllers = _feedOpertaionControllers;
+@synthesize settingDataSources = _settingDataSources;
 
 @synthesize client = _client;
 @synthesize activityLabel = _activityLabel;
@@ -45,7 +44,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.client clearAndCancel];
     self.client = nil;
-    self.feedOpertaionControllers = nil;
     self.subscription = nil;
     self.activityLabel = nil;
     [self.timer invalidate];
@@ -63,35 +61,9 @@
     return self;
 }
 
--(void)registerNotifications{
-    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(unsubscribeFeed:) name:NOTIFICATION_CONFIG_UNSUBSCRIBEFEED object:nil];
-    [nc addObserver:self selector:@selector(renameFeed:) name:NOTIFICATION_CONFIG_RENAMEFEED object:nil];
-    [nc addObserver:self selector:@selector(addTagToFeed:) name:NOTIFICATION_CONFIG_ADDTAG object:nil];
-    [nc addObserver:self selector:@selector(removeTagFromFeed:) name:NOTIFICATION_CONFIG_REMOVETAG object:nil];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    self.feedOpertaionControllers = nil;
-}
-
--(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    [self.feedOpertaionControllers makeObjectsPerformSelector:@selector(viewDidDisappear)];
-}
-
--(NSMutableArray*)feedOpertaionControllers{
-    if (_feedOpertaionControllers== nil){
-        _feedOpertaionControllers = [[NSMutableArray alloc] init];
+-(NSMutableArray*)settingDataSources{
+    if (_settingDataSources== nil){
+        _settingDataSources = [[NSMutableArray alloc] init];
         BRFeedDetailViewSource* detailController = [[[BRFeedDetailViewSource alloc] init] autorelease];
         detailController.subscription = self.subscription;
         detailController.tableController = self;
@@ -104,99 +76,53 @@
         BRRelatedFeedViewSource* relatedFeedController = [[[BRRelatedFeedViewSource alloc] init] autorelease];
         relatedFeedController.subscription = self.subscription;
         relatedFeedController.tableController = self;
-        [_feedOpertaionControllers addObject:detailController];
+        [_settingDataSources addObject:detailController];
         if ([GoogleReaderClient containsSubscription:self.subscription.ID] == NO){
-            [_feedOpertaionControllers addObject:controlsController];        
+            [_settingDataSources addObject:controlsController];        
         }
         if ([GoogleReaderClient containsSubscription:self.subscription.ID] == YES){
-            [_feedOpertaionControllers addObject:labelsController];
+            [_settingDataSources addObject:labelsController];
         }
         if ([GoogleReaderClient containsSubscription:self.subscription.ID] == YES){
-            [_feedOpertaionControllers addObject:controlsController];        
+            [_settingDataSources addObject:controlsController];        
         }
-        [_feedOpertaionControllers addObject:relatedFeedController];
+        [_settingDataSources addObject:relatedFeedController];
     }
     
-    return _feedOpertaionControllers;
+    return _settingDataSources;
 }
 
-#pragma mark - table view delegate
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    BRFeedConfigBase* controller = [self.feedOpertaionControllers objectAtIndex:indexPath.section];
-    [controller didSelectRowAtIndex:indexPath.row];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    [controller
+-(void)registerNotifications{
+//    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+//    [nc addObserver:self selector:@selector(unsubscribeFeed:) name:NOTIFICATION_CONFIG_UNSUBSCRIBEFEED object:nil];
+//    [nc addObserver:self selector:@selector(renameFeed:) name:NOTIFICATION_CONFIG_RENAMEFEED object:nil];
+//    [nc addObserver:self selector:@selector(addTagToFeed:) name:NOTIFICATION_CONFIG_ADDTAG object:nil];
+//    [nc addObserver:self selector:@selector(removeTagFromFeed:) name:NOTIFICATION_CONFIG_REMOVETAG object:nil];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    BRFeedConfigBase* controller = [self.feedOpertaionControllers objectAtIndex:indexPath.section];
-    return [controller heightOfRowAtIndex:indexPath.row];
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
 }
 
--(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    BRFeedConfigBase* controller = [self.feedOpertaionControllers objectAtIndex:section];
-    return controller.sectionTitle;
-}
 
--(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    BRFeedConfigBase* controller = [self.feedOpertaionControllers objectAtIndex:section];
-    return [controller sectionView];
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    BRFeedConfigBase* controller = [self.feedOpertaionControllers objectAtIndex:section];
-    return [controller heightForHeader];
-}
-
-#pragma mark - table view datasource
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    BRFeedConfigBase* controller = [self.feedOpertaionControllers objectAtIndex:section];
-    return [controller numberOfRowsInSection];
-}
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return [self.feedOpertaionControllers count];
-}
-
-- (id)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    BRFeedConfigBase* controller = [self.feedOpertaionControllers objectAtIndex:indexPath.section];
-    return [controller tableView:tableView cellForRow:indexPath.row];
-}
-
--(void)reloadSectionFromSource:(BRFeedConfigBase*)source{
-    NSInteger index = [self.feedOpertaionControllers indexOfObject:source];
-    if (index != NSNotFound){
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-}
-
--(void)reloadRowsFromSource:(BRFeedConfigBase*)source row:(NSInteger)row animated:(BOOL)animated{
-    NSInteger section = [self.feedOpertaionControllers indexOfObject:source];
-    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:row inSection:section];
-    
-    UITableViewRowAnimation animation = UITableViewRowAnimationNone;
-    if(animated){
-        animation = UITableViewRowAnimationAutomatic;
-    }
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:animation];
-}
 
 #pragma mark - notification callback
--(void)unsubscribeFeed:(NSNotification*)notification{
-
-}
-
--(void)renameFeed:(NSNotification*)notification{
-
-}
-
--(void)addTagToFeed:(NSNotification*)notification{
-
-}
-
--(void)removeTagFromFeed:(NSNotification*)notification{
-
-}
+//-(void)unsubscribeFeed:(NSNotification*)notification{
+//
+//}
+//
+//-(void)renameFeed:(NSNotification*)notification{
+//
+//}
+//
+//-(void)addTagToFeed:(NSNotification*)notification{
+//
+//}
+//
+//-(void)removeTagFromFeed:(NSNotification*)notification{
+//
+//}
 
 #pragma mark - table callback action
 -(void)showSubscription:(GRSubscription*)subscription{
@@ -211,9 +137,7 @@
     alertView.tag = newLabelTag;
     [alertView show];
 }
--(void)addNewTag{
-    
-}
+
 -(void)addTag:(NSString*)addID removeTag:(NSString*)removeID{
     
 }
@@ -222,6 +146,7 @@
     alert.tag = unsubscribeTag;
     [alert show];
 }
+
 -(void)subscribeButtonClicked{
     UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:NSLocalizedString(@"message_subscribe", nil), self.subscription.title] delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) otherButtonTitles:NSLocalizedString(@"title_ok", nil), nil] autorelease];
     alert.tag = subscribeTag;
@@ -239,36 +164,18 @@
             case subscribeTag:
             {
                 //unsubscribe
-                self.activityLabel.message = NSLocalizedString(@"message_subscribing", nil);
-                [self.activityLabel show];
-                [self startTimer];
-                [self.client clearAndCancel];
-                self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(subscribeDidFinish:)];
-                [self.client addSubscription:self.subscription.ID withTitle:self.subscription.title toTag:nil];
+                [self subscribe];
             }
                 break;
             case unsubscribeTag:
             {
                 //subscribe
-                self.activityLabel.message = NSLocalizedString(@"message_unsubscribing", nil);
-                [self.activityLabel show];
-                [self startTimer];
-                [self.client clearAndCancel];
-                self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(unsubscribeDidFinish:)];
-                [self.client removeSubscription:self.subscription.ID];
+                [self unsubscribe];
             }
                 break;
             case newLabelTag:
             {
-                self.activityLabel.message = NSLocalizedString(@"message_addnewtag", nil);
-                [self.activityLabel show];
-                [self startTimer];
-                NSString* string = [alertView textFieldAtIndex:0].text;
-                if (string.length > 0){
-                    [self.client clearAndCancel];
-                    self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(addNewTagFinished:)];
-                    [self.client editSubscription:self.subscription.ID tagToAdd:string tagToRemove:nil];
-                }
+                [self addNewTag:[alertView textFieldAtIndex:0].text];
             }
                 break;
             default:
@@ -278,6 +185,36 @@
 }
 
 #pragma mark - google reader client callback
+
+-(void)addNewTag:(NSString*)newLabel{
+    if (newLabel.length == 0){
+        return;
+    }
+    self.activityLabel.message = NSLocalizedString(@"message_addnewtag", nil);
+    [self.activityLabel show];
+    [self startTimer];
+    [self.client clearAndCancel];
+    self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(addNewTagFinished:)];
+    [self.client editSubscription:self.subscription.ID tagToAdd:newLabel tagToRemove:nil];
+}
+-(void)unsubscribe{
+    self.activityLabel.message = NSLocalizedString(@"message_subscribing", nil);
+    [self.activityLabel show];
+    [self startTimer];
+    [self.client clearAndCancel];
+    self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(subscribeDidFinish:)];
+    [self.client addSubscription:self.subscription.ID withTitle:self.subscription.title toTag:nil];
+}
+
+-(void)subscribe{
+    self.activityLabel.message = NSLocalizedString(@"message_subscribing", nil);
+    [self.activityLabel show];
+    [self startTimer];
+    [self.client clearAndCancel];
+    self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(subscribeDidFinish:)];
+    [self.client addSubscription:self.subscription.ID withTitle:self.subscription.title toTag:nil];
+}
+
 -(void)unsubscribeDidFinish:(GoogleReaderClient*)client{
     [self stopTimer];
     if ([client isResponseOK]){
@@ -294,7 +231,7 @@
     if ([client isResponseOK]){
         self.activityLabel.message = NSLocalizedString(@"message_subscribesucceded", nil);
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FEED_SUBSCRIBED object:self.subscription.ID];
-        self.feedOpertaionControllers = nil;
+        self.settingDataSources = nil;
         [self.tableView reloadData];
     }else{
         self.activityLabel.message = NSLocalizedString(@"message_subscribefailed", nil);
@@ -307,9 +244,9 @@
     if ([client isResponseOK]){
         self.activityLabel.message = NSLocalizedString(@"message_addnewtagsucceded", nil);
         NSInteger sectionIndex;
-        for (id obj in self.feedOpertaionControllers){
+        for (id obj in self.settingDataSources){
             if ([obj isKindOfClass:[BRFeedLabelsViewSource class]]){
-                sectionIndex = [self.feedOpertaionControllers indexOfObject:obj];
+                sectionIndex = [self.settingDataSources indexOfObject:obj];
                 break;
             }
         }

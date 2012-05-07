@@ -14,7 +14,9 @@
 #import "BRADManager.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface BRArticleScrollViewController ()
+@interface BRArticleScrollViewController (){
+    BOOL _showMenu;
+}
 
 @property (nonatomic, retain) NSArray* articleDetailControllers;
 @property (nonatomic, retain) NSMutableSet* clients;
@@ -35,8 +37,10 @@
 @synthesize adView = _adView;
 @synthesize starButton = _starButton, unstarButton = _unstarButton;
 @synthesize starButtonContainer = _starButtonContainer;
+@synthesize actionMenuController = _actionMenuController;
 
 -(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.scrollView = nil;
     self.feed = nil;
     self.backButton = nil;
@@ -48,6 +52,7 @@
     self.starButton = nil;
     self.unstarButton = nil;
     self.starButtonContainer = nil;
+    self.actionMenuController = nil;
     [super dealloc];
 }
 
@@ -55,6 +60,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
         self.clients = [NSMutableSet set];
+        [self registerNotifications];
     }
     
     return self;
@@ -89,6 +95,7 @@
     self.bottomToolBar = nil;
     self.articleDetailControllers = nil;
     self.adView = nil;
+    self.actionMenuController = nil;
 }
 
 -(void)viewWillLayoutSubviews{
@@ -99,6 +106,11 @@
     frame = self.scrollView.frame;
     frame.size.height = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
     self.scrollView.frame = frame;
+    
+    frame = self.actionMenuController.view.frame;
+    frame.size.width = 300.0f;
+    frame.size.height = 80.0f;
+    self.actionMenuController.view.frame = frame;
     
     [self.view bringSubviewToFront:self.bottomToolBar];
 }
@@ -135,6 +147,21 @@
 }
 
 #pragma mark - action
+-(IBAction)showHideActionMenuButtonClicked:(id)sender{
+    _showMenu = !_showMenu;
+    [self showHideActionMenu];
+}
+
+-(void)showHideActionMenu{
+    if (_showMenu){
+        CGFloat x = self.mainContainer.frame.size.width - 10;
+        CGFloat y = self.bottomToolBar.frame.origin.y - 3;
+        [self.actionMenuController showMenuInPosition:CGPointMake(x, y) anchorPoint:CGPointMake(1, 1)];
+    }else{
+        [self.actionMenuController dismiss];
+    }
+}
+
 -(IBAction)showHideFontsizeMenu:(id)sender{
     
 }
@@ -244,6 +271,47 @@
         [self.unstarButton removeFromSuperview];
         [self.starButtonContainer addSubview:self.starButton];
     }
+}
+
+#pragma mark - register notification
+-(void)registerNotifications{
+    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(shareToMail:) name:NOTIFICATION_SHARE_MAIL object:nil];
+    [nc addObserver:self selector:@selector(shareToWeibo:) name:NOTIFICATION_SHARE_WEIBO object:nil];
+    [nc addObserver:self selector:@selector(shareToTwitter:) name:NOTIFICATION_SHARE_TWITTER object:nil];
+    [nc addObserver:self selector:@selector(shareToInstapaper:) name:NOTIFICATION_SHARE_INSTAPAPER object:nil];
+    [nc addObserver:self selector:@selector(shareToReadItLater:) name:NOTIFICATION_SHARE_READITLATER object:nil];
+    [nc addObserver:self selector:@selector(shareToEvernote:) name:NOTIFICATION_SHARE_EVERNOTE object:nil];
+    [nc addObserver:self selector:@selector(shareToFacebook:) name:NOTIFICATION_SHARE_FACEBOOK object:nil];
+}
+
+#pragma mark - notification call back
+-(void)shareToWeibo:(NSNotification*)notification{
+    DebugLog(@"share to weibo");
+}
+
+-(void)shareToEvernote:(NSNotification*)notification{
+    DebugLog(@"share to evernote");    
+}
+
+-(void)shareToTwitter:(NSNotification*)notification{
+    DebugLog(@"share to twitter");
+}
+
+-(void)shareToInstapaper:(NSNotification*)notification{
+    DebugLog(@"share to instapaper");
+}
+
+-(void)shareToReadItLater:(NSNotification*)notification{
+    DebugLog(@"share to read it later");
+}
+
+-(void)shareToMail:(NSNotification*)notification{
+    DebugLog(@"share to mail");
+}
+
+-(void)shareToFacebook:(NSNotification*)notification{
+    DebugLog(@"share to facebook");
 }
 
 @end

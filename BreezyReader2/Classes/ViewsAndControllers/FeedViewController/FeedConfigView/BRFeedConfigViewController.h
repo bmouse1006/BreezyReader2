@@ -10,20 +10,15 @@
 #import "GRSubscription.h"
 #import "JJLabel.h"
 #import "BRFeedConfigBase.h"
+#import "BRSettingBaseController.h"
 
-@interface BRFeedConfigViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
+@interface BRFeedConfigViewController : BRSettingBaseController<UIAlertViewDelegate>
 
 @property (nonatomic, retain) GRSubscription* subscription;
-@property (nonatomic, retain) IBOutlet UITableView* tableView;
-
-@property (nonatomic, retain) NSMutableArray* feedOpertaionControllers;
-
--(void)reloadSectionFromSource:(BRFeedConfigBase*)source;
--(void)reloadRowsFromSource:(BRFeedConfigBase*)source row:(NSInteger)row animated:(BOOL)animated;
 
 -(void)showSubscription:(GRSubscription*)subscription;
 -(void)showAddNewTagView;
--(void)addNewTag;
+-(void)addNewTag:(NSString*)newLabel;;
 -(void)addTag:(NSString*)tagID removeTag:(NSString*)tagID;
 -(void)unsubscribeButtonClicked;
 -(void)subscribeButtonClicked;

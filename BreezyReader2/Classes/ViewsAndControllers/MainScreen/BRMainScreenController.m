@@ -16,6 +16,7 @@
 #import "BRFeedViewController.h"
 #import "GoogleReaderClient.h"
 #import "BRTagAndSubListViewController.h"
+#import "BRSettingViewController.h"
 #import "BaseActivityLabel.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -287,6 +288,10 @@
 
 -(void)showConfigUI:(NSNotification*)notification{
     DebugLog(@"show config UI");
+    BRSettingViewController* setting = [[[BRSettingViewController alloc] initWithTheNibOfSameName] autorelease];
+    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:setting] autorelease];
+    
+    [self presentViewController:nav animated:YES completion:NULL];
 }
 
 -(void)refreshClientData:(NSNotification*)notification{
