@@ -41,7 +41,11 @@
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [self.settingDataSources makeObjectsPerformSelector:@selector(viewDidDisappear)];
+    [self.settingDataSources enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop){
+        if ([obj respondsToSelector:@selector(viewDidDisappear:)]){
+            [obj performSelector:@selector(viewDidDisappear:)];
+        }
+    }];
 }
 
 -(NSMutableArray*)settingDataSources{

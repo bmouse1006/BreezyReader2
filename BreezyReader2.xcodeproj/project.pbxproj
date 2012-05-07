@@ -61,6 +61,8 @@
 		22608C3414F0C9B000732D2B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3314F0C9AF00732D2B /* MobileCoreServices.framework */; };
 		22608C3614F0C9F100732D2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3514F0C9F100732D2B /* libz.dylib */; };
 		22638593152ECD7800CA39E3 /* BRSubFavoriteSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22638592152ECD7800CA39E3 /* BRSubFavoriteSource.m */; };
+		2267CF6B15579FA20037BAFF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267CF6A15579FA20037BAFF /* CoreImage.framework */; };
+		2267CF6D15579FA90037BAFF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267CF6A15579FA20037BAFF /* CoreImage.framework */; };
 		2271F4111534F8D500A50484 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2271F4101534F8D400A50484 /* MessageUI.framework */; };
 		227F0DC0154581E800F03A04 /* BRFeedLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 227F0DBF154581E700F03A04 /* BRFeedLabelCell.m */; };
 		227F0DC1154581E800F03A04 /* BRFeedLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 227F0DBF154581E700F03A04 /* BRFeedLabelCell.m */; };
@@ -743,6 +745,18 @@
 		22E8CA881542C50C00D07870 /* BRFeedConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E8CA851542C50C00D07870 /* BRFeedConfigViewController.m */; };
 		22E8CA891542C50C00D07870 /* BRFeedConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E8CA861542C50C00D07870 /* BRFeedConfigViewController.xib */; };
 		22E8CA8A1542C50C00D07870 /* BRFeedConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E8CA861542C50C00D07870 /* BRFeedConfigViewController.xib */; };
+		22E98E611557F41400192FBD /* BRCacheSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E98E601557F41400192FBD /* BRCacheSetting.m */; };
+		22E98E621557F41400192FBD /* BRCacheSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E98E601557F41400192FBD /* BRCacheSetting.m */; };
+		22E98E661557FA2200192FBD /* menu-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E98E641557FA2200192FBD /* menu-background.png */; };
+		22E98E671557FA2200192FBD /* menu-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E98E641557FA2200192FBD /* menu-background.png */; };
+		22E98E681557FA2200192FBD /* menu-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E98E651557FA2200192FBD /* menu-background@2x.png */; };
+		22E98E691557FA2200192FBD /* menu-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E98E651557FA2200192FBD /* menu-background@2x.png */; };
+		22E98E6C1557FDFA00192FBD /* BRSocialAccountsSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E98E6B1557FDF900192FBD /* BRSocialAccountsSettingController.m */; };
+		22E98E6D1557FDFA00192FBD /* BRSocialAccountsSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E98E6B1557FDF900192FBD /* BRSocialAccountsSettingController.m */; };
+		22E98E721557FE3300192FBD /* BRSocialAccountsSettingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E98E711557FE3200192FBD /* BRSocialAccountsSettingController.xib */; };
+		22E98E731557FE3300192FBD /* BRSocialAccountsSettingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E98E711557FE3200192FBD /* BRSocialAccountsSettingController.xib */; };
+		22E98E751557FED800192FBD /* SocialAccountsSetting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22E98E741557FED800192FBD /* SocialAccountsSetting.plist */; };
+		22E98E761557FED800192FBD /* SocialAccountsSetting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22E98E741557FED800192FBD /* SocialAccountsSetting.plist */; };
 		22E9FE1114A21AF9004D7A55 /* libicucore.A.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E9FE1014A21AF9004D7A55 /* libicucore.A.dylib */; };
 		22E9FE1714A21BBB004D7A55 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E9FE1614A21BBB004D7A55 /* libxml2.2.dylib */; };
 		22F0BE41154E6ECF006A4207 /* BaseActivityLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F0BE3F154E6ECF006A4207 /* BaseActivityLabel.m */; };
@@ -828,6 +842,7 @@
 		22608C3514F0C9F100732D2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		22638591152ECD7800CA39E3 /* BRSubFavoriteSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSubFavoriteSource.h; sourceTree = "<group>"; };
 		22638592152ECD7800CA39E3 /* BRSubFavoriteSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSubFavoriteSource.m; sourceTree = "<group>"; };
+		2267CF6A15579FA20037BAFF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		2271F40C1534F8C800A50484 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2271F40E1534F8CE00A50484 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		2271F4101534F8D400A50484 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1439,6 +1454,14 @@
 		22E8CA841542C50C00D07870 /* BRFeedConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFeedConfigViewController.h; sourceTree = "<group>"; };
 		22E8CA851542C50C00D07870 /* BRFeedConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFeedConfigViewController.m; sourceTree = "<group>"; };
 		22E8CA861542C50C00D07870 /* BRFeedConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRFeedConfigViewController.xib; sourceTree = "<group>"; };
+		22E98E5F1557F41400192FBD /* BRCacheSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCacheSetting.h; sourceTree = "<group>"; };
+		22E98E601557F41400192FBD /* BRCacheSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRCacheSetting.m; sourceTree = "<group>"; };
+		22E98E641557FA2200192FBD /* menu-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-background.png"; sourceTree = "<group>"; };
+		22E98E651557FA2200192FBD /* menu-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-background@2x.png"; sourceTree = "<group>"; };
+		22E98E6A1557FDF900192FBD /* BRSocialAccountsSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSocialAccountsSettingController.h; sourceTree = "<group>"; };
+		22E98E6B1557FDF900192FBD /* BRSocialAccountsSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSocialAccountsSettingController.m; sourceTree = "<group>"; };
+		22E98E711557FE3200192FBD /* BRSocialAccountsSettingController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRSocialAccountsSettingController.xib; sourceTree = "<group>"; };
+		22E98E741557FED800192FBD /* SocialAccountsSetting.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SocialAccountsSetting.plist; sourceTree = "<group>"; };
 		22E9FE1014A21AF9004D7A55 /* libicucore.A.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.A.dylib; path = usr/lib/libicucore.A.dylib; sourceTree = SDKROOT; };
 		22E9FE1214A21B6F004D7A55 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		22E9FE1614A21BBB004D7A55 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
@@ -1462,6 +1485,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2267CF6D15579FA90037BAFF /* CoreImage.framework in Frameworks */,
 				229E208A153E687C00DDBE0B /* Security.framework in Frameworks */,
 				229E208B153E687C00DDBE0B /* AVFoundation.framework in Frameworks */,
 				229E208C153E687C00DDBE0B /* libsqlite3.0.dylib in Frameworks */,
@@ -1502,6 +1526,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2267CF6B15579FA20037BAFF /* CoreImage.framework in Frameworks */,
 				229E23B8153E8B8F00DDBE0B /* libsqlite3.0.dylib in Frameworks */,
 				229E23B4153E819A00DDBE0B /* CoreLocation.framework in Frameworks */,
 				229E23B0153E811D00DDBE0B /* CoreData.framework in Frameworks */,
@@ -1572,13 +1597,19 @@
 		22872D231552D1930083E700 /* SettingViewController */ = {
 			isa = PBXGroup;
 			children = (
-				22E556DC155667CA0048E331 /* BRSettingViewController.h */,
-				22E556DD155667CA0048E331 /* BRSettingViewController.m */,
 				22E556E5155686EB0048E331 /* BRAccountSetting.h */,
 				22E556E6155686EC0048E331 /* BRAccountSetting.m */,
 				22E556E9155687050048E331 /* BRAppearenceSetting.h */,
 				22E556EA155687060048E331 /* BRAppearenceSetting.m */,
+				22E98E5F1557F41400192FBD /* BRCacheSetting.h */,
+				22E98E601557F41400192FBD /* BRCacheSetting.m */,
+				22E556DC155667CA0048E331 /* BRSettingViewController.h */,
+				22E556DD155667CA0048E331 /* BRSettingViewController.m */,
 				22E556ED15568A8A0048E331 /* BRSettingViewController.xib */,
+				22E98E6A1557FDF900192FBD /* BRSocialAccountsSettingController.h */,
+				22E98E6B1557FDF900192FBD /* BRSocialAccountsSettingController.m */,
+				22E98E711557FE3200192FBD /* BRSocialAccountsSettingController.xib */,
+				22E98E741557FED800192FBD /* SocialAccountsSetting.plist */,
 			);
 			path = SettingViewController;
 			sourceTree = "<group>";
@@ -2082,6 +2113,8 @@
 		229B2C8215273CAE00700504 /* Background */ = {
 			isa = PBXGroup;
 			children = (
+				22E98E641557FA2200192FBD /* menu-background.png */,
+				22E98E651557FA2200192FBD /* menu-background@2x.png */,
 				22E556B6155637150048E331 /* background10.jpg */,
 				22E556B7155637150048E331 /* background11.jpg */,
 				22E556B8155637150048E331 /* background12.jpg */,
@@ -2879,6 +2912,7 @@
 		22F8668914A216AA00D7B1CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2267CF6A15579FA20037BAFF /* CoreImage.framework */,
 				227E473D153652700057B706 /* AVFoundation.framework */,
 				2271F40C1534F8C800A50484 /* AudioToolbox.framework */,
 				22608C3114F0C93100732D2B /* CFNetwork.framework */,
@@ -3164,6 +3198,10 @@
 				22E556C6155645BC0048E331 /* BRArticleActionMenuViewController.xib in Resources */,
 				22E556D115565CCC0048E331 /* BRFeedActionMenuViewController.xib in Resources */,
 				22E556EF15568A8B0048E331 /* BRSettingViewController.xib in Resources */,
+				22E98E671557FA2200192FBD /* menu-background.png in Resources */,
+				22E98E691557FA2200192FBD /* menu-background@2x.png in Resources */,
+				22E98E731557FE3300192FBD /* BRSocialAccountsSettingController.xib in Resources */,
+				22E98E761557FED800192FBD /* SocialAccountsSetting.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3315,6 +3353,10 @@
 				22E556C5155645BC0048E331 /* BRArticleActionMenuViewController.xib in Resources */,
 				22E556D015565CCC0048E331 /* BRFeedActionMenuViewController.xib in Resources */,
 				22E556EE15568A8B0048E331 /* BRSettingViewController.xib in Resources */,
+				22E98E661557FA2200192FBD /* menu-background.png in Resources */,
+				22E98E681557FA2200192FBD /* menu-background@2x.png in Resources */,
+				22E98E721557FE3300192FBD /* BRSocialAccountsSettingController.xib in Resources */,
+				22E98E751557FED800192FBD /* SocialAccountsSetting.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3547,6 +3589,8 @@
 				22E556E415567EA40048E331 /* BRSettingBaseController.m in Sources */,
 				22E556E8155686ED0048E331 /* BRAccountSetting.m in Sources */,
 				22E556EC155687070048E331 /* BRAppearenceSetting.m in Sources */,
+				22E98E621557F41400192FBD /* BRCacheSetting.m in Sources */,
+				22E98E6D1557FDFA00192FBD /* BRSocialAccountsSettingController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3756,6 +3800,8 @@
 				22E556E315567EA40048E331 /* BRSettingBaseController.m in Sources */,
 				22E556E7155686ED0048E331 /* BRAccountSetting.m in Sources */,
 				22E556EB155687070048E331 /* BRAppearenceSetting.m in Sources */,
+				22E98E611557F41400192FBD /* BRCacheSetting.m in Sources */,
+				22E98E6C1557FDFA00192FBD /* BRSocialAccountsSettingController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

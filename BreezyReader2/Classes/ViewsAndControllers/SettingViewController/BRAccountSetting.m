@@ -7,8 +7,11 @@
 //
 
 #import "BRAccountSetting.h"
+#import "BRSocialAccountsSettingController.h"
 
 @implementation BRAccountSetting
+
+@synthesize viewController = _viewController;
 
 -(NSInteger)numberOfRowsInSection{
     return 2;
@@ -22,4 +25,18 @@
     return NSLocalizedString(@"title_accounts", nil);
 }
 
+-(void)didSelectRowAtIndex:(NSInteger)index{
+    switch(index){
+        case 0:
+            break;
+        case 1:
+        {
+            BRSocialAccountsSettingController* controller = [[[BRSocialAccountsSettingController alloc] initWithNibName:@"BRSocialAccountsSettingController" bundle:nil] autorelease];
+            [self.viewController.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
 @end

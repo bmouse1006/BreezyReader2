@@ -36,6 +36,9 @@
 "title_markallasread" = "标记所有文章为已读";
 "title_showallarticles" = "显示所有文章";
 "title_unreadonly" = "只显示未读文章";
+"title_cache" = "缓存";
+"title_accounts" = "账户";
+"title_appearence" = "显示";
 
 "message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
 "message_subscribe" = "您想要订阅 \"%@\" 吗?";

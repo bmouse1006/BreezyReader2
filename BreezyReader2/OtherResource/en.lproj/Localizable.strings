@@ -37,6 +37,9 @@
 "title_markallasread" = "Mark all as read";
 "title_showallarticles" = "Show all articles";
 "title_unreadonly" = "Show unread only";
+"title_cache" = "Cache";
+"title_accounts" = "Accounts";
+"title_appearence" = "Appearence";
 
 "message_unsubscribe" = "Do you want to unsubscribe \"%@?\"";
 "message_subscribe" = "Do you want to subscribe \"%@?\"";

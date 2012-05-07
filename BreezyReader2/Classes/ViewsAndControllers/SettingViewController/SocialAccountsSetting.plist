@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>identifier</key>
+		<string>weibo</string>
+		<key>name</key>
+		<string>Weibo</string>
+	</dict>
+	<dict>
+		<key>identifier</key>
+		<string>instapaper</string>
+		<key>name</key>
+		<string>Instapaper</string>
+	</dict>
+	<dict>
+		<key>identifier</key>
+		<string>readitlater</string>
+		<key>name</key>
+		<string>Read It Later</string>
+	</dict>
+	<dict>
+		<key>identifier</key>
+		<string>evernote</string>
+		<key>name</key>
+		<string>Evernote</string>
+	</dict>
+	<dict>
+		<key>identifier</key>
+		<string>twitter</string>
+		<key>name</key>
+		<string>Twitter</string>
+	</dict>
+</array>
+</plist>

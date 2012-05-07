@@ -1,14 +1,14 @@
 //
-//  BRAppearenceSetting.m
+//  BRCacheSetting.m
 //  BreezyReader2
 //
-//  Created by 金 津 on 12-5-6.
+//  Created by Jin Jin on 12-5-7.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "BRAppearenceSetting.h"
+#import "BRCacheSetting.h"
 
-@implementation BRAppearenceSetting
+@implementation BRCacheSetting
 
 @synthesize viewController = _viewController;
 
@@ -21,7 +21,8 @@
 }
 
 -(NSString*)sectionTitle{
-    return NSLocalizedString(@"title_appearence", nil);
+    return NSLocalizedString(@"title_cache", nil);
 }
+
 
 @end

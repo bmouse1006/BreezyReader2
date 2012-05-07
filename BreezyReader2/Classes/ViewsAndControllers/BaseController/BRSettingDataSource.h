@@ -11,6 +11,9 @@
 @protocol BRSettingDataSource <NSObject>
 
 @required
+
+@property (nonatomic, assign) UIViewController* viewController;
+
 -(NSInteger)numberOfRowsInSection;
 -(id)tableView:(UITableView*)tableView cellForRow:(NSInteger)index;
 

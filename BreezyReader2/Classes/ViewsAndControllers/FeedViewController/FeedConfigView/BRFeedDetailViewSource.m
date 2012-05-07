@@ -58,6 +58,7 @@
     [self.client getStreamDetails:self.subscription.ID];
     
     UITableViewCell* cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor clearColor];
     [cell.contentView addSubview:self.container];
     return cell;
