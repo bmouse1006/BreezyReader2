@@ -21,6 +21,9 @@
 #define kPlaceHolderCSSFilePath @"#BREEZYREADERREADABILITYCSSFILEPATH#"
 #define kPlaceHolderJSFilePath @"#BREEZYREADERREADABILITYFILEPATH#"
 
+#define kPlaceHolderJQueryFilePath          @"BREEZYREADERJQUERYFILEPATH"
+#define kPlaceHolderJQueryLazyLoaderFilePath  @"BREEZYREADERJQUERYLAZYLOADERPATH"
+
 @interface BRArticleDetailViewController (){
     BOOL _formatted;
     
@@ -109,6 +112,8 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     NSString* js_url = [[NSBundle mainBundle] pathForResource:@"readability" ofType:@"js"];
     NSString* css_url = [[NSBundle mainBundle] pathForResource:@"readability" ofType:@"css"];
     NSString* filePath = [[NSBundle mainBundle] pathForResource:@"template" ofType:@"html"];
+    NSString* jquery_url = [[NSBundle mainBundle] pathForResource:@"jquery-1.7.2" ofType:@"js"];
+    NSString* jquery_lazyloader_url = [[NSBundle mainBundle] pathForResource:@"jquery.lazyload" ofType:@"js"];
     NSMutableString* htmlTemplate = [NSMutableString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
 
     NSRange range = {0, htmlTemplate.length};
@@ -119,6 +124,10 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     [htmlTemplate replaceOccurrencesOfString:kPlaceHolderCSSFilePath withString:css_url options:NSLiteralSearch range:range2];
     NSRange range3 = {0, htmlTemplate.length};
     [htmlTemplate replaceOccurrencesOfString:kPlaceHolderJSFilePath withString:js_url options:NSLiteralSearch range:range3];
+    NSRange range4 = {0, htmlTemplate.length};
+    [htmlTemplate replaceOccurrencesOfString:kPlaceHolderJQueryFilePath withString:jquery_url options:NSLiteralSearch range:range4];
+    NSRange range5 = {0, htmlTemplate.length};
+    [htmlTemplate replaceOccurrencesOfString:kPlaceHolderJQueryLazyLoaderFilePath withString:jquery_lazyloader_url options:NSLiteralSearch range:range5];
     
     filePath = [self filePathForItemID:self.item.ID];
     [htmlTemplate writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:NULL];

@@ -3,6 +3,8 @@
         <title>#BREEZYREADERARTICLETITLE#</title>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="#BREEZYREADERREADABILITYJSFILEPATH#"></script>
+        <script src="#BREEZYREADERJQUERYFILEPATH#" type="text/javascript"></script>
+        <script src="#BREEZYREADERJQUERYLAZYLOADERPATH#" type="text/javascript"></script>
         <link rel="stylesheet" href="#BREEZYREADERREADABILITYCSSFILEPATH#" type="text/css" media="screen">
         </head>
     <body id="readabilityBody" class="style-newspaper" dir="ltr">
@@ -18,5 +20,10 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            $("img").lazyload()({
+                                effect : "fadeIn"
+                                });
+            </script>
     </body>
 </html>
