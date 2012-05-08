@@ -68,9 +68,9 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
     UIView* adView = nil;
 #ifdef FREEVERSION
     adView = [[[GHAdView alloc] initWithAdUnitId:GHUNITID size:CGSizeMake(320, 50)] autorelease];
-    adView.delegate = self;
+    ((GHAdView*)adView).delegate = self;
     adView.hidden = YES;
-    [adView loadAd];
+    [(GHAdView*)adView loadAd];
 #endif
     
     return adView;

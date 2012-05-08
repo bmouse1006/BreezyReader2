@@ -3886,6 +3886,7 @@
 					"DEBUG_MODE=1",
 					"DEBUG=1",
 					"$(inherited)",
+					"FREEVERSION=1",
 				);
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "BreezyReader2-Free/BreezyReader2 Free-Info.plist";
@@ -3922,7 +3923,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BreezyReader2/BreezyReader2-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "FREEVERSION=1";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "BreezyReader2-Free/BreezyReader2 Free-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
