@@ -93,7 +93,7 @@ static CGFloat refreshDistance = 60.0f;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.wantsFullScreenLayout = YES;
+//        self.wantsFullScreenLayout = YES;
         self.clients = [NSMutableSet set];
         self.itemIDs = [NSMutableDictionary dictionary];
         [self registerNotifications];
@@ -246,6 +246,7 @@ static CGFloat refreshDistance = 60.0f;
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIBarStyleBlack animated:animated];
 }
 
 -(void)viewDidAppear:(BOOL)animated{

@@ -90,11 +90,11 @@ static double kTransitionAnimationDuration = 0.2f;
 
 -(void)addToTop:(UIViewController*)controller animated:(BOOL)animated{
     UIViewController* top = [self.childViewControllers lastObject];
+    [top viewWillDisappear:YES];
+    [controller viewWillAppear:YES];
     [controller willMoveToParentViewController:self];
     [self addChildViewController:controller];
     [controller didMoveToParentViewController:self];
-    [top viewWillDisappear:YES];
-    [controller viewWillAppear:YES];
     if (top == nil){
         [self.view addSubview:controller.view];
         [controller viewDidAppear:YES];
@@ -142,6 +142,8 @@ static double kTransitionAnimationDuration = 0.2f;
 -(void)boomOutViewController:(UIViewController*)viewController fromView:(UIView*)fromView{
     
     UIViewController* preController = [self topController];
+    [preController viewWillDisappear:YES];
+    [viewController viewWillAppear:YES];
     
     [viewController willMoveToParentViewController:self];
     [self addChildViewController:viewController];
@@ -149,6 +151,10 @@ static double kTransitionAnimationDuration = 0.2f;
     
     CGRect fromRect = [fromView convertRect:fromView.bounds toView:self.view];
     CGRect toRect = self.view.bounds;
+    if ([UIApplication sharedApplication].statusBarHidden == NO && [UIApplication sharedApplication].statusBarStyle != UIBarStyleBlackTranslucent){
+        toRect.size.height -= 20.0f;
+        toRect.origin.y = 20.0f;
+    }
     CGFloat widthScale = fromRect.size.width/toRect.size.width;
     CGFloat heightScale = fromRect.size.height/toRect.size.height;
     CGPoint fromCenter = CGPointCenterOfRect(fromRect);
@@ -170,9 +176,6 @@ static double kTransitionAnimationDuration = 0.2f;
     
     preController.view.userInteractionEnabled = NO;
     view.userInteractionEnabled = NO;
-    
-    [preController viewWillDisappear:YES];
-    [viewController viewWillAppear:YES];
     
     [UIView animateWithDuration:kTransitionAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
         viewController.view.transform = CGAffineTransformIdentity;
@@ -231,6 +234,8 @@ static double kTransitionAnimationDuration = 0.2f;
 -(void)slideInViewController:(UIViewController*)viewController{
     
     UIViewController* currentController = [self topController];
+    [currentController viewWillDisappear:YES];
+    [viewController viewWillAppear:YES];
     
     [viewController willMoveToParentViewController:self];
     [self addChildViewController:viewController];
@@ -246,8 +251,6 @@ static double kTransitionAnimationDuration = 0.2f;
     currentController.view.userInteractionEnabled = NO;
     viewController.view.userInteractionEnabled = NO;
     
-    [currentController viewWillDisappear:YES];
-    [viewController viewWillAppear:YES];
     
     [UIView animateWithDuration:kTransitionAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
         viewController.view.transform = CGAffineTransformIdentity;
@@ -265,11 +268,14 @@ static double kTransitionAnimationDuration = 0.2f;
 
 -(void)slideOutViewController{
     UIViewController* top = [self topController];
+    
     NSInteger index = [self.childViewControllers indexOfObject:top];
     UIViewController* second = nil;
     if (index - 1 >= 0){
         second = [self.childViewControllers objectAtIndex:index-1];
     }
+    [second viewWillAppear:YES];
+    [top viewWillDisappear:YES];
     
     [top willMoveToParentViewController:nil];
     [top removeFromParentViewController];
@@ -281,8 +287,6 @@ static double kTransitionAnimationDuration = 0.2f;
     top.view.userInteractionEnabled = NO;
     second.view.userInteractionEnabled = NO;
     
-    [second viewWillAppear:YES];
-    [top viewWillDisappear:YES];
     
     [UIView animateWithDuration:kTransitionAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
 //        [self.view bringSubviewToFront:top.view];
