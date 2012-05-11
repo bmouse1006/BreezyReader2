@@ -60,10 +60,8 @@
 {
     [super viewDidLoad];
     self.scrollView = [[[JJPageScrollView alloc] initWithFrame:self.view.bounds] autorelease];
-    self.scrollView.showsVerticalScrollIndicator = NO;
-    self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.datasource = self;
-    self.scrollView.scrollDelegate = self;
+    self.scrollView.delegate = self;
     self.singleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singelTapAction:)] autorelease];
     [self.scrollView addGestureRecognizer:self.singleTap];
     [self.view addSubview:self.scrollView];

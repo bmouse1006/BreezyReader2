@@ -46,6 +46,10 @@
     frame.origin.x = self.view.frame.size.width - frame.size.width - 20;
     frame.origin.y = self.view.frame.size.height - frame.size.height - 25;
     self.saveButton.frame = frame;
+    
+    self.scrollView.showPageControl = YES;
+    self.scrollView.pageControlHorizonAlignment = JJHorizonAlignmentMiddle;
+    self.scrollView.pageControlVerticalAlignment = JJVerticalAlignmentBottom;
 
 }
 

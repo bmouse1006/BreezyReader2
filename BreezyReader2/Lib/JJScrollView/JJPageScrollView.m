@@ -10,7 +10,7 @@
 
 CGPoint CGCenterOfRect(CGRect rect);
 
-CGPoint CGCenterOfRect(CGRect rect){
+inline CGPoint CGCenterOfRect(CGRect rect){
     return CGPointMake(rect.origin.x+rect.size.width/2, rect.origin.y+rect.size.height/2);
 };
 
@@ -31,18 +31,28 @@ CGPoint CGCenterOfRect(CGRect rect){
 @property (nonatomic, retain) NSMutableDictionary* loadedPages;
 @property (nonatomic, retain) NSMutableDictionary* pageFrames;
 
+@property (nonatomic, retain) UIScrollView* scrollView;
+@property (nonatomic, retain) UIPageControl* pageControl;
+
 @end
 
 @implementation JJPageScrollView
 
-@synthesize scrollDelegate = _scrollDelegate, datasource = _datasource;
-@synthesize pageIndex = pageIndex;
+@synthesize delegate = _delegate, datasource = _datasource;
+@synthesize pageIndex = _pageIndex;
 @synthesize loadedPages = _loadedPages;
 @synthesize pageFrames = _pageFrames;
+@synthesize scrollView = _scrollView;
+@synthesize pageControl = _pageControl;
+@synthesize showPageControl = _showPageControl;
+@synthesize pageControlVerticalAlignment = _pageControlVerticalAlignment;
+@synthesize pageControlHorizonAlignment = _pageControlHorizonAlignment;
 
 -(void)dealloc{
     self.loadedPages = nil;
     self.pageFrames = nil;
+    self.scrollView = nil;
+    self.pageControl = nil;
     [super dealloc];
 }
 
@@ -61,18 +71,72 @@ CGPoint CGCenterOfRect(CGRect rect){
 }
 
 -(void)createViews{
-    self.pagingEnabled = YES;
-    self.bounces = YES;
+    
+    self.scrollView = [[[UIScrollView alloc] initWithFrame:self.bounds] autorelease];
+    self.scrollView.backgroundColor = [UIColor clearColor];
+    self.scrollView.showsVerticalScrollIndicator = NO;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    self.scrollView.delegate = self;
+    self.scrollView.pagingEnabled = YES;
+    self.scrollView.bounces = YES;
+    [self addSubview:self.scrollView];
+    
+    self.pageControl = [[[UIPageControl alloc] initWithFrame:CGRectZero] autorelease];
+    self.pageControl.hidesForSinglePage = YES;
+    [self addSubview:self.pageControl];
+    
+    self.showPageControl = NO;
+    
     self.backgroundColor = [UIColor blackColor];
-    self.delegate = self;
     self.pageIndex = 0;
     _pageCount = 0;
     self.loadedPages = [NSMutableDictionary dictionary];
     self.pageFrames = [NSMutableDictionary dictionary];
+    
+    self.pageControlHorizonAlignment = JJHorizonAlignmentMiddle;
+    self.pageControlVerticalAlignment = JJVerticalAlignmentBottom;
 }
 
 -(void)layoutSubviews{
     [super layoutSubviews];
+    self.scrollView.frame = self.bounds;
+    self.pageControl.numberOfPages = [self.datasource numberOfPagesInScrollView:self];
+    self.pageControl.currentPage = [self currentIndex];
+
+    CGSize size = [self.pageControl sizeForNumberOfPages:self.pageControl.numberOfPages];
+    CGRect frame = self.pageControl.frame;
+    frame.size.width = size.width;
+    frame.size.height = size.height;
+    switch (self.pageControlHorizonAlignment) {
+        case JJHorizonAlignmentLeft:
+            frame.origin.x = 0 + 5;
+            break;
+        case JJHorizonAlignmentRight:
+            frame.origin.x = self.bounds.size.width - frame.size.width - 5;
+            break;
+        case JJHorizonAlignmentMiddle:
+            frame.origin.x = (self.bounds.size.width - frame.size.width)/2;
+            break;
+        default:
+            break;
+    }
+    
+    switch (self.pageControlVerticalAlignment) {
+        case JJVerticalAlignmentTop:
+            frame.origin.y = 0 - 5;
+            break;
+        case JJVerticalAlignmentBottom:
+            frame.origin.y = self.bounds.size.height - frame.size.height+5;
+            break;
+        case JJVerticalAlignmentCenter:
+            frame.origin.y = (self.bounds.size.height - frame.size.height)/2;
+            break;
+        default:
+            break;
+    }
+    
+    self.pageControl.frame = frame;
+    self.pageControl.hidden = !self.showPageControl;
 }
 
 -(void)reloadData{
@@ -101,7 +165,7 @@ CGPoint CGCenterOfRect(CGRect rect){
         preOrigin = newOrigin;
     }
     
-    [self setContentSize:contentSize];
+    [self.scrollView setContentSize:contentSize];
     [self scrollToPageAtIndex:self.pageIndex animated:NO];
 }
 
@@ -120,23 +184,26 @@ CGPoint CGCenterOfRect(CGRect rect){
     
     CGRect frame = [[self.pageFrames objectForKey:pageKey] CGRectValue];
     [page setFrame:frame];
-    [self addSubview:page];
+    [self.scrollView addSubview:page];
 }
 
 -(void)scrollToPageAtIndex:(NSInteger)index animated:(BOOL)animated{
-    if (index < 0){
-        index = 0;
-    }
-    if (index >= _pageCount){
-        index = _pageCount-1;
-    }
+    index = (index % _pageCount);
+//    if (index < 0){
+//        index = 0;
+//    }
+//    if (index >= _pageCount){
+//        index = _pageCount-1;
+//    }
     
     [self loadPageAtIndex:index];
     [self loadPageAtIndex:index-1];
     [self loadPageAtIndex:index+1];
-    [self setContentOffset:[self pageOffsetAtIndex:index] animated:animated];
+    [self.scrollView setContentOffset:[self pageOffsetAtIndex:index] animated:animated];
     self.pageIndex = index;
-    [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];
+    if ([self.delegate respondsToSelector:@selector(scrollView:didScrollToPageAtIndex:)]){
+        [self.delegate scrollView:self didScrollToPageAtIndex:index];
+    }
 }
 
 -(CGPoint)pageOffsetAtIndex:(NSInteger)index{
@@ -151,7 +218,7 @@ CGPoint CGCenterOfRect(CGRect rect){
 }
 
 -(UIView*)currentPage{
-    return [self pageAtIndex:[self indexForOffset:self.contentOffset]];
+    return [self pageAtIndex:[self indexForOffset:self.scrollView.contentOffset]];
 }
 
 -(UIView*)pageAtIndex:(NSInteger)index{
@@ -161,7 +228,9 @@ CGPoint CGCenterOfRect(CGRect rect){
 #pragma mark - scroll view delegate
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     //load more 
-    [self.scrollDelegate scrollViewWillBeginDragging:self];
+    if ([self.delegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]){
+        [self.delegate scrollViewWillBeginDragging:self];
+    }
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
@@ -170,8 +239,7 @@ CGPoint CGCenterOfRect(CGRect rect){
     }else{
         self.userInteractionEnabled = YES;
         NSInteger index = [self currentIndex];
-        self.pageIndex = index;
-        [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];  
+        self.pageIndex = index; 
         [self loadPage];
     }
 }
@@ -180,14 +248,12 @@ CGPoint CGCenterOfRect(CGRect rect){
     self.userInteractionEnabled = YES;
     NSInteger index = [self currentIndex];
     self.pageIndex = index;
-    [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];  
     [self loadPage];
 }
 
 -(void)loadPage{
     NSInteger index = [self currentIndex];
-    self.pageIndex = index;
-    [self.scrollDelegate scrollView:self didScrollToPageAtIndex:index];  
+    self.pageIndex = index;  
     [self loadPageAtIndex:index-1];
     [self loadPageAtIndex:index+1];
     [self clearInvisiblePages];
@@ -203,7 +269,7 @@ CGPoint CGCenterOfRect(CGRect rect){
 }
 
 -(NSInteger)currentIndex{
-    return [self indexForOffset:self.contentOffset];
+    return [self indexForOffset:self.scrollView.contentOffset];
 }
 
 -(void)removePageWithIndex:(NSInteger)index{
@@ -211,15 +277,40 @@ CGPoint CGCenterOfRect(CGRect rect){
     UIView* page = [self.loadedPages objectForKey:key];
     [page removeFromSuperview];
     [self.loadedPages removeObjectForKey:key];
-    if ([self.scrollDelegate respondsToSelector:@selector(scrollViewDidRemovePageAtIndex:)]){
-        [self.scrollDelegate scrollViewDidRemovePageAtIndex:index];
+    if ([self.delegate respondsToSelector:@selector(scrollViewDidRemovePageAtIndex:)]){
+        [self.delegate scrollViewDidRemovePageAtIndex:index];
     }
 }
 
 -(CGPoint)offsetOfTouch:(CGPoint)location{
-    CGPoint offset = self.contentOffset;
+    CGPoint offset = self.scrollView.contentOffset;
     offset.x += location.x;
     return offset;
+}
+
+#pragma mark - getter setter
+
+-(void)setShowPageControl:(BOOL)showPageControl{
+    _showPageControl = showPageControl;
+    [self setNeedsLayout];
+}
+
+-(void)setPageControlVerticalAlignment:(JJVerticalAlignment)pageControlVerticalAlignment{
+    _pageControlVerticalAlignment = pageControlVerticalAlignment;
+    [self setNeedsLayout];
+}
+
+-(void)setPageControlHorizonAlignment:(JJHorizonAlignment)pageControlHorizonAlignment{
+    _pageControlHorizonAlignment = pageControlHorizonAlignment;
+    [self setNeedsLayout];
+}
+
+-(void)setPageIndex:(NSUInteger)pageIndex{
+    _pageIndex = pageIndex;
+    self.pageControl.currentPage = pageIndex;
+    if ([self.delegate respondsToSelector:@selector(scrollView:didScrollToPageAtIndex:)]){
+        [self.delegate scrollView:self didScrollToPageAtIndex:pageIndex];
+    }
 }
 
 @end

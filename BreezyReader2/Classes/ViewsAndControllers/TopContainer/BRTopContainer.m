@@ -169,8 +169,9 @@ static double kTransitionAnimationDuration = 0.2f;
     
     UIView* view = viewController.view;
     
-    [self.view addSubview:view];
-    view.frame = self.view.bounds;
+//    [self.view addSubview:view];
+//    view.frame = self.view.bounds;
+    [self addSubviewOfChildViewController:viewController];
     view.transform = transform;
     view.alpha = 0;
     
@@ -334,6 +335,18 @@ static double kTransitionAnimationDuration = 0.2f;
         [viewController viewDidAppear:animated];
         viewController.view.userInteractionEnabled = YES;
     }];
+}
+
+-(void)addSubviewOfChildViewController:(UIViewController*)childController{
+    [self.view addSubview:childController.view];
+    if (childController.wantsFullScreenLayout == YES || [UIApplication sharedApplication].statusBarHidden == YES){
+        childController.view.frame = self.view.bounds;
+    }else{
+        CGRect frame = self.view.bounds;
+        frame.origin.y += 20.0f;
+        frame.size.height -= 20.0f;
+        childController.view.frame = frame;
+    }
 }
 
 @end

@@ -71,7 +71,7 @@
     [super viewDidLoad];
     [self loadControllers];
     self.scrollView.datasource = self;
-    self.scrollView.scrollDelegate = self;
+    self.scrollView.delegate = self;
     self.scrollView.pageIndex = self.index;
     [self.scrollView reloadData];
     

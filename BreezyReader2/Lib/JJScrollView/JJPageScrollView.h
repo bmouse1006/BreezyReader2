@@ -10,6 +10,18 @@
 
 @class JJPageScrollView;
 
+typedef enum{
+    JJVerticalAlignmentTop,
+    JJVerticalAlignmentCenter,
+    JJVerticalAlignmentBottom
+} JJVerticalAlignment;
+
+typedef enum{
+    JJHorizonAlignmentLeft,
+    JJHorizonAlignmentMiddle,
+    JJHorizonAlignmentRight
+} JJHorizonAlignment;
+
 @protocol JJPageScrollViewDataSource <NSObject>
 
 -(NSUInteger)numberOfPagesInScrollView:(JJPageScrollView*)scrollView;
@@ -20,20 +32,24 @@
 
 @protocol JJPageScrollViewDelegate <NSObject>
 
+@optional
+-(void)scrollViewDidRemovePageAtIndex:(NSInteger)index;
 -(void)scrollView:(JJPageScrollView*)scrollView didScrollToPageAtIndex:(NSInteger)index;
 -(void)scrollViewWillBeginDragging:(JJPageScrollView *)scrollView;
 
-@optional
--(void)scrollViewDidRemovePageAtIndex:(NSInteger)index;
-
 @end
 
-@interface JJPageScrollView : UIScrollView<UIScrollViewDelegate>
+@interface JJPageScrollView : UIView<UIScrollViewDelegate>
 
-@property (nonatomic, assign) id<JJPageScrollViewDataSource> datasource;
-@property (nonatomic, assign) id<JJPageScrollViewDelegate> scrollDelegate;
+@property (nonatomic, assign) IBOutlet id<JJPageScrollViewDataSource> datasource;
+@property (nonatomic, assign) IBOutlet id<JJPageScrollViewDelegate> delegate;
 
 @property (nonatomic, assign) NSUInteger pageIndex;
+
+@property (nonatomic, assign) BOOL showPageControl;
+
+@property (nonatomic, assign) JJHorizonAlignment pageControlHorizonAlignment;
+@property (nonatomic, assign) JJVerticalAlignment pageControlVerticalAlignment;
 
 -(void)reloadData;
 

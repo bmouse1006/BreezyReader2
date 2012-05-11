@@ -29,7 +29,6 @@
 		221943E1153329AD00A0C4E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C7F15273CAE00700504 /* InfoPlist.strings */; };
 		221943E515332BAB00A0C4E4 /* BRArticleScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943E315332BAB00A0C4E4 /* BRArticleScrollViewController.m */; };
 		221943E615332BAB00A0C4E4 /* BRArticleScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 221943E415332BAB00A0C4E4 /* BRArticleScrollViewController.xib */; };
-		221943F115332C6D00A0C4E4 /* JJPageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943EB15332C6D00A0C4E4 /* JJPageScrollView.m */; };
 		221943F315332C6D00A0C4E4 /* JJImageZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943EF15332C6D00A0C4E4 /* JJImageZoomView.m */; };
 		222132C5152DE0460087D05E /* NSMutableString+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 222132C4152DE0460087D05E /* NSMutableString+Addition.m */; };
 		2228219E154FCB5800F8C63B /* BRTagAndSubListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2228219D154FCB5800F8C63B /* BRTagAndSubListViewController.xib */; };
@@ -117,6 +116,8 @@
 		2281C68C154D4F29003C253D /* star_complete_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2281C684154D4F25003C253D /* star_complete_24@2x.png */; };
 		22872D361552DCA80083E700 /* JJUserSettingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 22872D351552DCA80083E700 /* JJUserSettingStore.m */; };
 		22872D371552DCA80083E700 /* JJUserSettingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 22872D351552DCA80083E700 /* JJUserSettingStore.m */; };
+		228E5912155D431B000888F4 /* JJPageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 228E5911155D431B000888F4 /* JJPageScrollView.m */; };
+		228E5913155D431B000888F4 /* JJPageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 228E5911155D431B000888F4 /* JJPageScrollView.m */; };
 		229419A715526B720020F6F5 /* list_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 229419A515526B720020F6F5 /* list_selected@2x.png */; };
 		229419A815526B720020F6F5 /* list_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 229419A515526B720020F6F5 /* list_selected@2x.png */; };
 		229419A915526B720020F6F5 /* list_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 229419A615526B720020F6F5 /* list_selected.png */; };
@@ -382,7 +383,6 @@
 		229E203E153E687C00DDBE0B /* BRBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2479C152F253A009DC4F1 /* BRBottomToolBar.m */; };
 		229E203F153E687C00DDBE0B /* BRFeedHeaderArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D9BE57152F3376007E32CC /* BRFeedHeaderArticleCell.m */; };
 		229E2040153E687C00DDBE0B /* BRArticleScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943E315332BAB00A0C4E4 /* BRArticleScrollViewController.m */; };
-		229E2041153E687C00DDBE0B /* JJPageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943EB15332C6D00A0C4E4 /* JJPageScrollView.m */; };
 		229E2042153E687C00DDBE0B /* JJImageZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943EF15332C6D00A0C4E4 /* JJImageZoomView.m */; };
 		229E204F153E687C00DDBE0B /* BRADManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B5056715357C4C00D77B5F /* BRADManager.m */; };
 		229E2057153E687C00DDBE0B /* BRImageScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D4FA361536CA8800197F48 /* BRImageScrollController.m */; };
@@ -806,8 +806,6 @@
 		221943E215332BAB00A0C4E4 /* BRArticleScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRArticleScrollViewController.h; sourceTree = "<group>"; };
 		221943E315332BAB00A0C4E4 /* BRArticleScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRArticleScrollViewController.m; sourceTree = "<group>"; };
 		221943E415332BAB00A0C4E4 /* BRArticleScrollViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRArticleScrollViewController.xib; sourceTree = "<group>"; };
-		221943EA15332C6D00A0C4E4 /* JJPageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJPageScrollView.h; sourceTree = "<group>"; };
-		221943EB15332C6D00A0C4E4 /* JJPageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJPageScrollView.m; sourceTree = "<group>"; };
 		221943EE15332C6D00A0C4E4 /* JJImageZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJImageZoomView.h; sourceTree = "<group>"; };
 		221943EF15332C6D00A0C4E4 /* JJImageZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJImageZoomView.m; sourceTree = "<group>"; };
 		222132C3152DE0460087D05E /* NSMutableString+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+Addition.h"; sourceTree = "<group>"; };
@@ -886,6 +884,8 @@
 		2281C684154D4F25003C253D /* star_complete_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_complete_24@2x.png"; sourceTree = "<group>"; };
 		22872D341552DCA80083E700 /* JJUserSettingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJUserSettingStore.h; sourceTree = "<group>"; };
 		22872D351552DCA80083E700 /* JJUserSettingStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJUserSettingStore.m; sourceTree = "<group>"; };
+		228E5910155D431B000888F4 /* JJPageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJPageScrollView.h; sourceTree = "<group>"; };
+		228E5911155D431B000888F4 /* JJPageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJPageScrollView.m; sourceTree = "<group>"; };
 		229419A515526B720020F6F5 /* list_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list_selected@2x.png"; sourceTree = "<group>"; };
 		229419A615526B720020F6F5 /* list_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list_selected.png; sourceTree = "<group>"; };
 		22994A13152DC90D00EE50C5 /* BRReadingStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRReadingStatistics.h; sourceTree = "<group>"; };
@@ -1569,10 +1569,10 @@
 		221943E715332C6D00A0C4E4 /* JJScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				228E5910155D431B000888F4 /* JJPageScrollView.h */,
+				228E5911155D431B000888F4 /* JJPageScrollView.m */,
 				22D4FA311536C79000197F48 /* JJImageScrollController.h */,
 				22D4FA321536C79000197F48 /* JJImageScrollController.m */,
-				221943EA15332C6D00A0C4E4 /* JJPageScrollView.h */,
-				221943EB15332C6D00A0C4E4 /* JJPageScrollView.m */,
 				221943EE15332C6D00A0C4E4 /* JJImageZoomView.h */,
 				221943EF15332C6D00A0C4E4 /* JJImageZoomView.m */,
 			);
@@ -3517,7 +3517,6 @@
 				229E203E153E687C00DDBE0B /* BRBottomToolBar.m in Sources */,
 				229E203F153E687C00DDBE0B /* BRFeedHeaderArticleCell.m in Sources */,
 				229E2040153E687C00DDBE0B /* BRArticleScrollViewController.m in Sources */,
-				229E2041153E687C00DDBE0B /* JJPageScrollView.m in Sources */,
 				229E2042153E687C00DDBE0B /* JJImageZoomView.m in Sources */,
 				229E204F153E687C00DDBE0B /* BRADManager.m in Sources */,
 				229E2057153E687C00DDBE0B /* BRImageScrollController.m in Sources */,
@@ -3611,6 +3610,7 @@
 				22E556EC155687070048E331 /* BRAppearenceSetting.m in Sources */,
 				22E98E621557F41400192FBD /* BRCacheSetting.m in Sources */,
 				22E98E6D1557FDFA00192FBD /* BRSocialAccountsSettingController.m in Sources */,
+				228E5913155D431B000888F4 /* JJPageScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3747,7 +3747,6 @@
 				22B2479D152F253B009DC4F1 /* BRBottomToolBar.m in Sources */,
 				22D9BE58152F3376007E32CC /* BRFeedHeaderArticleCell.m in Sources */,
 				221943E515332BAB00A0C4E4 /* BRArticleScrollViewController.m in Sources */,
-				221943F115332C6D00A0C4E4 /* JJPageScrollView.m in Sources */,
 				221943F315332C6D00A0C4E4 /* JJImageZoomView.m in Sources */,
 				22B5056815357C4C00D77B5F /* BRADManager.m in Sources */,
 				22D4FA371536CA8800197F48 /* BRImageScrollController.m in Sources */,
@@ -3822,6 +3821,7 @@
 				22E556EB155687070048E331 /* BRAppearenceSetting.m in Sources */,
 				22E98E611557F41400192FBD /* BRCacheSetting.m in Sources */,
 				22E98E6C1557FDFA00192FBD /* BRSocialAccountsSettingController.m in Sources */,
+				228E5912155D431B000888F4 /* JJPageScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
