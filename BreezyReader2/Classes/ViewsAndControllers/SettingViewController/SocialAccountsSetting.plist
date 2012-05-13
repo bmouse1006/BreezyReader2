@@ -7,30 +7,50 @@
 		<string>weibo</string>
 		<key>name</key>
 		<string>Weibo</string>
+		<key>type</key>
+		<string>switch</string>
+		<key>defaultValue</key>
+		<false/>
 	</dict>
 	<dict>
 		<key>identifier</key>
 		<string>instapaper</string>
 		<key>name</key>
 		<string>Instapaper</string>
+		<key>type</key>
+		<string>switch</string>
+		<key>defaultValue</key>
+		<false/>
 	</dict>
 	<dict>
 		<key>identifier</key>
 		<string>readitlater</string>
 		<key>name</key>
 		<string>Read It Later</string>
+		<key>type</key>
+		<string>switch</string>
+		<key>defaultValue</key>
+		<false/>
 	</dict>
 	<dict>
 		<key>identifier</key>
 		<string>evernote</string>
 		<key>name</key>
 		<string>Evernote</string>
+		<key>type</key>
+		<string>switch</string>
+		<key>defaultValue</key>
+		<false/>
 	</dict>
 	<dict>
 		<key>identifier</key>
 		<string>twitter</string>
 		<key>name</key>
 		<string>Twitter</string>
+		<key>type</key>
+		<string>switch</string>
+		<key>defaultValue</key>
+		<false/>
 	</dict>
 </array>
 </plist>

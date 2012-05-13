@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/TopContainer/BRTopContainer.m"
-         timestampString = "356541498.403652"
+         timestampString = "358578654.59084"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "144"
-         endingLineNumber = "144"
+         startingLineNumber = "145"
+         endingLineNumber = "145"
          landmarkName = "-boomOutViewController:fromView:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/FeedViewController/BRFeedViewController.m"
-         timestampString = "358435140.275083"
+         timestampString = "358580773.873575"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "468"
-         endingLineNumber = "468"
+         startingLineNumber = "466"
+         endingLineNumber = "466"
          landmarkName = "-setupTableViewEdgeInsetByStatus"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/FeedViewController/BRFeedViewController.m"
-         timestampString = "358435140.275083"
+         timestampString = "358579240.062697"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "266"
-         endingLineNumber = "266"
+         startingLineNumber = "264"
+         endingLineNumber = "264"
          landmarkName = "@implementation BRFeedViewController"
          landmarkType = "3">
       </FileBreakpoint>

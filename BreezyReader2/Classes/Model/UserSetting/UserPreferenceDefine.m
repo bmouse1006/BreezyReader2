@@ -8,8 +8,8 @@
 
 #import "UserPreferenceDefine.h"
 
-#define PREFERENCEBUNDLENAME_PHONE	@"ConfigBundle_phone"
-#define PREFERENCEBUNDLENAME_PAD	@"ConfigBundle_pad"
+#define PREFERENCEBUNDLENAME_PHONE	@"UserDefaultSetting_phone"
+#define PREFERENCEBUNDLENAME_PAD	@"UserDefaultSetting_pad"
 
 #define KEY_AUTOROTATION	@"AutoRotation"
 #define KEY_ENABLESSL		@"EnableSSL"
@@ -164,6 +164,27 @@ static NSDictionary* preferenceBundle = nil;
 	}
 	
 	return iPad;
+}
+
+#pragma mark - new for Breezy Reader 2
++(id)valueForIdentifier:(NSString*)identifier{
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:identifier];
+    
+    if (obj == nil){
+        NSDictionary* setting = [self userPreferenceBundle];
+        obj = [setting objectForKey:identifier];
+    }
+    
+    return obj;
+}
+
++(BOOL)boolValueForIdentifier:(NSString*)identifier{
+    return [[self valueForIdentifier:identifier] boolValue];
+}
+
++(void)valueChangedForIdentifier:(NSString*)identifier value:(id)value{
+    [[NSUserDefaults standardUserDefaults] setObject:value forKey:identifier];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

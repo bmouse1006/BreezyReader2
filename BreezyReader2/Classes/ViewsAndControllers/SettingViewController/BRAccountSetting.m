@@ -7,36 +7,30 @@
 //
 
 #import "BRAccountSetting.h"
+#import "BRSettingCell.h"
 #import "BRSocialAccountsSettingController.h"
 
+@interface BRAccountSetting()
+
+@end
+
 @implementation BRAccountSetting
-
-@synthesize viewController = _viewController;
-
--(NSInteger)numberOfRowsInSection{
-    return 2;
-}
-
--(id)tableView:(UITableView*)tableView cellForRow:(NSInteger)index{
-    return [[[UITableViewCell alloc] init] autorelease];
-}
 
 -(NSString*)sectionTitle{
     return NSLocalizedString(@"title_accounts", nil);
 }
 
--(void)didSelectRowAtIndex:(NSInteger)index{
-    switch(index){
-        case 0:
-            break;
-        case 1:
-        {
-            BRSocialAccountsSettingController* controller = [[[BRSocialAccountsSettingController alloc] initWithNibName:@"BRSocialAccountsSettingController" bundle:nil] autorelease];
-            [self.viewController.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        default:
-            break;
-    }
+-(NSString*)configName{
+    return @"BRAccountSetting";
 }
+
+-(void)valueChangedForIdentifier:(NSString*)identifier newValue:(id)value{
+    [super valueChangedForIdentifier:identifier newValue:value];
+}
+
+-(void)moreCellSelectedForIdentifier:(NSString*)identifier{
+    BRSocialAccountsSettingController* controller = [[[BRSocialAccountsSettingController alloc] initWithNibName:@"BRSocialAccountsSettingController" bundle:nil] autorelease];
+    [self.viewController.navigationController pushViewController:controller animated:YES];
+}
+
 @end

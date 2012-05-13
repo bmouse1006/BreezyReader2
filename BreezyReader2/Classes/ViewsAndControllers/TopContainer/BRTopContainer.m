@@ -70,7 +70,7 @@ static double kTransitionAnimationDuration = 0.2f;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     UIViewController* controller = [self.childViewControllers lastObject];
-    [self.view addSubview:controller.view];
+    [self addSubviewOfChildViewController:controller];
 }
 
 - (void)viewDidUnload
@@ -96,7 +96,7 @@ static double kTransitionAnimationDuration = 0.2f;
     [self addChildViewController:controller];
     [controller didMoveToParentViewController:self];
     if (top == nil){
-        [self.view addSubview:controller.view];
+        [self addSubviewOfChildViewController:controller];
         [controller viewDidAppear:YES];
     }else{
         double duration = (animated)?kTransitionAnimationDuration:0.0f;
@@ -123,7 +123,8 @@ static double kTransitionAnimationDuration = 0.2f;
         [top viewWillDisappear:YES];
         [current viewWillAppear:YES];
         if (current){
-            [self.view insertSubview:current.view belowSubview:top.view];
+//            [self.view insertSubview:current.view belowSubview:top.view];
+            [self insertSubviewOfChildViewController:current belowViewOfChildViewController:top];
         }
         
         [UIView animateWithDuration:duration animations:^{
@@ -211,7 +212,8 @@ static double kTransitionAnimationDuration = 0.2f;
     CGAffineTransform transform = [[self.boomedTransforms objectForKey:key] CGAffineTransformValue];
     [self.boomedTransforms removeObjectForKey:[NSValue valueWithNonretainedObject:key]];
     
-    [self.view insertSubview:second.view belowSubview:top.view];
+//    [self.view insertSubview:second.view belowSubview:top.view];
+    [self insertSubviewOfChildViewController:second belowViewOfChildViewController:top];
     second.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
     
     top.view.userInteractionEnabled = NO;
@@ -242,9 +244,10 @@ static double kTransitionAnimationDuration = 0.2f;
     [self addChildViewController:viewController];
     [viewController didMoveToParentViewController:self];
     
-    [self.view addSubview:viewController.view];
+//    [self.view addSubview:viewController.view];
+    [self addSubviewOfChildViewController:viewController];
     
-    viewController.view.frame = self.view.bounds;
+//    viewController.view.frame = self.view.bounds;
     
     CGAffineTransform translate = CGAffineTransformMakeTranslation(self.view.bounds.size.width, 0);
     viewController.view.transform = translate;
@@ -282,7 +285,8 @@ static double kTransitionAnimationDuration = 0.2f;
     [top removeFromParentViewController];
     [top didMoveToParentViewController:nil];
     
-    [self.view insertSubview:second.view belowSubview:top.view];
+//    [self.view insertSubview:second.view belowSubview:top.view];
+    [self insertSubviewOfChildViewController:second belowViewOfChildViewController:top];
     second.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
     
     top.view.userInteractionEnabled = NO;
@@ -323,8 +327,9 @@ static double kTransitionAnimationDuration = 0.2f;
     [viewController viewWillAppear:animated];
     viewController.view.userInteractionEnabled = NO;
     
-    [self.view addSubview:viewController.view];
-    viewController.view.frame = self.view.bounds;
+//    [self.view addSubview:viewController.view];
+    [self addSubviewOfChildViewController:viewController];
+//    viewController.view.frame = self.view.bounds;
     viewController.view.alpha = 0.0f;
     [UIView animateWithDuration:kTransitionAnimationDuration animations:^{
         viewController.view.alpha = 1.0f;
@@ -347,6 +352,11 @@ static double kTransitionAnimationDuration = 0.2f;
         frame.size.height -= 20.0f;
         childController.view.frame = frame;
     }
+}
+
+-(void)insertSubviewOfChildViewController:(UIViewController*)viewController1 belowViewOfChildViewController:(UIViewController*)viewController2{
+    [self addSubviewOfChildViewController:viewController1];
+    [self.view insertSubview:viewController1.view belowSubview:viewController2.view];
 }
 
 @end

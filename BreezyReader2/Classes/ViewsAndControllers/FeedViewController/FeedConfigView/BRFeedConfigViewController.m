@@ -56,6 +56,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.wantsFullScreenLayout = YES;
         [self registerNotifications];
     }
     return self;
@@ -104,6 +105,7 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"menu-background"]];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 }
 
 

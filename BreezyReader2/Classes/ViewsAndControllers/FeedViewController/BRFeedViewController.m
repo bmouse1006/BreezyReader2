@@ -205,8 +205,6 @@ static CGFloat refreshDistance = 60.0f;
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     
-    self.mainContainer.frame = self.view.bounds;
-    
     CGRect frame = self.titleView.frame;
     frame.origin.y = 0;
     self.titleView.frame = frame;

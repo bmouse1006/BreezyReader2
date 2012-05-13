@@ -60,6 +60,13 @@
 		22608C3414F0C9B000732D2B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3314F0C9AF00732D2B /* MobileCoreServices.framework */; };
 		22608C3614F0C9F100732D2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3514F0C9F100732D2B /* libz.dylib */; };
 		22638593152ECD7800CA39E3 /* BRSubFavoriteSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22638592152ECD7800CA39E3 /* BRSubFavoriteSource.m */; };
+		22679BC1155F8B33008539C4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22679BC0155F8B33008539C4 /* Settings.bundle */; };
+		22679BC6155F8EF9008539C4 /* BRSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22679BC5155F8EF9008539C4 /* BRSettingCell.m */; };
+		22679BC7155F8EF9008539C4 /* BRSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22679BC5155F8EF9008539C4 /* BRSettingCell.m */; };
+		22679BCB155F981D008539C4 /* UserPreferenceDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 22679BCA155F981D008539C4 /* UserPreferenceDefine.m */; };
+		22679BCC155F981D008539C4 /* UserPreferenceDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 22679BCA155F981D008539C4 /* UserPreferenceDefine.m */; };
+		22679BCE155F9841008539C4 /* UserDefaultSetting_phone.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22679BCD155F9841008539C4 /* UserDefaultSetting_phone.plist */; };
+		22679BCF155F9841008539C4 /* UserDefaultSetting_phone.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22679BCD155F9841008539C4 /* UserDefaultSetting_phone.plist */; };
 		2267CF6B15579FA20037BAFF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267CF6A15579FA20037BAFF /* CoreImage.framework */; };
 		2267CF6D15579FA90037BAFF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267CF6A15579FA20037BAFF /* CoreImage.framework */; };
 		2271F4111534F8D500A50484 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2271F4101534F8D400A50484 /* MessageUI.framework */; };
@@ -177,7 +184,6 @@
 		229B2D4115273CAE00700504 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1515273CAE00700504 /* GTMOAuth2SignIn.m */; };
 		229B2D4215273CAE00700504 /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1715273CAE00700504 /* GTMOAuth2ViewControllerTouch.m */; };
 		229B2D4315273CAE00700504 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C1815273CAE00700504 /* GTMOAuth2ViewTouch.xib */; };
-		229B2D4415273CAE00700504 /* UserPreferenceDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1A15273CAE00700504 /* UserPreferenceDefine.m */; };
 		229B2D4515273CAE00700504 /* BRArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1E15273CAE00700504 /* BRArticleDetailViewController.m */; };
 		229B2D4615273CAE00700504 /* BRArticleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C1F15273CAE00700504 /* BRArticleDetailViewController.xib */; };
 		229B2D4715273CAE00700504 /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C2015273CAE00700504 /* template.html */; };
@@ -329,7 +335,6 @@
 		229E2008153E687C00DDBE0B /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1315273CAE00700504 /* GTMOAuth2Authentication.m */; };
 		229E2009153E687C00DDBE0B /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1515273CAE00700504 /* GTMOAuth2SignIn.m */; };
 		229E200A153E687C00DDBE0B /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1715273CAE00700504 /* GTMOAuth2ViewControllerTouch.m */; };
-		229E200B153E687C00DDBE0B /* UserPreferenceDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1A15273CAE00700504 /* UserPreferenceDefine.m */; };
 		229E200C153E687C00DDBE0B /* BRArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1E15273CAE00700504 /* BRArticleDetailViewController.m */; };
 		229E200D153E687C00DDBE0B /* BRBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2315273CAE00700504 /* BRBaseController.m */; };
 		229E200E153E687C00DDBE0B /* BRBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2515273CAE00700504 /* BRBaseDataSource.m */; };
@@ -642,6 +647,12 @@
 		22B9556915528BCE006E2B32 /* reload.png in Resources */ = {isa = PBXBuildFile; fileRef = 22B9556615528BCE006E2B32 /* reload.png */; };
 		22B9556A15528BCE006E2B32 /* reload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22B9556715528BCE006E2B32 /* reload@2x.png */; };
 		22B9556B15528BCE006E2B32 /* reload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22B9556715528BCE006E2B32 /* reload@2x.png */; };
+		22C5F637155FE7B800858F0A /* BRAccountSetting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F635155FE7B800858F0A /* BRAccountSetting.plist */; };
+		22C5F638155FE7B800858F0A /* BRAccountSetting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F635155FE7B800858F0A /* BRAccountSetting.plist */; };
+		22C5F639155FE7B800858F0A /* BRAppearenceSetting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F636155FE7B800858F0A /* BRAppearenceSetting.plist */; };
+		22C5F63A155FE7B800858F0A /* BRAppearenceSetting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F636155FE7B800858F0A /* BRAppearenceSetting.plist */; };
+		22C5F642155FEE4400858F0A /* BRSettingSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C5F641155FEE4300858F0A /* BRSettingSource.m */; };
+		22C5F643155FEE4400858F0A /* BRSettingSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C5F641155FEE4300858F0A /* BRSettingSource.m */; };
 		22CC17A914D974E400272147 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CC17A814D974E400272147 /* QuartzCore.framework */; };
 		22D4CE7A15370D990027D333 /* photoDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D4CE7815370D990027D333 /* photoDefault.png */; };
 		22D4CE7B15370D990027D333 /* photoDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D4CE7915370D990027D333 /* photoDefault@2x.png */; };
@@ -844,6 +855,13 @@
 		22608C3514F0C9F100732D2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		22638591152ECD7800CA39E3 /* BRSubFavoriteSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSubFavoriteSource.h; sourceTree = "<group>"; };
 		22638592152ECD7800CA39E3 /* BRSubFavoriteSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSubFavoriteSource.m; sourceTree = "<group>"; };
+		22679BC0155F8B33008539C4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		22679BC3155F8D59008539C4 /* BRSettingCellActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSettingCellActions.h; sourceTree = "<group>"; };
+		22679BC4155F8EF9008539C4 /* BRSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSettingCell.h; sourceTree = "<group>"; };
+		22679BC5155F8EF9008539C4 /* BRSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSettingCell.m; sourceTree = "<group>"; };
+		22679BC9155F981D008539C4 /* UserPreferenceDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPreferenceDefine.h; sourceTree = "<group>"; };
+		22679BCA155F981D008539C4 /* UserPreferenceDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPreferenceDefine.m; sourceTree = "<group>"; };
+		22679BCD155F9841008539C4 /* UserDefaultSetting_phone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserDefaultSetting_phone.plist; sourceTree = "<group>"; };
 		2267CF6A15579FA20037BAFF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		2271F40C1534F8C800A50484 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2271F40E1534F8CE00A50484 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -998,8 +1016,6 @@
 		229B2C1615273CAE00700504 /* GTMOAuth2ViewControllerTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2ViewControllerTouch.h; sourceTree = "<group>"; };
 		229B2C1715273CAE00700504 /* GTMOAuth2ViewControllerTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2ViewControllerTouch.m; sourceTree = "<group>"; };
 		229B2C1815273CAE00700504 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
-		229B2C1915273CAE00700504 /* UserPreferenceDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPreferenceDefine.h; sourceTree = "<group>"; };
-		229B2C1A15273CAE00700504 /* UserPreferenceDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPreferenceDefine.m; sourceTree = "<group>"; };
 		229B2C1D15273CAE00700504 /* BRArticleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRArticleDetailViewController.h; sourceTree = "<group>"; };
 		229B2C1E15273CAE00700504 /* BRArticleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRArticleDetailViewController.m; sourceTree = "<group>"; };
 		229B2C1F15273CAE00700504 /* BRArticleDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRArticleDetailViewController.xib; sourceTree = "<group>"; };
@@ -1312,6 +1328,10 @@
 		22B9554D15527F3D006E2B32 /* background7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background7.jpg; sourceTree = "<group>"; };
 		22B9556615528BCE006E2B32 /* reload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reload.png; sourceTree = "<group>"; };
 		22B9556715528BCE006E2B32 /* reload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reload@2x.png"; sourceTree = "<group>"; };
+		22C5F635155FE7B800858F0A /* BRAccountSetting.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BRAccountSetting.plist; sourceTree = "<group>"; };
+		22C5F636155FE7B800858F0A /* BRAppearenceSetting.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BRAppearenceSetting.plist; sourceTree = "<group>"; };
+		22C5F640155FEE4200858F0A /* BRSettingSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSettingSource.h; sourceTree = "<group>"; };
+		22C5F641155FEE4300858F0A /* BRSettingSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSettingSource.m; sourceTree = "<group>"; };
 		22CC17A814D974E400272147 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		22D4CE7815370D990027D333 /* photoDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photoDefault.png; sourceTree = "<group>"; };
 		22D4CE7915370D990027D333 /* photoDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoDefault@2x.png"; sourceTree = "<group>"; };
@@ -1600,22 +1620,40 @@
 			path = SubAndTagList;
 			sourceTree = "<group>";
 		};
+		22679BC8155F97EB008539C4 /* UserSetting */ = {
+			isa = PBXGroup;
+			children = (
+				22679BC9155F981D008539C4 /* UserPreferenceDefine.h */,
+				22679BCA155F981D008539C4 /* UserPreferenceDefine.m */,
+				22679BCD155F9841008539C4 /* UserDefaultSetting_phone.plist */,
+			);
+			path = UserSetting;
+			sourceTree = "<group>";
+		};
 		22872D231552D1930083E700 /* SettingViewController */ = {
 			isa = PBXGroup;
 			children = (
 				22E556E5155686EB0048E331 /* BRAccountSetting.h */,
 				22E556E6155686EC0048E331 /* BRAccountSetting.m */,
+				22C5F635155FE7B800858F0A /* BRAccountSetting.plist */,
 				22E556E9155687050048E331 /* BRAppearenceSetting.h */,
 				22E556EA155687060048E331 /* BRAppearenceSetting.m */,
+				22C5F636155FE7B800858F0A /* BRAppearenceSetting.plist */,
 				22E98E5F1557F41400192FBD /* BRCacheSetting.h */,
 				22E98E601557F41400192FBD /* BRCacheSetting.m */,
+				22679BC4155F8EF9008539C4 /* BRSettingCell.h */,
+				22679BC5155F8EF9008539C4 /* BRSettingCell.m */,
+				22679BC3155F8D59008539C4 /* BRSettingCellActions.h */,
 				22E556DC155667CA0048E331 /* BRSettingViewController.h */,
 				22E556DD155667CA0048E331 /* BRSettingViewController.m */,
 				22E556ED15568A8A0048E331 /* BRSettingViewController.xib */,
 				22E98E6A1557FDF900192FBD /* BRSocialAccountsSettingController.h */,
 				22E98E6B1557FDF900192FBD /* BRSocialAccountsSettingController.m */,
 				22E98E711557FE3200192FBD /* BRSocialAccountsSettingController.xib */,
+				22679BC0155F8B33008539C4 /* Settings.bundle */,
 				22E98E741557FED800192FBD /* SocialAccountsSetting.plist */,
+				22C5F640155FEE4200858F0A /* BRSettingSource.h */,
+				22C5F641155FEE4300858F0A /* BRSettingSource.m */,
 			);
 			path = SettingViewController;
 			sourceTree = "<group>";
@@ -1742,6 +1780,7 @@
 		229B2BBF15273CAE00700504 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				22679BC8155F97EB008539C4 /* UserSetting */,
 				229B2BC015273CAE00700504 /* BaseProperiesObject */,
 				229B2BC315273CAE00700504 /* BROperationQueues */,
 				22994A11152DC8BB00EE50C5 /* FeedReadingStatistics */,
@@ -1750,8 +1789,6 @@
 				229B2BDB15273CAE00700504 /* PreviewCache */,
 				229B2BDE15273CAE00700504 /* Reader */,
 				229B2C0615273CAE00700504 /* SDK */,
-				229B2C1915273CAE00700504 /* UserPreferenceDefine.h */,
-				229B2C1A15273CAE00700504 /* UserPreferenceDefine.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3220,6 +3257,9 @@
 				22E98E691557FA2200192FBD /* menu-background@2x.png in Resources */,
 				22E98E731557FE3300192FBD /* BRSocialAccountsSettingController.xib in Resources */,
 				22E98E761557FED800192FBD /* SocialAccountsSetting.plist in Resources */,
+				22679BCF155F9841008539C4 /* UserDefaultSetting_phone.plist in Resources */,
+				22C5F638155FE7B800858F0A /* BRAccountSetting.plist in Resources */,
+				22C5F63A155FE7B800858F0A /* BRAppearenceSetting.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3377,6 +3417,10 @@
 				22E98E681557FA2200192FBD /* menu-background@2x.png in Resources */,
 				22E98E721557FE3300192FBD /* BRSocialAccountsSettingController.xib in Resources */,
 				22E98E751557FED800192FBD /* SocialAccountsSetting.plist in Resources */,
+				22679BC1155F8B33008539C4 /* Settings.bundle in Resources */,
+				22679BCE155F9841008539C4 /* UserDefaultSetting_phone.plist in Resources */,
+				22C5F637155FE7B800858F0A /* BRAccountSetting.plist in Resources */,
+				22C5F639155FE7B800858F0A /* BRAppearenceSetting.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3463,7 +3507,6 @@
 				229E2008153E687C00DDBE0B /* GTMOAuth2Authentication.m in Sources */,
 				229E2009153E687C00DDBE0B /* GTMOAuth2SignIn.m in Sources */,
 				229E200A153E687C00DDBE0B /* GTMOAuth2ViewControllerTouch.m in Sources */,
-				229E200B153E687C00DDBE0B /* UserPreferenceDefine.m in Sources */,
 				229E200C153E687C00DDBE0B /* BRArticleDetailViewController.m in Sources */,
 				229E200D153E687C00DDBE0B /* BRBaseController.m in Sources */,
 				229E200E153E687C00DDBE0B /* BRBaseDataSource.m in Sources */,
@@ -3611,6 +3654,9 @@
 				22E98E621557F41400192FBD /* BRCacheSetting.m in Sources */,
 				22E98E6D1557FDFA00192FBD /* BRSocialAccountsSettingController.m in Sources */,
 				228E5913155D431B000888F4 /* JJPageScrollView.m in Sources */,
+				22679BC7155F8EF9008539C4 /* BRSettingCell.m in Sources */,
+				22679BCC155F981D008539C4 /* UserPreferenceDefine.m in Sources */,
+				22C5F643155FEE4400858F0A /* BRSettingSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3693,7 +3739,6 @@
 				229B2D4015273CAE00700504 /* GTMOAuth2Authentication.m in Sources */,
 				229B2D4115273CAE00700504 /* GTMOAuth2SignIn.m in Sources */,
 				229B2D4215273CAE00700504 /* GTMOAuth2ViewControllerTouch.m in Sources */,
-				229B2D4415273CAE00700504 /* UserPreferenceDefine.m in Sources */,
 				229B2D4515273CAE00700504 /* BRArticleDetailViewController.m in Sources */,
 				229B2D4815273CAE00700504 /* BRBaseController.m in Sources */,
 				229B2D4915273CAE00700504 /* BRBaseDataSource.m in Sources */,
@@ -3822,6 +3867,9 @@
 				22E98E611557F41400192FBD /* BRCacheSetting.m in Sources */,
 				22E98E6C1557FDFA00192FBD /* BRSocialAccountsSettingController.m in Sources */,
 				228E5912155D431B000888F4 /* JJPageScrollView.m in Sources */,
+				22679BC6155F8EF9008539C4 /* BRSettingCell.m in Sources */,
+				22679BCB155F981D008539C4 /* UserPreferenceDefine.m in Sources */,
+				22C5F642155FEE4400858F0A /* BRSettingSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

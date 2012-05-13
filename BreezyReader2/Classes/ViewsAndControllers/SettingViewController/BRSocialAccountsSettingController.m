@@ -7,19 +7,21 @@
 //
 
 #import "BRSocialAccountsSettingController.h"
+#import "BRSettingCell.h"
+#import "UserPreferenceDefine.h"
 
 @interface BRSocialAccountsSettingController ()
 
-@property (nonatomic, retain) NSArray* socialAccounts;
+@property (nonatomic, retain) NSArray* settingConfigs;
 
 @end
 
 @implementation BRSocialAccountsSettingController
 
-@synthesize socialAccounts = _socialAccounts;
+@synthesize settingConfigs = _settingConfigs;
 
 -(void)dealloc{
-    self.socialAccounts = nil;
+    self.settingConfigs = nil;
     [super dealloc];
 }
 
@@ -51,18 +53,22 @@
     // e.g. self.myOutlet = nil;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(NSArray*)socialAccounts{
-    if (!_socialAccounts){
+-(NSArray*)settingConfigs{
+    if (!_settingConfigs){
         NSURL* url = [[NSBundle mainBundle] URLForResource:@"SocialAccountsSetting" withExtension:@"plist"];
-        _socialAccounts = [[NSArray arrayWithContentsOfURL:url] retain];
+        _settingConfigs = [[NSArray arrayWithContentsOfURL:url] retain];
     }
     
-    return _socialAccounts;
+    return _settingConfigs;
 }
 
 #pragma mark - Table view data source
@@ -76,21 +82,20 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.socialAccounts count];
+    return [self.settingConfigs count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"settingCell";
+    BRSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[BRSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell.delegate = self;
     }
     
-    cell.textLabel.text = [[self.socialAccounts objectAtIndex:indexPath.row] objectForKey:@"name"];
-    cell.accessoryView = [[[UISwitch alloc] init] autorelease];
-    // Configure the cell...
+    [cell setCellConfig:[self.settingConfigs objectAtIndex:indexPath.row]];
     
     return cell;
 }
@@ -138,14 +143,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    NSDictionary* config = [self.settingConfigs objectAtIndex:indexPath.row];
+    NSString* type = [[config objectForKey:@"type"] lowercaseString];
+    if ([type isEqualToString:@"more"]){
+        
+    }
+}
+
+#pragma mark - cell actions
+-(void)valueChangedForIdentifier:(NSString *)identifier newValue:(id)value{
+    [UserPreferenceDefine valueChangedForIdentifier:identifier value:value];
 }
 
 @end

@@ -13,6 +13,10 @@
 	
 }
 
++(id)valueForIdentifier:(NSString*)identifier;
++(BOOL)boolValueForIdentifier:(NSString*)identifier;
++(void)valueChangedForIdentifier:(NSString*)identifier value:(id)value;
+
 +(void)valueChangedForKey:(NSString*)key value:(id)value;
 
 +(void)resetPreference;

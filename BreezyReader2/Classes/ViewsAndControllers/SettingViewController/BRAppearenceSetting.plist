@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>identifier</key>
+		<string>animateFlipView</string>
+		<key>name</key>
+		<string>Flip thumbnail in main screen</string>
+		<key>type</key>
+		<string>switch</string>
+		<key>defaultValue</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>identifier</key>
+		<string>sortingByReadingFrequency</string>
+		<key>name</key>
+		<string>Sort subscriptions by reading frequence</string>
+		<key>type</key>
+		<string>switch</string>
+		<key>defaultValue</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>identifier</key>
+		<string>showRecommendations</string>
+		<key>name</key>
+		<string>Show Recommendations</string>
+		<key>type</key>
+		<string>switch</string>
+		<key>defaultValue</key>
+		<true/>
+	</dict>
+</array>
+</plist>

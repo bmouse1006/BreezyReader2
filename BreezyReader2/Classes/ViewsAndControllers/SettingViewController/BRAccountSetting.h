@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BRSettingSource.h"
 #import "BRSettingDataSource.h"
 
-@interface BRAccountSetting : NSObject<BRSettingDataSource>
+@interface BRAccountSetting : BRSettingSource<BRSettingDataSource, BRSettingCellActions>
 
 
 @end

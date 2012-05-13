@@ -16,6 +16,7 @@
 
 @synthesize subscription = _subscription;
 @synthesize tableController = _tableController;
+@synthesize viewController = _viewController;
 
 -(void)dealloc{
     self.subscription = nil;

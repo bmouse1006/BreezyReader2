@@ -12,16 +12,26 @@
 
 @synthesize viewController = _viewController;
 
--(NSInteger)numberOfRowsInSection{
-    return 2;
-}
-
--(id)tableView:(UITableView*)tableView cellForRow:(NSInteger)index{
-    return [[[UITableViewCell alloc] init] autorelease];
-}
-
 -(NSString*)sectionTitle{
     return NSLocalizedString(@"title_appearence", nil);
+}
+
+-(NSString*)configName{
+    return @"BRAppearenceSetting";
+}
+
+-(void)didSelectRowAtIndex:(NSInteger)index{
+    NSString* identifier = [[self.settingConfigs objectAtIndex:index] objectForKey:@"identifier"];
+    
+    if([identifier isEqualToString:@"google"]){
+        
+    }else if ([identifier isEqualToString:@"socialaccounts"]){
+ 
+    }
+}
+
+-(void)valueChangedForIdentifier:(NSString*)identifier newValue:(id)value{
+    [super valueChangedForIdentifier:identifier newValue:value];
 }
 
 @end

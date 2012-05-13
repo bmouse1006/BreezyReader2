@@ -39,6 +39,11 @@
     // e.g. self.myOutlet = nil;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIBarStyleBlack;
+}
+
 -(void)close{
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
