@@ -1,5 +1,5 @@
 //
-//  BRSettingViewController.h
+//  BRChooseBackgroundImage.h
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-5-14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BRSettingViewController : UITableViewController
+@interface BRChooseBackgroundImage : UIView
 
 @end
