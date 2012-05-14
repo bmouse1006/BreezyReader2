@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "BRSettingCellActions.h"
 
-@interface BRSettingViewController : UITableViewController <BRSettingCellActions>
+@interface BRSettingViewController : UITableViewController <BRSettingCellActions, UIPickerViewDelegate, UIPickerViewDataSource>
+
+
 
 @end

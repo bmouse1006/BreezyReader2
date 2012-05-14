@@ -8,10 +8,12 @@
 
 #import "BRSettingCell.h"
 #import "UserPreferenceDefine.h"
+#import "BRSettingCustomBaseView.h"
 
 @interface BRSettingCell ()
 
 @property (nonatomic, retain) NSDictionary* config;
+@property (nonatomic, retain) BRSettingCustomBaseView* customView;
 
 @end
 
@@ -19,8 +21,10 @@
 
 @synthesize config = _config;
 @synthesize delegate = _delegate;
+@synthesize customView = _customView;
 
 -(void)dealloc{
+    self.customView = nil;
     self.config = nil;
     [super dealloc];
 }
@@ -30,6 +34,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        self.textLabel.font = [UIFont boldSystemFontOfSize:15];
+        self.detailTextLabel.font = [UIFont systemFontOfSize:15];
     }
     return self;
 }
@@ -44,7 +50,7 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     
-
+    self.customView.frame = self.contentView.bounds;
 }
 
 -(void)setCellConfig:(NSDictionary*)config{
@@ -54,18 +60,30 @@
     NSString* type = [[self.config objectForKey:@"type"] lowercaseString];
     NSString* identifier = [[self.config objectForKey:@"identifier"] lowercaseString];
     
-    self.textLabel.text = [self.config objectForKey:@"name"];
+    self.textLabel.text = NSLocalizedString([self.config objectForKey:@"name"], nil);
+    self.detailTextLabel.text = nil;
+    [self.customView removeFromSuperview];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if ([type isEqualToString:@"switch"]){
         UISwitch* switcher = [[[UISwitch alloc] init] autorelease];
         switcher.on = [UserPreferenceDefine boolValueForIdentifier:identifier];
         [switcher addTarget:self action:@selector(boolValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.accessoryView = switcher;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }else if ([type isEqualToString:@"more"]){
         self.accessoryView = nil;
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.selectionStyle = UITableViewCellSelectionStyleBlue;
+    }else if ([type isEqualToString:@"pick"]){
+        self.selectionStyle = UITableViewCellSelectionStyleBlue;
+        id value = [UserPreferenceDefine valueForIdentifier:identifier];
+        if (value){
+            self.detailTextLabel.text = [value description];
+        }
+    }else if([type isEqualToString:@"custom"]){
+        NSString* className = [config objectForKey:@"customViewClass"];
+        self.customView = [[[NSBundle mainBundle] loadNibNamed:className owner:nil options:nil] objectAtIndex:0];
+        [self.contentView addSubview:self.customView];
     }
 }
 

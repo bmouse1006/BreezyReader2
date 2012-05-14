@@ -8,20 +8,25 @@
 
 #import "BRSettingViewController.h"
 #import "UserPreferenceDefine.h"
+#import "BRSettingCustomBaseView.h"
 #import "BRSettingCell.h"
 
 @interface BRSettingViewController ()
 
 @property (nonatomic, retain) NSArray* settingConfigs;
 
+@property (nonatomic, retain) NSArray* pickerData;
+
 @end
 
 @implementation BRSettingViewController
 
 @synthesize settingConfigs = _settingConfigs;
+@synthesize pickerData = _pickerData;
 
 -(void)dealloc{
     self.settingConfigs = nil;
+    self.pickerData = nil;
     [super dealloc];
 }
 
@@ -88,7 +93,7 @@
     static NSString *CellIdentifier = @"BRSettingCell";
     BRSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil){
-        cell = [[[BRSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[BRSettingCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
         cell.delegate = self;
     }
     
@@ -107,13 +112,15 @@
 {
     NSDictionary* config = [self objectAtIndexPath:indexPath];
     NSString* type = [[config objectForKey:@"type"] lowercaseString];
-//    NSString* identifier = [[config objectForKey:@"identifier"] lowercaseString];
     if ([type isEqualToString:@"more"]){
         NSString* next = [config objectForKey:@"next"];
         id controller = [[[NSClassFromString(next) alloc] initWithNibName:next bundle:nil] autorelease];
         if (controller){
             [self.navigationController pushViewController:controller animated:YES];
         }
+    }else if([type isEqualToString:@"pick"]){
+        UIPickerView* picker = [[[UIPickerView alloc] init] autorelease];
+        picker.dataSource = self;
     }
 }
 
@@ -123,7 +130,14 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CGFloat height = 44.0f;
+    NSDictionary* config = [self objectAtIndexPath:indexPath];
+    if ([[[config objectForKey:@"type"] lowercaseString] isEqualToString:@"custom"]){
+        Class customClass = NSClassFromString([config objectForKey:@"customViewClass"]);
+        height = [customClass heightForCustomView];
+    }
     
+    return height;
 }
 
 #pragma mark - setting cell actions delegate
@@ -132,4 +146,21 @@
     [UserPreferenceDefine valueChangedForIdentifier:identifier value:value];
 }
 
+#pragma mark - picker data source
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return [self.pickerData count];
+}
+
+#pragma mark - picker delegate
+-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    return [self.pickerData objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    
+}
 @end

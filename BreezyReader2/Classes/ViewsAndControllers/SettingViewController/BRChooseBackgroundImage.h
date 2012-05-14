@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRSettingCustomBaseView.h"
 
-@interface BRChooseBackgroundImage : UIView
+@interface BRChooseBackgroundImage : BRSettingCustomBaseView
+
+@property (nonatomic, retain) IBOutlet UIButton* image1Button;
+@property (nonatomic, retain) IBOutlet UIButton* image2Button;
+@property (nonatomic, retain) IBOutlet UIButton* image3Button;
+@property (nonatomic, retain) IBOutlet UIButton* userImageButton;
+
+-(IBAction)imageButtonClicked:(id)sender;
 
 @end

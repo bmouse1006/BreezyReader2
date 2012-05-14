@@ -89,6 +89,8 @@
 {
     [super viewDidLoad];
     
+    self.backgroundView = [[[UIImageView alloc] initWithFrame:self.view.bounds] autorelease];
+    
     self.infinityScroll = [[[InfinityScrollView alloc] initWithFrame:self.mainContainer.bounds] autorelease];
     self.dataSource = [[[MainScreenDataSource alloc] init] autorelease];
     self.infinityScroll.dataSource = self.dataSource;
@@ -137,6 +139,8 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    UIImageView* imageView = (UIImageView*)self.backgroundView;
+    imageView.image = [UserPreferenceDefine backgroundImage];
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;

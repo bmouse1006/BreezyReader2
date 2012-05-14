@@ -39,6 +39,14 @@
 "title_cache" = "缓存";
 "title_accounts" = "账户";
 "title_appearence" = "显示";
+"title_google" = "Google账号";
+"title_otheraccounts" = "其它账号";
+"title_flipthumbnail" = "翻转缩略图";
+"title_sortfeedbyreadingfrequency" = "按阅读频率排序";
+"title_showrecommendation" = "显示推荐源";
+"title_changebackground" = "更换背景";
+"title_feedsinmostread" = "最常阅读中源的数量";
+"title_autocleancache" = "自动清除缓存";
 
 "message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
 "message_subscribe" = "您想要订阅 \"%@\" 吗?";
@@ -54,7 +62,7 @@
 "message_addnewtagfailed" = "添加失败";
 "message_reloadfinished" = "同步完成";
 "message_reloadfailed" = "同步失败!";
-"message_reloadalldata" = "你想要手动和Google Reader同步数据吗?";
+"message_reloadalldata" = "你想要手动同步Google Reader吗?";
 "message_startloading" = "同步中";
 
 "msg_searching" = "搜索中...";

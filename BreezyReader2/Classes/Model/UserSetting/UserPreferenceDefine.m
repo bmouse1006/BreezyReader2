@@ -19,6 +19,8 @@
 #define KEY_SHOWUNREADFIRST @"ShowUnreadFirst"
 #define KEY_TAPTOFULLSCREEN @"TapToFullscreen"
 
+#define kBackgroundImageName @"backgroundimagename"
+
 @implementation UserPreferenceDefine
 
 static NSDictionary* preferenceBundle = nil;
@@ -175,6 +177,8 @@ static NSDictionary* preferenceBundle = nil;
         obj = [setting objectForKey:identifier];
     }
     
+    DebugLog(@"value for identifier: %@ is %@",identifier, obj);
+    
     return obj;
 }
 
@@ -185,6 +189,25 @@ static NSDictionary* preferenceBundle = nil;
 +(void)valueChangedForIdentifier:(NSString*)identifier value:(id)value{
     [[NSUserDefaults standardUserDefaults] setObject:value forKey:identifier];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(UIImage*)backgroundImage{
+    NSString* imageName = [self backgroundImageName];
+#warning add code to get image from lib
+    UIImage* image = [UIImage imageNamed:imageName];
+    if (image == nil){
+        image = [UIImage imageNamed:imageName];
+    }
+    
+    return image;
+}
+
++(NSString*)backgroundImageName{
+    return [self valueForIdentifier:kBackgroundImageName];
+}
+
++(void)setDefaultBackgroundImageName:(NSString*)imageName{
+    [self valueChangedForIdentifier:kBackgroundImageName value:imageName];
 }
 
 @end

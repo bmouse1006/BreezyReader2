@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>animateflipview</key>
+	<true/>
+	<key>sortingbyreadingfrequency</key>
+	<true/>
+	<key>showrecommendations</key>
+	<true/>
+	<key>feedsinmostread</key>
+	<integer>10</integer>
+	<key>autocleancache</key>
+	<true/>
+	<key>backgroundimagename</key>
+	<string>background1.jpg</string>
+</dict>
 </plist>

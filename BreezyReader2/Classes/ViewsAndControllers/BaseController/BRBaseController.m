@@ -105,7 +105,6 @@ static CGFloat distance = 0.0f;
     self.view.autoresizesSubviews = YES;
     self.mainContainer.autoresizesSubviews = YES;
     self.mainContainer.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self setupBackgroundView:self.backgroundView];
     [self.view addSubview:self.mainContainer];
 //    self.mainContainer.bounds = self.view.bounds;
     CGRect frame = self.actionMenuController.view.frame;
@@ -124,6 +123,11 @@ static CGFloat distance = 0.0f;
     self.secondaryView = nil;
     self.backgroundView = nil;
     self.actionMenuController = nil;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self setupBackgroundView:self.backgroundView];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

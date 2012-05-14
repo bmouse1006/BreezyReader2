@@ -11,7 +11,7 @@
 				<key>identifier</key>
 				<string>google</string>
 				<key>name</key>
-				<string>Google</string>
+				<string>title_google</string>
 				<key>type</key>
 				<string>switch</string>
 				<key>defaultValue</key>
@@ -21,7 +21,7 @@
 				<key>identifier</key>
 				<string>socialaccounts</string>
 				<key>name</key>
-				<string>Other accounts</string>
+				<string>title_otheraccounts</string>
 				<key>type</key>
 				<string>more</string>
 				<key>next</key>
@@ -34,30 +34,6 @@
 		<string>title_appearence</string>
 		<key>configs</key>
 		<array>
-			<dict>
-				<key>identifier</key>
-				<string>animateFlipView</string>
-				<key>name</key>
-				<string>Flip thumbnail in main screen</string>
-				<key>type</key>
-				<string>switch</string>
-			</dict>
-			<dict>
-				<key>identifier</key>
-				<string>sortingByReadingFrequency</string>
-				<key>name</key>
-				<string>Sort subscriptions by reading frequence</string>
-				<key>type</key>
-				<string>switch</string>
-			</dict>
-			<dict>
-				<key>identifier</key>
-				<string>showRecommendations</string>
-				<key>name</key>
-				<string>Show Recommendations</string>
-				<key>type</key>
-				<string>switch</string>
-			</dict>
 			<dict>
 				<key>identifier</key>
 				<string>null</string>
@@ -74,13 +50,60 @@
 				<key>customViewClass</key>
 				<string>BRChooseBackgroundImage</string>
 			</dict>
+			<dict>
+				<key>identifier</key>
+				<string>animateflipview</string>
+				<key>name</key>
+				<string>title_flipthumbnail</string>
+				<key>type</key>
+				<string>switch</string>
+			</dict>
+			<dict>
+				<key>identifier</key>
+				<string>sortingbyreadingfrequency</string>
+				<key>name</key>
+				<string>title_sortfeedbyreadingfrequency</string>
+				<key>type</key>
+				<string>switch</string>
+			</dict>
+			<dict>
+				<key>identifier</key>
+				<string>showrecommendations</string>
+				<key>name</key>
+				<string>title_showrecommendation</string>
+				<key>type</key>
+				<string>switch</string>
+			</dict>
+			<dict>
+				<key>identifier</key>
+				<string>feedsinmostread</string>
+				<key>name</key>
+				<string>title_feedsinmostread</string>
+				<key>type</key>
+				<string>pick</string>
+				<key>values</key>
+				<array>
+					<string>10</string>
+					<string>15</string>
+					<string>20</string>
+				</array>
+			</dict>
 		</array>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>title_cache</string>
 		<key>configs</key>
-		<dict/>
+		<array>
+			<dict>
+				<key>identifier</key>
+				<string>autocleancache</string>
+				<key>name</key>
+				<string>title_autocleancache</string>
+				<key>type</key>
+				<string>switch</string>
+			</dict>
+		</array>
 	</dict>
 </array>
 </plist>

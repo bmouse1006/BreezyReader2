@@ -16,6 +16,10 @@
 +(id)valueForIdentifier:(NSString*)identifier;
 +(BOOL)boolValueForIdentifier:(NSString*)identifier;
 +(void)valueChangedForIdentifier:(NSString*)identifier value:(id)value;
++(UIImage*)backgroundImage;
++(NSString*)backgroundImageName;
++(void)setDefaultBackgroundImageName:(NSString*)imageName;
+
 
 +(void)valueChangedForKey:(NSString*)key value:(id)value;
 
