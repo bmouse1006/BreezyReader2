@@ -61,9 +61,11 @@
         switcher.on = [UserPreferenceDefine boolValueForIdentifier:identifier];
         [switcher addTarget:self action:@selector(boolValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.accessoryView = switcher;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }else if ([type isEqualToString:@"more"]){
         self.accessoryView = nil;
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        self.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
 }
 

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRSettingCellActions.h"
 
-@interface BRSettingViewController : UITableViewController
+@interface BRSettingViewController : UITableViewController <BRSettingCellActions>
 
 @end

@@ -29,7 +29,7 @@
     UIBarButtonItem* item = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(close)] autorelease];
     self.navigationItem.rightBarButtonItem = item;
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
-
+    [UIApplication sharedApplication].statusBarStyle = UIBarStyleBlack;
 }
 
 - (void)viewDidUnload
@@ -41,7 +41,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIBarStyleBlack;
 }
 
 -(void)close{

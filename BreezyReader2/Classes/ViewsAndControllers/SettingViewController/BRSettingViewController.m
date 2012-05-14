@@ -7,12 +7,23 @@
 //
 
 #import "BRSettingViewController.h"
+#import "UserPreferenceDefine.h"
+#import "BRSettingCell.h"
 
 @interface BRSettingViewController ()
+
+@property (nonatomic, retain) NSArray* settingConfigs;
 
 @end
 
 @implementation BRSettingViewController
+
+@synthesize settingConfigs = _settingConfigs;
+
+-(void)dealloc{
+    self.settingConfigs = nil;
+    [super dealloc];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,12 +37,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
+    [UIApplication sharedApplication].statusBarStyle = UIBarStyleBlack;
+    UIBarButtonItem* close = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close)] autorelease];
+    self.navigationItem.rightBarButtonItem = close;
 }
 
 - (void)viewDidUnload
@@ -46,83 +55,81 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void)close{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark - getter and setter
+-(NSArray*)settingConfigs{
+    if (_settingConfigs == nil){
+        NSURL* url = [[NSBundle mainBundle] URLForResource:@"BRSettingConfig" withExtension:@"plist"];
+        _settingConfigs = [[NSArray arrayWithContentsOfURL:url] retain];
+    }
+    
+    return _settingConfigs;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return [self.settingConfigs count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [[[self.settingConfigs objectAtIndex:section] objectForKey:@"configs"] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"BRSettingCell";
+    BRSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil){
+        cell = [[[BRSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell.delegate = self;
+    }
     
+    [cell setCellConfig:[self objectAtIndexPath:indexPath]];
     // Configure the cell...
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+-(id)objectAtIndexPath:(NSIndexPath*)indexPath{
+    return [[[self.settingConfigs objectAtIndex:indexPath.section] objectForKey:@"configs"] objectAtIndex:indexPath.row];
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    NSDictionary* config = [self objectAtIndexPath:indexPath];
+    NSString* type = [[config objectForKey:@"type"] lowercaseString];
+//    NSString* identifier = [[config objectForKey:@"identifier"] lowercaseString];
+    if ([type isEqualToString:@"more"]){
+        NSString* next = [config objectForKey:@"next"];
+        id controller = [[[NSClassFromString(next) alloc] initWithNibName:next bundle:nil] autorelease];
+        if (controller){
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+    }
+}
+
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    NSString* titleKey = [[self.settingConfigs objectAtIndex:section] objectForKey:@"name"];
+    return NSLocalizedString(titleKey, nil);
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+#pragma mark - setting cell actions delegate
+-(void)valueChangedForIdentifier:(NSString*)identifier newValue:(id)value{
+    DebugLog(@"value changed for identifier: %@", identifier);
+    [UserPreferenceDefine valueChangedForIdentifier:identifier value:value];
 }
 
 @end

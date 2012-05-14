@@ -60,7 +60,6 @@
 		22608C3414F0C9B000732D2B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3314F0C9AF00732D2B /* MobileCoreServices.framework */; };
 		22608C3614F0C9F100732D2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22608C3514F0C9F100732D2B /* libz.dylib */; };
 		22638593152ECD7800CA39E3 /* BRSubFavoriteSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22638592152ECD7800CA39E3 /* BRSubFavoriteSource.m */; };
-		22679BC1155F8B33008539C4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22679BC0155F8B33008539C4 /* Settings.bundle */; };
 		22679BC6155F8EF9008539C4 /* BRSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22679BC5155F8EF9008539C4 /* BRSettingCell.m */; };
 		22679BC7155F8EF9008539C4 /* BRSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22679BC5155F8EF9008539C4 /* BRSettingCell.m */; };
 		22679BCB155F981D008539C4 /* UserPreferenceDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 22679BCA155F981D008539C4 /* UserPreferenceDefine.m */; };
@@ -647,12 +646,14 @@
 		22B9556915528BCE006E2B32 /* reload.png in Resources */ = {isa = PBXBuildFile; fileRef = 22B9556615528BCE006E2B32 /* reload.png */; };
 		22B9556A15528BCE006E2B32 /* reload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22B9556715528BCE006E2B32 /* reload@2x.png */; };
 		22B9556B15528BCE006E2B32 /* reload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22B9556715528BCE006E2B32 /* reload@2x.png */; };
-		22C5F637155FE7B800858F0A /* BRAccountSetting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F635155FE7B800858F0A /* BRAccountSetting.plist */; };
-		22C5F638155FE7B800858F0A /* BRAccountSetting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F635155FE7B800858F0A /* BRAccountSetting.plist */; };
-		22C5F639155FE7B800858F0A /* BRAppearenceSetting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F636155FE7B800858F0A /* BRAppearenceSetting.plist */; };
-		22C5F63A155FE7B800858F0A /* BRAppearenceSetting.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F636155FE7B800858F0A /* BRAppearenceSetting.plist */; };
-		22C5F642155FEE4400858F0A /* BRSettingSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C5F641155FEE4300858F0A /* BRSettingSource.m */; };
-		22C5F643155FEE4400858F0A /* BRSettingSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C5F641155FEE4300858F0A /* BRSettingSource.m */; };
+		22C5F64515607E1B00858F0A /* BRSettingConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F64415607E1A00858F0A /* BRSettingConfig.plist */; };
+		22C5F64615607E1B00858F0A /* BRSettingConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F64415607E1A00858F0A /* BRSettingConfig.plist */; };
+		22C5F64A15607FD900858F0A /* BRSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C5F64815607FD400858F0A /* BRSettingViewController.m */; };
+		22C5F64B15607FD900858F0A /* BRSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C5F64815607FD400858F0A /* BRSettingViewController.m */; };
+		22C5F64C15607FD900858F0A /* BRSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F64915607FD700858F0A /* BRSettingViewController.xib */; };
+		22C5F64D15607FD900858F0A /* BRSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F64915607FD700858F0A /* BRSettingViewController.xib */; };
+		22C5F6501560889100858F0A /* BRChooseBackgroundImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C5F64F1560889000858F0A /* BRChooseBackgroundImage.m */; };
+		22C5F6511560889100858F0A /* BRChooseBackgroundImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C5F64F1560889000858F0A /* BRChooseBackgroundImage.m */; };
 		22CC17A914D974E400272147 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CC17A814D974E400272147 /* QuartzCore.framework */; };
 		22D4CE7A15370D990027D333 /* photoDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D4CE7815370D990027D333 /* photoDefault.png */; };
 		22D4CE7B15370D990027D333 /* photoDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D4CE7915370D990027D333 /* photoDefault@2x.png */; };
@@ -742,22 +743,12 @@
 		22E556CF15565CCC0048E331 /* BRFeedActionMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E556CC15565CCB0048E331 /* BRFeedActionMenuViewController.m */; };
 		22E556D015565CCC0048E331 /* BRFeedActionMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E556CD15565CCC0048E331 /* BRFeedActionMenuViewController.xib */; };
 		22E556D115565CCC0048E331 /* BRFeedActionMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E556CD15565CCC0048E331 /* BRFeedActionMenuViewController.xib */; };
-		22E556DE155667CA0048E331 /* BRSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E556DD155667CA0048E331 /* BRSettingViewController.m */; };
-		22E556DF155667CA0048E331 /* BRSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E556DD155667CA0048E331 /* BRSettingViewController.m */; };
 		22E556E315567EA40048E331 /* BRSettingBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E556E215567EA30048E331 /* BRSettingBaseController.m */; };
 		22E556E415567EA40048E331 /* BRSettingBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E556E215567EA30048E331 /* BRSettingBaseController.m */; };
-		22E556E7155686ED0048E331 /* BRAccountSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E556E6155686EC0048E331 /* BRAccountSetting.m */; };
-		22E556E8155686ED0048E331 /* BRAccountSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E556E6155686EC0048E331 /* BRAccountSetting.m */; };
-		22E556EB155687070048E331 /* BRAppearenceSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E556EA155687060048E331 /* BRAppearenceSetting.m */; };
-		22E556EC155687070048E331 /* BRAppearenceSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E556EA155687060048E331 /* BRAppearenceSetting.m */; };
-		22E556EE15568A8B0048E331 /* BRSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E556ED15568A8A0048E331 /* BRSettingViewController.xib */; };
-		22E556EF15568A8B0048E331 /* BRSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E556ED15568A8A0048E331 /* BRSettingViewController.xib */; };
 		22E8CA871542C50C00D07870 /* BRFeedConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E8CA851542C50C00D07870 /* BRFeedConfigViewController.m */; };
 		22E8CA881542C50C00D07870 /* BRFeedConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E8CA851542C50C00D07870 /* BRFeedConfigViewController.m */; };
 		22E8CA891542C50C00D07870 /* BRFeedConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E8CA861542C50C00D07870 /* BRFeedConfigViewController.xib */; };
 		22E8CA8A1542C50C00D07870 /* BRFeedConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E8CA861542C50C00D07870 /* BRFeedConfigViewController.xib */; };
-		22E98E611557F41400192FBD /* BRCacheSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E98E601557F41400192FBD /* BRCacheSetting.m */; };
-		22E98E621557F41400192FBD /* BRCacheSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E98E601557F41400192FBD /* BRCacheSetting.m */; };
 		22E98E661557FA2200192FBD /* menu-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E98E641557FA2200192FBD /* menu-background.png */; };
 		22E98E671557FA2200192FBD /* menu-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E98E641557FA2200192FBD /* menu-background.png */; };
 		22E98E681557FA2200192FBD /* menu-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E98E651557FA2200192FBD /* menu-background@2x.png */; };
@@ -855,7 +846,6 @@
 		22608C3514F0C9F100732D2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		22638591152ECD7800CA39E3 /* BRSubFavoriteSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSubFavoriteSource.h; sourceTree = "<group>"; };
 		22638592152ECD7800CA39E3 /* BRSubFavoriteSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSubFavoriteSource.m; sourceTree = "<group>"; };
-		22679BC0155F8B33008539C4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		22679BC3155F8D59008539C4 /* BRSettingCellActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSettingCellActions.h; sourceTree = "<group>"; };
 		22679BC4155F8EF9008539C4 /* BRSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSettingCell.h; sourceTree = "<group>"; };
 		22679BC5155F8EF9008539C4 /* BRSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSettingCell.m; sourceTree = "<group>"; };
@@ -1328,10 +1318,12 @@
 		22B9554D15527F3D006E2B32 /* background7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background7.jpg; sourceTree = "<group>"; };
 		22B9556615528BCE006E2B32 /* reload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reload.png; sourceTree = "<group>"; };
 		22B9556715528BCE006E2B32 /* reload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reload@2x.png"; sourceTree = "<group>"; };
-		22C5F635155FE7B800858F0A /* BRAccountSetting.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BRAccountSetting.plist; sourceTree = "<group>"; };
-		22C5F636155FE7B800858F0A /* BRAppearenceSetting.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BRAppearenceSetting.plist; sourceTree = "<group>"; };
-		22C5F640155FEE4200858F0A /* BRSettingSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSettingSource.h; sourceTree = "<group>"; };
-		22C5F641155FEE4300858F0A /* BRSettingSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSettingSource.m; sourceTree = "<group>"; };
+		22C5F64415607E1A00858F0A /* BRSettingConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BRSettingConfig.plist; sourceTree = "<group>"; };
+		22C5F64715607FD200858F0A /* BRSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSettingViewController.h; sourceTree = "<group>"; };
+		22C5F64815607FD400858F0A /* BRSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSettingViewController.m; sourceTree = "<group>"; };
+		22C5F64915607FD700858F0A /* BRSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRSettingViewController.xib; sourceTree = "<group>"; };
+		22C5F64E1560888F00858F0A /* BRChooseBackgroundImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChooseBackgroundImage.h; sourceTree = "<group>"; };
+		22C5F64F1560889000858F0A /* BRChooseBackgroundImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChooseBackgroundImage.m; sourceTree = "<group>"; };
 		22CC17A814D974E400272147 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		22D4CE7815370D990027D333 /* photoDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photoDefault.png; sourceTree = "<group>"; };
 		22D4CE7915370D990027D333 /* photoDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoDefault@2x.png"; sourceTree = "<group>"; };
@@ -1465,21 +1457,12 @@
 		22E556CB15565CCB0048E331 /* BRFeedActionMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFeedActionMenuViewController.h; sourceTree = "<group>"; };
 		22E556CC15565CCB0048E331 /* BRFeedActionMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFeedActionMenuViewController.m; sourceTree = "<group>"; };
 		22E556CD15565CCC0048E331 /* BRFeedActionMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRFeedActionMenuViewController.xib; sourceTree = "<group>"; };
-		22E556DC155667CA0048E331 /* BRSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSettingViewController.h; sourceTree = "<group>"; };
-		22E556DD155667CA0048E331 /* BRSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSettingViewController.m; sourceTree = "<group>"; };
 		22E556E015567D030048E331 /* BRSettingDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSettingDataSource.h; sourceTree = "<group>"; };
 		22E556E115567EA20048E331 /* BRSettingBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSettingBaseController.h; sourceTree = "<group>"; };
 		22E556E215567EA30048E331 /* BRSettingBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSettingBaseController.m; sourceTree = "<group>"; };
-		22E556E5155686EB0048E331 /* BRAccountSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAccountSetting.h; sourceTree = "<group>"; };
-		22E556E6155686EC0048E331 /* BRAccountSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAccountSetting.m; sourceTree = "<group>"; };
-		22E556E9155687050048E331 /* BRAppearenceSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAppearenceSetting.h; sourceTree = "<group>"; };
-		22E556EA155687060048E331 /* BRAppearenceSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAppearenceSetting.m; sourceTree = "<group>"; };
-		22E556ED15568A8A0048E331 /* BRSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRSettingViewController.xib; sourceTree = "<group>"; };
 		22E8CA841542C50C00D07870 /* BRFeedConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFeedConfigViewController.h; sourceTree = "<group>"; };
 		22E8CA851542C50C00D07870 /* BRFeedConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFeedConfigViewController.m; sourceTree = "<group>"; };
 		22E8CA861542C50C00D07870 /* BRFeedConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRFeedConfigViewController.xib; sourceTree = "<group>"; };
-		22E98E5F1557F41400192FBD /* BRCacheSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCacheSetting.h; sourceTree = "<group>"; };
-		22E98E601557F41400192FBD /* BRCacheSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRCacheSetting.m; sourceTree = "<group>"; };
 		22E98E641557FA2200192FBD /* menu-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-background.png"; sourceTree = "<group>"; };
 		22E98E651557FA2200192FBD /* menu-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-background@2x.png"; sourceTree = "<group>"; };
 		22E98E6A1557FDF900192FBD /* BRSocialAccountsSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSocialAccountsSettingController.h; sourceTree = "<group>"; };
@@ -1633,27 +1616,19 @@
 		22872D231552D1930083E700 /* SettingViewController */ = {
 			isa = PBXGroup;
 			children = (
-				22E556E5155686EB0048E331 /* BRAccountSetting.h */,
-				22E556E6155686EC0048E331 /* BRAccountSetting.m */,
-				22C5F635155FE7B800858F0A /* BRAccountSetting.plist */,
-				22E556E9155687050048E331 /* BRAppearenceSetting.h */,
-				22E556EA155687060048E331 /* BRAppearenceSetting.m */,
-				22C5F636155FE7B800858F0A /* BRAppearenceSetting.plist */,
-				22E98E5F1557F41400192FBD /* BRCacheSetting.h */,
-				22E98E601557F41400192FBD /* BRCacheSetting.m */,
 				22679BC4155F8EF9008539C4 /* BRSettingCell.h */,
 				22679BC5155F8EF9008539C4 /* BRSettingCell.m */,
 				22679BC3155F8D59008539C4 /* BRSettingCellActions.h */,
-				22E556DC155667CA0048E331 /* BRSettingViewController.h */,
-				22E556DD155667CA0048E331 /* BRSettingViewController.m */,
-				22E556ED15568A8A0048E331 /* BRSettingViewController.xib */,
 				22E98E6A1557FDF900192FBD /* BRSocialAccountsSettingController.h */,
 				22E98E6B1557FDF900192FBD /* BRSocialAccountsSettingController.m */,
 				22E98E711557FE3200192FBD /* BRSocialAccountsSettingController.xib */,
-				22679BC0155F8B33008539C4 /* Settings.bundle */,
 				22E98E741557FED800192FBD /* SocialAccountsSetting.plist */,
-				22C5F640155FEE4200858F0A /* BRSettingSource.h */,
-				22C5F641155FEE4300858F0A /* BRSettingSource.m */,
+				22C5F64415607E1A00858F0A /* BRSettingConfig.plist */,
+				22C5F64715607FD200858F0A /* BRSettingViewController.h */,
+				22C5F64815607FD400858F0A /* BRSettingViewController.m */,
+				22C5F64915607FD700858F0A /* BRSettingViewController.xib */,
+				22C5F64E1560888F00858F0A /* BRChooseBackgroundImage.h */,
+				22C5F64F1560889000858F0A /* BRChooseBackgroundImage.m */,
 			);
 			path = SettingViewController;
 			sourceTree = "<group>";
@@ -3252,14 +3227,13 @@
 				22E556BE155637150048E331 /* background12.jpg in Resources */,
 				22E556C6155645BC0048E331 /* BRArticleActionMenuViewController.xib in Resources */,
 				22E556D115565CCC0048E331 /* BRFeedActionMenuViewController.xib in Resources */,
-				22E556EF15568A8B0048E331 /* BRSettingViewController.xib in Resources */,
 				22E98E671557FA2200192FBD /* menu-background.png in Resources */,
 				22E98E691557FA2200192FBD /* menu-background@2x.png in Resources */,
 				22E98E731557FE3300192FBD /* BRSocialAccountsSettingController.xib in Resources */,
 				22E98E761557FED800192FBD /* SocialAccountsSetting.plist in Resources */,
 				22679BCF155F9841008539C4 /* UserDefaultSetting_phone.plist in Resources */,
-				22C5F638155FE7B800858F0A /* BRAccountSetting.plist in Resources */,
-				22C5F63A155FE7B800858F0A /* BRAppearenceSetting.plist in Resources */,
+				22C5F64615607E1B00858F0A /* BRSettingConfig.plist in Resources */,
+				22C5F64D15607FD900858F0A /* BRSettingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3412,15 +3386,13 @@
 				22E556BD155637150048E331 /* background12.jpg in Resources */,
 				22E556C5155645BC0048E331 /* BRArticleActionMenuViewController.xib in Resources */,
 				22E556D015565CCC0048E331 /* BRFeedActionMenuViewController.xib in Resources */,
-				22E556EE15568A8B0048E331 /* BRSettingViewController.xib in Resources */,
 				22E98E661557FA2200192FBD /* menu-background.png in Resources */,
 				22E98E681557FA2200192FBD /* menu-background@2x.png in Resources */,
 				22E98E721557FE3300192FBD /* BRSocialAccountsSettingController.xib in Resources */,
 				22E98E751557FED800192FBD /* SocialAccountsSetting.plist in Resources */,
-				22679BC1155F8B33008539C4 /* Settings.bundle in Resources */,
 				22679BCE155F9841008539C4 /* UserDefaultSetting_phone.plist in Resources */,
-				22C5F637155FE7B800858F0A /* BRAccountSetting.plist in Resources */,
-				22C5F639155FE7B800858F0A /* BRAppearenceSetting.plist in Resources */,
+				22C5F64515607E1B00858F0A /* BRSettingConfig.plist in Resources */,
+				22C5F64C15607FD900858F0A /* BRSettingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3647,16 +3619,13 @@
 				22E556C4155645BC0048E331 /* BRArticleActionMenuViewController.m in Sources */,
 				22E556CA15564A680048E331 /* BRActionMenuViewController.m in Sources */,
 				22E556CF15565CCC0048E331 /* BRFeedActionMenuViewController.m in Sources */,
-				22E556DF155667CA0048E331 /* BRSettingViewController.m in Sources */,
 				22E556E415567EA40048E331 /* BRSettingBaseController.m in Sources */,
-				22E556E8155686ED0048E331 /* BRAccountSetting.m in Sources */,
-				22E556EC155687070048E331 /* BRAppearenceSetting.m in Sources */,
-				22E98E621557F41400192FBD /* BRCacheSetting.m in Sources */,
 				22E98E6D1557FDFA00192FBD /* BRSocialAccountsSettingController.m in Sources */,
 				228E5913155D431B000888F4 /* JJPageScrollView.m in Sources */,
 				22679BC7155F8EF9008539C4 /* BRSettingCell.m in Sources */,
 				22679BCC155F981D008539C4 /* UserPreferenceDefine.m in Sources */,
-				22C5F643155FEE4400858F0A /* BRSettingSource.m in Sources */,
+				22C5F64B15607FD900858F0A /* BRSettingViewController.m in Sources */,
+				22C5F6511560889100858F0A /* BRChooseBackgroundImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3860,16 +3829,13 @@
 				22E556C3155645BC0048E331 /* BRArticleActionMenuViewController.m in Sources */,
 				22E556C915564A680048E331 /* BRActionMenuViewController.m in Sources */,
 				22E556CE15565CCC0048E331 /* BRFeedActionMenuViewController.m in Sources */,
-				22E556DE155667CA0048E331 /* BRSettingViewController.m in Sources */,
 				22E556E315567EA40048E331 /* BRSettingBaseController.m in Sources */,
-				22E556E7155686ED0048E331 /* BRAccountSetting.m in Sources */,
-				22E556EB155687070048E331 /* BRAppearenceSetting.m in Sources */,
-				22E98E611557F41400192FBD /* BRCacheSetting.m in Sources */,
 				22E98E6C1557FDFA00192FBD /* BRSocialAccountsSettingController.m in Sources */,
 				228E5912155D431B000888F4 /* JJPageScrollView.m in Sources */,
 				22679BC6155F8EF9008539C4 /* BRSettingCell.m in Sources */,
 				22679BCB155F981D008539C4 /* UserPreferenceDefine.m in Sources */,
-				22C5F642155FEE4400858F0A /* BRSettingSource.m in Sources */,
+				22C5F64A15607FD900858F0A /* BRSettingViewController.m in Sources */,
+				22C5F6501560889100858F0A /* BRChooseBackgroundImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
