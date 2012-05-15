@@ -58,12 +58,14 @@
     [self setNeedsLayout];
     
     NSString* type = [[self.config objectForKey:@"type"] lowercaseString];
-    NSString* identifier = [[self.config objectForKey:@"identifier"] lowercaseString];
+    NSString* identifier = [self.config objectForKey:@"identifier"];
     
     self.textLabel.text = NSLocalizedString([self.config objectForKey:@"name"], nil);
     self.detailTextLabel.text = nil;
     [self.customView removeFromSuperview];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.accessoryView = nil;
+    self.accessoryType = UITableViewCellAccessoryNone;
     
     if ([type isEqualToString:@"switch"]){
         UISwitch* switcher = [[[UISwitch alloc] init] autorelease];
@@ -71,7 +73,6 @@
         [switcher addTarget:self action:@selector(boolValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.accessoryView = switcher;
     }else if ([type isEqualToString:@"more"]){
-        self.accessoryView = nil;
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.selectionStyle = UITableViewCellSelectionStyleBlue;
     }else if ([type isEqualToString:@"pick"]){

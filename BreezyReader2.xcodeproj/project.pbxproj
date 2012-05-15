@@ -65,6 +65,10 @@
 		22502CCB15615A1400EBCF5E /* bk_thumbnail3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22502CC015615A1200EBCF5E /* bk_thumbnail3.jpg */; };
 		22502CCC15615A1400EBCF5E /* bk_thumbnail3@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22502CC115615A1300EBCF5E /* bk_thumbnail3@2x.jpg */; };
 		22502CCD15615A1400EBCF5E /* bk_thumbnail3@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22502CC115615A1300EBCF5E /* bk_thumbnail3@2x.jpg */; };
+		22502CD01562ABDF00EBCF5E /* JJPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CCF1562ABDF00EBCF5E /* JJPickerView.m */; };
+		22502CD11562ABDF00EBCF5E /* JJPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CCF1562ABDF00EBCF5E /* JJPickerView.m */; };
+		22502CD31562ABF800EBCF5E /* JJPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22502CD21562ABF800EBCF5E /* JJPickerView.xib */; };
+		22502CD41562ABF800EBCF5E /* JJPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22502CD21562ABF800EBCF5E /* JJPickerView.xib */; };
 		2255329715386FE2003BA8EC /* BRShareMenue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255329615386FE2003BA8EC /* BRShareMenue.m */; };
 		225532AE15390511003BA8EC /* fontsize.png in Resources */ = {isa = PBXBuildFile; fileRef = 225532AC15390510003BA8EC /* fontsize.png */; };
 		225532AF15390511003BA8EC /* fontsize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 225532AD15390511003BA8EC /* fontsize@2x.png */; };
@@ -858,6 +862,9 @@
 		22502CBF15615A1200EBCF5E /* bk_thumbnail2@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bk_thumbnail2@2x.jpg"; sourceTree = "<group>"; };
 		22502CC015615A1200EBCF5E /* bk_thumbnail3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bk_thumbnail3.jpg; sourceTree = "<group>"; };
 		22502CC115615A1300EBCF5E /* bk_thumbnail3@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bk_thumbnail3@2x.jpg"; sourceTree = "<group>"; };
+		22502CCE1562ABDF00EBCF5E /* JJPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = JJPickerView.h; sourceTree = "<group>"; };
+		22502CCF1562ABDF00EBCF5E /* JJPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJPickerView.m; sourceTree = "<group>"; };
+		22502CD21562ABF800EBCF5E /* JJPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JJPickerView.xib; sourceTree = "<group>"; };
 		2255329515386FE1003BA8EC /* BRShareMenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRShareMenue.h; sourceTree = "<group>"; };
 		2255329615386FE2003BA8EC /* BRShareMenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRShareMenue.m; sourceTree = "<group>"; };
 		225532AC15390510003BA8EC /* fontsize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fontsize.png; sourceTree = "<group>"; };
@@ -1767,6 +1774,9 @@
 				229B2BB915273CAE00700504 /* ImageScrollView.m */,
 				229B2BBA15273CAE00700504 /* JJImageView.h */,
 				229B2BBB15273CAE00700504 /* JJImageView.m */,
+				22502CCE1562ABDF00EBCF5E /* JJPickerView.h */,
+				22502CCF1562ABDF00EBCF5E /* JJPickerView.m */,
+				22502CD21562ABF800EBCF5E /* JJPickerView.xib */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -3275,6 +3285,7 @@
 				22502CC915615A1400EBCF5E /* bk_thumbnail2@2x.jpg in Resources */,
 				22502CCB15615A1400EBCF5E /* bk_thumbnail3.jpg in Resources */,
 				22502CCD15615A1400EBCF5E /* bk_thumbnail3@2x.jpg in Resources */,
+				22502CD41562ABF800EBCF5E /* JJPickerView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3441,6 +3452,7 @@
 				22502CC815615A1400EBCF5E /* bk_thumbnail2@2x.jpg in Resources */,
 				22502CCA15615A1400EBCF5E /* bk_thumbnail3.jpg in Resources */,
 				22502CCC15615A1400EBCF5E /* bk_thumbnail3@2x.jpg in Resources */,
+				22502CD31562ABF800EBCF5E /* JJPickerView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3675,6 +3687,7 @@
 				22C5F64B15607FD900858F0A /* BRSettingViewController.m in Sources */,
 				22C5F6511560889100858F0A /* BRChooseBackgroundImage.m in Sources */,
 				22502CB71561441B00EBCF5E /* BRSettingCustomBaseView.m in Sources */,
+				22502CD11562ABDF00EBCF5E /* JJPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3886,6 +3899,7 @@
 				22C5F64A15607FD900858F0A /* BRSettingViewController.m in Sources */,
 				22C5F6501560889100858F0A /* BRChooseBackgroundImage.m in Sources */,
 				22502CB61561441B00EBCF5E /* BRSettingCustomBaseView.m in Sources */,
+				22502CD01562ABDF00EBCF5E /* JJPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

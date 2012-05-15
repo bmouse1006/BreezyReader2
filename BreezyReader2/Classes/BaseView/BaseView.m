@@ -12,6 +12,12 @@
 
 @synthesize superView = _superView;
 @synthesize touchToDismiss = _touchToDismiss;
+@synthesize jjViewDelegate = _jjViewDelegate;
+
+-(void)dealloc{
+    self.jjViewDelegate = nil;
+    [super dealloc];
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -60,12 +66,19 @@
 }
 
 -(void)dismiss{
+    __block typeof(self) blockSelf = self;
+    if ([self.jjViewDelegate respondsToSelector:@selector(viewWillDismiss:)]){
+        [self.jjViewDelegate viewWillDismiss:self];
+    }
     [UIView animateWithDuration:BASEVIEW_ANIMATION_DURATION animations:^{
         self.alpha = 0.0;
     } completion:^(BOOL finished){
         if (finished == YES){
             [self removeFromSuperview];
             DebugLog(@"view removed", nil);
+            if ([blockSelf.jjViewDelegate respondsToSelector:@selector(viewDidDismiss:)]){
+                [blockSelf.jjViewDelegate viewDidDismiss:blockSelf];
+            }
         }
     }];
 }
@@ -78,8 +91,18 @@
     [sv addSubview:self];
     self.alpha = 0;
     [sv bringSubviewToFront:self];
+    __block typeof(self) blockSelf = self;
+    if ([self.jjViewDelegate respondsToSelector:@selector(viewWillShow:)]){
+        [self.jjViewDelegate viewWillShow:self];
+    }
     [UIView animateWithDuration:BASEVIEW_ANIMATION_DURATION animations:^{
         self.alpha = 1;
+    } completion:^(BOOL finished){
+        if (finished){
+            if ([blockSelf.jjViewDelegate respondsToSelector:@selector(viewDidShow:)]){
+                [blockSelf.jjViewDelegate viewDidShow:blockSelf];
+            }
+        }
     }];
 }
 

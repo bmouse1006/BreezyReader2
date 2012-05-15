@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BRSettingCellActions.h"
+#import "JJPickerView.h"
 
-@interface BRSettingViewController : UITableViewController <BRSettingCellActions, UIPickerViewDelegate, UIPickerViewDataSource>
+@interface BRSettingViewController : UITableViewController <BRSettingCellActions, UIPickerViewDelegate, UIPickerViewDataSource, JJViewDelegate>
 
 
 

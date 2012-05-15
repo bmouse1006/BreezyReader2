@@ -10,8 +10,7 @@
 #import "BRReadingStatistics.h"
 #import "GRSubscription.h"
 #import "GoogleReaderClient.h"
-
-#define kFavoriteSubCount 10
+#import "UserPreferenceDefine.h"
 
 @implementation BRSubFavoriteSource
 
@@ -21,7 +20,7 @@
 
 -(void)loadSourceMore:(BOOL)more{
     BRReadingStatistics* statistics = [BRReadingStatistics statistics];
-    NSArray* subKeys = [statistics mostReadSubscriptions:kFavoriteSubCount];
+    NSArray* subKeys = [statistics mostReadSubscriptions:[UserPreferenceDefine mostReadCount]];
     NSMutableArray* subs = [NSMutableArray array];
     for (NSString* key in subKeys){
         id sub = [GoogleReaderClient subscriptionWithID:key];

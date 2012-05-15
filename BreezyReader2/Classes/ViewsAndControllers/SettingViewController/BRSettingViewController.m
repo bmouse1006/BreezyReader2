@@ -10,12 +10,14 @@
 #import "UserPreferenceDefine.h"
 #import "BRSettingCustomBaseView.h"
 #import "BRSettingCell.h"
+#import "JJPickerView.h"
 
 @interface BRSettingViewController ()
 
 @property (nonatomic, retain) NSArray* settingConfigs;
 
 @property (nonatomic, retain) NSArray* pickerData;
+@property (nonatomic, copy) NSString* pickerIdentifier;
 
 @end
 
@@ -23,10 +25,12 @@
 
 @synthesize settingConfigs = _settingConfigs;
 @synthesize pickerData = _pickerData;
+@synthesize pickerIdentifier = _pickerIdentifier;
 
 -(void)dealloc{
     self.settingConfigs = nil;
     self.pickerData = nil;
+    self.pickerIdentifier = nil;
     [super dealloc];
 }
 
@@ -119,8 +123,15 @@
             [self.navigationController pushViewController:controller animated:YES];
         }
     }else if([type isEqualToString:@"pick"]){
-        UIPickerView* picker = [[[UIPickerView alloc] init] autorelease];
+        self.pickerData = [config objectForKey:@"values"];
+        self.pickerIdentifier = [config objectForKey:@"identifier"];
+        JJPickerView* picker = [JJPickerView loadFromBundle];
         picker.dataSource = self;
+        picker.delegate = self;
+        picker.jjViewDelegate = self;
+        picker.titleLabel.text = NSLocalizedString([config objectForKey:@"name"], nil);
+        // scrolls the specified row to center.
+        [picker show];
     }
 }
 
@@ -156,11 +167,32 @@
 }
 
 #pragma mark - picker delegate
--(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [self.pickerData objectAtIndex:row];
+//-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+//    DebugLog(@"%@", [[self.pickerData objectAtIndex:row] description]);
+//    return [[self.pickerData objectAtIndex:row] description];
+//}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(12.0f, 0.0f, [pickerView rowSizeForComponent:component].width-12, [pickerView rowSizeForComponent:component].height)] autorelease];
+    
+    [label setText:[[self.pickerData objectAtIndex:row] description]];
+    [label setTextAlignment:UITextAlignmentCenter];
+    label.backgroundColor = [UIColor clearColor];
+    return label;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    
+    [UserPreferenceDefine valueChangedForKey:self.pickerIdentifier value:[self.pickerData objectAtIndex:row]];
 }
+
+#pragma mark - jj view delegate
+-(void)viewWillShow:(BaseView *)view{
+    NSInteger row = [self.pickerData indexOfObject:[UserPreferenceDefine valueForIdentifier:self.pickerIdentifier]];
+    [(JJPickerView*)view selectRow:row inComponent:0 animated:NO];
+}
+
+-(void)viewDidDismiss:(BaseView *)view{
+    [self.tableView reloadData];
+}
+
 @end

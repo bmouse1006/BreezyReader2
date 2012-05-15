@@ -83,9 +83,9 @@
 				<string>pick</string>
 				<key>values</key>
 				<array>
-					<string>10</string>
-					<string>15</string>
-					<string>20</string>
+					<integer>10</integer>
+					<integer>15</integer>
+					<integer>20</integer>
 				</array>
 			</dict>
 		</array>

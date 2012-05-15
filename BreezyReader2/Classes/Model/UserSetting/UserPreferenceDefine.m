@@ -20,6 +20,7 @@
 #define KEY_TAPTOFULLSCREEN @"TapToFullscreen"
 
 #define kBackgroundImageName @"backgroundimagename"
+#define kMostReadCount       @"feedsinmostread"
 
 @implementation UserPreferenceDefine
 
@@ -200,6 +201,10 @@ static NSDictionary* preferenceBundle = nil;
     }
     
     return image;
+}
+
++(NSInteger)mostReadCount{
+    return [[self valueForIdentifier:kMostReadCount] intValue];
 }
 
 +(NSString*)backgroundImageName{

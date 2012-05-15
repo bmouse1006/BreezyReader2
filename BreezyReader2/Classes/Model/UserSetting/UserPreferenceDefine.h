@@ -18,6 +18,7 @@
 +(void)valueChangedForIdentifier:(NSString*)identifier value:(id)value;
 +(UIImage*)backgroundImage;
 +(NSString*)backgroundImageName;
++(NSInteger)mostReadCount;
 +(void)setDefaultBackgroundImageName:(NSString*)imageName;
 
 
