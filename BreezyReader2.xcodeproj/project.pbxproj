@@ -71,6 +71,8 @@
 		22502CD41562ABF800EBCF5E /* JJPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22502CD21562ABF800EBCF5E /* JJPickerView.xib */; };
 		22502CD71563216E00EBCF5E /* BRUserPreferenceDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CD61563216E00EBCF5E /* BRUserPreferenceDefine.m */; };
 		22502CD81563216E00EBCF5E /* BRUserPreferenceDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CD61563216E00EBCF5E /* BRUserPreferenceDefine.m */; };
+		22502CDB1564016000EBCF5E /* UIImage+clip.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CDA1564016000EBCF5E /* UIImage+clip.m */; };
+		22502CDC1564016000EBCF5E /* UIImage+clip.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CDA1564016000EBCF5E /* UIImage+clip.m */; };
 		2255329715386FE2003BA8EC /* BRShareMenue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255329615386FE2003BA8EC /* BRShareMenue.m */; };
 		225532AE15390511003BA8EC /* fontsize.png in Resources */ = {isa = PBXBuildFile; fileRef = 225532AC15390510003BA8EC /* fontsize.png */; };
 		225532AF15390511003BA8EC /* fontsize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 225532AD15390511003BA8EC /* fontsize@2x.png */; };
@@ -869,6 +871,8 @@
 		22502CD21562ABF800EBCF5E /* JJPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JJPickerView.xib; sourceTree = "<group>"; };
 		22502CD51563216E00EBCF5E /* BRUserPreferenceDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserPreferenceDefine.h; sourceTree = "<group>"; };
 		22502CD61563216E00EBCF5E /* BRUserPreferenceDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserPreferenceDefine.m; sourceTree = "<group>"; };
+		22502CD91564016000EBCF5E /* UIImage+clip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+clip.h"; sourceTree = "<group>"; };
+		22502CDA1564016000EBCF5E /* UIImage+clip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+clip.m"; sourceTree = "<group>"; };
 		2255329515386FE1003BA8EC /* BRShareMenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRShareMenue.h; sourceTree = "<group>"; };
 		2255329615386FE2003BA8EC /* BRShareMenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRShareMenue.m; sourceTree = "<group>"; };
 		225532AC15390510003BA8EC /* fontsize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fontsize.png; sourceTree = "<group>"; };
@@ -1745,6 +1749,8 @@
 				229B2BA515273CAE00700504 /* UIView+util.m */,
 				229B2BA615273CAE00700504 /* UIViewController+addition.h */,
 				229B2BA715273CAE00700504 /* UIViewController+addition.m */,
+				22502CD91564016000EBCF5E /* UIImage+clip.h */,
+				22502CDA1564016000EBCF5E /* UIImage+clip.m */,
 			);
 			path = Additions;
 			sourceTree = "<group>";
@@ -3695,6 +3701,7 @@
 				22502CB71561441B00EBCF5E /* BRSettingCustomBaseView.m in Sources */,
 				22502CD11562ABDF00EBCF5E /* JJPickerView.m in Sources */,
 				22502CD81563216E00EBCF5E /* BRUserPreferenceDefine.m in Sources */,
+				22502CDC1564016000EBCF5E /* UIImage+clip.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3908,6 +3915,7 @@
 				22502CB61561441B00EBCF5E /* BRSettingCustomBaseView.m in Sources */,
 				22502CD01562ABDF00EBCF5E /* JJPickerView.m in Sources */,
 				22502CD71563216E00EBCF5E /* BRUserPreferenceDefine.m in Sources */,
+				22502CDB1564016000EBCF5E /* UIImage+clip.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

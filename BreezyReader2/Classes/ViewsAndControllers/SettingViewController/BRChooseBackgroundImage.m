@@ -10,9 +10,9 @@
 #import "BRUserPreferenceDefine.h"
 #import "BRViewControllerNotification.h"
 
-#define kImageName1 @"background1.jpg"
-#define kImageName2 @"background2.jpg"
-#define kImageName3 @"background3.jpg"
+#define vImageName1 @"background1.jpg"
+#define vImageName2 @"background2.jpg"
+#define vImageName3 @"background3.jpg"
 
 @implementation BRChooseBackgroundImage
 
@@ -45,25 +45,25 @@
     self.image2Button.highlighted = NO;
     self.image3Button.highlighted = NO;
     NSString* backgroundImageName = [BRUserPreferenceDefine backgroundImageName];
-    if ([backgroundImageName isEqualToString:@"background1.jpg"]){
+    if ([backgroundImageName isEqualToString:vImageName1]){
         self.image1Button.highlighted = YES;
-    }else if ([backgroundImageName isEqualToString:@"background2.jpg"]){
+    }else if ([backgroundImageName isEqualToString:vImageName2]){
         self.image2Button.highlighted = YES;
-    }else if ([backgroundImageName isEqualToString:@"background3.jpg"]){
+    }else if ([backgroundImageName isEqualToString:vImageName3]){
         self.image3Button.highlighted = YES;
     }else {
-
+        self.userImageButton.highlighted = YES;
     }
 }
 
 -(void)imageButtonClicked:(id)sender{
     NSString* imageName = nil;
     if (sender == self.image1Button){
-        imageName = kImageName1;
+        imageName = vImageName1;
     }else if (sender == self.image2Button){
-        imageName = kImageName2;
+        imageName = vImageName2;
     }else if (sender == self.image3Button){
-        imageName = kImageName3;
+        imageName = vImageName3;
     }
     
     if (imageName){

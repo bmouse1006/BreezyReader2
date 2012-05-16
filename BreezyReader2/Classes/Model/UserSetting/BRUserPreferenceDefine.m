@@ -7,14 +7,13 @@
 //
 
 #import "BRUserPreferenceDefine.h"
+#import "UIImage+clip.h"
 
 #define kBackgroundImageName @"backgroundimagename"
 #define kMostReadCount       @"feedsinmostread"
 #define kDefaultBackgroundImageName @"background1.jpg"
 
 @implementation BRUserPreferenceDefine
-
-
 
 +(NSURL*)backgroundImageURL{
     
@@ -42,9 +41,10 @@
 }
 
 +(void)setDefaultBackgroundImage:(UIImage*)image withName:(NSString*)name{
+    image = [image clippedThumbnailWithSize:[UIScreen mainScreen].bounds.size];
     [[NSFileManager defaultManager] removeItemAtURL:[self backgroundImageURL] error:NULL];
     [UIImagePNGRepresentation(image) writeToURL:[self backgroundImageURL] atomically:YES];
-    [self valueChangedForIdentifier:name value:kBackgroundImageName];
+    [self valueChangedForIdentifier:kBackgroundImageName value:name];
 }
 
 

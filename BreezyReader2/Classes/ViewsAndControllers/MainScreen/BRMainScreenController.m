@@ -143,7 +143,12 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     UIImageView* imageView = (UIImageView*)self.backgroundView;
-    imageView.image = [BRUserPreferenceDefine backgroundImage];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage* image = [BRUserPreferenceDefine backgroundImage];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            imageView.image = image;
+        });
+    });
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
@@ -330,7 +335,7 @@
 -(void)presentImagePicker{
     UIImagePickerController* imagePicker = [[[UIImagePickerController alloc] init] autorelease];
     imagePicker.delegate = self;
-    imagePicker.allowsEditing = YES;
+//    imagePicker.allowsEditing = YES;
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
     [[self topContainer] presentViewController:imagePicker animated:YES completion:NULL]; 
@@ -342,8 +347,9 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    if (!image){
-        [BRUserPreferenceDefine setDefaultBackgroundImage:image withName:nil];
+//    image = [info objectForKey:UIImagePickerControllerEditedImage];
+    if (image){
+        [BRUserPreferenceDefine setDefaultBackgroundImage:image withName:@"userDefine"];
     }
     [self dismissViewControllerAnimated:YES completion:NULL];    
 }

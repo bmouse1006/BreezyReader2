@@ -8,6 +8,7 @@
 
 #import "JJThumbnailCache.h"
 #import "NSString+MD5.h"
+#import "UIImage+clip.h"
 
 @interface JJThumbnailCache(){
     NSMutableDictionary* _imgCache;
@@ -16,7 +17,6 @@
 +(id)sharedCache;
 
 -(NSString*)cachePath;
--(UIImage*)clippedThumbnailImage:(UIImage*)thumb size:(CGSize)size;
 -(UIImage*)cachedImageInMemoryForURL:(NSURL*)url;
 -(UIImage*)cachedImageInMemoryForURL:(NSURL*)url andSize:(CGSize)size;
 -(void)saveImage:(UIImage*)image toMemoryCacheForURL:(NSURL*)url;
@@ -64,7 +64,7 @@ static NSString* _cachePath = nil;
 
 +(UIImage*)storeThumbnail:(UIImage *)thumb forURL:(NSURL *)url size:(CGSize)size{
     NSString* filePath = [self filePathForStoredThumbnailOfURL:url andSize:size];
-    UIImage* nail = [[self sharedCache] clippedThumbnailImage:thumb size:size];
+    UIImage* nail = [thumb clippedThumbnailWithSize:size];
     [UIImageJPEGRepresentation(nail, 0.6) writeToFile:filePath atomically:YES];
     [[self sharedCache] saveImage:nail toMemoryCacheForURL:url andSize:size];
     return nail;
@@ -128,36 +128,6 @@ static NSString* _cachePath = nil;
     }
 }
 
--(UIImage*)clippedThumbnailImage:(UIImage*)thumb size:(CGSize)size{
-    CGSize clipSize = CGSizeMake(size.width*[UIScreen mainScreen].scale, size.height*[UIScreen mainScreen].scale);
-    CGSize imageSize = thumb.size;
-    
-    CGFloat scale = clipSize.width/imageSize.width;
-    if (scale < clipSize.height/imageSize.height){
-        scale = clipSize.height/imageSize.height;
-    }
-    
-    CGRect imageRect = CGRectMake(0, 0, imageSize.width, imageSize.height);
-    
-    imageRect = CGRectApplyAffineTransform(imageRect, CGAffineTransformMakeScale(scale, scale));
-    
-    UIGraphicsBeginImageContext(imageRect.size);
-    
-    [thumb drawInRect:imageRect];
-    
-    UIImage* tmpImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    CGRect clipRect = CGRectMake((imageRect.size.width-clipSize.width)/2, (imageRect.size.height-clipSize.height)/2, clipSize.width, clipSize.height);
-    
-    CGImageRef cgImage = CGImageCreateWithImageInRect(tmpImage.CGImage, clipRect);
-    UIImage* clipedImage = [UIImage imageWithCGImage:cgImage];
-    if (cgImage){
-        CFRelease(cgImage);
-    }
-    
-    return clipedImage;
-}
+
 
 @end
