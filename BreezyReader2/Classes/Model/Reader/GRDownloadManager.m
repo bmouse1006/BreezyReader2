@@ -221,9 +221,9 @@ static NSMutableDictionary* _cachedDownloadedSub = nil;
 -(void)didFinishDownloadingSubscription:(GRSubscription*)sub success:(NSUInteger)success failed:(NSUInteger)failed{
 	DebugLog(@"Did finished downloading subscription for ID: %@", sub.ID);
 	[GRObjectsManager commitChangeForContext:self.context];
-	if ([UserPreferenceDefine markDownloadedItemsAsRead]){
-		[[GRDataManager shared] syncUnreadCount];
-	}
+//	if ([UserPreferenceDefine markDownloadedItemsAsRead]){
+//		[[GRDataManager shared] syncUnreadCount];
+//	}
 	[self removeDownloaderForSub:sub];
 }
 -(void)didStopDownloadingSubscription:(GRSubscription*)sub{
@@ -325,7 +325,7 @@ static NSMutableDictionary* _cachedDownloadedSub = nil;
 
 -(id)init{
 	if (self = [super init]){
-		self.maxConcurrency = [UserPreferenceDefine maxDownloadConcurrency];
+		self.maxConcurrency = 1;
 		self.downloaderIndex = [NSMutableDictionary dictionary];
 		self.downloaderQueue = [NSMutableArray array];
 		self.itemDownloaderDictionary = [NSMutableDictionary dictionary];

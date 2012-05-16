@@ -135,7 +135,7 @@
 	//did start downloading subscription
 	[self.delegate didStartDownloadingSubscription:self.subscription];
 	NSUInteger unreadCount = self.subscription.unreadCount;
-	NSUInteger itemCount = [UserPreferenceDefine defaultNumberOfDownloaderItems];
+	NSUInteger itemCount = 1;
 	
 	GoogleReaderController* grController = [[GoogleReaderController alloc] initWithDelegate:self];
 	GRFeed* feed = nil;
@@ -220,9 +220,9 @@
 		//we need get subscription (not tag) for this item and set latest downloaded time
 		//save item
 		//set this item as read
-		if ([UserPreferenceDefine markDownloadedItemsAsRead]){
-			[[GRDataManager shared] markItemAsRead:item];
-		}
+//		if ([UserPreferenceDefine markDownloadedItemsAsRead]){
+//			[[GRDataManager shared] markItemAsRead:item];
+//		}
 		self.numberOfSuccessDownload = self.numberOfSuccessDownload + 1;
 		DebugLog(@"number of success downloaded is %i", self.numberOfSuccessDownload);
 		//tell delegate that 'number' items has been downloaded

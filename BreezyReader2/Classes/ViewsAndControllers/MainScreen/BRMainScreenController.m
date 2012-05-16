@@ -18,6 +18,7 @@
 #import "BRTagAndSubListViewController.h"
 #import "BRSettingViewController.h"
 #import "BaseActivityLabel.h"
+#import "BRUserPreferenceDefine.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface BRMainScreenController (){
@@ -140,7 +141,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     UIImageView* imageView = (UIImageView*)self.backgroundView;
-    imageView.image = [UserPreferenceDefine backgroundImage];
+    imageView.image = [BRUserPreferenceDefine backgroundImage];
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;

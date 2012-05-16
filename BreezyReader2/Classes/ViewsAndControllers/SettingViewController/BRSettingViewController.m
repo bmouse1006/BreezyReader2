@@ -182,7 +182,7 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    [UserPreferenceDefine valueChangedForKey:self.pickerIdentifier value:[self.pickerData objectAtIndex:row]];
+    [UserPreferenceDefine valueChangedForIdentifier:self.pickerIdentifier value:[self.pickerData objectAtIndex:row]];
 }
 
 #pragma mark - jj view delegate

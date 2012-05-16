@@ -178,7 +178,7 @@ static GRDataManager *readerDM = nil;
 	
 	if (!continuedfeed){
 	
-		NSNumber* defaultItemCount = [NSNumber numberWithInt:[UserPreferenceDefine defaultNumberOfDownloaderItems]];//read default item
+		NSNumber* defaultItemCount = [NSNumber numberWithInt:1];//read default item
 		
 		NSString* excludeLabel = nil;
 		
@@ -205,7 +205,7 @@ static GRDataManager *readerDM = nil;
 
 -(void)taskRefreshFeed:(GRSubscription*)subscription{
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	NSNumber* defaultItemCount = [NSNumber numberWithInt:[UserPreferenceDefine defaultNumberOfDownloaderItems]];//default item count
+	NSNumber* defaultItemCount = [NSNumber numberWithInt:1];//default item count
 	[self sendNotification:[BEGANFEEDUPDATING stringByAppendingString:[subscription keyString]] withUserInfo:nil];
 	
 	NSString* excludeLabel = nil;

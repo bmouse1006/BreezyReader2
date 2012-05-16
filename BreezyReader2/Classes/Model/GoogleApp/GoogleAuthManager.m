@@ -70,7 +70,7 @@ static GoogleAuthManager *shareAuthManager = nil;
 -(NSMutableURLRequest*)URLRequestFromString:(NSString*)urlString{
 	//encode URL string
 	NSString* googleScheme = nil;
-	BOOL enableSSL = [UserPreferenceDefine shouldUseSSLConnection];
+	BOOL enableSSL = YES;
 	if (enableSSL){
 		googleScheme = GOOGLE_SCHEME_SSL;
 	}else {

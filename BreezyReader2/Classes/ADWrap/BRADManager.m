@@ -7,7 +7,7 @@
 //
 
 #import "BRADManager.h"
-#import "UserPreferenceDefine.h"
+#import "BRUserPreferenceDefine.h"
 
 #ifdef FREEVERSION
 
@@ -62,7 +62,7 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
 }
 
 -(UIView*)adView{
-    if ([UserPreferenceDefine shouldLoadAD] == NO){
+    if ([BRUserPreferenceDefine shouldLoadAD] == NO){
         return nil;
     }
     UIView* adView = nil;
