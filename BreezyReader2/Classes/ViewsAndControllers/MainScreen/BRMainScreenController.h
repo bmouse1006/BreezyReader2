@@ -14,7 +14,7 @@
 #import "SubOverviewController.h"
 #import "BRTagAndSubListViewController.h"
 
-@interface BRMainScreenController : BRBaseController <InfinityScrollViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIAlertViewDelegate>
+@interface BRMainScreenController : BRBaseController <InfinityScrollViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, retain) InfinityScrollView* infinityScroll;
 @property (nonatomic, retain) IBOutlet SideMenuController* sideMenuController;

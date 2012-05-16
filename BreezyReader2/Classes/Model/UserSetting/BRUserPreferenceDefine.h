@@ -10,10 +10,10 @@
 
 @interface BRUserPreferenceDefine : UserPreferenceDefine
 
-+(UIImage*)backgroundImage;
 +(NSString*)backgroundImageName;
 +(NSInteger)mostReadCount;
-+(void)setDefaultBackgroundImageName:(NSString*)imageName;
++(UIImage*)backgroundImage;
++(void)setDefaultBackgroundImage:(UIImage*)image withName:(NSString*)name;
 
 +(BOOL)shouldLoadAD;
 

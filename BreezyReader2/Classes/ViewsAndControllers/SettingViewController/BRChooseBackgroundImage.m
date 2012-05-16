@@ -8,6 +8,11 @@
 
 #import "BRChooseBackgroundImage.h"
 #import "BRUserPreferenceDefine.h"
+#import "BRViewControllerNotification.h"
+
+#define kImageName1 @"background1.jpg"
+#define kImageName2 @"background2.jpg"
+#define kImageName3 @"background3.jpg"
 
 @implementation BRChooseBackgroundImage
 
@@ -52,12 +57,17 @@
 }
 
 -(void)imageButtonClicked:(id)sender{
+    NSString* imageName = nil;
     if (sender == self.image1Button){
-        [BRUserPreferenceDefine setDefaultBackgroundImageName:@"background1.jpg"];
+        imageName = kImageName1;
     }else if (sender == self.image2Button){
-        [BRUserPreferenceDefine setDefaultBackgroundImageName:@"background2.jpg"];
+        imageName = kImageName2;
     }else if (sender == self.image3Button){
-        [BRUserPreferenceDefine setDefaultBackgroundImageName:@"background3.jpg"];
+        imageName = kImageName3;
+    }
+    
+    if (imageName){
+        [BRUserPreferenceDefine setDefaultBackgroundImage:[UIImage imageNamed:imageName] withName:imageName];
     }
     
     [self setNeedsLayout];
@@ -65,12 +75,7 @@
 
 -(void)chooseImageFromAlbum:(id)sender{
     //selected from album
-    UIViewController* rootController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    UIImagePickerController* imagePicker = [[[UIImagePickerController alloc] init] autorelease];
-    imagePicker.delegate = self;
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    [rootController presentViewController:imagePicker animated:YES completion:NULL];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_SETTING_PICKIMAGEFORBACKGROUND object:nil];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

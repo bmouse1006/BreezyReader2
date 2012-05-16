@@ -90,7 +90,9 @@
 {
     [super viewDidLoad];
     
-    self.backgroundView = [[[UIImageView alloc] initWithFrame:self.view.bounds] autorelease];
+    UIImageView* imageView = [[[UIImageView alloc] initWithFrame:self.view.bounds] autorelease];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.backgroundView = imageView;
     
     self.infinityScroll = [[[InfinityScrollView alloc] initWithFrame:self.mainContainer.bounds] autorelease];
     self.dataSource = [[[MainScreenDataSource alloc] init] autorelease];
@@ -186,6 +188,7 @@
     [nc addObserver:self selector:@selector(showStarItems:) name:NOTIFICATION_STARBUTTONCLICKED object:nil];
     [nc addObserver:self selector:@selector(showSubscriptionList:) name:NOTIFICATION_SHOWAUBLISTBUTTONCLICKED object:nil];
     [nc addObserver:self selector:@selector(finishedFlipTile:) name:NOTIFICATION_FINISHEDFLIPSUBTILEVIEW object:nil];
+    [nc addObserver:self selector:@selector(pickImageForBackground:) name:NOTIFICAITON_SETTING_PICKIMAGEFORBACKGROUND object:nil];
 }
 
 -(void)syncBegan:(NSNotification*)notification{
@@ -315,6 +318,34 @@
         self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(clientFinished:)];
         [self.client refreshReaderStructure];
     }
+}
+
+-(void)pickImageForBackground:(NSNotification*)notification{
+    __block typeof (self) blockSelf = self;
+    [self dismissViewControllerAnimated:YES completion:^{
+        [blockSelf presentImagePicker];
+    }];
+}
+
+-(void)presentImagePicker{
+    UIImagePickerController* imagePicker = [[[UIImagePickerController alloc] init] autorelease];
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [[self topContainer] presentViewController:imagePicker animated:YES completion:NULL]; 
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    if (!image){
+        [BRUserPreferenceDefine setDefaultBackgroundImage:image withName:nil];
+    }
+    [self dismissViewControllerAnimated:YES completion:NULL];    
 }
 
 #pragma mark - reader client call back
