@@ -15,6 +15,8 @@
 +(UIImage*)backgroundImage;
 +(void)setDefaultBackgroundImage:(UIImage*)image withName:(NSString*)name;
 
++(UIColor*)flipThumbnailColor;
+
 +(BOOL)shouldLoadAD;
 
 @end

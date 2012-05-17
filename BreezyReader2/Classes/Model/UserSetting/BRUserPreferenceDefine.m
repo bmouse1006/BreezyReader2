@@ -15,6 +15,14 @@
 
 @implementation BRUserPreferenceDefine
 
++(UIColor*)flipThumbnailColor{
+    UIImage* backgroundImage= [self backgroundImage];
+    UIColor* patternColor = [UIColor colorWithPatternImage:backgroundImage];
+    CGFloat red, green, blue;
+    [patternColor getRed:&red green:&green blue:&blue alpha:NULL];
+
+}
+
 +(NSURL*)backgroundImageURL{
     
     NSString* cachePath = [[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"backgroundCache"] retain];

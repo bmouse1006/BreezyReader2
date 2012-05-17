@@ -44,6 +44,7 @@
     self.image1Button.highlighted = NO;
     self.image2Button.highlighted = NO;
     self.image3Button.highlighted = NO;
+    self.userImageButton.highlighted = NO;
     NSString* backgroundImageName = [BRUserPreferenceDefine backgroundImageName];
     if ([backgroundImageName isEqualToString:vImageName1]){
         self.image1Button.highlighted = YES;
@@ -76,19 +77,6 @@
 -(void)chooseImageFromAlbum:(id)sender{
     //selected from album
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICAITON_SETTING_PICKIMAGEFORBACKGROUND object:nil];
-}
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
-#pragma mark - delegate
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    DebugLog(@"media url is %@", [info objectForKey:UIImagePickerControllerMediaURL]);
 }
 
 @end
