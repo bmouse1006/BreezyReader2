@@ -5,7 +5,7 @@
 //  Created by 金 津 on 12-4-21.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
-#import "UIViewController+BRAddtion.h"
+#import "UIViewController+BRAddition.h"
 #import "BRFeedConfigViewController.h"
 #import "BRFeedControlViewSource.h"
 #import "BRRelatedFeedViewSource.h"

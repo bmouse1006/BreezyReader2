@@ -10,7 +10,7 @@
 #import "UIViewController+addition.h"
 #import "GRItem.h"
 #import "NSString+MD5.h"
-#import "NSString+Addtion.h"
+#import "NSString+Addition.h"
 #import "RegexKitLite.h"
 #import "BRImageScrollController.h"
 

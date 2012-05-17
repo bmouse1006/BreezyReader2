@@ -1,14 +1,14 @@
 //
-//  UIColor+Addtion.m
+//  UIColor+NSString+Addition.m
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-3-5.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "UIColor+Addtion.h"
+#import "UIColor+Addition.h"
 
-@implementation UIColor (Addtion)
+@implementation UIColor (addition)
 
 - (CGColorSpaceModel) colorSpaceModel  
 {  

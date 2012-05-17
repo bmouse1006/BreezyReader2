@@ -8,7 +8,7 @@
 
 #import "BRFeedHeaderArticleCell.h"
 #import "BRImagePreviewCache.h"
-#import "NSString+Addtion.h"
+#import "NSString+Addition.h"
 
 @interface BRFeedHeaderArticleCell (){
     BOOL _hasImage;

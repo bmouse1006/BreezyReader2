@@ -9,7 +9,7 @@
 #import "BRSubGridViewController.h"
 #import "BRSubGridViewDataSource.h"
 #import "BRFeedViewController.h"
-#import "UIViewController+BRAddtion.h"
+#import "UIViewController+BRAddition.h"
 #import "UIViewController+addition.h"
 #import "BRViewControllerNotification.h"
 #import <QuartzCore/QuartzCore.h>

@@ -9,7 +9,7 @@
 #import "GRItem.h"
 #import "RegexKitLite.h"
 #import "NSString+MD5.h"
-#import "NSString+Addtion.h"
+#import "NSString+Addition.h"
 #import "NSDate+simpleFormat.h"
 #import "ImageFilter.h"
 

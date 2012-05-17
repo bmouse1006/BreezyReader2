@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface UIView (Addtions)
+@interface UIView (additions)
 
 
 /**

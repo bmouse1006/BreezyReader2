@@ -1,5 +1,5 @@
 //
-//  UIViewController+BRAddtion.h
+//  UIViewController+BRNSString+Addition.h
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-2-10.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BRTopContainer.h"
 
-@interface UIViewController (BRAddtion)
+@interface UIViewController (BRAddition)
 
 -(id)initWithTheNibOfSameName;
 -(BRTopContainer*)topContainer;

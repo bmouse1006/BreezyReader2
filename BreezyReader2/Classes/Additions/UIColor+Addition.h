@@ -1,5 +1,5 @@
 //
-//  UIColor+Addtion.h
+//  UIColor+Addition.h
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-3-5.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (Addtion)
+@interface UIColor (addition)
 
 - (CGColorSpaceModel) colorSpaceModel ;
 - (CGFloat) red; 

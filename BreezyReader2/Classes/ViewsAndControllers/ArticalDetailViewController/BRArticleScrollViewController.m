@@ -8,7 +8,7 @@
 
 #import "BRArticleScrollViewController.h"
 #import "BRArticleDetailViewController.h"
-#import "UIViewController+BRAddtion.h"
+#import "UIViewController+BRAddition.h"
 #import "GoogleReaderClient.h"
 #import "JJSingleWebController.h"
 #import "BRADManager.h"

@@ -7,7 +7,7 @@
 //
 
 #import "BRImageScrollController.h"
-#import "UIViewController+BRAddtion.h"
+#import "UIViewController+BRAddition.h"
 #import "BRAlertHandler.h"
 #import <QuartzCore/QuartzCore.h>
 

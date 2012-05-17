@@ -7,7 +7,7 @@
 //
 
 #import "BRUserPreferenceDefine.h"
-#import "UIImage+clip.h"
+#import "UIImage+addition.h"
 
 #define kBackgroundImageName @"backgroundimagename"
 #define kMostReadCount       @"feedsinmostread"

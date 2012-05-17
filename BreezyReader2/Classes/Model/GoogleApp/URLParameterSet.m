@@ -7,7 +7,7 @@
 //
 
 #import "URLParameterSet.h"
-#import "NSString+Addtion.h"
+#import "NSString+Addition.h"
 #import "GoogleAppConstants.h"
 
 @implementation ParameterPair

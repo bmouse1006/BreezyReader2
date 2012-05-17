@@ -9,7 +9,7 @@
 #import "UIViewAdditions.h"
 
 
-@implementation UIView (Addtions)
+@implementation UIView (additions)
 
 
 

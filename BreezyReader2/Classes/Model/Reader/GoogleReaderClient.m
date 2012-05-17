@@ -14,7 +14,7 @@
 #import "GRFeed.h"
 #import "BRReadingStatistics.h"
 #import "NSString+SBJSON.h"
-#import "NSString+Addtion.h"
+#import "NSString+Addition.h"
 
 #define TAGLIST_STORE_KEY @"TAGLIST_STORE_KEY"
 #define SUBLIST_STORE_KEY @"SUBLIST_STORE_KEY"

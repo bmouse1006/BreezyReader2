@@ -1,5 +1,5 @@
 //
-//  NSString+Addtion.h
+//  NSString+Addition.h
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-3-29.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (Addtion)
+@interface NSString (addition)
 
 -(NSString*)stringByReplacingHTMLTagAndTrim;
 

@@ -7,7 +7,7 @@
 //
 
 #import "JJLabel.h"
-#import "UIColor+Addtion.h"
+#import "UIColor+Addition.h"
 
 @interface JJLabel()
 

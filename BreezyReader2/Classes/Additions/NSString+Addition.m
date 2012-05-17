@@ -1,19 +1,19 @@
 
 //
-//  NSString+Addtion.m
+//  NSString+Addition.m
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-3-29.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "NSString+Addtion.h"
+#import "NSString+Addition.h"
 #import "RegexKitLite.h"
 #import "NSString+MD5.h"
 
 #define PATTERN @"<.*?>"
 
-@implementation NSString (Addtion)
+@implementation NSString (addition)
 
 -(NSString*)stringByReplacingHTMLTagAndTrim{
     NSString* str = [self stringByReplacingOccurrencesOfRegex:PATTERN 

@@ -8,7 +8,7 @@
 
 #import "JJThumbnailCache.h"
 #import "NSString+MD5.h"
-#import "UIImage+clip.h"
+#import "UIImage+addition.h"
 
 @interface JJThumbnailCache(){
     NSMutableDictionary* _imgCache;

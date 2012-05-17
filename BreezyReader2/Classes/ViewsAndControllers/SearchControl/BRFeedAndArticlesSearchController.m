@@ -11,9 +11,9 @@
 #import "FeedSearchDataSource.h"
 #import "BRArticleScrollViewController.h"
 #import "BRFeedViewController.h"
-#import "UIViewController+BRAddtion.h"
+#import "UIViewController+BRAddition.h"
 #import "GRItem.h"
-#import "NSString+Addtion.h"
+#import "NSString+Addition.h"
 
 static CGFloat kFeedSearchResultCellHeight = 84.0f;
 static CGFloat kArticleSearchResultCellHeight = 70.0f;

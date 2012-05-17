@@ -1,5 +1,5 @@
 //
-//  UIImage+clip.h
+//  UIImage+addition.h
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-5-16.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImage (clip)
+@interface UIImage (jjaddition)
 
 -(UIImage*)clippedThumbnailWithSize:(CGSize)size;
 

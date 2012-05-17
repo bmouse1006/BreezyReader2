@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface UITextView (Addtions)
+@interface UITextView (additions)
 
 - (void) insertString: (NSString *) insertingString;
 

@@ -71,8 +71,8 @@
 		22502CD41562ABF800EBCF5E /* JJPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22502CD21562ABF800EBCF5E /* JJPickerView.xib */; };
 		22502CD71563216E00EBCF5E /* BRUserPreferenceDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CD61563216E00EBCF5E /* BRUserPreferenceDefine.m */; };
 		22502CD81563216E00EBCF5E /* BRUserPreferenceDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CD61563216E00EBCF5E /* BRUserPreferenceDefine.m */; };
-		22502CDB1564016000EBCF5E /* UIImage+clip.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CDA1564016000EBCF5E /* UIImage+clip.m */; };
-		22502CDC1564016000EBCF5E /* UIImage+clip.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CDA1564016000EBCF5E /* UIImage+clip.m */; };
+		22502CDB1564016000EBCF5E /* UIImage+addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CDA1564016000EBCF5E /* UIImage+addition.m */; };
+		22502CDC1564016000EBCF5E /* UIImage+addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 22502CDA1564016000EBCF5E /* UIImage+addition.m */; };
 		22502CDE1564750D00EBCF5E /* album@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22502CDD1564750D00EBCF5E /* album@2x.png */; };
 		22502CDF1564750D00EBCF5E /* album@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22502CDD1564750D00EBCF5E /* album@2x.png */; };
 		22502CE11564754A00EBCF5E /* album.png in Resources */ = {isa = PBXBuildFile; fileRef = 22502CE01564754A00EBCF5E /* album.png */; };
@@ -161,7 +161,7 @@
 		229B2D0B15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */; };
 		229B2D0C15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9F15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m */; };
 		229B2D0D15273CAE00700504 /* NSObject+Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA115273CAE00700504 /* NSObject+Notifications.m */; };
-		229B2D0E15273CAE00700504 /* UIColor+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA315273CAE00700504 /* UIColor+Addtion.m */; };
+		229B2D0E15273CAE00700504 /* UIColor+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA315273CAE00700504 /* UIColor+Addition.m */; };
 		229B2D0F15273CAE00700504 /* UIView+util.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA515273CAE00700504 /* UIView+util.m */; };
 		229B2D1015273CAE00700504 /* UIViewController+addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA715273CAE00700504 /* UIViewController+addition.m */; };
 		229B2D1115273CAE00700504 /* BRAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BAA15273CAE00700504 /* BRAlertHandler.m */; };
@@ -216,7 +216,7 @@
 		229B2D4715273CAE00700504 /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C2015273CAE00700504 /* template.html */; };
 		229B2D4815273CAE00700504 /* BRBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2315273CAE00700504 /* BRBaseController.m */; };
 		229B2D4915273CAE00700504 /* BRBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2515273CAE00700504 /* BRBaseDataSource.m */; };
-		229B2D4A15273CAE00700504 /* UIViewController+BRAddtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2715273CAE00700504 /* UIViewController+BRAddtion.m */; };
+		229B2D4A15273CAE00700504 /* UIViewController+BRAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2715273CAE00700504 /* UIViewController+BRAddition.m */; };
 		229B2D4B15273CAE00700504 /* CustomOAuth2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2B15273CAE00700504 /* CustomOAuth2ViewController.m */; };
 		229B2D4C15273CAE00700504 /* CustomOAuth2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C2C15273CAE00700504 /* CustomOAuth2ViewController.xib */; };
 		229B2D4D15273CAE00700504 /* BRFeedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2F15273CAE00700504 /* BRFeedDataSource.m */; };
@@ -312,12 +312,12 @@
 		229E1BDE153D639300DDBE0B /* arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 229E1BDC153D639300DDBE0B /* arrow_up.png */; };
 		229E1BDF153D639300DDBE0B /* arrow_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 229E1BDD153D639300DDBE0B /* arrow_up@2x.png */; };
 		229E1FD8153E687C00DDBE0B /* JJImageScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D4FA321536C79000197F48 /* JJImageScrollController.m */; };
-		229E1FD9153E687C00DDBE0B /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
+		229E1FD9153E687C00DDBE0B /* NSString+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addition.m */; };
 		229E1FDA153E687C00DDBE0B /* BRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9615273CAE00700504 /* BRAppDelegate.m */; };
 		229E1FDB153E687C00DDBE0B /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */; };
 		229E1FDC153E687C00DDBE0B /* GTMOAuthAuthentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9F15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m */; };
 		229E1FDD153E687C00DDBE0B /* NSObject+Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA115273CAE00700504 /* NSObject+Notifications.m */; };
-		229E1FDE153E687C00DDBE0B /* UIColor+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA315273CAE00700504 /* UIColor+Addtion.m */; };
+		229E1FDE153E687C00DDBE0B /* UIColor+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA315273CAE00700504 /* UIColor+Addition.m */; };
 		229E1FDF153E687C00DDBE0B /* UIView+util.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA515273CAE00700504 /* UIView+util.m */; };
 		229E1FE0153E687C00DDBE0B /* UIViewController+addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA715273CAE00700504 /* UIViewController+addition.m */; };
 		229E1FE1153E687C00DDBE0B /* BRAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BAA15273CAE00700504 /* BRAlertHandler.m */; };
@@ -365,7 +365,7 @@
 		229E200C153E687C00DDBE0B /* BRArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1E15273CAE00700504 /* BRArticleDetailViewController.m */; };
 		229E200D153E687C00DDBE0B /* BRBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2315273CAE00700504 /* BRBaseController.m */; };
 		229E200E153E687C00DDBE0B /* BRBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2515273CAE00700504 /* BRBaseDataSource.m */; };
-		229E200F153E687C00DDBE0B /* UIViewController+BRAddtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2715273CAE00700504 /* UIViewController+BRAddtion.m */; };
+		229E200F153E687C00DDBE0B /* UIViewController+BRAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2715273CAE00700504 /* UIViewController+BRAddition.m */; };
 		229E2010153E687C00DDBE0B /* CustomOAuth2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2B15273CAE00700504 /* CustomOAuth2ViewController.m */; };
 		229E2011153E687C00DDBE0B /* BRFeedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C2F15273CAE00700504 /* BRFeedDataSource.m */; };
 		229E2012153E687C00DDBE0B /* BRFeedDragDownController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C3115273CAE00700504 /* BRFeedDragDownController.m */; };
@@ -691,8 +691,8 @@
 		22D4FA3A1536D44500197F48 /* BRImageScrollController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D4FA391536D44500197F48 /* BRImageScrollController.xib */; };
 		22D4FA411536DF8500197F48 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D4FA3F1536DF8500197F48 /* save.png */; };
 		22D4FA421536DF8500197F48 /* save@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D4FA401536DF8500197F48 /* save@2x.png */; };
-		22D56B29152767E80098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
-		22D56B2B152768DA0098A85F /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addtion.m */; };
+		22D56B29152767E80098A85F /* NSString+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addition.m */; };
+		22D56B2B152768DA0098A85F /* NSString+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addition.m */; };
 		22D696661538066D00437C7A /* JJSingleWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D696641538066D00437C7A /* JJSingleWebController.m */; };
 		22D696671538066D00437C7A /* JJSingleWebController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D696651538066D00437C7A /* JJSingleWebController.xib */; };
 		22D9BE58152F3376007E32CC /* BRFeedHeaderArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D9BE57152F3376007E32CC /* BRFeedHeaderArticleCell.m */; };
@@ -875,8 +875,8 @@
 		22502CD21562ABF800EBCF5E /* JJPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JJPickerView.xib; sourceTree = "<group>"; };
 		22502CD51563216E00EBCF5E /* BRUserPreferenceDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserPreferenceDefine.h; sourceTree = "<group>"; };
 		22502CD61563216E00EBCF5E /* BRUserPreferenceDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserPreferenceDefine.m; sourceTree = "<group>"; };
-		22502CD91564016000EBCF5E /* UIImage+clip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+clip.h"; sourceTree = "<group>"; };
-		22502CDA1564016000EBCF5E /* UIImage+clip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+clip.m"; sourceTree = "<group>"; };
+		22502CD91564016000EBCF5E /* UIImage+addition.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "UIImage+addition.h"; sourceTree = "<group>"; };
+		22502CDA1564016000EBCF5E /* UIImage+addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+addition.m"; sourceTree = "<group>"; };
 		22502CDD1564750D00EBCF5E /* album@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album@2x.png"; sourceTree = "<group>"; };
 		22502CE01564754A00EBCF5E /* album.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album.png; sourceTree = "<group>"; };
 		2255329515386FE1003BA8EC /* BRShareMenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRShareMenue.h; sourceTree = "<group>"; };
@@ -954,8 +954,8 @@
 		229B2B9F15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMOAuthAuthentication+ASIHTTPRequest.m"; sourceTree = "<group>"; };
 		229B2BA015273CAE00700504 /* NSObject+Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Notifications.h"; sourceTree = "<group>"; };
 		229B2BA115273CAE00700504 /* NSObject+Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Notifications.m"; sourceTree = "<group>"; };
-		229B2BA215273CAE00700504 /* UIColor+Addtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Addtion.h"; sourceTree = "<group>"; };
-		229B2BA315273CAE00700504 /* UIColor+Addtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Addtion.m"; sourceTree = "<group>"; };
+		229B2BA215273CAE00700504 /* UIColor+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "UIColor+Addition.h"; sourceTree = "<group>"; };
+		229B2BA315273CAE00700504 /* UIColor+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Addition.m"; sourceTree = "<group>"; };
 		229B2BA415273CAE00700504 /* UIView+util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+util.h"; sourceTree = "<group>"; };
 		229B2BA515273CAE00700504 /* UIView+util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+util.m"; sourceTree = "<group>"; };
 		229B2BA615273CAE00700504 /* UIViewController+addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+addition.h"; sourceTree = "<group>"; };
@@ -1060,8 +1060,8 @@
 		229B2C2315273CAE00700504 /* BRBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseController.m; sourceTree = "<group>"; };
 		229B2C2415273CAE00700504 /* BRBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBaseDataSource.h; sourceTree = "<group>"; };
 		229B2C2515273CAE00700504 /* BRBaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseDataSource.m; sourceTree = "<group>"; };
-		229B2C2615273CAE00700504 /* UIViewController+BRAddtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BRAddtion.h"; sourceTree = "<group>"; };
-		229B2C2715273CAE00700504 /* UIViewController+BRAddtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BRAddtion.m"; sourceTree = "<group>"; };
+		229B2C2615273CAE00700504 /* UIViewController+BRAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "UIViewController+BRAddition.h"; sourceTree = "<group>"; };
+		229B2C2715273CAE00700504 /* UIViewController+BRAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BRAddition.m"; sourceTree = "<group>"; };
 		229B2C2815273CAE00700504 /* BRViewControllerNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRViewControllerNotification.h; sourceTree = "<group>"; };
 		229B2C2A15273CAE00700504 /* CustomOAuth2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomOAuth2ViewController.h; sourceTree = "<group>"; };
 		229B2C2B15273CAE00700504 /* CustomOAuth2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomOAuth2ViewController.m; sourceTree = "<group>"; };
@@ -1380,8 +1380,8 @@
 		22D4FA391536D44500197F48 /* BRImageScrollController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRImageScrollController.xib; sourceTree = "<group>"; };
 		22D4FA3F1536DF8500197F48 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
 		22D4FA401536DF8500197F48 /* save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save@2x.png"; sourceTree = "<group>"; };
-		22D56B27152767E80098A85F /* NSString+Addtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addtion.h"; sourceTree = "<group>"; };
-		22D56B28152767E80098A85F /* NSString+Addtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addtion.m"; sourceTree = "<group>"; };
+		22D56B27152767E80098A85F /* NSString+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "NSString+Addition.h"; sourceTree = "<group>"; };
+		22D56B28152767E80098A85F /* NSString+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addition.m"; sourceTree = "<group>"; };
 		22D696631538066D00437C7A /* JJSingleWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJSingleWebController.h; sourceTree = "<group>"; };
 		22D696641538066D00437C7A /* JJSingleWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJSingleWebController.m; sourceTree = "<group>"; };
 		22D696651538066D00437C7A /* JJSingleWebController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JJSingleWebController.xib; sourceTree = "<group>"; };
@@ -1747,16 +1747,16 @@
 				222132C4152DE0460087D05E /* NSMutableString+Addition.m */,
 				229B2BA015273CAE00700504 /* NSObject+Notifications.h */,
 				229B2BA115273CAE00700504 /* NSObject+Notifications.m */,
-				22D56B27152767E80098A85F /* NSString+Addtion.h */,
-				22D56B28152767E80098A85F /* NSString+Addtion.m */,
-				229B2BA215273CAE00700504 /* UIColor+Addtion.h */,
-				229B2BA315273CAE00700504 /* UIColor+Addtion.m */,
+				22D56B27152767E80098A85F /* NSString+Addition.h */,
+				22D56B28152767E80098A85F /* NSString+Addition.m */,
+				229B2BA215273CAE00700504 /* UIColor+Addition.h */,
+				229B2BA315273CAE00700504 /* UIColor+Addition.m */,
 				229B2BA415273CAE00700504 /* UIView+util.h */,
 				229B2BA515273CAE00700504 /* UIView+util.m */,
 				229B2BA615273CAE00700504 /* UIViewController+addition.h */,
 				229B2BA715273CAE00700504 /* UIViewController+addition.m */,
-				22502CD91564016000EBCF5E /* UIImage+clip.h */,
-				22502CDA1564016000EBCF5E /* UIImage+clip.m */,
+				22502CD91564016000EBCF5E /* UIImage+addition.h */,
+				22502CDA1564016000EBCF5E /* UIImage+addition.m */,
 			);
 			path = Additions;
 			sourceTree = "<group>";
@@ -2003,8 +2003,8 @@
 				229B2C2315273CAE00700504 /* BRBaseController.m */,
 				229B2C2415273CAE00700504 /* BRBaseDataSource.h */,
 				229B2C2515273CAE00700504 /* BRBaseDataSource.m */,
-				229B2C2615273CAE00700504 /* UIViewController+BRAddtion.h */,
-				229B2C2715273CAE00700504 /* UIViewController+BRAddtion.m */,
+				229B2C2615273CAE00700504 /* UIViewController+BRAddition.h */,
+				229B2C2715273CAE00700504 /* UIViewController+BRAddition.m */,
 				22E556C715564A680048E331 /* BRActionMenuViewController.h */,
 				22E556C815564A680048E331 /* BRActionMenuViewController.m */,
 				22E556E015567D030048E331 /* BRSettingDataSource.h */,
@@ -3513,12 +3513,12 @@
 			files = (
 				2280533A1547099500F0ECF2 /* NSDate+simpleFormat.m in Sources */,
 				229E1FD8153E687C00DDBE0B /* JJImageScrollController.m in Sources */,
-				229E1FD9153E687C00DDBE0B /* NSString+Addtion.m in Sources */,
+				229E1FD9153E687C00DDBE0B /* NSString+Addition.m in Sources */,
 				229E1FDA153E687C00DDBE0B /* BRAppDelegate.m in Sources */,
 				229E1FDB153E687C00DDBE0B /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */,
 				229E1FDC153E687C00DDBE0B /* GTMOAuthAuthentication+ASIHTTPRequest.m in Sources */,
 				229E1FDD153E687C00DDBE0B /* NSObject+Notifications.m in Sources */,
-				229E1FDE153E687C00DDBE0B /* UIColor+Addtion.m in Sources */,
+				229E1FDE153E687C00DDBE0B /* UIColor+Addition.m in Sources */,
 				229E1FDF153E687C00DDBE0B /* UIView+util.m in Sources */,
 				229E1FE0153E687C00DDBE0B /* UIViewController+addition.m in Sources */,
 				229E1FE1153E687C00DDBE0B /* BRAlertHandler.m in Sources */,
@@ -3566,7 +3566,7 @@
 				229E200C153E687C00DDBE0B /* BRArticleDetailViewController.m in Sources */,
 				229E200D153E687C00DDBE0B /* BRBaseController.m in Sources */,
 				229E200E153E687C00DDBE0B /* BRBaseDataSource.m in Sources */,
-				229E200F153E687C00DDBE0B /* UIViewController+BRAddtion.m in Sources */,
+				229E200F153E687C00DDBE0B /* UIViewController+BRAddition.m in Sources */,
 				229E2010153E687C00DDBE0B /* CustomOAuth2ViewController.m in Sources */,
 				229E2011153E687C00DDBE0B /* BRFeedDataSource.m in Sources */,
 				229E2012153E687C00DDBE0B /* BRFeedDragDownController.m in Sources */,
@@ -3713,7 +3713,7 @@
 				22502CB71561441B00EBCF5E /* BRSettingCustomBaseView.m in Sources */,
 				22502CD11562ABDF00EBCF5E /* JJPickerView.m in Sources */,
 				22502CD81563216E00EBCF5E /* BRUserPreferenceDefine.m in Sources */,
-				22502CDC1564016000EBCF5E /* UIImage+clip.m in Sources */,
+				22502CDC1564016000EBCF5E /* UIImage+addition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3746,12 +3746,12 @@
 				229E23AE153E80BC00DDBE0B /* ASIS3Request.m in Sources */,
 				229E23AF153E80BC00DDBE0B /* ASIS3ServiceRequest.m in Sources */,
 				22D4FA381536CAF900197F48 /* JJImageScrollController.m in Sources */,
-				22D56B2B152768DA0098A85F /* NSString+Addtion.m in Sources */,
+				22D56B2B152768DA0098A85F /* NSString+Addition.m in Sources */,
 				229B2D0915273CAE00700504 /* BRAppDelegate.m in Sources */,
 				229B2D0B15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */,
 				229B2D0C15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m in Sources */,
 				229B2D0D15273CAE00700504 /* NSObject+Notifications.m in Sources */,
-				229B2D0E15273CAE00700504 /* UIColor+Addtion.m in Sources */,
+				229B2D0E15273CAE00700504 /* UIColor+Addition.m in Sources */,
 				229B2D0F15273CAE00700504 /* UIView+util.m in Sources */,
 				229B2D1015273CAE00700504 /* UIViewController+addition.m in Sources */,
 				229B2D1115273CAE00700504 /* BRAlertHandler.m in Sources */,
@@ -3799,7 +3799,7 @@
 				229B2D4515273CAE00700504 /* BRArticleDetailViewController.m in Sources */,
 				229B2D4815273CAE00700504 /* BRBaseController.m in Sources */,
 				229B2D4915273CAE00700504 /* BRBaseDataSource.m in Sources */,
-				229B2D4A15273CAE00700504 /* UIViewController+BRAddtion.m in Sources */,
+				229B2D4A15273CAE00700504 /* UIViewController+BRAddition.m in Sources */,
 				229B2D4B15273CAE00700504 /* CustomOAuth2ViewController.m in Sources */,
 				229B2D4D15273CAE00700504 /* BRFeedDataSource.m in Sources */,
 				229B2D4E15273CAE00700504 /* BRFeedDragDownController.m in Sources */,
@@ -3927,7 +3927,7 @@
 				22502CB61561441B00EBCF5E /* BRSettingCustomBaseView.m in Sources */,
 				22502CD01562ABDF00EBCF5E /* JJPickerView.m in Sources */,
 				22502CD71563216E00EBCF5E /* BRUserPreferenceDefine.m in Sources */,
-				22502CDB1564016000EBCF5E /* UIImage+clip.m in Sources */,
+				22502CDB1564016000EBCF5E /* UIImage+addition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3936,7 +3936,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22F866B014A216AA00D7B1CE /* BreezyReader2Tests.m in Sources */,
-				22D56B29152767E80098A85F /* NSString+Addtion.m in Sources */,
+				22D56B29152767E80098A85F /* NSString+Addition.m in Sources */,
 				22D4FA331536C79000197F48 /* JJImageScrollController.m in Sources */,
 				22E530941539D77E001A3C60 /* NSDate+simpleFormat.m in Sources */,
 			);

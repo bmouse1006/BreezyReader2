@@ -1,14 +1,14 @@
 //
-//  UIViewController+BRAddtion.m
+//  UIViewController+BRNSString+Addition.m
 //  BreezyReader2
 //
 //  Created by 金 津 on 12-2-10.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "UIViewController+BRAddtion.h"
+#import "UIViewController+BRAddition.h"
 
-@implementation UIViewController (BRAddtion)
+@implementation UIViewController (BRAddition)
 
 -(id)initWithTheNibOfSameName{
     return [self initWithNibName:NSStringFromClass([self class]) bundle:nil];

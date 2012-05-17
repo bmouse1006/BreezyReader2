@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIViewController+BRAddtion.h"
+#import "UIViewController+BRAddition.h"
 #import "BRTopContainer.h"
 #import "BRActionMenuViewController.h"
 #import "BRViewControllerNotification.h"

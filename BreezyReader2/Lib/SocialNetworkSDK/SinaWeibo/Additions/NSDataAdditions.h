@@ -10,7 +10,7 @@
 
 
 
-@interface NSData (Addtions)
+@interface NSData (additions)
 
 /**
  * Calculate the md5 hash of this data using CC_MD5.

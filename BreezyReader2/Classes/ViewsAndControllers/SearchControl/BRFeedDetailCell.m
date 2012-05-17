@@ -7,7 +7,7 @@
 //
 
 #import "BRFeedDetailCell.h"
-#import "NSString+Addtion.h"
+#import "NSString+Addition.h"
 #import "GoogleReaderClient.h"
 
 @interface BRFeedDetailCell (){

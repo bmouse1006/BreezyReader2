@@ -9,7 +9,7 @@
 #import "UITextViewAdditions.h"
 
 
-@implementation UITextView (Addtions)
+@implementation UITextView (additions)
 
 - (void) insertString: (NSString *) insertingString  
 {  
