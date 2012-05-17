@@ -580,10 +580,9 @@ static NSString* _userID = nil;
     self.request.cachePolicy = policy;
     self.request.delegate = self;
     if (needAuth){
-        __block typeof(self) blockSelf = self;
-        [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
+        [[GoogleAuthManager shared] authRequest:_request completionBlock:^(NSError* error){
             if (error == nil){
-                [blockSelf.request startAsynchronous];
+                [_request startAsynchronous];
             }
         }];
     }else{

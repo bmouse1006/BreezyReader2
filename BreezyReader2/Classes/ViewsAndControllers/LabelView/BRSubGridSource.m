@@ -9,6 +9,7 @@
 #import "BRSubGridSource.h"
 #import "GoogleReaderClient.h"
 #import "BRReadingStatistics.h"
+#import "BRUserPreferenceDefine.h"
 
 @implementation BRSubGridSource
 
@@ -47,7 +48,10 @@
 -(void)loadSourceMore:(BOOL)more{
     [self.delegate sourceStartLoading];
     NSArray* subscriptions = [GoogleReaderClient subscriptionsWithTagID:self.tag.ID];
-    self.subscriptions = [[BRReadingStatistics statistics] sortedSubscriptionsByReadingFrequency:subscriptions];
+    if ([BRUserPreferenceDefine shouldSortByReadingFrequency]) {
+        subscriptions = [[BRReadingStatistics statistics] sortedSubscriptionsByReadingFrequency:subscriptions];
+    }
+    self.subscriptions = subscriptions;
     [self.delegate sourceLoadFinished];
 }
 

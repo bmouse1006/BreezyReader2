@@ -14,6 +14,7 @@
 #import "GoogleReaderClient.h"
 #import "BRErrorHandler.h"
 #import "BRADManager.h"
+#import "BRUserPreferenceDefine.h"
 
 #define kFeedTableRowHeight 97
 
@@ -109,7 +110,7 @@ static CGFloat refreshDistance = 60.0f;
     [nc addObserver:self selector:@selector(markArticleAsUnread:) name:NOTIFICATION_MARKITEMASUNREAD object:nil];
     [nc addObserver:self selector:@selector(adLoaded:) name:NOTIFICATION_ADLOADED object:nil];
     [nc addObserver:self selector:@selector(markAllAsReadButtonClicked:) name:NOTIFICATION_MENUACTION_MARKALLASREAD object:nil];
-    [nc addObserver:self selector:@selector(showUnreadOnly:) name:NOTIFICATION_MENUACTION_UNREADONLY object:nil];
+    [nc addObserver:self selector:@selector(shouldShowUnreadOnly:) name:NOTIFICATION_MENUACTION_UNREADONLY object:nil];
     [nc addObserver:self selector:@selector(showAllArticles:) name:NOTIFICAITON_MENUACTION_ALLARTICLES object:nil];
     [nc addObserver:self selector:@selector(actionMenuDisappeared:) name:NOTIFICATION_MENUACTION_DISAPPEAR object:nil];
 }
@@ -166,6 +167,7 @@ static CGFloat refreshDistance = 60.0f;
     
     self.dragController.view.alpha = 0;
     self.dataSource = [[[BRFeedDataSource alloc] init] autorelease];
+    self.dataSource.unreadOnly = [BRUserPreferenceDefine unreadOnlyStatusForStream:self.subscription.ID];
     self.dataSource.delegate = self;
     self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self;
@@ -442,6 +444,7 @@ static CGFloat refreshDistance = 60.0f;
             
         }else{
             [self.mainContainer addSubview:self.loadingView];
+            [self.view setNeedsLayout];
         }
     }
 }
@@ -518,11 +521,13 @@ static CGFloat refreshDistance = 60.0f;
 }
 
 -(void)showAllArticles:(NSNotification*)notification{
+    [BRUserPreferenceDefine rememberAction:NO forStream:self.subscription.ID];
     self.dataSource.unreadOnly = NO;
     [self.dataSource loadDataMore:NO forceRefresh:NO];    
 }
 
--(void)showUnreadOnly:(NSNotification*)notification{
+-(void)shouldShowUnreadOnly:(NSNotification*)notification{
+    [BRUserPreferenceDefine rememberAction:YES forStream:self.subscription.ID];
     self.dataSource.unreadOnly = YES;
     [self.dataSource loadDataMore:NO forceRefresh:NO];
 }

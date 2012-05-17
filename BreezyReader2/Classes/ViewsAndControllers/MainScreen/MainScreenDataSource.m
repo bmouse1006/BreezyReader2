@@ -12,6 +12,7 @@
 #import "BRRecommendationPageViewController.h"
 #import "BRReadingStatistics.h"
 #import "GoogleReaderClient.h"
+#import "BRUserPreferenceDefine.h"
 
 @interface MainScreenDataSource ()
 
@@ -65,7 +66,6 @@
     
     NSSet* showedLabels = [NSSet setWithSet:self.tagIDSet];
     
-//    self.tagList = tags;
     [showedLabels enumerateObjectsUsingBlock:^(id obj, BOOL* stop){
         NSString* tagID = obj;
         if ([[GoogleReaderClient subscriptionsWithTagID:tagID] count] == 0){
@@ -118,7 +118,7 @@
         [self.controllers addObject:[self.tagControllers objectForKey:obj]];
     }];
 
-    if (self.recommendationPage){
+    if (self.recommendationPage && [BRUserPreferenceDefine shouldShowRecommendations]){
         [self.controllers addObject:self.recommendationPage];
     }
 }

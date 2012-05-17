@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/Model/Reader/GoogleReaderClient.m"
-         timestampString = "357576153.70098"
+         timestampString = "358928104.339427"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1012"
-         endingLineNumber = "1012"
+         startingLineNumber = "1011"
+         endingLineNumber = "1011"
          landmarkName = "-compileParameterSetWithCount:startFrom:exclude:continuation:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,13 +60,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/FeedViewController/BRFeedViewController.m"
-         timestampString = "358580773.873575"
+         timestampString = "358951542.99201"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "466"
-         endingLineNumber = "466"
-         landmarkName = "-setupTableViewEdgeInsetByStatus"
-         landmarkType = "5">
+         startingLineNumber = "467"
+         endingLineNumber = "467"
+         landmarkName = "@implementation BRFeedViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -78,19 +78,19 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "264"
          endingLineNumber = "264"
-         landmarkName = "@implementation BRFeedViewController"
-         landmarkType = "3">
+         landmarkName = "-viewDidDisappear:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/Model/Reader/GoogleReaderClient.m"
-         timestampString = "357576153.70098"
+         timestampString = "358928104.339427"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "895"
-         endingLineNumber = "895"
+         startingLineNumber = "894"
+         endingLineNumber = "894"
          landmarkName = "-subscriptionEditFinished:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/Model/Reader/GoogleReaderClient.m"
-         timestampString = "357576153.70098"
+         timestampString = "358928104.339427"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "905"
-         endingLineNumber = "905"
+         startingLineNumber = "904"
+         endingLineNumber = "904"
          landmarkName = "-requestFailed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/Model/Reader/GoogleReaderClient.m"
-         timestampString = "357576153.70098"
+         timestampString = "358928104.339427"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "900"
-         endingLineNumber = "900"
+         startingLineNumber = "899"
+         endingLineNumber = "899"
          landmarkName = "-requestStarted:"
          landmarkType = "5">
       </FileBreakpoint>

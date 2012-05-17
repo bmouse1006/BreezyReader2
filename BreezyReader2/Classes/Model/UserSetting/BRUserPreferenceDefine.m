@@ -8,22 +8,29 @@
 
 #import "BRUserPreferenceDefine.h"
 #import "UIImage+addition.h"
+#import "GoogleReaderClient.h"
 
 #define kBackgroundImageName @"backgroundimagename"
 #define kMostReadCount       @"feedsinmostread"
+#define kAutoFlipThumbnail   @"animateflipview"
+#define kSortByReadingFrequency @"sortingbyreadingfrequency"
+#define kShowRecommendations @"showrecommendations"
+#define kRememberMyAction @"rememberMyChoice"
+#define kShowUnreadOnly @"shouldShowUnreadOnly"
+
+#define kUnreadOnlySet @"unreadOnlySet"
+
 #define kDefaultBackgroundImageName @"background1.jpg"
 
 @implementation BRUserPreferenceDefine
 
-+(UIColor*)flipThumbnailColor{
-    UIImage* backgroundImage= [self backgroundImage];
-    UIColor* patternColor = [UIColor colorWithPatternImage:backgroundImage];
-    CGFloat red, green, blue;
-    [patternColor getRed:&red green:&green blue:&blue alpha:NULL];
+static UIImage* _backgroundImage = nil;
 
++(UIColor*)flipThumbnailColor{
+    return [UIColor colorWithRed:26/255.0 green:78/255.0 blue:138/255.0 alpha:0.6];
 }
 
-+(NSURL*)backgroundImageURL{
++(NSURL*)backgroundImageStoreURL{
     
     NSString* cachePath = [[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"backgroundCache"] retain];
     NSFileManager* fm = [NSFileManager defaultManager];
@@ -38,21 +45,28 @@
 }
 
 +(UIImage*)backgroundImage{
-    UIImage* image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[self backgroundImageURL]]];
-    
-    if (!image){
-        image = [UIImage imageNamed:kDefaultBackgroundImageName];
-        [self setDefaultBackgroundImage:image withName:kDefaultBackgroundImageName];
+    if (!_backgroundImage){
+        UIImage* image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[self backgroundImageStoreURL]]];
+        
+        if (!image){
+            [self setDefaultBackgroundImage:[UIImage imageNamed:kDefaultBackgroundImageName] withName:kDefaultBackgroundImageName];
+        }else{
+            _backgroundImage = [image retain];
+        }
     }
     
-    return image;
+    return _backgroundImage;
 }
 
 +(void)setDefaultBackgroundImage:(UIImage*)image withName:(NSString*)name{
-    image = [image clippedThumbnailWithSize:[UIScreen mainScreen].bounds.size];
-    [[NSFileManager defaultManager] removeItemAtURL:[self backgroundImageURL] error:NULL];
-    [UIImagePNGRepresentation(image) writeToURL:[self backgroundImageURL] atomically:YES];
     [self valueChangedForIdentifier:kBackgroundImageName value:name];
+    image = [image clippedThumbnailWithSize:[UIScreen mainScreen].bounds.size];
+    if (_backgroundImage != image){
+        [_backgroundImage release];
+        _backgroundImage = [image retain];
+    }
+    [[NSFileManager defaultManager] removeItemAtURL:[self backgroundImageStoreURL] error:NULL];
+    [UIImagePNGRepresentation(image) writeToURL:[self backgroundImageStoreURL] atomically:YES];
 }
 
 
@@ -70,6 +84,57 @@
 
 +(BOOL)shouldLoadAD{
     return YES;
+}
+
++(BOOL)shouldAutoFlipThumbnail{
+    return [self boolValueForIdentifier:kAutoFlipThumbnail];
+}
+
++(BOOL)shouldSortByReadingFrequency{
+    return [self boolValueForIdentifier:kSortByReadingFrequency];
+}
+
++(BOOL)shouldShowRecommendations{
+    return [self boolValueForIdentifier:kShowRecommendations];
+}
+
++(BOOL)shouldShowUnreadOnly{
+    return [self boolValueForIdentifier:kShowUnreadOnly];
+}
+
++(BOOL)shouldRememberMyActionWhileShowingArticles{
+    return [self boolValueForIdentifier:kRememberMyAction];
+}
+
++(BOOL)unreadOnlyStatusForStream:(NSString*)streamID{
+    //check if this sub has been subscribed
+    if ([GoogleReaderClient containsSubscription:streamID] == NO){
+        return NO;
+    }
+    
+    if ([self shouldRememberMyActionWhileShowingArticles]){
+        
+        NSNumber* action = [[self valueForIdentifier:kUnreadOnlySet] objectForKey:streamID];
+        
+        if (action){
+            return [action boolValue];
+        }else{
+            return [self shouldShowUnreadOnly];
+        }
+    
+    }else{
+        return [self shouldShowUnreadOnly];
+    }
+}
+
++(void)rememberAction:(BOOL)unreadOnly forStream:(NSString*)streamID{
+    if ([self shouldRememberMyActionWhileShowingArticles]){
+        NSMutableDictionary* unreadonlySet = [NSMutableDictionary dictionaryWithDictionary:[self valueForIdentifier:kUnreadOnlySet]];
+        
+        [unreadonlySet setObject:[NSNumber numberWithBool:unreadOnly] forKey:streamID];
+        
+        [self valueChangedForIdentifier:kUnreadOnlySet value:unreadonlySet];
+    }
 }
 
 @end

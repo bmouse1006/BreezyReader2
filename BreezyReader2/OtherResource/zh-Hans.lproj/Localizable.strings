@@ -38,15 +38,18 @@
 "title_unreadonly" = "只显示未读文章";
 "title_cache" = "缓存";
 "title_accounts" = "账户";
-"title_appearence" = "显示";
+"title_appearence" = "主屏幕显示";
 "title_google" = "Google账号";
 "title_otheraccounts" = "其它账号";
-"title_flipthumbnail" = "翻转缩略图";
+"title_flipthumbnail" = "翻转显示多个缩略图";
 "title_sortfeedbyreadingfrequency" = "按阅读频率排序";
 "title_showrecommendation" = "显示推荐源";
 "title_changebackground" = "更换背景";
 "title_feedsinmostread" = "最常阅读中源的数量";
 "title_autocleancache" = "自动清除缓存";
+"title_viewarticles" = "查看文章";
+"title_showunreadonly" = "只显示未读";
+"title_remembermychoice" = "记住我的操作";
 
 "message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
 "message_subscribe" = "您想要订阅 \"%@\" 吗?";

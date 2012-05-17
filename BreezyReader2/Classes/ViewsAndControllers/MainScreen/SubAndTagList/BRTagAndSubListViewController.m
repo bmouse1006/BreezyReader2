@@ -124,10 +124,17 @@
     static NSString* identifier = @"BRFeedConfigBaseCell";
     BRFeedConfigBaseCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil){
-        cell = [[[BRFeedConfigBaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
+        cell = [[[BRFeedConfigBaseCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
     }
     
     cell.textLabel.text = sub.title;
+    
+    NSInteger unreadCount = [GoogleReaderClient unreadCountWithID:sub.ID];
+    if (unreadCount){
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", unreadCount];
+    }else{
+        cell.detailTextLabel.text = nil;
+    }
 
     return cell;
 }

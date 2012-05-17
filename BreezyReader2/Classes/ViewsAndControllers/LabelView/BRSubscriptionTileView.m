@@ -14,6 +14,7 @@
 #import "UIView+util.h"
 #import "BRViewControllerNotification.h"
 #import "GoogleReaderClient.h"
+#import "BRUserPreferenceDefine.h"
 #import <QuartzCore/QuartzCore.h>
 
 //#define DefaultImage_SUB [UIImage imageNamed:@"default_sub"]
@@ -26,7 +27,7 @@
     BOOL _hasPreview;
 }
 
-@property (nonatomic, retain) NSTimer* timer;
+//@property (nonatomic, retain) NSTimer* timer;
 @property (nonatomic, retain) ASIHTTPRequest* imageRequest;
 @property (nonatomic, retain) NSString* currentImageURL;
 @property (nonatomic, retain) UIImageView* unreadImage;
@@ -34,6 +35,8 @@
 @property (nonatomic, assign) BOOL allowAnimation;
 
 @property (nonatomic, retain) GoogleReaderClient* grClient;
+
+@property (nonatomic, assign) NSTimer* timer;
 
 -(void)createSubviews;
 
@@ -76,7 +79,7 @@ static CGFloat kCaptionHeight = 40.0f;
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self){
-        self.backgroundColor = [UIColor colorWithRed:26/255.0 green:78/255.0 blue:138/255.0 alpha:0.6];
+        self.backgroundColor = [BRUserPreferenceDefine flipThumbnailColor];
         _isAppearring = YES;
         _allowAnimation = YES;
         [self createSubviews];
@@ -109,7 +112,7 @@ static CGFloat kCaptionHeight = 40.0f;
     _imageView = nil;
     [_subscription release];
     _subscription = nil;
-    [self.timer invalidate];
+//    [self.timer invalidate];
     self.timer = nil;
     self.caption = nil;
     self.infoButton = nil;
@@ -308,7 +311,7 @@ static CGFloat kCaptionHeight = 40.0f;
 -(void)setImageURLs:(NSMutableArray *)imageURLs{
     if(_imageURLs != imageURLs){
         [self.layer removeAllAnimations];
-        [self.timer invalidate];
+//        [self.timer invalidate];
         [_imageURLs release];
         _imageURLs = [imageURLs retain];
         //start load images
@@ -350,22 +353,26 @@ static CGFloat kCaptionHeight = 40.0f;
     }
 }
 
--(void)changeImage{
-    if (_isAppearring == NO){
-        [self performSelectorOnMainThread:@selector(startTimer) withObject:nil waitUntilDone:NO];
-        return;
-    }
-    @synchronized(self){
-        if ([self.imageURLs count] <= 1){
+-(void)changeImage:(NSTimer*)timer{
+    if (self.timer == timer){
+
+        if (_isAppearring == NO || [BRUserPreferenceDefine shouldAutoFlipThumbnail] == NO){
+            [self performSelectorOnMainThread:@selector(startTimer) withObject:nil waitUntilDone:NO];
             return;
         }
-        NSInteger currentIndex = [self.imageURLs indexOfObject:self.currentImageURL];
-        if (currentIndex == NSNotFound){
-            return;
+        @synchronized(self){
+            if ([self.imageURLs count] <= 1){
+                return;
+            }
+            NSInteger currentIndex = [self.imageURLs indexOfObject:self.currentImageURL];
+            if (currentIndex == NSNotFound){
+                return;
+            }
+            currentIndex = (currentIndex + 1 >= [self.imageURLs count])?0:currentIndex+1;
+            
+            [self startImageSwitching:[self.imageURLs objectAtIndex:currentIndex]];
         }
-        currentIndex = (currentIndex + 1 >= [self.imageURLs count])?0:currentIndex+1;
         
-        [self startImageSwitching:[self.imageURLs objectAtIndex:currentIndex]];
     }
 }
 
@@ -394,11 +401,11 @@ static CGFloat kCaptionHeight = 40.0f;
 
 #pragma mark - timer
 -(void)startTimer{
-    [self.timer invalidate];
     [self.imageRequest clearDelegatesAndCancel];
-    self.timer = nil;
+//    self.timer = nil;
     NSTimeInterval interval = (arc4random() % 5)+6;
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(changeImage) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(changeImage:) userInfo:nil repeats:NO];
+//    [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(changeImage) userInfo:nil repeats:NO];
 }
 
 #pragma mark - control action
@@ -467,7 +474,7 @@ static CGFloat kCaptionHeight = 40.0f;
 
 -(void)disableTimers:(NSNotification*)notification{
     [self.layer removeAllAnimations];
-    [self.timer invalidate];
+//    [self.timer invalidate];
 }
 
 -(void)filpFinished:(NSNotification*)notification{

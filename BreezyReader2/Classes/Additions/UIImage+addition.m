@@ -14,6 +14,10 @@
     CGSize clipSize = CGSizeMake(size.width*[UIScreen mainScreen].scale, size.height*[UIScreen mainScreen].scale);
     CGSize imageSize = self.size;
     
+    if (CGSizeEqualToSize(clipSize, imageSize)){
+        return self;
+    }
+    
     CGFloat scale = clipSize.width/imageSize.width;
     if (scale < clipSize.height/imageSize.height){
         scale = clipSize.height/imageSize.height;

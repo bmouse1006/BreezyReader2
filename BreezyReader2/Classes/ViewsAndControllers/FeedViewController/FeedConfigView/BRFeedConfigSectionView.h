@@ -12,6 +12,7 @@
 @interface BRFeedConfigSectionView : UIView
 
 @property (nonatomic, retain) IBOutlet JJLabel* titleLabel;
+@property (nonatomic, retain) IBOutlet JJLabel* subTitleLabel;
 
 @property (nonatomic, retain) IBOutlet UIView* topWhite;
 @property (nonatomic, retain) IBOutlet UIView* topBlack;

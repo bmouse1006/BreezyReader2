@@ -4,6 +4,8 @@
 <dict>
 	<key>animateflipview</key>
 	<true/>
+	<key>shouldShowUnreadOnly</key>
+	<false/>
 	<key>sortingbyreadingfrequency</key>
 	<true/>
 	<key>showrecommendations</key>
@@ -14,5 +16,7 @@
 	<true/>
 	<key>backgroundimagename</key>
 	<string>background1.jpg</string>
+	<key>rememberMyChoice</key>
+	<true/>
 </dict>
 </plist>

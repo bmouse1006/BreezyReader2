@@ -14,6 +14,7 @@
 
 @protocol JJViewDelegate <NSObject>
 
+@optional
 -(void)viewWillShow:(BaseView*)view;
 -(void)viewDidShow:(BaseView*)view;
 -(void)viewWillDismiss:(BaseView*)view;

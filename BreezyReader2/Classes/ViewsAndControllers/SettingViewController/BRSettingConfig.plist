@@ -92,6 +92,29 @@
 	</dict>
 	<dict>
 		<key>name</key>
+		<string>title_viewarticles</string>
+		<key>configs</key>
+		<array>
+			<dict>
+				<key>identifier</key>
+				<string>shouldShowUnreadOnly</string>
+				<key>name</key>
+				<string>title_showunreadonly</string>
+				<key>type</key>
+				<string>switch</string>
+			</dict>
+			<dict>
+				<key>identifier</key>
+				<string>rememberMyChoice</string>
+				<key>name</key>
+				<string>title_remembermychoice</string>
+				<key>type</key>
+				<string>switch</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
 		<string>title_cache</string>
 		<key>configs</key>
 		<array>

@@ -39,15 +39,18 @@
 "title_unreadonly" = "Show unread only";
 "title_cache" = "Cache";
 "title_accounts" = "Accounts";
-"title_appearence" = "Appearence";
+"title_appearence" = "Main screen appearence";
 "title_google" = "Google account";
 "title_otheraccounts" = "Other accounts";
-"title_flipthumbnail" = "Flip thumbnail";
+"title_flipthumbnail" = "Flip multi-thumbnail";
 "title_sortfeedbyreadingfrequency" = "Sort by reading frequency";
 "title_showrecommendation" = "Show recommendation";
 "title_changebackground" = "Change background";
 "title_feedsinmostread" = "Feeds count in Most Read";
 "title_autocleancache" = "Auto clean cache";
+"title_viewarticles" = "View articles";
+"title_showunreadonly" = "Show unread only";
+"title_remembermychoice" = "Remember my action";
 
 "message_unsubscribe" = "Do you want to unsubscribe \"%@?\"";
 "message_subscribe" = "Do you want to subscribe \"%@?\"";

@@ -49,6 +49,9 @@
     
     self.textLabel.textColor = [UIColor whiteColor];
     self.textLabel.font = [UIFont boldSystemFontOfSize:13];
+    
+    self.detailTextLabel.textColor = [UIColor lightGrayColor];
+    self.detailTextLabel.font = [UIFont boldSystemFontOfSize:12];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

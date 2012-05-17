@@ -18,5 +18,10 @@
 +(UIColor*)flipThumbnailColor;
 
 +(BOOL)shouldLoadAD;
++(BOOL)shouldAutoFlipThumbnail;
++(BOOL)shouldSortByReadingFrequency;
++(BOOL)shouldShowRecommendations;
++(BOOL)unreadOnlyStatusForStream:(NSString*)streamID;
++(void)rememberAction:(BOOL)unreadOnly forStream:(NSString*)streamID;
 
 @end
