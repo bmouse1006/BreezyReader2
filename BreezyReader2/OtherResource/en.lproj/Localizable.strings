@@ -68,6 +68,7 @@
 "message_reloadfailed" = "Sync failed";
 "message_reloadalldata" = "Do you want to sync data with Google Reader?";
 "message_startloading" = "Synchronizing";
+"message_settingbackgroundimage" = "Setting background";
 
 "msg_searching" = "Searching...";
 "msg_unstarfailed" = "Failed to remove star";

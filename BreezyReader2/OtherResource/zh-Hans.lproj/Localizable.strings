@@ -67,6 +67,7 @@
 "message_reloadfailed" = "同步失败!";
 "message_reloadalldata" = "你想要手动同步Google Reader吗?";
 "message_startloading" = "同步中";
+"message_settingbackgroundimage" = "设置背景";
 
 "msg_searching" = "搜索中...";
 "msg_unstarfailed" = "去星标失败啦";

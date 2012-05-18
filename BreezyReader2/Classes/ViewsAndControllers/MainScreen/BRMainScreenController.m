@@ -204,7 +204,7 @@
 -(void)syncEnd:(NSNotification*)notification{
     DebugLog(@"end of syncing reader data", nil);
     self.activityLabel.message = NSLocalizedString(@"message_reloadfinished", nil);
-    [self.activityLabel dismissAfterDelay:1];
+    [self.activityLabel setFinished:YES];
     self.activityLabel = nil;
     [self reload];    
 }
@@ -212,7 +212,7 @@
 -(void)syncFailed:(NSNotification*)notification{
     DebugLog(@"end of syncing reader data", nil);
     self.activityLabel.message = NSLocalizedString(@"message_reloadfailed", nil);
-    [self.activityLabel dismissAfterDelay:1];
+    [self.activityLabel setFinished:YES];
     self.activityLabel = nil;
 }
 

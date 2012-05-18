@@ -752,6 +752,10 @@
 		22E191B81544536600F787CB /* BRFeedControlViewSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E191B51544536100F787CB /* BRFeedControlViewSource.m */; };
 		22E191B91544536600F787CB /* BRFeedControlViewSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E191B61544536300F787CB /* BRFeedControlViewSource.xib */; };
 		22E191BA1544536600F787CB /* BRFeedControlViewSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22E191B61544536300F787CB /* BRFeedControlViewSource.xib */; };
+		22E357231565C88700E82A5F /* checkmark_big.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E357211565C88700E82A5F /* checkmark_big.png */; };
+		22E357241565C88800E82A5F /* checkmark_big.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E357211565C88700E82A5F /* checkmark_big.png */; };
+		22E357251565C88800E82A5F /* checkmark_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E357221565C88700E82A5F /* checkmark_big@2x.png */; };
+		22E357261565C88800E82A5F /* checkmark_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E357221565C88700E82A5F /* checkmark_big@2x.png */; };
 		22E3E83D153B105700D2D4B3 /* photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E3E83B153B105700D2D4B3 /* photo.png */; };
 		22E3E83E153B105700D2D4B3 /* photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E3E83C153B105700D2D4B3 /* photo@2x.png */; };
 		22E530941539D77E001A3C60 /* NSDate+simpleFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E530931539D77E001A3C60 /* NSDate+simpleFormat.m */; };
@@ -875,7 +879,7 @@
 		22502CD21562ABF800EBCF5E /* JJPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JJPickerView.xib; sourceTree = "<group>"; };
 		22502CD51563216E00EBCF5E /* BRUserPreferenceDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserPreferenceDefine.h; sourceTree = "<group>"; };
 		22502CD61563216E00EBCF5E /* BRUserPreferenceDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserPreferenceDefine.m; sourceTree = "<group>"; };
-		22502CD91564016000EBCF5E /* UIImage+addition.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "UIImage+addition.h"; sourceTree = "<group>"; };
+		22502CD91564016000EBCF5E /* UIImage+addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+addition.h"; sourceTree = "<group>"; };
 		22502CDA1564016000EBCF5E /* UIImage+addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+addition.m"; sourceTree = "<group>"; };
 		22502CDD1564750D00EBCF5E /* album@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album@2x.png"; sourceTree = "<group>"; };
 		22502CE01564754A00EBCF5E /* album.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album.png; sourceTree = "<group>"; };
@@ -954,7 +958,7 @@
 		229B2B9F15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMOAuthAuthentication+ASIHTTPRequest.m"; sourceTree = "<group>"; };
 		229B2BA015273CAE00700504 /* NSObject+Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Notifications.h"; sourceTree = "<group>"; };
 		229B2BA115273CAE00700504 /* NSObject+Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Notifications.m"; sourceTree = "<group>"; };
-		229B2BA215273CAE00700504 /* UIColor+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "UIColor+Addition.h"; sourceTree = "<group>"; };
+		229B2BA215273CAE00700504 /* UIColor+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Addition.h"; sourceTree = "<group>"; };
 		229B2BA315273CAE00700504 /* UIColor+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Addition.m"; sourceTree = "<group>"; };
 		229B2BA415273CAE00700504 /* UIView+util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+util.h"; sourceTree = "<group>"; };
 		229B2BA515273CAE00700504 /* UIView+util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+util.m"; sourceTree = "<group>"; };
@@ -1060,7 +1064,7 @@
 		229B2C2315273CAE00700504 /* BRBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseController.m; sourceTree = "<group>"; };
 		229B2C2415273CAE00700504 /* BRBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBaseDataSource.h; sourceTree = "<group>"; };
 		229B2C2515273CAE00700504 /* BRBaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseDataSource.m; sourceTree = "<group>"; };
-		229B2C2615273CAE00700504 /* UIViewController+BRAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "UIViewController+BRAddition.h"; sourceTree = "<group>"; };
+		229B2C2615273CAE00700504 /* UIViewController+BRAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BRAddition.h"; sourceTree = "<group>"; };
 		229B2C2715273CAE00700504 /* UIViewController+BRAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BRAddition.m"; sourceTree = "<group>"; };
 		229B2C2815273CAE00700504 /* BRViewControllerNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRViewControllerNotification.h; sourceTree = "<group>"; };
 		229B2C2A15273CAE00700504 /* CustomOAuth2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomOAuth2ViewController.h; sourceTree = "<group>"; };
@@ -1380,7 +1384,7 @@
 		22D4FA391536D44500197F48 /* BRImageScrollController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRImageScrollController.xib; sourceTree = "<group>"; };
 		22D4FA3F1536DF8500197F48 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
 		22D4FA401536DF8500197F48 /* save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save@2x.png"; sourceTree = "<group>"; };
-		22D56B27152767E80098A85F /* NSString+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "NSString+Addition.h"; sourceTree = "<group>"; };
+		22D56B27152767E80098A85F /* NSString+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addition.h"; sourceTree = "<group>"; };
 		22D56B28152767E80098A85F /* NSString+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addition.m"; sourceTree = "<group>"; };
 		22D696631538066D00437C7A /* JJSingleWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJSingleWebController.h; sourceTree = "<group>"; };
 		22D696641538066D00437C7A /* JJSingleWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJSingleWebController.m; sourceTree = "<group>"; };
@@ -1488,6 +1492,8 @@
 		22E191B41544535F00F787CB /* BRFeedControlViewSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFeedControlViewSource.h; sourceTree = "<group>"; };
 		22E191B51544536100F787CB /* BRFeedControlViewSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFeedControlViewSource.m; sourceTree = "<group>"; };
 		22E191B61544536300F787CB /* BRFeedControlViewSource.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRFeedControlViewSource.xib; sourceTree = "<group>"; };
+		22E357211565C88700E82A5F /* checkmark_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark_big.png; sourceTree = "<group>"; };
+		22E357221565C88700E82A5F /* checkmark_big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark_big@2x.png"; sourceTree = "<group>"; };
 		22E3E83B153B105700D2D4B3 /* photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo.png; sourceTree = "<group>"; };
 		22E3E83C153B105700D2D4B3 /* photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo@2x.png"; sourceTree = "<group>"; };
 		22E530921539D77E001A3C60 /* NSDate+simpleFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+simpleFormat.h"; sourceTree = "<group>"; };
@@ -1773,6 +1779,8 @@
 		229B2BAB15273CAE00700504 /* BaseView */ = {
 			isa = PBXGroup;
 			children = (
+				22E357211565C88700E82A5F /* checkmark_big.png */,
+				22E357221565C88700E82A5F /* checkmark_big@2x.png */,
 				22F0BE3E154E6ECF006A4207 /* BaseActivityLabel.h */,
 				22F0BE3F154E6ECF006A4207 /* BaseActivityLabel.m */,
 				22F0BE40154E6ECF006A4207 /* BaseActivityLabel.xib */,
@@ -3308,6 +3316,8 @@
 				22502CD41562ABF800EBCF5E /* JJPickerView.xib in Resources */,
 				22502CDF1564750D00EBCF5E /* album@2x.png in Resources */,
 				22502CE21564754A00EBCF5E /* album.png in Resources */,
+				22E357241565C88800E82A5F /* checkmark_big.png in Resources */,
+				22E357261565C88800E82A5F /* checkmark_big@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3477,6 +3487,8 @@
 				22502CD31562ABF800EBCF5E /* JJPickerView.xib in Resources */,
 				22502CDE1564750D00EBCF5E /* album@2x.png in Resources */,
 				22502CE11564754A00EBCF5E /* album.png in Resources */,
+				22E357231565C88700E82A5F /* checkmark_big.png in Resources */,
+				22E357251565C88800E82A5F /* checkmark_big@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

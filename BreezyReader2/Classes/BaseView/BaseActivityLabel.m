@@ -12,6 +12,7 @@
 @implementation BaseActivityLabel
 
 @synthesize contentView = _contentView, label = _label;
+@synthesize doneImage = _doneImage, activityView = _activityView;
 @dynamic message;
 
 -(void)awakeFromNib{
@@ -23,6 +24,8 @@
 -(void)dealloc{
     self.contentView = nil;
     self.label = nil;
+    self.doneImage = nil;
+    self.activityView = nil;
     [super dealloc];
 }
 
@@ -38,5 +41,10 @@
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:delay];
 }
 
+-(void)setFinished:(BOOL)finished{
+    self.doneImage.hidden = NO;
+    self.activityView.hidden = YES;
+    [self dismissAfterDelay:1.5f];
+}
 
 @end

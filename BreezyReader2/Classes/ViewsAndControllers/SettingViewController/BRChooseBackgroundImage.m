@@ -9,6 +9,7 @@
 #import "BRChooseBackgroundImage.h"
 #import "BRUserPreferenceDefine.h"
 #import "BRViewControllerNotification.h"
+#import "BaseActivityLabel.h"
 
 #define vImageName1 @"background1.jpg"
 #define vImageName2 @"background2.jpg"
@@ -68,10 +69,20 @@
     }
     
     if (imageName){
-        [BRUserPreferenceDefine setDefaultBackgroundImage:[UIImage imageNamed:imageName] withName:imageName];
+        BaseActivityLabel* activityLabel = [BaseActivityLabel loadFromBundle];
+        
+        activityLabel.message = NSLocalizedString(@"message_settingbackgroundimage", nil);
+        [activityLabel show];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [BRUserPreferenceDefine setDefaultBackgroundImage:[UIImage imageNamed:imageName] withName:imageName];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                activityLabel.message = NSLocalizedString(@"title_done", nil);
+                [activityLabel setFinished:YES];
+                [self setNeedsLayout];
+            });
+        });
+        
     }
-    
-    [self setNeedsLayout];
 }
 
 -(void)chooseImageFromAlbum:(id)sender{
