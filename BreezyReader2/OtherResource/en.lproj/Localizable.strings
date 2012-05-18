@@ -51,6 +51,7 @@
 "title_viewarticles" = "View articles";
 "title_showunreadonly" = "Show unread only";
 "title_remembermychoice" = "Remember my action";
+"title_done" = "Done";
 
 "message_unsubscribe" = "Do you want to unsubscribe \"%@?\"";
 "message_subscribe" = "Do you want to subscribe \"%@?\"";

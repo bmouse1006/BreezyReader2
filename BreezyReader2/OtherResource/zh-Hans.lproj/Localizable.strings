@@ -50,6 +50,7 @@
 "title_viewarticles" = "查看文章";
 "title_showunreadonly" = "只显示未读";
 "title_remembermychoice" = "记住我的操作";
+"title_done" = "完成";
 
 "message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
 "message_subscribe" = "您想要订阅 \"%@\" 吗?";
