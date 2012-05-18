@@ -349,9 +349,20 @@
     UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
 //    image = [info objectForKey:UIImagePickerControllerEditedImage];
     if (image){
-        [BRUserPreferenceDefine setDefaultBackgroundImage:image withName:@"userDefine"];
+
+        BaseActivityLabel* activityLabel = [BaseActivityLabel loadFromBundle];
+        
+        activityLabel.message = NSLocalizedString(@"message_settingbackgroundimage", nil);
+        [activityLabel show];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [BRUserPreferenceDefine setDefaultBackgroundImage:image withName:@"userDefine"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                activityLabel.message = NSLocalizedString(@"title_done", nil);
+                [activityLabel setFinished:YES];
+                [self dismissViewControllerAnimated:YES completion:NULL];  
+            });
+        });
     }
-    [self dismissViewControllerAnimated:YES completion:NULL];    
 }
 
 #pragma mark - reader client call back
