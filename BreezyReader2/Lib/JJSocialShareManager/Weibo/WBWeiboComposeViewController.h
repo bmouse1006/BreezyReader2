@@ -36,6 +36,6 @@
 -(IBAction)close:(id)sender;
 
 +(id)sharedController;
-+(id)controller;
+//+(id)controller;
 
 @end

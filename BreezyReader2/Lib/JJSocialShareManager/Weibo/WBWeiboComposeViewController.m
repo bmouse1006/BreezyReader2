@@ -90,11 +90,11 @@
     return controller;
 }
 
-+(id)controller{
-    WBWeiboComposeViewController* controller = [[[WBWeiboComposeViewController alloc] initWithNibName:@"WBWeiboComposeViewController" bundle:nil] autorelease];
-
-    return controller;
-}
+//+(id)controller{
+//    WBWeiboComposeViewController* controller = [[[WBWeiboComposeViewController alloc] initWithNibName:@"WBWeiboComposeViewController" bundle:nil] autorelease];
+//
+//    return controller;
+//}
 
 - (void)viewDidLoad
 {
@@ -116,12 +116,6 @@
     frame.size.width = self.contentView.frame.size.width - 20.0f;
     self.sepertorLine.frame = frame;
     self.sepertorLine.backgroundColor = [UIColor lightGrayColor];
-    
-    NSString* content = (self.urlString.length > 0)?[NSString stringWithFormat:@"%@ %@", self.initialText, self.urlString]:self.initialText;
-    
-    self.textView.text = content;
-    self.contentImageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.contentImageView.image = self.image;
 }
 
 - (void)viewDidUnload
@@ -135,6 +129,12 @@
     [super viewWillAppear:animated];
     _previousStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:animated];
+    
+    NSString* content = (self.urlString.length > 0)?[NSString stringWithFormat:@"%@ %@", self.initialText, self.urlString]:self.initialText;
+    
+    self.textView.text = content;
+    self.contentImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.contentImageView.image = self.image;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -185,6 +185,7 @@
 }
 
 -(void)show:(BOOL)animated{
+    _autoPromoteAuthController = YES;
     self.rootController = [UIApplication sharedApplication].keyWindow.rootViewController;
     _previousPresentationStyle = self.rootController.modalPresentationStyle;
     self.rootController.modalPresentationStyle = UIModalPresentationCurrentContext; 

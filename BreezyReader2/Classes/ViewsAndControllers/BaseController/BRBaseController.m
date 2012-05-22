@@ -41,7 +41,7 @@ static CGFloat distance = 0.0f;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        [self registerNotifications];
+//        [self registerNotifications];
     }
     return self;
 }

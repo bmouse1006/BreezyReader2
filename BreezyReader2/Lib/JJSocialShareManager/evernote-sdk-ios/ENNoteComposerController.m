@@ -219,6 +219,26 @@
 
 -(IBAction)sendButtonClicked:(id)sender{
     
+//    EDAMNoteFilter* filter = [[[EDAMNoteFilter alloc] init] autorelease];
+//    filter.notebookGuid = @"b3eec62d-b007-4571-9b1e-c92d9a3d922d";
+//    
+//    EvernoteNoteStore* store = [EvernoteNoteStore noteStore];
+//    [store findNotesWithFilter:filter offset:0 maxNotes:10 success:^(EDAMNoteList* list){
+//        for (EDAMNote* note in list.notes){
+//            NSLog(@"+++++++%@", note.content);
+//            [store getNoteContentWithGuid:note.guid success:^(NSString* note){
+//                NSLog(@"------content is %@", note);
+//            }failure:^(NSError* error){
+//                
+//            }];
+//        }
+//    }
+//                       failure:^(NSError* error){
+//                           
+//                       }];
+//    
+//    return;
+    
     NSString* noteTemplate = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:kENNoteContentTemplateName ofType:@"xml"] 
                                                        encoding:NSUTF8StringEncoding 
                                                           error:NULL];

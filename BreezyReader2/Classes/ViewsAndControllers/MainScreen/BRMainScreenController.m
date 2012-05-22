@@ -56,6 +56,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self registerNotifications];
         self.wantsFullScreenLayout = YES;
         self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(clientFinished:)];
         _scrollIndex = 0.0f;

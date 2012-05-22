@@ -79,7 +79,7 @@ static UIViewController* _rootViewController = nil;
 #pragma mark - send to interface
 -(void)sendToWeiboWithMessage:(NSString*)message urlString:(NSString*)urlString image:(UIImage*)image{
     
-    WBWeiboComposeViewController* controller = [WBWeiboComposeViewController controller];
+    WBWeiboComposeViewController* controller = [WBWeiboComposeViewController sharedController];
     [controller addInitialText:message];
     [controller addImage:image];
     [controller addURLString:urlString];
