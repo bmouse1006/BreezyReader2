@@ -18,6 +18,7 @@
 #import "ASIDownloadCache.h"
 #import "BRTopContainer.h"
 #import "GoogleReaderClient.h"
+#import "EvernoteSDK.h"
 
 void uncaughtExceptionHandler(NSException *exception);
 
@@ -148,6 +149,13 @@ void uncaughtExceptionHandler(NSException *exception) {
 //    [[UIToolbar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 //    
 //    [[UISearchBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"]];
+}
+
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    if ([[EvernoteSession sharedSession] handleOpenURL:url]) {
+        return YES;
+    } 
+    return NO;
 }
 
 @end

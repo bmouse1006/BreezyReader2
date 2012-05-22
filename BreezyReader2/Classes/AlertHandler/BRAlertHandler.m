@@ -9,7 +9,7 @@
 #import "BRAlertHandler.h"
 #import "BaseAlertView.h"
 #import "BaseMessageView.h"
-#import "BaseImageScrollView.h"
+//#import "BaseImageScrollView.h"
 
 @implementation BRAlertHandler
 

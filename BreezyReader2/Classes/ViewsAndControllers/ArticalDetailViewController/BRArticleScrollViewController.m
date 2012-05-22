@@ -11,6 +11,7 @@
 #import "UIViewController+BRAddition.h"
 #import "GoogleReaderClient.h"
 #import "JJSingleWebController.h"
+#import "JJSocialShareManager.h"
 #import "BRADManager.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -290,30 +291,57 @@
 #pragma mark - notification call back
 -(void)shareToWeibo:(NSNotification*)notification{
     DebugLog(@"share to weibo");
+    GRItem* item = [self.feed.items objectAtIndex:self.index];
+    NSString* urlString = item.alternateLink;
+    [[JJSocialShareManager sharedManager] sendToWeiboWithMessage:item.title urlString:urlString image:nil];
 }
 
 -(void)shareToEvernote:(NSNotification*)notification{
     DebugLog(@"share to evernote");    
+    GRItem* item = [self.feed.items objectAtIndex:self.index];
+    NSString* title = item.title;
+    NSString* content = (item.content)?item.content:item.summary;
+    NSString* urlString = item.alternateLink;
+    [[JJSocialShareManager sharedManager] sendToEvernoteWithTitle:title message:content urlString:urlString];
 }
 
 -(void)shareToTwitter:(NSNotification*)notification{
     DebugLog(@"share to twitter");
+    GRItem* item = [self.feed.items objectAtIndex:self.index];
+    NSString* urlString = item.alternateLink;
+    [[JJSocialShareManager sharedManager] sendToTwitterWithText:item.title urlString:urlString image:nil];
 }
 
 -(void)shareToInstapaper:(NSNotification*)notification{
     DebugLog(@"share to instapaper");
+    GRItem* item = [self.feed.items objectAtIndex:self.index];
+    NSString* content = (item.content)?item.content:item.summary;
+    NSString* urlString = item.alternateLink;
+    [[JJSocialShareManager sharedManager] sendToInstapaperWithTitle:item.title message:content urlString:urlString];
 }
 
 -(void)shareToReadItLater:(NSNotification*)notification{
     DebugLog(@"share to read it later");
+    GRItem* item = [self.feed.items objectAtIndex:self.index];
+    NSString* content = (item.content)?item.content:item.summary;
+    NSString* urlString = item.alternateLink;
+    [[JJSocialShareManager sharedManager] sendToReadItLaterWithTitle:item.title message:content urlString:urlString];
 }
 
 -(void)shareToMail:(NSNotification*)notification{
     DebugLog(@"share to mail");
+    GRItem* item = [self.feed.items objectAtIndex:self.index];
+    NSString* content = (item.content)?item.content:item.summary;
+    NSString* urlString = item.alternateLink;
+    [[JJSocialShareManager sharedManager] sendToMailWithTitle:item.title message:content urlString:urlString];
 }
 
 -(void)shareToFacebook:(NSNotification*)notification{
     DebugLog(@"share to facebook");
+    GRItem* item = [self.feed.items objectAtIndex:self.index];
+    NSString* content = (item.content)?item.content:item.summary;
+//    NSString* urlString = item.alternateLink;
+    [[JJSocialShareManager sharedManager] sendToFacebookWithTitle:item.title message:content];
 }
 
 @end

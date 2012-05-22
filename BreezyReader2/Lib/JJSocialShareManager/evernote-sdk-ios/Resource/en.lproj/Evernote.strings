@@ -1,0 +1,24 @@
+/* 
+  Evernote.strings
+  SocialAuthTest
+
+  Created by Jin Jin on 12-5-22.
+  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+*/
+"title_ok" = "OK";
+"title_error" = "Error";
+"message_couldnotauthenticate" = "Could not authenticate";
+"message_verifyevernote" = "Verify Evernote user";
+"message_fetchnotebooklist" = "Fetch notebook list";
+"message_fetchdefaultnotebook" = "Fetch default notebook";
+"message_sendtoevernoteok" = "Successfully send to Evernote";
+"message_sendtoevernoteerror" = "Failed send to Evernote";
+
+"title_sendtoevernote" = "Send to Evernote";
+"title_title" = "Title";
+"title_message" = "Content";
+"title_saveurlonly" = "Save URL only";
+"title_urlstring" = "URL";
+"title_notebook" = "Notebook";
+"title_notebooklist" = "Notebook list";
+"title_send" = "Send";

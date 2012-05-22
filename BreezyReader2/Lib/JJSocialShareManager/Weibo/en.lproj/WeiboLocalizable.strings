@@ -1,0 +1,16 @@
+/* 
+  Localizable_share.strings
+  SocialAuthTest
+
+  Created by 金 津 on 12-5-6.
+  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+*/
+
+"title_cannotsendweibomessage" = "Can't send Weibo message";
+"message_sendfailed" = "Failed to send message to Weibo due to ";
+"title_ok" = "OK";
+"title_cancel" = "cancel";
+
+"Weibo send failed!" = "Weibo send failed!";
+"Weibo send succeeded!" = "Weibo send succeeded!";
+"Authentication Failed!" = "Authentication Failed!";
