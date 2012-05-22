@@ -51,6 +51,8 @@ typedef enum{
 @property (nonatomic, assign) JJHorizonAlignment pageControlHorizonAlignment;
 @property (nonatomic, assign) JJVerticalAlignment pageControlVerticalAlignment;
 
+@property (nonatomic, assign) BOOL dimTheInvisibleContentView;
+
 -(void)reloadData;
 
 -(void)scrollToPageAtIndex:(NSInteger)index animated:(BOOL)animated;

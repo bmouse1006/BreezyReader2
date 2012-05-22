@@ -487,6 +487,8 @@ static CGFloat refreshDistance = 60.0f;
     NSString* itemID = [notification.userInfo objectForKey:@"itemID"];
     [self.itemIDs setObject:itemID forKey:[NSValue valueWithNonretainedObject:client]];
     [client starArticle:itemID];
+    NSNotification* notif = [NSNotification notificationWithName:NOTIFICATION_STARSUCCESS object:itemID];
+    [[NSNotificationCenter defaultCenter] postNotification:notif];
 }
 
 -(void)unstarArticle:(NSNotification*)notification{
@@ -495,6 +497,9 @@ static CGFloat refreshDistance = 60.0f;
     NSString* itemID = [notification.userInfo objectForKey:@"itemID"];
     [self.itemIDs setObject:itemID forKey:[NSValue valueWithNonretainedObject:client]];
     [client unstartArticle:itemID];    
+    
+    NSNotification* notify = [NSNotification notificationWithName:NOTIFICATION_UNSTARSUCCESS object:itemID];
+    [[NSNotificationCenter defaultCenter] postNotification:notify];
 }
 
 -(void)markArticleAsRead:(NSNotification*)notification{
@@ -551,11 +556,11 @@ static CGFloat refreshDistance = 60.0f;
 #pragma mark - google reader client call back
 -(void)didReceiveStarResonponse:(GoogleReaderClient*)client{
     NSValue* key = [NSValue valueWithNonretainedObject:client];
-    NSString* itemID = [self.itemIDs objectForKey:key];
+//    NSString* itemID = [self.itemIDs objectForKey:key];
 
     if (client.error == nil && client.isResponseOK){
-        NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_STARSUCCESS object:itemID];
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//        NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_STARSUCCESS object:itemID];
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }else{
         //handle failure
         [[BRErrorHandler sharedHandler] handleErrorMessage:NSLocalizedString(@"msg_starfailed", nil) alert:YES];
@@ -568,11 +573,11 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)didReceiveUnstarResponse:(GoogleReaderClient*)client{
     NSValue* key = [NSValue valueWithNonretainedObject:client];
-    NSString* itemID = [self.itemIDs objectForKey:key];
+//    NSString* itemID = [self.itemIDs objectForKey:key];
     
     if (client.isResponseOK){
-        NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_UNSTARSUCCESS object:itemID];
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//        NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_UNSTARSUCCESS object:itemID];
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }else{
         //handle failure
         [[BRErrorHandler sharedHandler] handleErrorMessage:NSLocalizedString(@"msg_unstarfailed", nil) alert:YES];

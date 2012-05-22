@@ -201,12 +201,12 @@
     [self.client editSubscription:self.subscription.ID tagToAdd:newLabel tagToRemove:nil];
 }
 -(void)unsubscribe{
-    self.activityLabel.message = NSLocalizedString(@"message_subscribing", nil);
+    self.activityLabel.message = NSLocalizedString(@"message_unsubscribing", nil);
     [self.activityLabel show];
     [self startTimer];
     [self.client clearAndCancel];
-    self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(subscribeDidFinish:)];
-    [self.client addSubscription:self.subscription.ID withTitle:self.subscription.title toTag:nil];
+    self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(unsubscribeDidFinish:)];
+    [self.client removeSubscription:self.subscription.ID];
 }
 
 -(void)subscribe{

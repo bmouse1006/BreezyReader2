@@ -37,7 +37,7 @@
 "title_showallarticles" = "显示所有文章";
 "title_unreadonly" = "只显示未读文章";
 "title_cache" = "缓存";
-"title_accounts" = "账户";
+"title_accounts" = "账号";
 "title_appearence" = "主屏幕显示";
 "title_google" = "Google账号";
 "title_otheraccounts" = "其它账号";
@@ -51,6 +51,7 @@
 "title_showunreadonly" = "只显示未读";
 "title_remembermychoice" = "记住我的操作";
 "title_done" = "完成";
+"title_userpreference" = "用户偏好";
 
 "message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
 "message_subscribe" = "您想要订阅 \"%@\" 吗?";

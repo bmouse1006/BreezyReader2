@@ -73,6 +73,7 @@
     self.scrollView.datasource = self;
     self.scrollView.delegate = self;
     self.scrollView.pageIndex = self.index;
+//    self.scrollView.dimTheInvisibleContentView = YES;
     [self.scrollView reloadData];
     
     self.adView = [[BRADManager sharedManager] adView];

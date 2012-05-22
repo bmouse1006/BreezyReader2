@@ -8,6 +8,14 @@
 
 #import "UserPreferenceDefine.h"
 
+typedef enum{
+    BRAccountTypeGoogle,
+    BRAccountTypeWeibo,
+    BRAccountTypeReadItLater,
+    BRAccountTypeInstapaper,
+    BRAccountTypeEvernote,
+} BRAccountType;
+
 @interface BRUserPreferenceDefine : UserPreferenceDefine
 
 +(NSString*)backgroundImageName;
@@ -23,5 +31,6 @@
 +(BOOL)shouldShowRecommendations;
 +(BOOL)unreadOnlyStatusForStream:(NSString*)streamID;
 +(void)rememberAction:(BOOL)unreadOnly forStream:(NSString*)streamID;
++(BOOL)hasTheAccountBeenSignedIn:(BRAccountType)accountType;
 
 @end
