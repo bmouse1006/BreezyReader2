@@ -205,7 +205,8 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 //    temp = [temp stringByReplacingOccurrencesOfRegex:@"<[^>]*/font>" withString:@"</span>"];
 //    temp = [temp stringByReplacingOccurrencesOfRegex:@"<br[^>]*>" withString:@"<p>"];
 //    temp = [temp stringByReplacingOccurrencesOfRegex:@"<[^>]*/br>" withString:@"</p>"];
-    return [temp stringByReplacingOccurrencesOfRegex:@"<a\\s*[^>]*?feedsportal.*?/a>" withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfRegex:@"<a\\s*[^>]*?feedsportal.*?/a>" withString:@""];
+    return temp;
 }
 
 #pragma mark - gesture recgonizer delegate

@@ -46,4 +46,6 @@ typedef enum{
 -(void)sendToInstapaperWithTitle:(NSString*)title message:(NSString*)message urlString:(NSString*)urlString;
 -(void)sendToMailWithTitle:(NSString*)title message:(NSString*)message urlString:(NSString*)urlString;
 
+-(BOOL)evernoteHandleOpenURL:(NSURL*)url;
+
 @end

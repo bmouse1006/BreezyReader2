@@ -14,6 +14,8 @@
 @synthesize touchToDismiss = _touchToDismiss;
 @synthesize jjViewDelegate = _jjViewDelegate;
 
+static BaseView* _currentView = nil;
+
 -(void)dealloc{
     self.jjViewDelegate = nil;
     [super dealloc];
@@ -75,16 +77,22 @@
     } completion:^(BOOL finished){
         if (finished == YES){
             [self removeFromSuperview];
-            DebugLog(@"view removed", nil);
+            NSLog(@"view removed");
             if ([blockSelf.jjViewDelegate respondsToSelector:@selector(viewDidDismiss:)]){
                 [blockSelf.jjViewDelegate viewDidDismiss:blockSelf];
             }
         }
+        _currentView = nil;
     }];
 }
 
 -(void)show{
 
+    if (!_currentView){
+        [_currentView removeFromSuperview];
+        _currentView = nil;
+    }
+    
     UIView* sv = [self getSuperView];
     CGRect bounds = sv.bounds;
     [self setFrame:bounds];
@@ -104,11 +112,16 @@
             }
         }
     }];
+    _currentView = self;
 }
 
 +(id)loadFromBundle{
     id obj = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] objectAtIndex:0];
     return obj;
+}
+
++(id)currentView{
+    return _currentView;
 }
 
 @end

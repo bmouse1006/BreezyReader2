@@ -22,3 +22,4 @@
 "title_notebook" = "笔记本";
 "title_notebooklist" = "笔记本列表";
 "title_send" = "发送";
+"title_imageswillnotbecopiedtoevernote" = "在当前的版本中图像不会被发送到Evernote里。您可以在Evernote里通过附加在笔记上的URL地址访问原始页面。";

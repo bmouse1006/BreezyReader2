@@ -9,4 +9,4 @@
 #import "BaseView.h"
 #import "BaseAlertView.h"
 #import "BaseMessageView.h"
-//#import "BaseImageScrollView.h"
+#import "BaseImageScrollView.h"

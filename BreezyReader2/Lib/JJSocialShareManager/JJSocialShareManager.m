@@ -16,6 +16,7 @@
 #import "SHKFacebook.h"
 #import "SHKInstapaper.h"
 #import "SHKMail.h"
+#import "EvernoteSDK.h"
 
 @interface JJSocialShareManager ()
 
@@ -75,6 +76,10 @@ static UIViewController* _rootViewController = nil;
     }
 }
 
+-(BOOL)evernoteHandleOpenURL:(NSURL*)url{
+    [ENNoteComposerController setStartHandleOpenURL:YES];
+    return [[EvernoteSession sharedSession] handleOpenURL:url];
+}
 
 #pragma mark - send to interface
 -(void)sendToWeiboWithMessage:(NSString*)message urlString:(NSString*)urlString image:(UIImage*)image{

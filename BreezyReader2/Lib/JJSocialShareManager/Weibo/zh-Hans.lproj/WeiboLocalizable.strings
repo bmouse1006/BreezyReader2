@@ -14,3 +14,7 @@
 "Weibo send failed!" = "微博发送失败!";
 "Weibo send succeeded!" = "微博发送成功!";
 "Authentication Failed!" = "身份验证失败!";
+"Please Wait" = "请稍候...";
+"Sina Weibo" = "新浪微博";
+"Sina Weibo Login" = "新浪微博登录";
+"Select and Copy the PIN" = "选择并复制PIN";

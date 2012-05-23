@@ -31,4 +31,6 @@
 -(void)setENTitle:(NSString*)title;
 -(void)setENURLString:(NSString*)urlString;
 
++(void)setStartHandleOpenURL:(BOOL)started;
+
 @end

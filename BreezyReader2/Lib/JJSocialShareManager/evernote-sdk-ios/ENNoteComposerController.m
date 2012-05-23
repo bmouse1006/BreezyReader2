@@ -11,6 +11,7 @@
 #import "EvernoteSDK.h"
 #import "BaseActivityLabel.h"
 #import "BaseAlertView.h"
+#import "RegexKitLite.h"
 
 @interface ENNoteComposerController (){
     BOOL _saveURLOnly;
@@ -25,6 +26,8 @@
 
 @implementation ENNoteComposerController
 
+static BOOL _startHandleOpenURL;
+
 @synthesize titleCell = _titleCell, contentCell = _contentCell, urlCell = _urlCell, notebookCell = _notebookCell, urlStringCell = _urlStringCell;
 @synthesize cells = _cells;
 @synthesize sendButton = _sendButton, cancelButton = _cancelButton;
@@ -32,6 +35,7 @@
 @synthesize ENTitle = _ENTitle, ENContent = _ENContent, ENURLString = _ENURLString;
 
 -(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.titleCell = nil;
     self.contentCell = nil;
     self.urlCell = nil;
@@ -52,7 +56,7 @@
     [super initWithStyle:style];
     
     if (self){
-        
+
     }
     
     return self;
@@ -70,7 +74,9 @@
     self.titleField.placeholder = EvernoteLocalizedString(@"title_title", nil);
     self.titleField.text = self.ENTitle;
     self.contentCell.textLabel.text = EvernoteLocalizedString(@"title_message", nil);
-    [self.contentView loadHTMLString:self.ENContent baseURL:nil];
+    NSString* contentWithoutImages = [self.ENContent stringByReplacingOccurrencesOfRegex:@"<iframe\\s*[^>]*>" withString:@""];
+    contentWithoutImages = [contentWithoutImages stringByReplacingOccurrencesOfRegex:@"<img\\s*[^>]*>" withString:@""];
+    [self.contentView loadHTMLString:contentWithoutImages baseURL:nil];
     self.urlStringCell.textLabel.text = EvernoteLocalizedString(@"title_urlstring", nil);
     self.urlStringCell.detailTextLabel.text = self.ENURLString;
     self.urlCell.textLabel.text = EvernoteLocalizedString(@"title_saveurlonly", nil);
@@ -86,6 +92,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSBundle mainBundle] localizedStringForKey:@"" value:@"" table:nil];
     self.title = EvernoteLocalizedString(@"title_sendtoevernote", nil);
     
@@ -109,6 +116,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -135,6 +143,7 @@
                 [activity setFinished:YES];
                 [self updateUI];
             } 
+            _startHandleOpenURL = NO;
         }];
     }
     
@@ -200,6 +209,19 @@
     }
 }
 
++(void)setStartHandleOpenURL:(BOOL)started{
+    _startHandleOpenURL = started;
+}
+
+#pragma mark - notification call back
+-(void)becomeActive:(NSNotification*)notification{
+    if (_startHandleOpenURL == NO){
+        BaseActivityLabel* activity = [BaseActivityLabel currentView];
+        [activity dismiss];
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
+}
+
 #pragma mark - action call back
 -(void)cancelButtonClicked:(id)sender{
     [self dismissViewControllerAnimated:YES completion:NULL];
@@ -242,7 +264,9 @@
     NSString* noteTemplate = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:kENNoteContentTemplateName ofType:@"xml"] 
                                                        encoding:NSUTF8StringEncoding 
                                                           error:NULL];
-    NSString* contentText = self.ENContent;
+    NSString* contentText =[self.ENContent stringByReplacingOccurrencesOfRegex:@"<iframe\\s*[^>]*>" withString:@""];
+    contentText = [contentText stringByReplacingOccurrencesOfRegex:@"<img\\s*[^>]*>" withString:@""];
+    contentText = [contentText stringByReplacingOccurrencesOfString:@"<br>" withString:@"<br/>"];
     
     if (_saveURLOnly){
         contentText = @"";
@@ -303,6 +327,10 @@
         ENNotebookListViewController* notebookList = [[[ENNotebookListViewController alloc] initWithNibName:@"ENNotebookListViewController" bundle:nil] autorelease];
         [self.navigationController pushViewController:notebookList animated:YES];
     }
+}
+
+-(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
+    return EvernoteLocalizedString(@"title_imageswillnotbecopiedtoevernote", nil);
 }
 
 @end

@@ -22,3 +22,4 @@
 "title_notebook" = "Notebook";
 "title_notebooklist" = "Notebook list";
 "title_send" = "Send";
+"title_imageswillnotbecopiedtoevernote" = "Images won't be send to Evernote in current version. You could access the original web page via URL that attached to the note in Evernote.";

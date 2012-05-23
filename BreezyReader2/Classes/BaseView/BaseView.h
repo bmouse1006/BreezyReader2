@@ -28,6 +28,7 @@
 -(IBAction)dismiss;
 
 +(id)loadFromBundle;
++(id)currentView;
 
 @property (nonatomic, readonly, getter = getSuperView) UIView* superView;
 @property (nonatomic, assign) BOOL touchToDismiss;

@@ -18,7 +18,7 @@
 #import "ASIDownloadCache.h"
 #import "BRTopContainer.h"
 #import "GoogleReaderClient.h"
-#import "EvernoteSDK.h"
+#import "JJSocialShareManager.h"
 
 void uncaughtExceptionHandler(NSException *exception);
 
@@ -152,7 +152,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
-    if ([[EvernoteSession sharedSession] handleOpenURL:url]) {
+    if ([[JJSocialShareManager sharedManager] evernoteHandleOpenURL:url]) {
         return YES;
     } 
     return NO;

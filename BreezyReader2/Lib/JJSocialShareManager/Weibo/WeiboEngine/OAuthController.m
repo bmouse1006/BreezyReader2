@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "OAuthController.h"
 #import "OAuthEngine.h"
+#import "WeiboCommonDefine.h"
 
 @interface OAuthController ()
 @property (nonatomic, readonly) UIToolbar *pinCopyPromptBar;
@@ -148,7 +149,7 @@
 	if ([_blockerView.layer respondsToSelector: @selector(setCornerRadius:)]) [(id) _blockerView.layer setCornerRadius: 10];
 	
 	UILabel								*label = [[[UILabel alloc] initWithFrame: CGRectMake(0, 5, _blockerView.bounds.size.width, 15)] autorelease];
-	label.text = NSLocalizedString(@"Please Wait…", nil);
+	label.text = WeiboLocalizedString(@"Please Wait", nil);
 	label.backgroundColor = [UIColor clearColor];
 	label.textColor = [UIColor whiteColor];
 	label.textAlignment = UITextAlignmentCenter;
@@ -162,7 +163,7 @@
 	[self.view addSubview: _blockerView];
 	[spinner startAnimating];
 	
-	UINavigationItem				*navItem = [[[UINavigationItem alloc] initWithTitle: NSLocalizedString(@"Sina Weibo Info", nil)] autorelease];
+	UINavigationItem				*navItem = [[[UINavigationItem alloc] initWithTitle: WeiboLocalizedString(@"Sina Weibo Login", nil)] autorelease];
 	navItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel target: self action: @selector(cancel:)] autorelease];
 	
 	[_navBar pushNavigationItem: navItem animated: NO];
@@ -303,7 +304,7 @@
 		
 		_pinCopyPromptBar.items = [NSArray arrayWithObjects: 
 								   [[[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace target: nil action: nil] autorelease],
-								   [[[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"Select and Copy the PIN", @"Select and Copy the PIN") style: UIBarButtonItemStylePlain target: nil action: nil] autorelease], 
+								   [[[UIBarButtonItem alloc] initWithTitle: WeiboLocalizedString(@"Select and Copy the PIN", @"Select and Copy the PIN") style: UIBarButtonItemStylePlain target: nil action: nil] autorelease], 
 								   [[[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace target: nil action: nil] autorelease], 
 								   nil];
 	}

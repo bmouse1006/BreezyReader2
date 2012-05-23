@@ -13,9 +13,7 @@
 #import "OAuthController.h"
 #import "BaseAlertView.h"
 #import <QuartzCore/QuartzCore.h>
-
-#define WeiboLocalizedString(key, comment) \
-[[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:@"WeiboLocalizable"]
+#import "WeiboCommonDefine.h"
 
 #define kWeiboOAuthConsumerKey      @"899283629" //replace
 #define kWeiboOAuthConsumerSecret   @"fd35ec9563f631cd5ecfb2a1dda8cc9c" //replace
@@ -106,7 +104,7 @@
     
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
     
-    self.titleLabel.text = NSLocalizedString(@"Weibo", nil);
+    self.titleLabel.text = WeiboLocalizedString(@"Sina Weibo", nil);
     self.titleLabel.shadowColor = [UIColor whiteColor];
     self.titleLabel.shadowOffset = CGSizeMake(0, 1);
     CGRect frame = self.sepertorLine.frame;
