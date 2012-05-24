@@ -14,6 +14,7 @@
 @property (nonatomic, retain) IBOutlet UILabel* label;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView * activityView;
 @property (nonatomic, retain) IBOutlet UIImageView* doneImage;
+@property (nonatomic, retain) IBOutlet UIImageView* failedImage;
 @property (nonatomic, retain) NSString* message;
 
 -(void)dismissAfterDelay:(NSTimeInterval)delay;

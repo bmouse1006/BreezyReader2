@@ -24,6 +24,7 @@ typedef enum{
 +(void)setDefaultBackgroundImage:(UIImage*)image withName:(NSString*)name;
 
 +(UIColor*)flipThumbnailColor;
++(UIColor*)barColor;
 
 +(BOOL)shouldLoadAD;
 +(BOOL)shouldAutoFlipThumbnail;

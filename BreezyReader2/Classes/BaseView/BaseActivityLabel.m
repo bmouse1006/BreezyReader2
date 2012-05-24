@@ -12,7 +12,7 @@
 @implementation BaseActivityLabel
 
 @synthesize contentView = _contentView, label = _label;
-@synthesize doneImage = _doneImage, activityView = _activityView;
+@synthesize doneImage = _doneImage, activityView = _activityView, failedImage = _failedImage;
 @dynamic message;
 
 -(void)awakeFromNib{
@@ -26,6 +26,7 @@
     self.label = nil;
     self.doneImage = nil;
     self.activityView = nil;
+    self.failedImage = nil;
     [super dealloc];
 }
 
@@ -42,7 +43,11 @@
 }
 
 -(void)setFinished:(BOOL)finished{
-    self.doneImage.hidden = NO;
+    if (finished){
+        self.doneImage.hidden = NO;
+    }else{
+        self.failedImage.hidden = NO;
+    }
     self.activityView.hidden = YES;
     [self dismissAfterDelay:1.5f];
 }

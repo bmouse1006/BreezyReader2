@@ -27,7 +27,13 @@
 static UIImage* _backgroundImage = nil;
 
 +(UIColor*)flipThumbnailColor{
-    return [UIColor colorWithRed:26/255.0 green:78/255.0 blue:138/255.0 alpha:0.6];
+//    return [UIColor colorWithRed:26/255.0 green:78/255.0 blue:138/255.0 alpha:0.6];
+//    return [UIColor colorWithRed:154/255.0 green:205/255.0 blue:244/255.0 alpha:0.6];
+    return [UIColor colorWithRed:12/255.0 green:65/255.0 blue:122/255.0 alpha:0.4];
+}
+
++(UIColor*)barColor{
+    return [UIColor colorWithRed:12/255.0 green:65/255.0 blue:122/255.0 alpha:1];
 }
 
 +(NSURL*)backgroundImageStoreURL{

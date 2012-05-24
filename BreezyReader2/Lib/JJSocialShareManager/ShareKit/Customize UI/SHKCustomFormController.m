@@ -31,5 +31,9 @@
 @implementation SHKCustomFormController
 
 // See http://getsharekit.com/customize/ for additional information on customizing
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
+}
 
 @end

@@ -28,6 +28,8 @@
 
 @property (nonatomic, retain) IBOutlet UIView* loadingView;
 @property (nonatomic, retain) IBOutlet JJLabel* loadingLabel;
+@property (nonatomic, retain) IBOutlet UIView* noMoreView;
+@property (nonatomic, retain) IBOutlet UILabel* noMoreLabel;
 
 @property (nonatomic, retain) IBOutlet UIView* titleView;
 @property (nonatomic, retain) IBOutlet JJLabel* titleLabel;

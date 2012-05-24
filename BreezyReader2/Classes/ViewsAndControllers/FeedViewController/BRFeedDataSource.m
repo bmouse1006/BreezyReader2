@@ -131,7 +131,7 @@
 }
 
 -(BOOL)isEmpty{
-    return ([self.items count] != 0);
+    return ([self.feed.items count] == 0);
 }
 
 -(BOOL)hasMore{
@@ -153,7 +153,7 @@
         [self.delegate dataSource:self didFinishLoading:NO];
         [self loadMoreFeedInBackground];
     }else{
-        [[BRErrorHandler sharedHandler] handleErrorMessage:[client.error localizedDescription]  alert:YES];
+        [[BRErrorHandler sharedHandler] handleErrorMessage:NSLocalizedString([client.error localizedDescription], nil)  alert:YES];
     }
 }
 
@@ -163,7 +163,7 @@
         _loadingMore = NO;
         [self.delegate dataSource:self didFinishLoading:YES];
     }else{
-        [[BRErrorHandler sharedHandler] handleErrorMessage:[client.error localizedDescription]  alert:YES];
+        [[BRErrorHandler sharedHandler] handleErrorMessage:NSLocalizedString([client.error localizedDescription], nil)  alert:YES];
     }
 }
 

@@ -53,6 +53,7 @@
 "title_remembermychoice" = "Remember my action";
 "title_done" = "Done";
 "title_userpreference" = "User preference";
+"title_nomorearticles" = "No unread articles";
 
 "message_unsubscribe" = "Do you want to unsubscribe \"%@?\"";
 "message_subscribe" = "Do you want to subscribe \"%@?\"";
@@ -71,6 +72,7 @@
 "message_reloadalldata" = "Do you want to sync data with Google Reader?";
 "message_startloading" = "Synchronizing";
 "message_settingbackgroundimage" = "Setting background";
+"The request timed out" = "The request timed out";
 
 "msg_searching" = "Searching...";
 "msg_unstarfailed" = "Failed to remove star";

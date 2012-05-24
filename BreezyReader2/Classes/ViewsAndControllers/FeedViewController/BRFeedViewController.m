@@ -60,6 +60,8 @@
 @synthesize adView = _adView;
 @synthesize menuButton = _menuButton;
 @synthesize configButton = _configButton;
+@synthesize noMoreView = _noMoreView;
+@synthesize noMoreLabel = _noMoreLabel;
 
 static CGFloat insetsTop = 0.0f;
 static CGFloat insetsBottom = 0.0f;
@@ -86,6 +88,8 @@ static CGFloat refreshDistance = 60.0f;
     self.menuButton = nil;
     self.configViewController = nil;
     self.configButton = nil;
+    self.noMoreView = nil;
+    self.noMoreLabel = nil;
     [super dealloc];
 }
 
@@ -164,6 +168,8 @@ static CGFloat refreshDistance = 60.0f;
     self.loadingLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
     self.loadingLabel.textColor = [UIColor darkGrayColor];
     self.loadingLabel.text = NSLocalizedString(@"title_loading", nil);
+    
+    self.noMoreLabel.text = NSLocalizedString(@"title_nomorearticles", nil);
     
     self.dragController.view.alpha = 0;
     self.dataSource = [[[BRFeedDataSource alloc] init] autorelease];
@@ -418,8 +424,13 @@ static CGFloat refreshDistance = 60.0f;
 
 #pragma mark - data source delegate
 -(void)dataSource:(BRBaseDataSource *)dataSource didFinishLoading:(BOOL)more{
+    if ([dataSource isEmpty]){
+        [self.mainContainer insertSubview:self.noMoreView aboveSubview:self.tableView];
+    }else{
+        [self.noMoreView removeFromSuperview];
+    }
     if (more){
-        [self.loadMoreController stopLoadingWithMore:[self.dataSource hasMore]];
+        [self.loadMoreController stopLoadingWithMore:[dataSource hasMore]];
         _isLoadingMore = NO;
     }else{
         _isRefreshing = NO;

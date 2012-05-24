@@ -19,6 +19,7 @@
 #import "BRTopContainer.h"
 #import "GoogleReaderClient.h"
 #import "JJSocialShareManager.h"
+#import "BRUserPreferenceDefine.h"
 
 void uncaughtExceptionHandler(NSException *exception);
 
@@ -143,11 +144,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 #pragma mark - appearence setup
 -(void)setupGlobalAppearence{
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navbar_bg"] forBarMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setTintColor:[BRUserPreferenceDefine barColor]];
 //    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:[NSValue valueWithUIOffset:UIOffsetMake(0, 0)] forKey:UITextAttributeTextShadowOffset]];
-//    
+    
 //    [[UIToolbar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-//    
+    
 //    [[UISearchBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"]];
 }
 

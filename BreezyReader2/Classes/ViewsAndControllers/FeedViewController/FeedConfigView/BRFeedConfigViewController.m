@@ -223,10 +223,11 @@
     if ([client isResponseOK]){
         self.activityLabel.message = NSLocalizedString(@"message_unsubscribesucceded", nil);
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FEED_UNSUBSCRIBED object:self.subscription.ID];
+        [self.activityLabel setFinished:YES];
     }else{
         self.activityLabel.message = NSLocalizedString(@"message_unsubscribefailed", nil);
+        [self.activityLabel setFinished:NO];
     }
-    [self.activityLabel performSelector:@selector(dismiss) withObject:nil afterDelay:1.0f];
 }
 
 -(void)subscribeDidFinish:(GoogleReaderClient*)client{
@@ -236,10 +237,11 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FEED_SUBSCRIBED object:self.subscription.ID];
         self.settingDataSources = nil;
         [self.tableView reloadData];
+        [self.activityLabel setFinished:YES];
     }else{
         self.activityLabel.message = NSLocalizedString(@"message_subscribefailed", nil);
+        [self.activityLabel setFinished:NO];
     }
-    [self.activityLabel performSelector:@selector(dismiss) withObject:nil afterDelay:1.0f];
 }
 
 -(void)addNewTagFinished:(GoogleReaderClient*)client{

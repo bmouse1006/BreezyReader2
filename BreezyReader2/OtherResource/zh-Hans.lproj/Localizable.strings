@@ -52,6 +52,7 @@
 "title_remembermychoice" = "记住我的操作";
 "title_done" = "完成";
 "title_userpreference" = "用户偏好";
+"title_nomorearticles" = "没有未读文章";
 
 "message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
 "message_subscribe" = "您想要订阅 \"%@\" 吗?";
@@ -70,6 +71,7 @@
 "message_reloadalldata" = "你想要手动同步Google Reader吗?";
 "message_startloading" = "同步中";
 "message_settingbackgroundimage" = "设置背景";
+"The request timed out" = "请求超时:(";
 
 "msg_searching" = "搜索中...";
 "msg_unstarfailed" = "去星标失败啦";
