@@ -34,6 +34,7 @@
 -(IBAction)unstarItem:(id)sender;
 -(IBAction)scrollCurrentPageToTop:(id)sender;
 -(IBAction)showHideFontsizeMenu:(id)sender;
+-(IBAction)favoriteActionButtonClicked:(id)sender;
 
 -(IBAction)showHideActionMenuButtonClicked:(id)sender;
 

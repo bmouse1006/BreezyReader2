@@ -13,6 +13,7 @@
 #import "JJSingleWebController.h"
 #import "JJSocialShareManager.h"
 #import "BRADManager.h"
+#import "GoogleReaderClientHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface BRArticleScrollViewController (){
@@ -145,20 +146,16 @@
     self.articleDetailControllers = controllers;
 }
 
--(void)markAsReadFinished:(GoogleReaderClient*)client{
-    [self.clients removeObject:client];
-}
-
 #pragma mark - action
 -(IBAction)showHideActionMenuButtonClicked:(id)sender{
-    _showMenu = !_showMenu;
     [self showHideActionMenu];
 }
 
 -(void)showHideActionMenu{
+    _showMenu = !_showMenu;
     if (_showMenu){
         CGFloat x = self.mainContainer.frame.size.width - 10;
-        CGFloat y = self.bottomToolBar.frame.origin.y - 3;
+        CGFloat y = self.bottomToolBar.frame.origin.y - self.adView.frame.size.height - 3;
         [self.actionMenuController showMenuInPosition:CGPointMake(x, y) anchorPoint:CGPointMake(1, 1)];
     }else{
         [self.actionMenuController dismiss];
@@ -166,6 +163,10 @@
 }
 
 -(IBAction)showHideFontsizeMenu:(id)sender{
+    
+}
+
+-(IBAction)favoriteActionButtonClicked:(id)sender{
     
 }
 
@@ -189,39 +190,26 @@
 }
 
 -(IBAction)starItem:(id)sender{
-    GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(starFinished:)];
+    GoogleReaderClient* client = [GoogleReaderClientHelper client];
     GRItem* item = [self.feed.items objectAtIndex:self.index];
     [client starArticle:item.ID];
-    [self.clients addObject:client];
+    if (self.starButton.superview == self.starButtonContainer){
+        [UIView transitionFromView:self.starButton toView:self.unstarButton duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
+            [self.starButton removeFromSuperview]; 
+        }];
+    }
+
 }
 
 -(IBAction)unstarItem:(id)sender{
-    GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(unstarFinished:)];
+    GoogleReaderClient* client = [GoogleReaderClientHelper client];
     GRItem* item = [self.feed.items objectAtIndex:self.index];
     [client unstartArticle:item.ID];
-    [self.clients addObject:client];
-}
-
--(void)starFinished:(GoogleReaderClient*)client{
-    if (client.isResponseOK){
-        if (self.starButton.superview == self.starButtonContainer){
-            [UIView transitionFromView:self.starButton toView:self.unstarButton duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
-                [self.starButton removeFromSuperview]; 
-            }];
-        }
+    if (self.unstarButton.superview == self.starButtonContainer){
+        [UIView transitionFromView:self.unstarButton toView:self.starButton duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
+            [self.unstarButton removeFromSuperview]; 
+        }];
     }
-    [self.clients removeObject:client];
-}
-
--(void)unstarFinished:(GoogleReaderClient*)client{
-    if (client.isResponseOK){
-        if (self.unstarButton.superview == self.starButtonContainer){
-            [UIView transitionFromView:self.unstarButton toView:self.starButton duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
-                [self.unstarButton removeFromSuperview]; 
-            }];
-        }
-    }
-    [self.clients removeObject:client];
 }
 
 #pragma mark - JJPageScrollView data source
@@ -246,8 +234,7 @@
     [self updateBottomToolBar];
     GRItem* item = [self.feed.items objectAtIndex:index];
     if (item.isReaded == NO){
-        GoogleReaderClient* client = [GoogleReaderClient clientWithDelegate:self action:@selector(markAsReadFinished:)];
-        [self.clients addObject:client];
+        GoogleReaderClient* client = [GoogleReaderClientHelper client];
         [client markArticleAsRead:item.ID];
     }
 }
@@ -294,6 +281,7 @@
     GRItem* item = [self.feed.items objectAtIndex:self.index];
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToWeiboWithMessage:item.title urlString:urlString image:nil];
+    [self showHideActionMenu];
 }
 
 -(void)shareToEvernote:(NSNotification*)notification{
@@ -303,6 +291,7 @@
     NSString* content = (item.content)?item.content:item.summary;
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToEvernoteWithTitle:title message:content urlString:urlString];
+    [self showHideActionMenu];
 }
 
 -(void)shareToTwitter:(NSNotification*)notification{
@@ -310,6 +299,7 @@
     GRItem* item = [self.feed.items objectAtIndex:self.index];
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToTwitterWithText:item.title urlString:urlString image:nil];
+    [self showHideActionMenu];
 }
 
 -(void)shareToInstapaper:(NSNotification*)notification{
@@ -334,6 +324,7 @@
     NSString* content = (item.content)?item.content:item.summary;
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToMailWithTitle:item.title message:content urlString:urlString];
+    [self showHideActionMenu];
 }
 
 -(void)shareToFacebook:(NSNotification*)notification{
@@ -342,6 +333,7 @@
     NSString* content = (item.content)?item.content:item.summary;
 //    NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToFacebookWithTitle:item.title message:content];
+    [self showHideActionMenu];
 }
 
 @end
