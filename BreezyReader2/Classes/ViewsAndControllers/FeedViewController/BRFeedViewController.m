@@ -272,6 +272,7 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)addHeaderAndFooterForTableView{
     self.tableView.tableFooterView = self.loadMoreController.view;
+    [self.loadMoreController stopLoadingWithMore:[self.dataSource hasMore]];
     [self.dragController.view removeFromSuperview];
     [self.tableView addSubview:self.dragController.view];
     CGRect frame = self.dragController.view.frame;
@@ -369,7 +370,9 @@ static CGFloat refreshDistance = 60.0f;
     
     if (offset.y + self.tableView.frame.size.height + self.tableView.contentInset.top - self.tableView.contentSize.height + self.dragController.view.frame.size.height > 60){
         DebugLog(@"it's time to load more", nil);
-        self.okToLoadMore = YES;
+        if ([self.dataSource hasMore]){
+            self.okToLoadMore = YES;
+        }
     }else{
         self.okToLoadMore = NO;
     }

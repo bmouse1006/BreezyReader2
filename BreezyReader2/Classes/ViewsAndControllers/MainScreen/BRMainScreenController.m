@@ -56,6 +56,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _initialLoading = YES;
         [self registerNotifications];
         self.wantsFullScreenLayout = YES;
         self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(clientFinished:)];
@@ -109,11 +110,16 @@
     menuRect.origin.y = 0;
     [self.sideMenuController.view setFrame:menuRect];
     
-    [self switchContentViewsToViews:[NSArray arrayWithObjects:self.infinityScroll, self.sideMenuController.view, nil] animated:YES];
-    
     if ([GoogleReaderClient isReaderLoaded] == NO){
-        [self.client refreshReaderStructure];
+        [self startRefreshReaderAndWaiting];
+    }else{
+        [self firstLoadViews];
     }
+}
+
+-(void)firstLoadViews{
+    [self reload];
+    [self switchContentViewsToViews:[NSArray arrayWithObjects:self.infinityScroll, self.sideMenuController.view, nil] animated:YES];
 }
 
 - (void)viewDidUnload
@@ -127,6 +133,7 @@
     self.subOverrviewController = nil;
     self.allSubListController = nil;
     self.activityLabel = nil;
+    _initialLoading = YES;
 //    self.
 }
 
@@ -143,14 +150,9 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    UIImageView* imageView = (UIImageView*)self.backgroundView;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage* image = [BRUserPreferenceDefine backgroundImage];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            imageView.image = image;
-        });
-    });
     [super viewWillAppear:animated];
+    UIImageView* imageView = (UIImageView*)self.backgroundView;
+    imageView.image = [BRUserPreferenceDefine backgroundImage];
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:NO];
@@ -161,7 +163,10 @@
         [self.client refreshUnreadCount];
     }
     
-    [self performSelectorOnMainThread:@selector(reload) withObject:nil waitUntilDone:NO];
+    if (_initialLoading == NO){
+        [self reload];
+    }
+    _initialLoading = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -318,12 +323,16 @@
     if (buttonIndex == 1){
         //ok button
         //start refresh data
-        self.activityLabel = [BaseActivityLabel loadFromBundle];
-        self.activityLabel.message = NSLocalizedString(@"message_startloading", nil);
-        [self.client clearAndCancel];
-        self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(clientFinished:)];
-        [self.client refreshReaderStructure];
+        [self startRefreshReaderAndWaiting];
     }
+}
+
+-(void)startRefreshReaderAndWaiting{
+    self.activityLabel = [BaseActivityLabel loadFromBundle];
+    self.activityLabel.message = NSLocalizedString(@"message_startloading", nil);
+    [self.client clearAndCancel];
+    self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(clientFinished:)];
+    [self.client refreshReaderStructure];
 }
 
 -(void)pickImageForBackground:(NSNotification*)notification{

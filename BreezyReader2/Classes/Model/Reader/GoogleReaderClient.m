@@ -92,15 +92,15 @@ static NSString* _userID = nil;
 
 #pragma mark - reader status
 +(BOOL)needRefreshUnreadCount{
-    return (_needRefreshUnreadCount)?YES:([[NSDate date] timeIntervalSince1970] - _lastUnreadCountRefreshTime > 25*60);
+    return (_needRefreshUnreadCount)?YES:([[NSDate date] timeIntervalSince1970] - _lastUnreadCountRefreshTime > 25*60) && [self isReaderLoaded];;
 }
 
 +(BOOL)needRefreshReaderStructure{
-    return _needRefreshReaderStructure;
+    return _needRefreshReaderStructure && [self isReaderLoaded];
 }
 
 +(BOOL)needRefreshRecommendation{
-    return _needRefreshRecommendation;
+    return _needRefreshRecommendation && [self isReaderLoaded];;
 }
 
 -(NSLock*)refreshingUnreadCountLock{
