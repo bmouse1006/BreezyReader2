@@ -437,6 +437,7 @@ static NSString* _userID = nil;
         if (error == nil){
             [[GoogleAuthManager shared] authRequest:subReq completionBlock:^(NSError* error){
                 if (error == nil){
+                    self.reportError = nil;
                     [blockSelf.requestQueue go];
                 }
             }];
