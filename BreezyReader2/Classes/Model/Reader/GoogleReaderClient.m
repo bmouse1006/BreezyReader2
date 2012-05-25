@@ -442,6 +442,8 @@ static NSString* _userID = nil;
             }];
         }else{ 
             NSLog(@"auth log: %@", [error localizedDescription]);
+            self.reportError = error;
+            [self performCallBack];
         }
     }];
 }
