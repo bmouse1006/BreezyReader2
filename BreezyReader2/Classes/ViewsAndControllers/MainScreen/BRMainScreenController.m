@@ -111,7 +111,19 @@
     [self.sideMenuController.view setFrame:menuRect];
     
     if ([GoogleReaderClient isReaderLoaded] == NO){
-        [self startRefreshReaderAndWaiting];
+        BaseActivityLabel* activityLabel = [BaseActivityLabel loadFromBundle];
+        activityLabel.message = NSLocalizedString(@"message_startloading", nil);
+        [activityLabel show];
+        [self startRefreshReaderAndWaiting:^(NSError* error){
+            if (!error){
+                activityLabel.message = NSLocalizedString(@"message_reloadfinished", nil);
+                [activityLabel setFinished:YES];
+                [self firstLoadViews];
+            }else{
+                activityLabel.message = NSLocalizedString(@"message_reloadfailed", nil);
+                [activityLabel setFinished:NO];
+            }
+        }];
     }else{
         [self firstLoadViews];
     }
@@ -204,7 +216,6 @@
 
 -(void)syncBegan:(NSNotification*)notification{
     DebugLog(@"start to sync reader data", nil);
-    [self.activityLabel show];
 }
 
 -(void)syncEnd:(NSNotification*)notification{
@@ -323,15 +334,17 @@
     if (buttonIndex == 1){
         //ok button
         //start refresh data
-        [self startRefreshReaderAndWaiting];
+        self.activityLabel = [BaseActivityLabel loadFromBundle];
+        self.activityLabel.message = NSLocalizedString(@"message_startloading", nil);
+        [self.activityLabel show];
+        [self startRefreshReaderAndWaiting:NULL];
     }
 }
 
--(void)startRefreshReaderAndWaiting{
-    self.activityLabel = [BaseActivityLabel loadFromBundle];
-    self.activityLabel.message = NSLocalizedString(@"message_startloading", nil);
+-(void)startRefreshReaderAndWaiting:(GoogleReaderCompletionHandler)handler{
     [self.client clearAndCancel];
-    self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(clientFinished:)];
+    self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];
+    [self.client setCompletionHandler:handler];
     [self.client refreshReaderStructure];
 }
 

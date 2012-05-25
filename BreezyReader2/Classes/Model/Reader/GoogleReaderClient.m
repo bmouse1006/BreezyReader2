@@ -47,12 +47,15 @@
 
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, assign) SEL action;
+@property (nonatomic, copy) id delegateCompletionHandler;
 
 @property (nonatomic, retain) ASIHTTPRequest* request;
 @property (nonatomic, retain) ASIHTTPRequest* tokenRequest;
 @property (nonatomic, retain) ASINetworkQueue* requestQueue;
 
-@property (nonatomic, copy) id requestCompletionBlock;
+@property (nonatomic, copy) id requestInternalCompletionBlock;
+
+@property (nonatomic, retain) NSError* reportError;
 
 //add/remove tag to one subscription
 -(void)editSubscription:(NSString*)subscription 
@@ -64,10 +67,12 @@
 		   removeTag:(NSString*)tagToRemove;
 
 @end
-
+ 
 @implementation GoogleReaderClient
 
-@synthesize requestCompletionBlock = _requestCompletionBlock;
+@synthesize reportError = _reportError;
+@synthesize delegateCompletionHandler = _delegateCompletionHandler;
+@synthesize requestInternalCompletionBlock = _requestInternalCompletionBlock;
 @synthesize delegate = _delegate, action = _action;
 @synthesize request = _request;
 @synthesize responseData, responseString, responseJSONValue, error = _error, isResponseOK, responseFeed;
@@ -88,6 +93,10 @@ static NSString* _userID = nil;
 
 +(id)clientWithDelegate:(id)delegate action:(SEL)action{
     return [[[self alloc] initWithDelegate:delegate action:action] autorelease];
+}
+
+-(void)setCompletionHandler:(GoogleReaderCompletionHandler)block{
+    self.delegateCompletionHandler = block;
 }
 
 #pragma mark - reader status
@@ -156,6 +165,9 @@ static NSString* _userID = nil;
     [self clearAllRequests];
     self.delegate = nil;
     self.action = NULL;
+    self.requestInternalCompletionBlock = nil;
+    self.delegateCompletionHandler = nil;
+    self.reportError = nil;
 }
 
 -(void)clearAllRequests{
@@ -518,11 +530,14 @@ static NSString* _userID = nil;
 -(void)tagAndSubRequestFinished:(ASINetworkQueue*)queue{
     //send out notification
     _needRefreshReaderStructure = NO;
+    [self performCallBack];
     [self postNotification:NOTIFICAITON_END_UPDATEREADERSTRUCTURE object:nil];
     [self refreshUnreadCount];
 }
 
--(void)tagAndSubRequestFailed:(ASINetworkQueue*)queue{
+-(void)tagAndSubRequestFailed:(ASIHTTPRequest*)request{
+    self.reportError = request.error;
+    [self performCallBack];
     [self postNotification:NOTIFICAITON_FAILED_UPDATEREADERSTRUCTURE object:nil];
 }
                             
@@ -662,7 +677,7 @@ static NSString* _userID = nil;
     void(^completionBlock)(ASIHTTPRequest*) = ^(ASIHTTPRequest* request){
         _needRefreshRecommendation = NO;
     };
-    self.requestCompletionBlock = completionBlock;
+    self.requestInternalCompletionBlock = completionBlock;
     
     [self listRequestWithURL:[self fullURLFromBaseString:url] parameters:paramSet];
 }
@@ -874,7 +889,7 @@ static NSString* _userID = nil;
                              parameters:paramSet
                                 APIType:API_EDIT];
     self.request.didFinishSelector = @selector(subscriptionEditFinished:);
-    self.requestCompletionBlock = block;
+    self.requestInternalCompletionBlock = block;
     
     __block typeof(self) blockSelf = self;
     [self addTokenToRequest:self.request completionBlock:^(NSError* error){
@@ -888,7 +903,7 @@ static NSString* _userID = nil;
 
 -(void)subscriptionEditFinished:(ASIHTTPRequest*)request{
     if ([self isResponseOK] == YES){
-        [self performRequestCompletionBlock:request];
+        [self performRequestInternalCompletionBlock:request];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NEED_UPATEREADERSTRUCTURE object:nil];
     }
     [self performCallBack];
@@ -900,12 +915,11 @@ static NSString* _userID = nil;
 }
 
 -(void)requestFailed:(ASIHTTPRequest*)request{
-//    [self performRequestCompletionBlock:request];
     [self performCallBack];
 }
 
 -(void)requestFinished:(ASIHTTPRequest*)request{
-    [self performRequestCompletionBlock:request];
+    [self performRequestInternalCompletionBlock:request];
     [self performCallBack];
 }
 
@@ -999,7 +1013,7 @@ static NSString* _userID = nil;
 }
 
 -(NSError*)error{
-    return self.request.error;
+    return (self.reportError)?self.reportError:self.request.error;
 }
 
 #pragma mark - url parameters
@@ -1229,13 +1243,19 @@ static NSString* _userID = nil;
     if (self.action){
         [self.delegate performSelectorOnMainThread:self.action withObject:self waitUntilDone:NO];
     }
+    
+    if (self.delegateCompletionHandler){
+        GoogleReaderCompletionHandler handler = self.delegateCompletionHandler;
+        handler([self error]);
+        self.delegateCompletionHandler = nil;
+    }
 }
 
--(void)performRequestCompletionBlock:(ASIHTTPRequest*)request{
-    if (self.requestCompletionBlock){
-        void(^block)(ASIHTTPRequest*) = self.requestCompletionBlock;
+-(void)performRequestInternalCompletionBlock:(ASIHTTPRequest*)request{
+    if (self.requestInternalCompletionBlock){
+        void(^block)(ASIHTTPRequest*) = self.requestInternalCompletionBlock;
         block(request);
-        self.requestCompletionBlock = nil;
+        self.requestInternalCompletionBlock = nil;
     }
 }
 

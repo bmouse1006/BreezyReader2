@@ -18,6 +18,8 @@ typedef enum{
     BRTagTypeState
 } BRTagType;
 
+typedef void(^GoogleReaderCompletionHandler)(NSError*);
+
 @interface GoogleReaderClient : NSObject<ASIHTTPRequestDelegate>
 
 @property (nonatomic, readonly) NSError* error;
@@ -31,6 +33,7 @@ typedef enum{
 +(id)clientWithDelegate:(id)delegate action:(SEL)action;
 
 -(id)initWithDelegate:(id)delegate action:(SEL)action;
+-(void)setCompletionHandler:(GoogleReaderCompletionHandler)block;
 
 +(BOOL)needRefreshUnreadCount;
 +(BOOL)needRefreshReaderStructure;
