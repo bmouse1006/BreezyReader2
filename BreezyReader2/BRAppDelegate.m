@@ -56,6 +56,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];
     //setup request cache
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
+    [[ASIHTTPRequest sharedQueue] setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
     [self registerNotifications];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
@@ -148,7 +149,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [[UIBarButtonItem appearance] setTintColor:[BRUserPreferenceDefine barColor]];
 //    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:[NSValue valueWithUIOffset:UIOffsetMake(0, 0)] forKey:UITextAttributeTextShadowOffset]];
     
-//    [[UIToolbar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [[UIToolbar appearance] setBackgroundImage:[UIImage imageNamed:@"toolbar_bg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     
 //    [[UISearchBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"]];
 }

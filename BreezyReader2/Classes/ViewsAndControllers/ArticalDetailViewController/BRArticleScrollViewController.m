@@ -167,7 +167,7 @@
 }
 
 -(IBAction)favoriteActionButtonClicked:(id)sender{
-    
+    [self shareToReadItLater:nil];
 }
 
 -(IBAction)back:(id)sender{
@@ -180,6 +180,7 @@
     JJSingleWebController* webController = [[[JJSingleWebController alloc] initWithTheNibOfSameName] autorelease];
     webController.URL = [NSURL URLWithString:item.alternateLink];
     
+    [UIApplication sharedApplication].statusBarHidden = NO;
     UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:webController] autorelease];
     [self presentViewController:nav animated:YES completion:NULL];
 }

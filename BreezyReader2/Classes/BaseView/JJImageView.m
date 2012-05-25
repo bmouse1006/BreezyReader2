@@ -96,11 +96,13 @@
 
 -(void)requestFinished:(ASIHTTPRequest *)request{
     NSLog(@"image url loading completed: %@", request.url);
-    UIImage* image = [UIImage imageWithData:request.responseData];
-    if (CGSizeEqualToSize(image.size, CGSizeZero) == NO){
-        image = [JJThumbnailCache storeThumbnail:image forURL:self.imageURL size:self.bounds.size];
-        [self changeToLoadedImage:image];
-    }
-    [self.delegate imageDidFinishLoading:self];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage* image = [UIImage imageWithData:request.responseData];
+        if (CGSizeEqualToSize(image.size, CGSizeZero) == NO){
+            image = [JJThumbnailCache storeThumbnail:image forURL:self.imageURL size:self.bounds.size];
+            [self changeToLoadedImage:image];
+        }
+        [self.delegate imageDidFinishLoading:self]; 
+    });
 }
 @end

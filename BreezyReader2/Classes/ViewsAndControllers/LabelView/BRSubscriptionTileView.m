@@ -18,7 +18,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 //#define DefaultImage_SUB [UIImage imageNamed:@"default_sub"]
-#define DefaultImage_SUB nil
+#define DefaultImage_SUB [UIImage imageNamed:@"tileview_rss"]
 
 @interface BRSubscriptionTileView (){
     BOOL _isAppearring;
@@ -55,7 +55,6 @@
 @dynamic title;
 
 @synthesize caption = _caption, infoButton = _infoButton;
-@synthesize indicator = _indicator;
 @synthesize imageURLs = _imageURLs;
 @synthesize imageRequest = _imageRequest;
 
@@ -116,7 +115,6 @@ static CGFloat kCaptionHeight = 40.0f;
     self.timer = nil;
     self.caption = nil;
     self.infoButton = nil;
-    self.indicator = nil;
     self.currentImageURL = nil;
     self.unreadLabel = nil;
     self.unreadImage = nil;
@@ -145,13 +143,13 @@ static CGFloat kCaptionHeight = 40.0f;
     if (_subscription != subscription){
         [_subscription release];
         _subscription = [subscription retain];
-        
-        NSArray* images = [[BRImagePreviewCache sharedCache] cachedPreviewImagesForKey:_subscription.ID];
-        if (images){
-            if ([images isKindOfClass:[NSNull class]]){
+        [self.grClient clearAndCancel];
+        NSArray* imageURLs = [[BRImagePreviewCache sharedCache] cachedPreviewImagesForKey:_subscription.ID];
+        if (imageURLs){
+            if ([imageURLs isKindOfClass:[NSNull class]]){
                 [self setImageURLs:nil];
             }else{
-                [self setImageURLs:[[images mutableCopy] autorelease]];
+                [self setImageURLs:[[imageURLs mutableCopy] autorelease]];
             }
         }else{
             [self setImageURLs:nil];
@@ -205,7 +203,8 @@ static CGFloat kCaptionHeight = 40.0f;
 
 -(void)createSubviews{
     
-    self.imageView = [self prepareImageView];
+    self.imageView = [[[UIImageView alloc] initWithImage:DefaultImage_SUB] autorelease];
+    self.imageView.alpha = 0.3f;
     
     self.caption = [[[JJLabel alloc] initWithFrame:CGRectZero] autorelease];
     self.caption.backgroundColor = [UIColor clearColor];
@@ -250,7 +249,6 @@ static CGFloat kCaptionHeight = 40.0f;
     
     [self addSubview:self.imageView];
 //    [self addSubview:self.caption];
-    [self addSubview:self.indicator];
     [self addSubview:self.unreadImage];
 //    [self addSubview:self.infoButton];
     [self addSubview:self.captionImage];
@@ -316,6 +314,7 @@ static CGFloat kCaptionHeight = 40.0f;
         _imageURLs = [imageURLs retain];
         //start load images
         [self.imageView performSelectorOnMainThread:@selector(setImage:) withObject:DefaultImage_SUB waitUntilDone:NO];
+        self.imageView.alpha = 0.3f;
         _hasPreview = NO;
         if ([_imageURLs count] > 0){
             [self startImageSwitching:[_imageURLs objectAtIndex:0]];
@@ -326,7 +325,7 @@ static CGFloat kCaptionHeight = 40.0f;
 -(UIImageView*)prepareImageView{
     UIImageView* imageView = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.image = DefaultImage_SUB;
+//    imageView.image = DefaultImage_SUB;
     imageView.clipsToBounds = YES;
     
     return imageView;

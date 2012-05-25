@@ -47,6 +47,14 @@ typedef void(^GoogleReaderCompletionHandler)(NSError*);
                     continuation:(NSString*)continuationStr
                     forceRefresh:(BOOL)refresh 
                         needAuth:(BOOL)needAuth;
+
+-(void)requestFeedWithIdentifier:(NSString*)identifer
+                           count:(NSNumber*)count 
+                       startFrom:(NSDate*)date 
+                         exclude:(NSString*)excludeString 
+                    continuation:(NSString*)continuationStr
+                    forceRefresh:(BOOL)refresh 
+                        needAuth:(BOOL)needAuth priority:(NSOperationQueuePriority)priority;
 //reader structure
 +(GRTag*)tagWithID:(NSString*)tagID;
 +(GRSubscription*)subscriptionWithID:(NSString*)subID;

@@ -20,6 +20,9 @@
 @property (nonatomic, retain) IBOutlet SideMenuController* sideMenuController;
 @property (nonatomic, retain) IBOutlet BRFeedAndArticlesSearchController* searchController;
 @property (nonatomic, retain) IBOutlet BRTagAndSubListViewController* allSubListController;
+@property (nonatomic, retain) IBOutlet UIView* firstSyncFailedView;
 @property (nonatomic, retain) SubOverviewController* subOverrviewController;
+
+-(IBAction)syncReaderFirstTime:(id)sender;
 
 @end

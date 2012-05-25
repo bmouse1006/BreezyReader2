@@ -16,7 +16,7 @@ NSString* const LOGIN_INPROGRESS			= @"3";
 NSString * const CLIENT_IDENTIFIER			= @"BREEZYREADER-2.0.0";
 
 NSString * const GOOGLE_SCHEME				= @"http://www.google.com/";
-NSString * const GOOGLE_SCHEME_SSL			= @"https://www.google.com/";
+NSString * const GOOGLE_SCHEME_SSL			= @"https://www.google.comm/";
 
 NSString * const COOKIE_DOMAIN				= @".google.com";
 NSString * const COOKIE_SID					= @"SID";

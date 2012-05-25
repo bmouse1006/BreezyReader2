@@ -8,6 +8,9 @@
 
 #import "JJSingleWebController.h"
 
+#define SingleWebLocalizedString(key, comment) \
+[[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:@"SingleWeb"]
+
 @interface JJSingleWebController ()
 
 @property (nonatomic, retain) UIBarButtonItem* backIcon;
@@ -44,6 +47,7 @@
     if (self) {
         // Custom initialization
         self.hidesBottomBarWhenPushed = YES;
+        self.wantsFullScreenLayout = NO;
     }
     return self;
 }
@@ -61,31 +65,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [UIApplication sharedApplication].statusBarHidden = NO;
+    [UIApplication sharedApplication].statusBarStyle = UIBarStyleDefault;
     // Do any additional setup after loading the view from its nib.
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
     [self hideGradientBackground:self.webView];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     if (self.navigationItem.leftBarButtonItem == nil){
         
-        UIButton* button = [[[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)] autorelease];
-        [button setTitle:@"close" forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
-        
-        UIBarButtonItem* closeButton = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
-        self.navigationItem.leftBarButtonItem = closeButton;
+        UIBarButtonItem* closeItem = [[[UIBarButtonItem alloc] initWithTitle:SingleWebLocalizedString(@"title_close", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(closeAction:)] autorelease];
+        self.navigationItem.leftBarButtonItem = closeItem;
     }
     
     self.backIcon = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backIcon"] style:UIBarButtonItemStylePlain target:self.webView action:@selector(goBack)] autorelease];
+    self.backIcon.tintColor = nil;
     self.forwardIcon = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forwardIcon"] style:UIBarButtonItemStylePlain target:self.webView action:@selector(goForward)] autorelease];
+    self.forwardIcon.tintColor = nil;
     self.refreshIcon = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self.webView action:@selector(reload)] autorelease];
+    self.refreshIcon.tintColor = nil;
     self.stopIcon = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self.webView action:@selector(stopLoading)] autorelease];
     self.actionIcon = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionAction:)] autorelease];
+    self.actionIcon.tintColor = nil;
 
     [self.webView loadRequest:[NSURLRequest requestWithURL:self.URL]];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+//    CGRect frame = [UIScreen mainScreen].bounds;
+//    frame.origin.y = [UIApplication sharedApplication].statusBarFrame.size.height;
+//    frame.size.height -= frame.origin.y;
+//    self.view.frame = frame;
     self.navigationController.toolbarHidden = NO;
 }
 
@@ -121,7 +133,7 @@
 
 #pragma mark - action
 -(void)actionAction:(id)sender{
-    UIActionSheet* sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"title_openinsafari", nil),nil] autorelease];
+    UIActionSheet* sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:SingleWebLocalizedString(@"title_cancel", nil) destructiveButtonTitle:nil otherButtonTitles:SingleWebLocalizedString(@"title_openinsafari", nil),nil] autorelease];
     [sheet showFromToolbar:self.navigationController.toolbar];
 }
 

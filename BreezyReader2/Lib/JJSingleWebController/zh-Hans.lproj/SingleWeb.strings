@@ -1,0 +1,10 @@
+/* 
+  SingleWeb.strings
+  BreezyReader2
+
+  Created by Jin Jin on 12-5-25.
+  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+*/
+"title_cancel" = "取消";
+"title_openinsafari" = "在Safari中打开";
+"title_close" = "关闭";

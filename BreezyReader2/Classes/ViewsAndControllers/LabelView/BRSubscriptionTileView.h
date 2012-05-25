@@ -20,7 +20,6 @@
 @property (nonatomic, retain) IBOutlet JJLabel* caption;
 @property (nonatomic, retain) IBOutlet UIImageView* imageView;
 @property (nonatomic, retain) IBOutlet UIButton* infoButton;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* indicator;
 @property (nonatomic, retain) IBOutlet JJLabel* unreadLabel;
 
 @property (nonatomic, retain, setter = setImageURLs:) NSMutableArray* imageURLs;

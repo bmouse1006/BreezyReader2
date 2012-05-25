@@ -98,7 +98,7 @@
         self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(requestFeedIsLoaded:)];
         _loading = YES;
         [self.delegate dataSource:self didStartLoading:NO];
-        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:self.exclude continuation:nil forceRefresh:refresh needAuth:YES];
+        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:self.exclude continuation:nil forceRefresh:refresh needAuth:YES priority:NSOperationQueuePriorityVeryHigh];
         if([GoogleReaderClient subscriptionWithID:self.subscription.ID]){
             [[BRReadingStatistics statistics] readFeed:self.subscription.ID];
         }
@@ -114,7 +114,7 @@
         [self.delegate dataSource:self didStartLoading:YES];
         _loadingMore = YES;
         DebugLog(@"continuation is %@", self.feed.gr_continuation);
-        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:self.exclude continuation:self.feed.gr_continuation forceRefresh:NO needAuth:YES];
+        [self.client requestFeedWithIdentifier:self.subscription.ID count:nil startFrom:nil exclude:self.exclude continuation:self.feed.gr_continuation forceRefresh:NO needAuth:YES priority:NSOperationQueuePriorityVeryHigh];
     }
 }
 

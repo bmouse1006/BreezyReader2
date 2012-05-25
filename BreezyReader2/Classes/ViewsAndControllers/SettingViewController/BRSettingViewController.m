@@ -46,10 +46,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [UIApplication sharedApplication].statusBarStyle = UIBarStyleDefault;
     self.view.backgroundColor = [UIColor blackColor];
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
     [UIApplication sharedApplication].statusBarStyle = UIBarStyleBlack;
-    UIBarButtonItem* close = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close)] autorelease];
+    UIBarButtonItem* close = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"title_done", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(close)] autorelease];
     self.navigationItem.rightBarButtonItem = close;
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:41/255.0f green:41/255.0f blue:41/255.0f alpha:1];
     

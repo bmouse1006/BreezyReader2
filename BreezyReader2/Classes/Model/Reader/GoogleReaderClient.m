@@ -202,6 +202,18 @@ static NSString* _userID = nil;
     return _tokenFetchingLock;
 }
 
++(NSOperationQueue*)highPriorityQueue{
+    static dispatch_once_t hightQueueToken;
+    static NSOperationQueue* _hightPriorityQueue = nil;
+    
+    dispatch_once(&hightQueueToken, ^{ 
+        _hightPriorityQueue = [[NSOperationQueue alloc] init]; 
+        [_hightPriorityQueue setMaxConcurrentOperationCount:10];
+    }); 
+    
+    return _hightPriorityQueue;    
+}
+
 +(NSMutableArray*)addTokenQueue{
     static dispatch_once_t predTokenQueue;
     static NSMutableArray* _addTokenQueue = nil;
@@ -580,9 +592,19 @@ static NSString* _userID = nil;
                            count:(NSNumber*)count 
                        startFrom:(NSDate*)date 
                          exclude:(NSString*)excludeString 
-                    continuation:(NSString*)continuationStr 
-                    forceRefresh:(BOOL)refresh
+                    continuation:(NSString*)continuationStr
+                    forceRefresh:(BOOL)refresh 
                         needAuth:(BOOL)needAuth{
+    [self requestFeedWithIdentifier:identifer count:count startFrom:date exclude:excludeString continuation:continuationStr forceRefresh:refresh needAuth:needAuth priority:NSOperationQueuePriorityNormal];
+}
+
+-(void)requestFeedWithIdentifier:(NSString*)identifer
+                           count:(NSNumber*)count 
+                       startFrom:(NSDate*)date 
+                         exclude:(NSString*)excludeString 
+                    continuation:(NSString*)continuationStr
+                    forceRefresh:(BOOL)refresh 
+                        needAuth:(BOOL)needAuth priority:(NSOperationQueuePriority)priority{
 	URLParameterSet* parameterSet = [self compileParameterSetWithCount:count startFrom:date exclude:excludeString continuation:continuationStr];
     if (identifer.length == 0){
         NSLog(@"stream id should not be nil");
@@ -597,6 +619,8 @@ static NSString* _userID = nil;
     }
     self.request.cachePolicy = policy;
     self.request.delegate = self;
+    [self.request setQueuePriority:priority];
+    
     if (needAuth){
         [[GoogleAuthManager shared] authRequest:_request completionBlock:^(NSError* error){
             if (error == nil){
@@ -1016,7 +1040,7 @@ static NSString* _userID = nil;
 }
 
 -(NSError*)error{
-    return (self.reportError)?self.reportError:self.request.error;
+    return (self.reportError != nil)?self.reportError:self.request.error;
 }
 
 #pragma mark - url parameters

@@ -36,6 +36,8 @@
 
 @implementation BRMainScreenController
 
+@synthesize firstSyncFailedView = _firstSyncFailedView;
+
 @synthesize infinityScroll = _infinityScroll;
 @synthesize allSubListController = _allSubListController;
 @synthesize dataSource = _dataSource;
@@ -76,6 +78,7 @@
     self.subOverrviewController = nil;
     self.allSubListController = nil;
     self.activityLabel = nil;
+    self.firstSyncFailedView = nil;
     [super dealloc];
 }
 
@@ -102,6 +105,8 @@
     [self.infinityScroll setIndex:_scrollIndex];
     self.infinityScroll.infinityDelegate = self;
     self.infinityScroll.backgroundColor = [UIColor clearColor];
+    
+    self.firstSyncFailedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     CGRect menuRect = self.sideMenuController.view.frame;
     menuRect.size.height = self.mainContainer.bounds.size.height;
@@ -111,22 +116,28 @@
     [self.sideMenuController.view setFrame:menuRect];
     
     if ([GoogleReaderClient isReaderLoaded] == NO){
-        BaseActivityLabel* activityLabel = [BaseActivityLabel loadFromBundle];
-        activityLabel.message = NSLocalizedString(@"message_startloading", nil);
-        [activityLabel show];
-        [self startRefreshReaderAndWaiting:^(NSError* error){
-            if (!error){
-                activityLabel.message = NSLocalizedString(@"message_reloadfinished", nil);
-                [activityLabel setFinished:YES];
-                [self firstLoadViews];
-            }else{
-                activityLabel.message = NSLocalizedString(@"message_reloadfailed", nil);
-                [activityLabel setFinished:NO];
-            }
-        }];
+        [self syncReaderFirstTime:nil];
     }else{
         [self firstLoadViews];
     }
+}
+
+-(IBAction)syncReaderFirstTime:(id)sender{
+    [self.firstSyncFailedView removeFromSuperview];
+    BaseActivityLabel* activityLabel = [BaseActivityLabel loadFromBundle];
+    activityLabel.message = NSLocalizedString(@"message_startloading", nil);
+    [activityLabel show];
+    [self startRefreshReaderAndWaiting:^(NSError* error){
+        if (!error){
+            activityLabel.message = NSLocalizedString(@"message_reloadfinished", nil);
+            [activityLabel setFinished:YES];
+            [self firstLoadViews];
+        }else{
+            activityLabel.message = NSLocalizedString(@"message_reloadfailed", nil);
+            [activityLabel setFinished:NO];
+            [self.view addSubview:self.firstSyncFailedView];
+        }
+    }];
 }
 
 -(void)firstLoadViews{
@@ -145,6 +156,7 @@
     self.subOverrviewController = nil;
     self.allSubListController = nil;
     self.activityLabel = nil;
+    self.firstSyncFailedView = nil;
     _initialLoading = YES;
 //    self.
 }
@@ -358,7 +370,6 @@
 -(void)presentImagePicker{
     UIImagePickerController* imagePicker = [[[UIImagePickerController alloc] init] autorelease];
     imagePicker.delegate = self;
-//    imagePicker.allowsEditing = YES;
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
     [[self topContainer] presentViewController:imagePicker animated:YES completion:NULL]; 
