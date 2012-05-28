@@ -96,8 +96,7 @@
 }
 
 -(void)userSigninFinished:(NSNotification*)notification{
-    [self dismissModalViewControllerAnimated:YES];
-//    self.loginButton.hidden = YES;
+    [self dismissViewControllerAnimated:YES completion:NULL];
     [[self topContainer] popViewController:NO];
 }
 

@@ -100,4 +100,6 @@ typedef void(^GoogleReaderCompletionHandler)(NSError*);
 
 -(BOOL)isLoading;
 
++(void)removeStoredReaderData;
+
 @end

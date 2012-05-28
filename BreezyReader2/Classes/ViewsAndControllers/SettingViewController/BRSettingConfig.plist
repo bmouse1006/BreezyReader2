@@ -3,25 +3,13 @@
 <plist version="1.0">
 <array>
 	<dict>
-		<key>name</key>
-		<string>title_accounts</string>
 		<key>configs</key>
 		<array>
 			<dict>
 				<key>identifier</key>
-				<string>google</string>
-				<key>name</key>
-				<string>title_google</string>
-				<key>type</key>
-				<string>switch</string>
-				<key>defaultValue</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>identifier</key>
 				<string>socialaccounts</string>
 				<key>name</key>
-				<string>title_otheraccounts</string>
+				<string>title_accounts</string>
 				<key>type</key>
 				<string>more</string>
 				<key>next</key>

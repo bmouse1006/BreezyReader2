@@ -12,7 +12,7 @@
 
 @class BaseView;
 
-@protocol JJViewDelegate <NSObject>
+@protocol BaseViewDelegate <NSObject>
 
 @optional
 -(void)viewWillShow:(BaseView*)view;
@@ -33,6 +33,6 @@
 @property (nonatomic, readonly, getter = getSuperView) UIView* superView;
 @property (nonatomic, assign) BOOL touchToDismiss;
 
-@property (nonatomic, assign) id<JJViewDelegate> jjViewDelegate;
+@property (nonatomic, assign) id<BaseViewDelegate> baseViewDelegate;
 
 @end

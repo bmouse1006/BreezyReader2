@@ -162,6 +162,8 @@
 }
 
 -(void)rearrangeContainers:(CGPoint)translate{
+    if (_count == 0)
+        return;
     if (translate.x > 0){
         //swap to right
         //show the left container

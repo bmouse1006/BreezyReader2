@@ -105,11 +105,6 @@ static GoogleAuthManager *shareAuthManager = nil;
 	return request;
 }
 
--(BOOL)hadAuthorized:(NSURLRequest*)request{
-    NSString* auth = [request valueForHTTPHeaderField:@"Authorization"];
-    return !(auth == nil);
-}
-
 -(UIViewController*)GOAuthController{
     
     CustomOAuth2ViewController* authControl = [[CustomOAuth2ViewController alloc] initWithScope:kOAuth2Scope clientID:kOAuth2ClientID clientSecret:kOAuth2ClientSecret keychainItemName:kKeychainItemName completionHandler:^(GTMOAuth2ViewControllerTouch* viewController, GTMOAuth2Authentication* auth, NSError* error){
@@ -162,12 +157,29 @@ static GoogleAuthManager *shareAuthManager = nil;
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
--(void)authRequest:(id)request{
-    [self.oauth authorizeRequest:request];
+-(BOOL)authRequest:(id)request{
+    return [self.oauth authorizeRequest:request];
 }
 
 -(void)authRequest:(id)request completionBlock:(void(^)(NSError*))block{
     [self.oauth authorizeRequest:request completionHandler:block];
+}
+
+-(void)authRequests:(NSArray*)requests completionBlock:(void(^)(NSError*))block{
+    id request = [requests lastObject];
+    if (request){
+        [self authRequest:request completionBlock:^(NSError* error){
+            if (!error){
+                for (id req in requests){
+                    [self authRequest:req];
+                }
+            }
+            
+            if (block){
+                block(error);
+            }
+        }];
+    }
 }
 
 #pragma mark - error handler
@@ -175,13 +187,12 @@ static GoogleAuthManager *shareAuthManager = nil;
 #pragma mark - init and dealloc
 
 -(id)init{
-	@synchronized(self){
-		if (self = [super init]){
-			self.loginStatus = LOGIN_NOTIN;
-            [self registerNotifications];
-            self.oauth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName clientID:kOAuth2ClientID clientSecret:kOAuth2ClientSecret];
-		}
-	}
+    self = [super init];
+    if (self){
+        self.loginStatus = LOGIN_NOTIN;
+        [self registerNotifications];
+        self.oauth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName clientID:kOAuth2ClientID clientSecret:kOAuth2ClientSecret];
+    }
 	return self;
 }
 

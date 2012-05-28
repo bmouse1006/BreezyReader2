@@ -38,6 +38,7 @@
     if (self) {
         // Custom initialization
         self.wantsFullScreenLayout = YES;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oritationDidChange:) name:UIDeviceOrientationDidChangeNotification object:self];
     }
     return self;
 }
@@ -94,6 +95,10 @@
 }
 
 -(void)singleTagAction:(UITapGestureRecognizer*)singleTap{
+    
+}
+
+-(void)oritationDidChange:(NSNotification*)notification{
     
 }
 

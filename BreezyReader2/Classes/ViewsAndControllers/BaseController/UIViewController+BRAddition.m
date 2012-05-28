@@ -15,6 +15,9 @@
 }
 
 -(BRTopContainer*)topContainer{
+    if ([self isKindOfClass:[BRTopContainer class]]){
+        return (BRTopContainer*)self;
+    }
     if ([self.parentViewController isKindOfClass:[BRTopContainer class]]){
         return (BRTopContainer*)self.parentViewController;
     }else{

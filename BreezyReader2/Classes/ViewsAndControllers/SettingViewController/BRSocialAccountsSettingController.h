@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BRSettingCellActions.h"
+#import "BRSettingViewController.h"
 
-@interface BRSocialAccountsSettingController : UITableViewController<BRSettingCellActions>
+@interface BRSocialAccountsSettingController : BRSettingViewController<BRSettingCellActions>
 
 @end

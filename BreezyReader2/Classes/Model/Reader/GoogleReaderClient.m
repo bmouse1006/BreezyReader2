@@ -26,7 +26,7 @@
 
 @interface FetchTokenArg: NSObject
 
-@property (nonatomic, retain) id request;
+@property (nonatomic, assign) id request;
 @property (nonatomic, copy) id completionHandler; 
 
 @end
@@ -172,6 +172,9 @@ static NSString* _userID = nil;
 
 -(void)clearAllRequests{
     [self.request clearDelegatesAndCancel];
+    for (ASIHTTPRequest* request in self.requestQueue.operations){
+        [request clearDelegatesAndCancel];
+    }
     [self.requestQueue reset];
     [self.tokenRequest clearDelegatesAndCancel];
     self.requestQueue = nil;
@@ -191,7 +194,7 @@ static NSString* _userID = nil;
 
 #pragma mark - static containers
 
--(NSLock*)tokenFetchingLock{
++(NSLock*)tokenFetchingLock{
     static dispatch_once_t predTokenLock;
     static NSLock* _tokenFetchingLock = nil;
     
@@ -436,6 +439,10 @@ static NSString* _userID = nil;
     queue.requestDidFailSelector = @selector(tagAndSubRequestFailed:);
     ASIHTTPRequest* subReq = [self requestForSubscriptionList];
     ASIHTTPRequest* tagReq = [self requestForTagList];
+    subReq.didFailSelector = NULL;
+    tagReq.didFailSelector = NULL;
+    subReq.cachePolicy = ASIDoNotReadFromCacheCachePolicy;
+    tagReq.cachePolicy = ASIDoNotReadFromCacheCachePolicy;
     tagReq.didReceiveResponseHeadersSelector = @selector(receivedResponseHeader:);
     [queue addOperation:tagReq];
     [queue addOperation:subReq];
@@ -445,20 +452,29 @@ static NSString* _userID = nil;
     [self postNotification:NOTIFICATION_BEGIN_UPDATEREADERSTRUCTURE object:nil];
     __block typeof(self) blockSelf = self;
     
-    [[GoogleAuthManager shared] authRequest:tagReq completionBlock:^(NSError* error){
+    [[GoogleAuthManager shared] authRequests:queue.operations completionBlock:^(NSError* error){
         if (error == nil){
-            [[GoogleAuthManager shared] authRequest:subReq completionBlock:^(NSError* error){
-                if (error == nil){
-                    self.reportError = nil;
-                    [blockSelf.requestQueue go];
-                }
-            }];
+            blockSelf.reportError = nil;
+            [queue go];
         }else{ 
+            [blockSelf postNotification:NOTIFICAITON_FAILED_UPDATEREADERSTRUCTURE object:nil];
             NSLog(@"auth log: %@", [error localizedDescription]);
-            self.reportError = error;
-            [self performCallBack];
+            blockSelf.reportError = error;
+            [blockSelf performCallBack];
         }
     }];
+    
+//    [[GoogleAuthManager shared] authRequest:tagReq completionBlock:^(NSError* error){
+//        if (error == nil){
+//            [[GoogleAuthManager shared] authRequest:subReq];
+//            blockSelf.reportError = nil;
+//            [blockSelf.requestQueue go];
+//        }else{ 
+//            NSLog(@"auth log: %@", [error localizedDescription]);
+//            blockSelf.reportError = error;
+//            [blockSelf performCallBack];
+//        }
+//    }];
 }
 
 -(void)refreshSubscriptionList{
@@ -545,12 +561,14 @@ static NSString* _userID = nil;
 -(void)tagAndSubRequestFinished:(ASINetworkQueue*)queue{
     //send out notification
     _needRefreshReaderStructure = NO;
+    [[self class] saveReaderStructure];
     [self performCallBack];
     [self postNotification:NOTIFICAITON_END_UPDATEREADERSTRUCTURE object:nil];
     [self refreshUnreadCount];
 }
 
 -(void)tagAndSubRequestFailed:(ASIHTTPRequest*)request{
+    DebugLog(@"%@", [request.error localizedDescription]);
     self.reportError = request.error;
     [self performCallBack];
     [self postNotification:NOTIFICAITON_FAILED_UPDATEREADERSTRUCTURE object:nil];
@@ -573,6 +591,16 @@ static NSString* _userID = nil;
     [UniversalUnreadCount setDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self filePathWithName:@"unreadcount"]]];
      
     [[self locker] unlock];
+}
+
++(void)removeStoredReaderData{
+    NSFileManager* manager = [NSFileManager defaultManager];
+    NSString* filePath = [self filePathWithName:@"tagList"];
+    [manager removeItemAtPath:filePath error:NULL];
+    filePath = [self filePathWithName:@"subList"];
+    [manager removeItemAtPath:filePath error:NULL];
+    filePath = [self filePathWithName:@"unreadcount"];
+    [manager removeItemAtPath:filePath error:NULL];
 }
      
 +(NSString*)filePathWithName:(NSString*)name{
@@ -1108,7 +1136,7 @@ static NSString* _userID = nil;
         request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
     }
     
-    request.timeOutSeconds = 5;
+//    request.timeOutSeconds = 5;
     request.shouldAttemptPersistentConnection = NO;
     request.delegate = self;
     request.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;
@@ -1199,7 +1227,7 @@ static NSString* _userID = nil;
 }
 
 -(void)startFetchToken{
-    if ([[self tokenFetchingLock] tryLock] == NO){
+    if ([[GoogleReaderClient tokenFetchingLock] tryLock] == NO){
         return;
     }
 //    _startFetchToken = YES;
@@ -1238,12 +1266,12 @@ static NSString* _userID = nil;
                 }
             }
         }
-         [[self tokenFetchingLock] unlock];
+         [[GoogleReaderClient tokenFetchingLock] unlock];
 //        _startFetchToken = NO;
     }];
     
     [request setFailedBlock:^{
-        [[self tokenFetchingLock] unlock];
+        [[GoogleReaderClient tokenFetchingLock] unlock];
         @synchronized(addTokenQueue){
             NSArray* args = [NSArray arrayWithArray:addTokenQueue];
             [addTokenQueue removeAllObjects];

@@ -14,11 +14,6 @@
 
 @interface BRSettingViewController ()
 
-@property (nonatomic, retain) NSArray* settingConfigs;
-
-@property (nonatomic, retain) NSArray* pickerData;
-@property (nonatomic, copy) NSString* pickerIdentifier;
-
 @end
 
 @implementation BRSettingViewController
@@ -76,11 +71,15 @@
 #pragma mark - getter and setter
 -(NSArray*)settingConfigs{
     if (_settingConfigs == nil){
-        NSURL* url = [[NSBundle mainBundle] URLForResource:@"BRSettingConfig" withExtension:@"plist"];
+        NSURL* url = [[NSBundle mainBundle] URLForResource:[self settingFilename] withExtension:@"plist"];
         _settingConfigs = [[NSArray arrayWithContentsOfURL:url] retain];
     }
     
     return _settingConfigs;
+}
+
+-(NSString*)settingFilename{
+    return @"BRSettingConfig";
 }
 
 #pragma mark - Table view data source
@@ -133,7 +132,7 @@
         JJPickerView* picker = [JJPickerView loadFromBundle];
         picker.dataSource = self;
         picker.delegate = self;
-        picker.jjViewDelegate = self;
+        picker.baseViewDelegate = self;
         picker.titleLabel.text = NSLocalizedString([config objectForKey:@"name"], nil);
         // scrolls the specified row to center.
         [picker show];
@@ -142,6 +141,11 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     NSString* titleKey = [[self.settingConfigs objectAtIndex:section] objectForKey:@"name"];
+    return NSLocalizedString(titleKey, nil);
+}
+
+-(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
+    NSString* titleKey = [[self.settingConfigs objectAtIndex:section] objectForKey:@"footertext"];
     return NSLocalizedString(titleKey, nil);
 }
 

@@ -10,14 +10,16 @@
 #import "SHKSharer.h"
 
 typedef enum{
-    JJSocialShareCategoryWeibo,
-    JJSocialShareCategoryTwitter,
-    JJSocialShareCategoryFacebook,
-    JJSocialShareCategoryRIL,
-    JJSocialShareCategoryInstapaper,
-    JJSocialShareCategoryMail,
-    JJSocialShareCategoryUnknown
-} JJSocialShareCategory;
+    JJSocialShareServiceWeibo,
+    JJSocialShareServiceTwitter,
+    JJSocialShareServiceFacebook,
+    JJSocialShareServiceRIL,
+    JJSocialShareServiceInstapaper,
+    JJSocialShareServiceMail,
+    JJSocialShareServiceGoogle,
+    JJSocialShareServiceEvernote,
+    JJSocialShareServiceUnknown
+} JJSocialShareService;
 
 @class JJSocialShareManager;
 
@@ -25,10 +27,10 @@ typedef enum{
 
 @optional
 
--(void)shareManagerDidStartSharing:(JJSocialShareManager*)manager category:(JJSocialShareCategory)category;
--(void)shareManagerDidFinishSharing:(JJSocialShareManager*)manager category:(JJSocialShareCategory)category;
--(void)shareManagerDidCancelSharing:(JJSocialShareManager*)manager category:(JJSocialShareCategory)category;
--(void)shareManager:(JJSocialShareManager*)manager failedWithError:(NSError*)error shouldRelogin:(BOOL)shouldRelogin category:(JJSocialShareCategory)category;
+-(void)shareManagerDidStartSharing:(JJSocialShareManager*)manager category:(JJSocialShareService)category;
+-(void)shareManagerDidFinishSharing:(JJSocialShareManager*)manager category:(JJSocialShareService)category;
+-(void)shareManagerDidCancelSharing:(JJSocialShareManager*)manager category:(JJSocialShareService)category;
+-(void)shareManager:(JJSocialShareManager*)manager failedWithError:(NSError*)error shouldRelogin:(BOOL)shouldRelogin category:(JJSocialShareService)category;
 
 @end
 
@@ -47,5 +49,8 @@ typedef enum{
 -(void)sendToMailWithTitle:(NSString*)title message:(NSString*)message urlString:(NSString*)urlString;
 
 -(BOOL)evernoteHandleOpenURL:(NSURL*)url;
+-(BOOL)isServiceAutherized:(JJSocialShareService)service;
+-(JJSocialShareService)serviceTypeForIdentifier:(NSString*)identifier;
+-(void)logoutService:(JJSocialShareService)service;
 
 @end

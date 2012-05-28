@@ -34,13 +34,13 @@
 -(void)logout;
 -(void)reloginNeeded;
 -(BOOL)canAuthorize;
--(BOOL)hadAuthorized:(NSURLRequest*)request;
 
 -(NSMutableURLRequest*)URLRequestFromString:(NSString*)urlString;
 
 -(UIViewController*)GOAuthController;
 
--(void)authRequest:(id)request;
+-(BOOL)authRequest:(id)request;
 -(void)authRequest:(id)request completionBlock:(void(^)(NSError*))block;
+-(void)authRequests:(NSArray*)requests completionBlock:(void(^)(NSError*))block;
 
 @end

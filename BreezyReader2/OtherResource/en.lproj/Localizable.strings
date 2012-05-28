@@ -26,7 +26,7 @@
 "title_starred" = "Starred";
 "title_label" = "Label";
 "title_addnewlabel" = "Add new label";
-"title_relatedfeed" = "Related feed";
+"title_relatedfeed" = "Related feeds";
 "title_feedoperation" = "Operation";
 "title_unsubscribe" = "- Unsubscribe -";
 "title_subscribe" = "+ Subscribe +";
@@ -52,8 +52,10 @@
 "title_showunreadonly" = "Show unread only";
 "title_remembermychoice" = "Remember my action";
 "title_done" = "Done";
-"title_userpreference" = "User preference";
+"title_userpreference" = "User Preference";
 "title_nomorearticles" = "No unread articles";
+"title_close" = "Close";
+"title_accountsetting" = "Account setting";
 
 "message_unsubscribe" = "Do you want to unsubscribe \"%@?\"";
 "message_subscribe" = "Do you want to subscribe \"%@?\"";
@@ -72,6 +74,8 @@
 "message_reloadalldata" = "Do you want to sync data with Google Reader?";
 "message_startloading" = "Synchronizing";
 "message_settingbackgroundimage" = "Setting background";
+"message_accountsectionfootertext" = "Account login UI for services will be promoted automatically if needed";
+"message_manualsyncnote" = "There might be something wrong with the network. Please tap the Sync button to sync again";
 "The request timed out" = "The request timed out";
 
 "msg_searching" = "Searching...";

@@ -13,8 +13,10 @@
 #import "BRFeedAndArticlesSearchController.h"
 #import "SubOverviewController.h"
 #import "BRTagAndSubListViewController.h"
+#import "BaseView.h"
+#import "JJLabel.h"
 
-@interface BRMainScreenController : BRBaseController <InfinityScrollViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface BRMainScreenController : BRBaseController <InfinityScrollViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, BaseViewDelegate>
 
 @property (nonatomic, retain) InfinityScrollView* infinityScroll;
 @property (nonatomic, retain) IBOutlet SideMenuController* sideMenuController;
@@ -22,6 +24,8 @@
 @property (nonatomic, retain) IBOutlet BRTagAndSubListViewController* allSubListController;
 @property (nonatomic, retain) IBOutlet UIView* firstSyncFailedView;
 @property (nonatomic, retain) SubOverviewController* subOverrviewController;
+
+@property (nonatomic, retain) IBOutlet JJLabel* noteLabel;
 
 -(IBAction)syncReaderFirstTime:(id)sender;
 

@@ -51,6 +51,8 @@
 
 @synthesize client = _client;
 
+@synthesize noteLabel = _noteLabel;
+
 #pragma mark - init and dealloc
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -79,6 +81,7 @@
     self.allSubListController = nil;
     self.activityLabel = nil;
     self.firstSyncFailedView = nil;
+    self.noteLabel = nil;
     [super dealloc];
 }
 
@@ -108,18 +111,14 @@
     
     self.firstSyncFailedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
-    CGRect menuRect = self.sideMenuController.view.frame;
-    menuRect.size.height = self.mainContainer.bounds.size.height;
-    menuRect.size.width = 60;
-    menuRect.origin.x = self.mainContainer.bounds.size.width - menuRect.size.width;
-    menuRect.origin.y = 0;
-    [self.sideMenuController.view setFrame:menuRect];
-    
-    if ([GoogleReaderClient isReaderLoaded] == NO){
-        [self syncReaderFirstTime:nil];
-    }else{
-        [self firstLoadViews];
-    }
+    self.noteLabel.textAlignment = UITextAlignmentCenter;
+    self.noteLabel.verticalAlignment = JJTextVerticalAlignmentTop;
+    self.noteLabel.font = [UIFont boldSystemFontOfSize:16];
+    self.noteLabel.textColor = [UIColor blackColor];
+    self.noteLabel.shadowColor = [UIColor whiteColor];
+    self.noteLabel.shadowOffset = CGSizeMake(0,-1);
+    self.noteLabel.shadowEnable = YES;
+    self.noteLabel.text = NSLocalizedString(@"message_manualsyncnote", nil);
 }
 
 -(IBAction)syncReaderFirstTime:(id)sender{
@@ -127,16 +126,25 @@
     BaseActivityLabel* activityLabel = [BaseActivityLabel loadFromBundle];
     activityLabel.message = NSLocalizedString(@"message_startloading", nil);
     [activityLabel show];
+    __block typeof(self) blockSelf = self;
     [self startRefreshReaderAndWaiting:^(NSError* error){
         if (!error){
             activityLabel.message = NSLocalizedString(@"message_reloadfinished", nil);
             [activityLabel setFinished:YES];
-            [self firstLoadViews];
+            [blockSelf firstLoadViews];
         }else{
             activityLabel.message = NSLocalizedString(@"message_reloadfailed", nil);
+            activityLabel.baseViewDelegate = self;
             [activityLabel setFinished:NO];
-            [self.view addSubview:self.firstSyncFailedView];
         }
+    }];
+}
+
+-(void)viewDidDismiss:(BaseView *)view{
+    [self.view addSubview:self.firstSyncFailedView];
+    self.firstSyncFailedView.alpha = 0.0f;
+    [UIView animateWithDuration:0.2f animations:^{
+        self.firstSyncFailedView.alpha = 1.0f;
     }];
 }
 
@@ -157,6 +165,7 @@
     self.allSubListController = nil;
     self.activityLabel = nil;
     self.firstSyncFailedView = nil;
+    self.noteLabel = nil;
     _initialLoading = YES;
 //    self.
 }
@@ -169,7 +178,14 @@
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    self.infinityScroll.frame = self.mainContainer.bounds;
+    CGRect bounds = self.mainContainer.bounds;
+    self.infinityScroll.frame = bounds;
+    CGRect menuRect = self.sideMenuController.view.frame;
+    menuRect.size.height = bounds.size.height;
+    menuRect.size.width = 60;
+    menuRect.origin.x = bounds.size.width - menuRect.size.width;
+    menuRect.origin.y = 0;
+    self.sideMenuController.view.frame = menuRect;
     DebugLog(@"%@", self.infinityScroll);
 }
 
@@ -180,6 +196,12 @@
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:NO];
+    
+    if ([GoogleReaderClient isReaderLoaded] == NO){
+        [self syncReaderFirstTime:nil];
+    }else if (_initialLoading){
+        [self firstLoadViews];
+    }
     
     if ([GoogleReaderClient needRefreshReaderStructure]){
         [self.client refreshReaderStructure];
@@ -250,9 +272,9 @@
 }
 
 -(void)loginStatusChanged:(NSNotification*)notification{
-    DebugLog(@"Login status changed", nil);
-    NSString* status = [notification.userInfo objectForKey:@"status"];
-    DebugLog(@"current login status is %@", status);
+//    DebugLog(@"Login status changed", nil);
+//    NSString* status = [notification.userInfo objectForKey:@"status"];
+//    DebugLog(@"current login status is %@", status);
 //    if ([status isEqualToString:LOGIN_NOTIN]){
 //        [self switchContentViewsToViews:[NSArray arrayWithObject:self.signInButton] animated:YES];
 //    }else if ([status isEqualToString:LOGIN_SUCCESSFUL]){

@@ -49,7 +49,7 @@
         self.failedImage.hidden = NO;
     }
     self.activityView.hidden = YES;
-    [self dismissAfterDelay:1.5f];
+    [self dismissAfterDelay:1.0f];
 }
 
 @end

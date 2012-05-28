@@ -55,7 +55,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:self.clostItem] autorelease];
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"title_close", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(dismissSelf:)] autorelease];
     [self removeGradientImage:self.webView];
     [self registerNotifications];
 }
@@ -70,12 +70,6 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     [self unregisterNotifications];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 + (NSString *)authNibName {
@@ -99,7 +93,7 @@
 }
 
 -(IBAction)dismissSelf:(id)sender{
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 //    [self dismissViewControllerAnimated:<#(BOOL)#> completion:<#^(void)completion#>
 }
 

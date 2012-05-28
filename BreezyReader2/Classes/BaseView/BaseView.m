@@ -12,12 +12,12 @@
 
 @synthesize superView = _superView;
 @synthesize touchToDismiss = _touchToDismiss;
-@synthesize jjViewDelegate = _jjViewDelegate;
+@synthesize baseViewDelegate = _baseViewDelegate;
 
 static BaseView* _currentView = nil;
 
 -(void)dealloc{
-    self.jjViewDelegate = nil;
+    self.baseViewDelegate = nil;
     [super dealloc];
 }
 
@@ -69,8 +69,8 @@ static BaseView* _currentView = nil;
 
 -(void)dismiss{
     __block typeof(self) blockSelf = self;
-    if ([self.jjViewDelegate respondsToSelector:@selector(viewWillDismiss:)]){
-        [self.jjViewDelegate viewWillDismiss:self];
+    if ([self.baseViewDelegate respondsToSelector:@selector(viewWillDismiss:)]){
+        [self.baseViewDelegate viewWillDismiss:self];
     }
     [UIView animateWithDuration:BASEVIEW_ANIMATION_DURATION animations:^{
         self.alpha = 0.0;
@@ -78,8 +78,8 @@ static BaseView* _currentView = nil;
         if (finished == YES){
             [self removeFromSuperview];
             NSLog(@"view removed");
-            if ([blockSelf.jjViewDelegate respondsToSelector:@selector(viewDidDismiss:)]){
-                [blockSelf.jjViewDelegate viewDidDismiss:blockSelf];
+            if ([blockSelf.baseViewDelegate respondsToSelector:@selector(viewDidDismiss:)]){
+                [blockSelf.baseViewDelegate viewDidDismiss:blockSelf];
             }
         }
         _currentView = nil;
@@ -100,15 +100,15 @@ static BaseView* _currentView = nil;
     self.alpha = 0;
     [sv bringSubviewToFront:self];
     __block typeof(self) blockSelf = self;
-    if ([self.jjViewDelegate respondsToSelector:@selector(viewWillShow:)]){
-        [self.jjViewDelegate viewWillShow:self];
+    if ([self.baseViewDelegate respondsToSelector:@selector(viewWillShow:)]){
+        [self.baseViewDelegate viewWillShow:self];
     }
     [UIView animateWithDuration:BASEVIEW_ANIMATION_DURATION animations:^{
         self.alpha = 1;
     } completion:^(BOOL finished){
         if (finished){
-            if ([blockSelf.jjViewDelegate respondsToSelector:@selector(viewDidShow:)]){
-                [blockSelf.jjViewDelegate viewDidShow:blockSelf];
+            if ([blockSelf.baseViewDelegate respondsToSelector:@selector(viewDidShow:)]){
+                [blockSelf.baseViewDelegate viewDidShow:blockSelf];
             }
         }
     }];

@@ -7,6 +7,7 @@
 //
 
 #import "BRAccountSettingCell.h"
+#import "JJSocialShareManager.h"
 
 @implementation BRAccountSettingCell
 
@@ -17,6 +18,20 @@
         // Initialization code
     }
     return self;
+}
+
+-(void)setCellConfig:(NSDictionary *)dictionary{
+    [super setCellConfig:dictionary];
+    NSString* identifier = [dictionary objectForKey:@"identifier"];
+    JJSocialShareManager* manager = [JJSocialShareManager sharedManager];
+    JJSocialShareService service = [manager serviceTypeForIdentifier:identifier];
+    UISwitch* switcher = [[[UISwitch alloc] init] autorelease];
+    switcher.on = [manager isServiceAutherized:service];
+    if ([[dictionary objectForKey:@"editable"] boolValue] == NO || switcher.on == NO){
+        switcher.enabled = NO;
+    }
+    [switcher addTarget:self action:@selector(boolValueChanged:) forControlEvents:UIControlEventValueChanged];
+    self.accessoryView = switcher;
 }
 
 /*

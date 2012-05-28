@@ -46,6 +46,8 @@
 @synthesize weiboEngine = _weiboEngine;
 @synthesize initialText = _initialText, image = _image, urlString = _urlString;
 
+static OAuthEngine* oauthEngine = nil;
+
 -(void)dealloc{
     self.composeDialog = nil;
     self.backgroundView = nil;
@@ -88,6 +90,14 @@
     return controller;
 }
 
+-(BOOL)isAutherized{
+    return [self.weiboEngine isAuthorized];
+}
+
+-(void)logout{
+    return [self.weiboEngine signOut];
+}
+
 //+(id)controller{
 //    WBWeiboComposeViewController* controller = [[[WBWeiboComposeViewController alloc] initWithNibName:@"WBWeiboComposeViewController" bundle:nil] autorelease];
 //
@@ -121,6 +131,20 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.backgroundView = nil;
+    self.composeDialog = nil;
+    self.toolBar = nil;
+    
+    self.sepertorLine = nil;
+    self.titleLabel = nil;
+    
+    self.textView = nil;
+    self.contentImageView = nil;
+    
+    self.contentContainer = nil;
+    self.contentView = nil;
+    
+    self.checkedButton = nil;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -161,6 +185,11 @@
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
+    [self viewDidUnload];
+    self.view = nil;
+    self.initialText = nil;
+    self.image = nil;
+    self.urlString = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -17,6 +17,7 @@
 #import "SHKInstapaper.h"
 #import "SHKMail.h"
 #import "EvernoteSDK.h"
+#import "GoogleAuthManager.h"
 
 @interface JJSocialShareManager ()
 
@@ -29,6 +30,22 @@
 @synthesize delegate = _delegate;
 
 static UIViewController* _rootViewController = nil;
+
++(void)initialize{
+    [super initialize];
+    // Do any additional setup after loading the view from its nib.
+    NSString *EVERNOTE_HOST = @"sandbox.evernote.com";
+    
+    // Fill in the consumer key and secret with the values that you received from Evernote
+    // To get an API key, visit http://dev.evernote.com/documentation/cloud/
+    NSString *CONSUMER_KEY = @"bmouse1006-3334";
+    NSString *CONSUMER_SECRET = @"8efb9c47b2113834";
+    
+    // set up Evernote session singleton
+    [EvernoteSession setSharedSessionHost:EVERNOTE_HOST 
+                              consumerKey:CONSUMER_KEY 
+                           consumerSecret:CONSUMER_SECRET];
+}
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -137,38 +154,107 @@ static UIViewController* _rootViewController = nil;
 
 #pragma mark - SHKSharerDelegate
 -(void)sharerStartedSending:(SHKSharer *)sharer{
-    if ([self.delegate respondsToSelector:@selector(shareManagerDidStartSharing:category:)]){
-        [self.delegate shareManagerDidStartSharing:self category:[self categoryWithSharer:sharer]];
-    }
+//    if ([self.delegate respondsToSelector:@selector(shareManagerDidStartSharing:category:)]){
+//        [self.delegate shareManagerDidStartSharing:self category:[self categoryWithSharer:sharer]];
+//    }
 }
 
 -(void)sharerFinishedSending:(SHKSharer *)sharer{
-    if ([self.delegate respondsToSelector:@selector(shareManagerDidFinishSharing:category:)]){
-        [self.delegate shareManagerDidFinishSharing:self category:[self categoryWithSharer:sharer]];
-    }
+//    if ([self.delegate respondsToSelector:@selector(shareManagerDidFinishSharing:category:)]){
+//        [self.delegate shareManagerDidFinishSharing:self category:[self categoryWithSharer:sharer]];
+//    }
 }
 
 -(void)sharerCancelledSending:(SHKSharer *)sharer{
-    if ([self.delegate respondsToSelector:@selector(shareManagerDidCancelSharing:category:)]){
-        [self.delegate shareManagerDidCancelSharing:self category:[self categoryWithSharer:sharer]];
-    }
+//    if ([self.delegate respondsToSelector:@selector(shareManagerDidCancelSharing:category:)]){
+//        [self.delegate shareManagerDidCancelSharing:self category:[self categoryWithSharer:sharer]];
+//    }
 }
 
 -(void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin{
-    NSLog(@"error encountered while sharring: %@", [error localizedDescription]);
-    if ([self.delegate respondsToSelector:@selector(shareManager:failedWithError:shouldRelogin:category:)]){
-        [self.delegate shareManager:self failedWithError:error shouldRelogin:shouldRelogin category:[self categoryWithSharer:sharer]];
+//    NSLog(@"error encountered while sharring: %@", [error localizedDescription]);
+//    if ([self.delegate respondsToSelector:@selector(shareManager:failedWithError:shouldRelogin:category:)]){
+//        [self.delegate shareManager:self failedWithError:error shouldRelogin:shouldRelogin category:[self categoryWithSharer:sharer]];
+//    }
+}
+
+#pragma mark - service
+-(BOOL)isServiceAutherized:(JJSocialShareService)service{
+    switch (service) {
+        case JJSocialShareServiceRIL:
+            return [SHKReadItLater isServiceAuthorized];
+            break;
+        case JJSocialShareServiceFacebook:
+            return [SHKFacebook isServiceAuthorized];
+            break;
+        case JJSocialShareServiceMail:
+            return [MFMailComposeViewController canSendMail];
+            break;
+        case JJSocialShareServiceWeibo:
+            return [[WBWeiboComposeViewController sharedController] isAutherized];
+            break;
+        case JJSocialShareServiceTwitter:
+            return [TWTweetComposeViewController canSendTweet];
+            break;
+        case JJSocialShareServiceInstapaper:
+            return [SHKInstapaper isServiceAuthorized];;
+            break;
+        case JJSocialShareServiceGoogle:
+            return [[GoogleAuthManager shared] canAuthorize];
+            break;
+        case JJSocialShareServiceEvernote:
+            return [[EvernoteSession sharedSession] isAuthenticated];
+            break;
+        default:
+            return NO;
+            break;
     }
 }
 
-#pragma mark - category
--(JJSocialShareCategory)categoryWithSharer:(SHKSharer*)sharer{
-    if ([sharer isKindOfClass:[SHKFacebook class]]){
-        return JJSocialShareCategoryFacebook;
+-(JJSocialShareService)serviceTypeForIdentifier:(NSString*)identifier{
+    if ([identifier isEqualToString:@"google"]){
+        return JJSocialShareServiceGoogle;
+    }else if ([identifier isEqualToString:@"weibo"]){
+        return JJSocialShareServiceWeibo;
+    }else if ([identifier isEqualToString:@"readitlater"]){
+        return JJSocialShareServiceRIL;
+    }else if ([identifier isEqualToString:@"twitter"]){
+        return JJSocialShareServiceTwitter;
+    }else if ([identifier isEqualToString:@"facebook"]){
+        return JJSocialShareServiceFacebook;
+    }else if ([identifier isEqualToString:@"instapaper"]){
+        return JJSocialShareServiceInstapaper;
+    }else if ([identifier isEqualToString:@"mail"]){
+        return JJSocialShareServiceMail;
+    }else if ([identifier isEqualToString:@"evernote"]){
+        return JJSocialShareServiceEvernote;
+    }else{
+        return JJSocialShareServiceUnknown;
     }
-    
-    if ([sharer isKindOfClass:[SHKReadItLater class]]){
-        return JJSocialShareCategoryRIL;
+}
+
+-(void)logoutService:(JJSocialShareService)service{
+    switch (service) {
+        case JJSocialShareServiceRIL:
+            [SHKReadItLater logout];
+            break;
+        case JJSocialShareServiceFacebook:
+            [SHKFacebook logout];
+            break;
+        case JJSocialShareServiceWeibo:
+            [[WBWeiboComposeViewController sharedController] logout];
+            break;
+        case JJSocialShareServiceInstapaper:
+            [SHKInstapaper logout];;
+            break;
+        case JJSocialShareServiceGoogle:
+            [[GoogleAuthManager shared] logout];
+            break;
+        case JJSocialShareServiceEvernote:
+            [[EvernoteSession sharedSession] logout];
+            break;
+        default:
+            break;
     }
 }
 

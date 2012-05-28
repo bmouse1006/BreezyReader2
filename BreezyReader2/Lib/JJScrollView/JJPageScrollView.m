@@ -47,9 +47,9 @@ inline CGPoint CGCenterOfRect(CGRect rect){
 @synthesize showPageControl = _showPageControl;
 @synthesize pageControlVerticalAlignment = _pageControlVerticalAlignment;
 @synthesize pageControlHorizonAlignment = _pageControlHorizonAlignment;
-@synthesize dimTheInvisibleContentView = _dimTheInvisibleContentView;
 
 -(void)dealloc{
+    self.datasource = nil;
     self.loadedPages = nil;
     self.pageFrames = nil;
     self.scrollView = nil;
@@ -189,6 +189,9 @@ inline CGPoint CGCenterOfRect(CGRect rect){
 }
 
 -(void)scrollToPageAtIndex:(NSInteger)index animated:(BOOL)animated{
+    if (_pageCount == 0){
+        return;
+    }
     index = (index % _pageCount);
 //    if (index < 0){
 //        index = 0;
@@ -226,6 +229,32 @@ inline CGPoint CGCenterOfRect(CGRect rect){
     return [self.loadedPages objectForKey:[NSNumber numberWithInt:index]];
 }
 
+#pragma mark - scroll view delegate
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    //load more 
+    if ([self.delegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]){
+        [self.delegate scrollViewWillBeginDragging:self];
+    }
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (decelerate == YES){
+        self.userInteractionEnabled = NO;
+    }else{
+        self.userInteractionEnabled = YES;
+        NSInteger index = [self currentIndex];
+        self.pageIndex = index; 
+        [self loadPage];
+    }
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    self.userInteractionEnabled = YES;
+    NSInteger index = [self currentIndex];
+    self.pageIndex = index;
+    [self loadPage];
+}
+
 -(void)loadPage{
     NSInteger index = [self currentIndex];
     self.pageIndex = index;  
@@ -261,51 +290,6 @@ inline CGPoint CGCenterOfRect(CGRect rect){
     CGPoint offset = self.scrollView.contentOffset;
     offset.x += location.x;
     return offset;
-}
-
-#pragma mark - scroll view delegate
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    //load more 
-    if ([self.delegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]){
-        [self.delegate scrollViewWillBeginDragging:self];
-    }
-}
-
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    if (decelerate == YES){
-        self.userInteractionEnabled = NO;
-    }else{
-        self.userInteractionEnabled = YES;
-        NSInteger index = [self currentIndex];
-        self.pageIndex = index; 
-        [self loadPage];
-    }
-}
-
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    self.userInteractionEnabled = YES;
-    NSInteger index = [self currentIndex];
-    self.pageIndex = index;
-    [self loadPage];
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if(self.dimTheInvisibleContentView){
-        //dim views while become invisible
-        NSInteger currentIndex = [self currentIndex];
-        CGFloat currentX = self.scrollView.contentOffset.x;
-        
-        CGFloat width = self.bounds.size.width;
-        for (int i = currentIndex - 1; i<= currentIndex + 1; i++){
-            UIView* page = [self pageAtIndex:i];
-            CGFloat deltaX = fabs(page.frame.origin.x - currentX);
-            
-            double scale = 0.9+0.1* (1-deltaX/width);
-            
-            page.transform = CGAffineTransformMakeScale(scale, scale);
-            page.alpha = scale*scale*scale;
-        }
-    }
 }
 
 #pragma mark - getter setter

@@ -53,6 +53,8 @@
 "title_done" = "完成";
 "title_userpreference" = "用户偏好";
 "title_nomorearticles" = "没有未读文章";
+"title_close" = "关闭";
+"title_accountsetting" = "帐号设置";
 
 "message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
 "message_subscribe" = "您想要订阅 \"%@\" 吗?";
@@ -71,6 +73,8 @@
 "message_reloadalldata" = "你想要手动同步Google Reader吗?";
 "message_startloading" = "同步中";
 "message_settingbackgroundimage" = "设置背景";
+"message_accountsectionfootertext" = "一旦有需要的时候，各服务的账户登录界面会自动出现";
+"message_manualsyncnote" = "网络可能发生了一些问题，请点击上方的同步按钮重新同步";
 "The request timed out" = "请求超时:(";
 
 "msg_searching" = "搜索中...";

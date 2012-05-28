@@ -42,11 +42,8 @@
     self.saveButton.layer.masksToBounds = YES;
     self.saveButton.layer.cornerRadius = 5;
     [self.view addSubview:self.saveButton];
-    CGRect frame = self.saveButton.frame;
-    frame.origin.x = self.view.frame.size.width - frame.size.width - 20;
-    frame.origin.y = self.view.frame.size.height - frame.size.height - 25;
-    self.saveButton.frame = frame;
     
+    self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.scrollView.showPageControl = YES;
     self.scrollView.pageControlHorizonAlignment = JJHorizonAlignmentMiddle;
     self.scrollView.pageControlVerticalAlignment = JJVerticalAlignmentBottom;
@@ -59,10 +56,25 @@
     // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    CGRect frame = self.saveButton.frame;
+    frame.origin.x = self.view.frame.size.width - frame.size.width - 20;
+    frame.origin.y = self.view.frame.size.height - frame.size.height - 25;
+    self.saveButton.frame = frame;
+    self.scrollView.frame = self.view.bounds;
 }
+
+//-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+//    DebugLog(@"%@", NSStringFromCGRect(self.view.bounds));
+//    [self viewWillLayoutSubviews];
+//    [self.scrollView reloadData];
+//}
+
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+//{
+//    return (interfaceOrientation != UIInterfaceOrientationPortrait);
+//}
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
     return NO;

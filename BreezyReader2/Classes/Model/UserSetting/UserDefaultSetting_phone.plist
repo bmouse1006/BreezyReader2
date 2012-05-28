@@ -9,7 +9,7 @@
 	<key>sortingbyreadingfrequency</key>
 	<true/>
 	<key>showrecommendations</key>
-	<true/>
+	<false/>
 	<key>feedsinmostread</key>
 	<integer>10</integer>
 	<key>autocleancache</key>

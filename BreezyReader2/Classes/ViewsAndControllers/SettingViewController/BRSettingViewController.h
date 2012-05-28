@@ -10,8 +10,13 @@
 #import "BRSettingCellActions.h"
 #import "JJPickerView.h"
 
-@interface BRSettingViewController : UITableViewController <BRSettingCellActions, UIPickerViewDelegate, UIPickerViewDataSource, JJViewDelegate>
+@interface BRSettingViewController : UITableViewController <BRSettingCellActions, UIPickerViewDelegate, UIPickerViewDataSource, BaseViewDelegate>
 
+@property (nonatomic, retain) NSArray* settingConfigs;
 
+@property (nonatomic, retain) NSArray* pickerData;
+@property (nonatomic, copy) NSString* pickerIdentifier;
+
+-(id)objectAtIndexPath:(NSIndexPath*)indexPath;
 
 @end

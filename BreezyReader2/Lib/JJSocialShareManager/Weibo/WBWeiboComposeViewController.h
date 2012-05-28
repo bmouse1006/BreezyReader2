@@ -35,6 +35,9 @@
 -(IBAction)share:(id)sender;
 -(IBAction)close:(id)sender;
 
+-(BOOL)isAutherized;
+-(void)logout;
+
 +(id)sharedController;
 //+(id)controller;
 

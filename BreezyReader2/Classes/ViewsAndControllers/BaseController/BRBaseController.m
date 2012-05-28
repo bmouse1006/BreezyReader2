@@ -76,15 +76,14 @@ static CGFloat distance = 0.0f;
             [contentViews addObject:view];
         }
     }
+    
+    [contentViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     for (UIView* view in views){
         view.alpha = 0.0f;
         [self.mainContainer addSubview:view];
     }
     [UIView animateWithDuration:duration animations:^{
-        [contentViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-            UIView* view = obj;
-            view.alpha = 0.0f;
-        }];
          
         [views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
             UIView* view = obj;
@@ -92,7 +91,7 @@ static CGFloat distance = 0.0f;
         }];
 
     } completion:^(BOOL finished){
-        [contentViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
     }];
 }
 

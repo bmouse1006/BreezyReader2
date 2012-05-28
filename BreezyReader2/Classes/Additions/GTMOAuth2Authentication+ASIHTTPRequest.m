@@ -26,7 +26,6 @@
 - (BOOL)authorizeRequestImmediateArgs:(GTMOAuth2AuthorizationArgs *)args {
     // This authorization entry point never attempts to refresh the access token,
     // but does call the completion routine
-    
     id request = [args request];
     
     NSString *scheme = nil;
