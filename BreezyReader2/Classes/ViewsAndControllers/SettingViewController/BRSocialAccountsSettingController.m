@@ -48,7 +48,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary* config = [self.settingConfigs objectAtIndex:indexPath.row];
+    NSDictionary* config = [self objectAtIndexPath:indexPath];
     NSString* type = [[config objectForKey:@"type"] lowercaseString];
     if ([type isEqualToString:@"more"]){
         
