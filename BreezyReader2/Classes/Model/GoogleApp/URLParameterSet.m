@@ -20,7 +20,7 @@
     [super dealloc];
 }
 
-+(id)paireWithKey:(NSString *)key andValue:(id)value{
++(id)pairWithKey:(NSString *)key andValue:(id)value{
     ParameterPair* pair = [[[ParameterPair alloc] init] autorelease];
     
     pair.key = key;
@@ -95,7 +95,7 @@
 -(void)setParameterForKey:(NSString*)key withValue:(NSObject*)value{
     
     if (key.length > 0 && value){
-        ParameterPair* pair = [ParameterPair paireWithKey:key andValue:value];
+        ParameterPair* pair = [ParameterPair pairWithKey:key andValue:value];
         [self.parameters addObject:pair];
     }
 }

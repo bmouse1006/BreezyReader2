@@ -14,7 +14,7 @@
 @property (nonatomic, copy) NSString* key;
 @property (nonatomic, copy) NSString* value;
 
-+(id)paireWithKey:(NSString*)key andValue:(id)value;
++(id)pairWithKey:(NSString*)key andValue:(id)value;
 
 @end
 
