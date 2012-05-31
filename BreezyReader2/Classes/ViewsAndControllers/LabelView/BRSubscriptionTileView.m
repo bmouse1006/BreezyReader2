@@ -148,8 +148,6 @@ static CGFloat kCaptionHeight = 40.0f;
     if (_subscription != subscription){
         [_subscription release];
         _subscription = [subscription retain];
-        
-        _unreadCount = [GoogleReaderClient unreadCountWithID:subscription.ID];
         [self.grClient clearAndCancel];
         NSArray* imageURLs = [[BRImagePreviewCache sharedCache] cachedPreviewImagesForKey:_subscription.ID];
         if (imageURLs){
@@ -181,6 +179,7 @@ static CGFloat kCaptionHeight = 40.0f;
     self.unreadLabel.shadowEnable = YES;
     
     self.caption.text = self.subscription.title;
+    _unreadCount = [GoogleReaderClient unreadCountWithID:self.subscription.ID];
     if (_unreadCount){
         [self.unreadImage removeFromSuperview];
         self.unreadLabel.text = [[NSNumber numberWithInt:_unreadCount] description];
@@ -193,7 +192,8 @@ static CGFloat kCaptionHeight = 40.0f;
         [self.unreadCountContainer addSubview:self.unreadImage];
         
     }else{
-        self.unreadCountContainer.frame = CGRectZero;
+        [self.unreadImage removeFromSuperview];
+//        self.unreadCountContainer.frame = CGRectZero;
     }
     
     /*
