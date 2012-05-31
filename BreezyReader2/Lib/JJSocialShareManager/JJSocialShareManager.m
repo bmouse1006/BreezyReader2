@@ -34,7 +34,7 @@ static UIViewController* _rootViewController = nil;
 +(void)initialize{
     [super initialize];
     // Do any additional setup after loading the view from its nib.
-    NSString *EVERNOTE_HOST = @"sandbox.evernote.com";
+    NSString *EVERNOTE_HOST = @"www.evernote.com";
     
     // Fill in the consumer key and secret with the values that you received from Evernote
     // To get an API key, visit http://dev.evernote.com/documentation/cloud/
