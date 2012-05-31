@@ -180,7 +180,8 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
             JJSingleWebController* singleWeb = [[[JJSingleWebController alloc] init] autorelease];
             singleWeb.URL = [request URL];
             UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:singleWeb] autorelease];
-            [[self topContainer] presentViewController:nav animated:YES completion:NULL];
+            [UIApplication sharedApplication].statusBarHidden = NO;
+            [self presentViewController:nav animated:YES completion:NULL];
         }
         
         return NO;

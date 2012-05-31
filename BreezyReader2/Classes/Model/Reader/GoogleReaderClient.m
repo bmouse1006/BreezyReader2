@@ -318,8 +318,12 @@ static NSString* _userID = nil;
 
 #pragma mark - reader structure
 +(BOOL)isReaderLoaded{
-    [self restoreReaderStructure];
-    return ([[self subscriptions] count] > 0 || [[self tags] count] > 0);
+    BOOL result = ([[self subscriptions] count] > 0 || [[self tags] count] > 0);
+    if (result == NO){
+        [self restoreReaderStructure];
+        result = ([[self subscriptions] count] > 0 || [[self tags] count] > 0);
+    }
+    return result;
 }
 
 +(NSInteger)unreadCountWithID:(NSString*)key{
@@ -424,6 +428,7 @@ static NSString* _userID = nil;
     }];
     
     DebugLog(@"unread count refresh finished");
+    [[self class] saveReaderStructure];
     [self postNotification:NOTIFICAITON_END_UPDATEUNREADCOUNT object:nil];
     [self performCallBack];
 }

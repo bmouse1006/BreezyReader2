@@ -25,11 +25,14 @@
     BOOL _allowAnimation;
     
     BOOL _hasPreview;
+    
+    NSInteger _unreadCount;
 }
 
 //@property (nonatomic, retain) NSTimer* timer;
 @property (nonatomic, retain) ASIHTTPRequest* imageRequest;
 @property (nonatomic, retain) NSString* currentImageURL;
+@property (nonatomic, retain) UIView* unreadCountContainer;
 @property (nonatomic, retain) UIImageView* unreadImage;
 @property (nonatomic, retain) UIImageView* captionImage;
 @property (nonatomic, assign) BOOL allowAnimation;
@@ -54,6 +57,7 @@
 
 @dynamic title;
 
+@synthesize unreadCountContainer = _unreadCountContainer;
 @synthesize caption = _caption, infoButton = _infoButton;
 @synthesize imageURLs = _imageURLs;
 @synthesize imageRequest = _imageRequest;
@@ -119,6 +123,7 @@ static CGFloat kCaptionHeight = 40.0f;
     self.unreadLabel = nil;
     self.unreadImage = nil;
     self.captionImage = nil;
+    self.unreadCountContainer = nil;
     [super dealloc];
 }
 
@@ -143,6 +148,8 @@ static CGFloat kCaptionHeight = 40.0f;
     if (_subscription != subscription){
         [_subscription release];
         _subscription = [subscription retain];
+        
+        _unreadCount = [GoogleReaderClient unreadCountWithID:subscription.ID];
         [self.grClient clearAndCancel];
         NSArray* imageURLs = [[BRImagePreviewCache sharedCache] cachedPreviewImagesForKey:_subscription.ID];
         if (imageURLs){
@@ -171,12 +178,25 @@ static CGFloat kCaptionHeight = 40.0f;
 -(void)layoutSubviews{
     [super layoutSubviews];
     self.caption.shadowEnable = _hasPreview;
-    self.unreadLabel.shadowEnable = _hasPreview;
+    self.unreadLabel.shadowEnable = YES;
     
     self.caption.text = self.subscription.title;
+    if (_unreadCount){
+        [self.unreadImage removeFromSuperview];
+        self.unreadLabel.text = [[NSNumber numberWithInt:_unreadCount] description];
+        self.unreadImage = [[[UIImageView alloc] initWithImage:[self.unreadLabel snapshot]] autorelease];
+        CGRect frame = self.unreadImage.frame;
+        frame.origin.x = 5.0;
+        frame.origin.y = 5.0;
+        self.unreadCountContainer.frame = frame;
+        
+        [self.unreadCountContainer addSubview:self.unreadImage];
+        
+    }else{
+        self.unreadCountContainer.frame = CGRectZero;
+    }
     
-    NSInteger urCount = [GoogleReaderClient unreadCountWithID:self.subscription.ID];
-    
+    /*
     if (urCount == 0){
         self.unreadLabel.text = nil;
         [self.unreadImage setFrame:CGRectZero];
@@ -189,7 +209,7 @@ static CGFloat kCaptionHeight = 40.0f;
         [self.unreadLabel setFrame:frame];
         [self.unreadImage setFrame:frame];
         self.unreadImage.image = [self.unreadLabel snapshot];
-    }
+    }*/
     if (self.caption.text.length > 0){
         CGRect frame = CGRectMake(0,self.bounds.size.height-kCaptionHeight, self.bounds.size.width, kCaptionHeight);
         [self.caption setFrame:frame];
@@ -235,7 +255,9 @@ static CGFloat kCaptionHeight = 40.0f;
     self.unreadLabel.textColor = [UIColor whiteColor];
     [self.unreadLabel setContentEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 2)];
     
-    self.unreadImage = [[[UIImageView alloc] initWithFrame:CGRectZero] autorelease];
+//    self.unreadImage = [[[UIImageView alloc] initWithFrame:CGRectZero] autorelease];
+    self.unreadCountContainer = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.unreadCountContainer.backgroundColor = [UIColor clearColor];
     
     self.infoButton = [[[UIButton alloc] initWithFrame:CGRectMake(-7, -7, 32, 32 )] autorelease];
     [self.infoButton setImage:[UIImage imageNamed:@"info"] forState:UIControlStateNormal];
@@ -249,9 +271,11 @@ static CGFloat kCaptionHeight = 40.0f;
     
     [self addSubview:self.imageView];
 //    [self addSubview:self.caption];
-    [self addSubview:self.unreadImage];
+//    [self addSubview:self.unreadImage];
 //    [self addSubview:self.infoButton];
     [self addSubview:self.captionImage];
+    
+    [self addSubview:self.unreadCountContainer];
 }
 
 -(void)requestFinished:(ASIHTTPRequest*)request{
@@ -287,7 +311,6 @@ static CGFloat kCaptionHeight = 40.0f;
 }
 
 -(void)switchSubviewFrom:(UIView*)original toView:(UIView*)destiny{
-    _hasPreview = YES;
     @synchronized(self){
         [self addSubview:destiny];
         
@@ -301,7 +324,7 @@ static CGFloat kCaptionHeight = 40.0f;
             }];
         }
 //        [self bringSubviewToFront:self.infoButton];
-        [self bringSubviewToFront:self.unreadImage];
+        [self bringSubviewToFront:self.unreadCountContainer];
         [self bringSubviewToFront:self.captionImage];
     }
 }
@@ -456,7 +479,29 @@ static CGFloat kCaptionHeight = 40.0f;
 
 #pragma mark - notification call back
 -(void)updateUnreadCountLabel:(NSNotification*)notification{
-    [self setNeedsLayout];
+    NSInteger count = [GoogleReaderClient unreadCountWithID:self.subscription.ID];
+    
+    if (count == _unreadCount){
+        return;
+    }
+    
+     _unreadCount = count;
+    
+    [self.unreadCountContainer.layer removeAllAnimations];
+    UIView* previousUnreadView = self.unreadImage;
+    self.unreadLabel.text = [[NSNumber numberWithInt:count] description];
+    self.unreadImage = (count == 0)?nil:[[[UIImageView alloc] initWithImage:[self.unreadLabel snapshot]] autorelease];
+    CGRect frame = self.unreadImage.frame;
+    frame.origin.x = 5.0;
+    frame.origin.y = 5.0;
+    self.unreadCountContainer.frame = frame;
+    [self.unreadCountContainer addSubview:self.unreadImage];
+
+    [UIView transitionFromView:previousUnreadView toView:self.unreadImage duration:0.4f options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished){
+        if (finished){
+            [previousUnreadView removeFromSuperview];
+        }
+    }];
 }
 
 -(void)enableAnimation:(NSNotification*)notification{
