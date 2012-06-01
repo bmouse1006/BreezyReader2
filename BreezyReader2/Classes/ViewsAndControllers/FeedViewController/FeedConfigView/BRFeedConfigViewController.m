@@ -248,7 +248,7 @@
     [self stopTimer];
     if ([client isResponseOK]){
         self.activityLabel.message = NSLocalizedString(@"message_addnewtagsucceded", nil);
-        NSInteger sectionIndex;
+        NSInteger sectionIndex = -1;
         for (id obj in self.settingDataSources){
             if ([obj isKindOfClass:[BRFeedLabelsViewSource class]]){
                 sectionIndex = [self.settingDataSources indexOfObject:obj];
@@ -256,7 +256,9 @@
             }
         }
         
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+        if (sectionIndex >= 0){
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
     }else{
         self.activityLabel.message = NSLocalizedString(@"message_addnewtagfailed", nil);
     }

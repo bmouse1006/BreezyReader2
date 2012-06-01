@@ -246,9 +246,9 @@ static OAuthEngine* oauthEngine = nil;
 #pragma mark - weibo api
 
 -(void)postWeiboMessage:(NSString*)message image:(UIImage*)image{
-    WeiboClient *client = [[WeiboClient alloc] initWithTarget:self 
+    WeiboClient *client = [[[WeiboClient alloc] initWithTarget:self 
 													   engine:self.weiboEngine
-													   action:@selector(postStatusDidFinish:obj:)];
+													   action:@selector(postStatusDidFinish:obj:)] autorelease];
     if (image){
         NSData* jpegImage = UIImageJPEGRepresentation(image, 0.7);
         [client upload:jpegImage status:message];

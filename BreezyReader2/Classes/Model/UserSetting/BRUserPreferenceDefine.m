@@ -39,7 +39,7 @@ static UIImage* _backgroundImage = nil;
 
 +(NSURL*)backgroundImageStoreURL{
     
-    NSString* cachePath = [[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"backgroundCache"] retain];
+    NSString* cachePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"backgroundCache"];
     NSFileManager* fm = [NSFileManager defaultManager];
     BOOL isDictionary = NO;
     if ([fm fileExistsAtPath:cachePath isDirectory:&isDictionary] == NO){

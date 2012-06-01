@@ -32,6 +32,5 @@ typedef enum{
 +(BOOL)shouldShowRecommendations;
 +(BOOL)unreadOnlyStatusForStream:(NSString*)streamID;
 +(void)rememberAction:(BOOL)unreadOnly forStream:(NSString*)streamID;
-+(BOOL)hasTheAccountBeenSignedIn:(BRAccountType)accountType;
 
 @end

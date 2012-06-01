@@ -194,8 +194,10 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 {
     CFUUIDRef theUUID = CFUUIDCreate(NULL);
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    NSMakeCollectable(theUUID);
-    nonce = (NSString *)string;
+//    NSMakeCollectable(theUUID);
+    CFRelease(theUUID);
+    nonce = [[NSString stringWithString:(NSString *)string] retain];
+    CFRelease(string);
 }
 
 - (NSString *)_signatureBaseString 

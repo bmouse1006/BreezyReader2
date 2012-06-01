@@ -31,7 +31,6 @@
 - (NSArray *)parameters 
 {
     NSString *encodedParameters;
-	BOOL shouldfree = NO;
 	
 	NSString *contentType = [self valueForHTTPHeaderField:@"Content-Type"];
 	if ([contentType  hasPrefix:@"multipart/form-data; boundary="]) {
@@ -48,8 +47,7 @@
 	else 
 	{
         // POST, PUT
-		shouldfree = YES;
-        encodedParameters = [[NSString alloc] initWithData:[self HTTPBody] encoding:NSASCIIStringEncoding];
+        encodedParameters = [[[NSString alloc] initWithData:[self HTTPBody] encoding:NSASCIIStringEncoding] autorelease];
     }
     
     if ((encodedParameters == nil) || ([encodedParameters isEqualToString:@""]))
@@ -66,9 +64,9 @@
         [requestParameters addObject:parameter];
     }
     
-	// Cleanup
-	if (shouldfree)
-		[encodedParameters release];
+//	// Cleanup
+//	if (shouldfree)
+//		[encodedParameters release];
 	
     return [requestParameters autorelease];
 }
