@@ -318,10 +318,10 @@ static NSString* _userID = nil;
 
 #pragma mark - reader structure
 +(BOOL)isReaderLoaded{
-    BOOL result = ([[self subscriptions] count] > 0 || [[self tags] count] > 0);
+    BOOL result = ([UniversalSubList count] > 0 || [UniversalTagList count] > 0);
     if (result == NO){
         [self restoreReaderStructure];
-        result = ([[self subscriptions] count] > 0 || [[self tags] count] > 0);
+        result = ([UniversalSubList count] > 0 || [UniversalTagList count] > 0);
     }
     return result;
 }
@@ -591,6 +591,7 @@ static NSString* _userID = nil;
 
 +(void)restoreReaderStructure{
     [[self locker] lock];
+    
     [UniversalSubList setDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self filePathWithName:@"sublist"]]];
     [UniversalTagList setDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self filePathWithName:@"taglist"]]];
     [UniversalUnreadCount setDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self filePathWithName:@"unreadcount"]]];
@@ -601,11 +602,15 @@ static NSString* _userID = nil;
 +(void)removeStoredReaderData{
     NSFileManager* manager = [NSFileManager defaultManager];
     NSString* filePath = [self filePathWithName:@"tagList"];
-    [manager removeItemAtPath:filePath error:NULL];
+    NSError* error = nil;
+    [manager removeItemAtPath:filePath error:&error];
+    NSLog(@"%@", error);
     filePath = [self filePathWithName:@"subList"];
-    [manager removeItemAtPath:filePath error:NULL];
+    [manager removeItemAtPath:filePath error:&error];
+    NSLog(@"%@", error);
     filePath = [self filePathWithName:@"unreadcount"];
-    [manager removeItemAtPath:filePath error:NULL];
+    [manager removeItemAtPath:filePath error:&error];
+    NSLog(@"%@", error);
     
     [UniversalSubList removeAllObjects];
     [UniversalTagList removeAllObjects];
