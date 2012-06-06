@@ -606,6 +606,10 @@ static NSString* _userID = nil;
     [manager removeItemAtPath:filePath error:NULL];
     filePath = [self filePathWithName:@"unreadcount"];
     [manager removeItemAtPath:filePath error:NULL];
+    
+    [UniversalSubList removeAllObjects];
+    [UniversalTagList removeAllObjects];
+    [UniversalUnreadCount removeAllObjects];
 }
      
 +(NSString*)filePathWithName:(NSString*)name{
