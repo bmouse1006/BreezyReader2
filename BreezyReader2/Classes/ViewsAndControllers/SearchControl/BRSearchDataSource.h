@@ -41,6 +41,8 @@
 
 -(BOOL)hasMore;
 -(BOOL)isLoading;
+-(BOOL)loaded;
+-(BOOL)isLoadingMore;
 
 @property (nonatomic, retain) GoogleReaderClient* client;
 @property (nonatomic, copy) NSString* keywords;

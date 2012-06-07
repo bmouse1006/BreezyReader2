@@ -425,7 +425,7 @@ static CGFloat kCaptionHeight = 40.0f;
 -(void)startTimer{
     [self.imageRequest clearDelegatesAndCancel];
 //    self.timer = nil;
-    NSTimeInterval interval = (arc4random() % 5)+6;
+    NSTimeInterval interval = (arc4random() % 7)+7;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(changeImage:) userInfo:nil repeats:NO];
 //    [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(changeImage) userInfo:nil repeats:NO];
 }

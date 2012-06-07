@@ -124,7 +124,7 @@ static NSMutableDictionary* subCountForFeed = nil;
 
 -(void)receivedStreamDetail:(GoogleReaderClient*)client{
     if (client.error){
-        NSLog(@"error message is %@", [client.error localizedDescription]);
+        DebugLog(@"error message is %@", [client.error localizedDescription]);
     }else{
         DebugLog(@"%@", client.responseString);
         NSDictionary* json = client.responseJSONValue;

@@ -29,6 +29,7 @@ typedef void(^GoogleReaderCompletionHandler)(NSError*);
 @property (nonatomic, readonly) id responseJSONValue;
 @property (nonatomic, readonly) id responseFeedSearchingJSONValue;
 @property (nonatomic, readonly) GRFeed* responseFeed;
+@property (nonatomic, readonly) BOOL didUseCachedData;
 
 +(id)clientWithDelegate:(id)delegate action:(SEL)action;
 

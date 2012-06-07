@@ -90,7 +90,7 @@
 #pragma mark - google reader client call back
 -(void)receivedFeedDetails:(GoogleReaderClient*)client{
     if (client.error){
-        NSLog(@"error message is %@", [client.error localizedDescription]);
+        DebugLog(@"error message is %@", [client.error localizedDescription]);
     }else{
         DebugLog(@"%@", client.responseString);
         NSDictionary* json = client.responseJSONValue;

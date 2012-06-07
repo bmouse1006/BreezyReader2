@@ -14,7 +14,8 @@
 
 -(NSArray*)sortedSubscriptionsByReadingFrequency:(NSArray*)subscriptions;
 -(void)readFeed:(NSString*)ID;
--(NSTimeInterval)lastReadTimestampOfFeed:(NSString*)ID;
+-(void)refreshFeed:(NSString*)ID;
+-(NSTimeInterval)lastRefreshedTimestampOfFeed:(NSString*)ID;
 
 -(NSUInteger)countOfRecordedReadingFrequency;
 

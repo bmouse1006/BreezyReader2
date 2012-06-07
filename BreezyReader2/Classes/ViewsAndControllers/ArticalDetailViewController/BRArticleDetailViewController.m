@@ -222,7 +222,7 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     if ([[tagName lowercaseString] isEqualToString:@"img"]) { 
         NSString *scriptToGetSrc = [NSString stringWithFormat:@"document.elementFromPoint(%f, %f).src", pt.x, pt.y]; 
         NSString *imageUrl = [self.webView stringByEvaluatingJavaScriptFromString:scriptToGetSrc];
-        NSLog(@"image url=%@", imageUrl); 
+        DebugLog(@"image url=%@", imageUrl); 
         _imageClicked = YES;
         //show image scroll
         NSArray* imageList = [self.item imageURLList];

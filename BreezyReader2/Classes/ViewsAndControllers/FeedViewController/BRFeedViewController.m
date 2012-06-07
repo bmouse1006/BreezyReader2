@@ -183,8 +183,8 @@ static CGFloat refreshDistance = 60.0f;
     
     BOOL forceRefresh = NO;
     //get last read time
-    NSTimeInterval lastReadTimestamp = [[BRReadingStatistics statistics] lastReadTimestampOfFeed:self.subscription.ID];
-    if ([[NSDate date] timeIntervalSince1970] - lastReadTimestamp > 60 * 60 * 4){
+    NSTimeInterval lastReadTimestamp = [[BRReadingStatistics statistics] lastRefreshedTimestampOfFeed:self.subscription.ID];
+    if ([[NSDate date] timeIntervalSince1970] - lastReadTimestamp > 60 * 60 * 3){
         //4 hours ago
         //refresh auto matically
         forceRefresh = YES;

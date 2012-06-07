@@ -85,9 +85,6 @@
         [[self firstReadTimestamps] setObject:[NSDate date] forKey:ID];
     }
     
-    //record last read time stamp
-    [[self lastReadTimestamps] setObject:[NSDate date] forKey:ID];
-    
     NSNumber* count = [[self readingCounts] objectForKey:ID];
     if (count == nil){
         count = [NSNumber numberWithInt:0];
@@ -97,10 +94,14 @@
     
     [[self readingCounts] setObject:count forKey:ID];
     
-    NSLog(@"%@ is read %d times", ID, [count intValue]);
-    NSLog(@"frequency is %.2f", [self readingFrequencyForFeed:ID]);
+    DebugLog(@"%@ is read %d times", ID, [count intValue]);
+    DebugLog(@"frequency is %.2f", [self readingFrequencyForFeed:ID]);
 
     [self persistent];
+}
+
+-(void)refreshFeed:(NSString*)ID{
+    [[self lastReadTimestamps] setObject:[NSDate date] forKey:ID];
 }
 
 -(double)readingFrequencyForFeed:(NSString*)ID{
@@ -154,7 +155,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(NSTimeInterval)lastReadTimestampOfFeed:(NSString*)ID{
+-(NSTimeInterval)lastRefreshedTimestampOfFeed:(NSString*)ID{
     NSDate* lastRead = [[self lastReadTimestamps] objectForKey:ID];
     if (lastRead == nil){
         lastRead = [NSDate distantPast];

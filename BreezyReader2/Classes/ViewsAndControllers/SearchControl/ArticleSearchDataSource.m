@@ -123,11 +123,12 @@
 }
 
 -(void)loadMoreSearchResult{
+    [super loadMoreSearchResult];
     [self loadNextPageOfContents];
 }
 
--(BOOL)isLoading{
-    return [self.client isLoading];
-}
+//-(BOOL)isLoading{
+//    return [self.client isLoading];
+//}
 
 @end

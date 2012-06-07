@@ -75,7 +75,7 @@
 @synthesize requestInternalCompletionBlock = _requestInternalCompletionBlock;
 @synthesize delegate = _delegate, action = _action;
 @synthesize request = _request;
-@synthesize responseData, responseString, responseJSONValue, error = _error, isResponseOK, responseFeed;
+@synthesize responseData, responseString, responseJSONValue, error = _error, isResponseOK, responseFeed, didUseCachedData;
 @synthesize responseFeedSearchingJSONValue = _responseFeedSearchingJSONValue;
 @synthesize tokenRequest = _tokenRequest;
 @synthesize requestQueue = _requestQueue;
@@ -711,7 +711,7 @@ static NSString* _userID = nil;
 -(void)searchArticlesWithKeywords:(NSString*)keywords{
     URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
     [paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
-    [paramSet setParameterForKey:SEARCH_ARGS_NUMBER withValue:[NSNumber numberWithInt:100]];
+    [paramSet setParameterForKey:SEARCH_ARGS_NUMBER withValue:[NSNumber numberWithInt:300]];
     [paramSet setParameterForKey:SEARCH_ARGS_QUERY withValue:keywords];
     [self clearAllRequests];
     self.request = [self requestWithURL:[self fullURLFromBaseString:API_SEARCH_ARTICLES] parameters:paramSet APIType:API_LIST];
@@ -1048,6 +1048,10 @@ static NSString* _userID = nil;
     }
     
     return feed;
+}
+
+-(BOOL)didUseCachedData{
+    return [self.request didUseCachedResponse];
 }
 
 -(id)responseFeedSearchingJSONValue{

@@ -8,7 +8,9 @@
 
 #import "BRSearchDataSource.h"
 
-@interface BRSearchDataSource ()
+@interface BRSearchDataSource (){
+    BOOL _loadingMore;
+}
 
 @end
 
@@ -49,10 +51,14 @@
 -(void)searchFinished{
     _searching = NO;
     [self.delegate performSelectorOnMainThread:@selector(dataSourceDidFinishSearching:) withObject:self waitUntilDone:NO];
-    [self.delegate performSelectorOnMainThread:@selector(dataSourceDidLoadMore:) withObject:self waitUntilDone:NO];
+    if (_loadingMore){
+        _loadingMore = NO;
+        [self.delegate performSelectorOnMainThread:@selector(dataSourceDidLoadMore:) withObject:self waitUntilDone:NO];
+    }
 }
 
 -(void)loadMoreSearchResult{
+    _loadingMore = YES;
     [self.delegate dataSourceDidStartLoadMore:self];
 }
 
@@ -83,7 +89,15 @@
 }
 
 -(BOOL)isLoading{
-    return [self.request isExecuting];
+    return _searching;
+}
+
+-(BOOL)loaded{
+    return [self.results count] > 0;
+}
+
+-(BOOL)isLoadingMore{
+    return _loadingMore;
 }
 
 @end

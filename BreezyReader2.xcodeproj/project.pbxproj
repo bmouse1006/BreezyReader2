@@ -645,20 +645,12 @@
 		229E23BB153E8EED00DDBE0B /* LBSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229E2369153E800A00DDBE0B /* LBSSDK.framework */; };
 		22A51C2E156D18DC00A7BB76 /* GCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A51A7E156D18DC00A7BB76 /* GCOAuth.m */; };
 		22A51C2F156D18DC00A7BB76 /* GCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A51A7E156D18DC00A7BB76 /* GCOAuth.m */; };
-		22A51C30156D18DC00A7BB76 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 22A51A7F156D18DC00A7BB76 /* LICENSE */; };
-		22A51C31156D18DC00A7BB76 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 22A51A7F156D18DC00A7BB76 /* LICENSE */; };
 		22A51C32156D18DC00A7BB76 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A51A81156D18DC00A7BB76 /* NSData+Base64.m */; };
 		22A51C33156D18DC00A7BB76 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A51A81156D18DC00A7BB76 /* NSData+Base64.m */; };
-		22A51C34156D18DC00A7BB76 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 22A51A83156D18DC00A7BB76 /* LICENSE */; };
-		22A51C35156D18DC00A7BB76 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 22A51A83156D18DC00A7BB76 /* LICENSE */; };
 		22A51C36156D18DC00A7BB76 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A51A85156D18DC00A7BB76 /* NSString+URLEncoding.m */; };
 		22A51C37156D18DC00A7BB76 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A51A85156D18DC00A7BB76 /* NSString+URLEncoding.m */; };
-		22A51C38156D18DC00A7BB76 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 22A51A87156D18DC00A7BB76 /* LICENSE */; };
-		22A51C39156D18DC00A7BB76 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 22A51A87156D18DC00A7BB76 /* LICENSE */; };
 		22A51C3A156D18DC00A7BB76 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A51A89156D18DC00A7BB76 /* SSKeychain.m */; };
 		22A51C3B156D18DC00A7BB76 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A51A89156D18DC00A7BB76 /* SSKeychain.m */; };
-		22A51C3C156D18DC00A7BB76 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 22A51A8B156D18DC00A7BB76 /* LICENSE */; };
-		22A51C3D156D18DC00A7BB76 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 22A51A8B156D18DC00A7BB76 /* LICENSE */; };
 		22A51C3E156D18DC00A7BB76 /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A51A8E156D18DC00A7BB76 /* TBinaryProtocol.m */; };
 		22A51C3F156D18DC00A7BB76 /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A51A8E156D18DC00A7BB76 /* TBinaryProtocol.m */; };
 		22A51C40156D18DC00A7BB76 /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A51A91156D18DC00A7BB76 /* TProtocolException.m */; };
@@ -4539,10 +4531,6 @@
 				22502CE21564754A00EBCF5E /* album.png in Resources */,
 				22E357241565C88800E82A5F /* checkmark_big.png in Resources */,
 				22E357261565C88800E82A5F /* checkmark_big@2x.png in Resources */,
-				22A51C31156D18DC00A7BB76 /* LICENSE in Resources */,
-				22A51C35156D18DC00A7BB76 /* LICENSE in Resources */,
-				22A51C39156D18DC00A7BB76 /* LICENSE in Resources */,
-				22A51C3D156D18DC00A7BB76 /* LICENSE in Resources */,
 				22A51C65156D18DC00A7BB76 /* ENNotebookListViewController.xib in Resources */,
 				22A51C69156D18DC00A7BB76 /* ENNoteComposerController.xib in Resources */,
 				22A51C6B156D18DC00A7BB76 /* ENNoteContentTemplate.xml in Resources */,
@@ -4756,10 +4744,6 @@
 				22502CE11564754A00EBCF5E /* album.png in Resources */,
 				22E357231565C88700E82A5F /* checkmark_big.png in Resources */,
 				22E357251565C88800E82A5F /* checkmark_big@2x.png in Resources */,
-				22A51C30156D18DC00A7BB76 /* LICENSE in Resources */,
-				22A51C34156D18DC00A7BB76 /* LICENSE in Resources */,
-				22A51C38156D18DC00A7BB76 /* LICENSE in Resources */,
-				22A51C3C156D18DC00A7BB76 /* LICENSE in Resources */,
 				22A51C64156D18DC00A7BB76 /* ENNotebookListViewController.xib in Resources */,
 				22A51C68156D18DC00A7BB76 /* ENNoteComposerController.xib in Resources */,
 				22A51C6A156D18DC00A7BB76 /* ENNoteContentTemplate.xml in Resources */,

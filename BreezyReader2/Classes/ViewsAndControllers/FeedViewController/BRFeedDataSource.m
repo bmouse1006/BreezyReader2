@@ -155,6 +155,9 @@
         if ([imageURLs count] > 0){
             [[BRImagePreviewCache sharedCache] storeImagePreviews:[feed imageURLs] key:self.subscription.ID];
         }
+        if (client.didUseCachedData == NO){
+            [[BRReadingStatistics statistics] refreshFeed:self.subscription.ID];
+        }
         _loading = NO;
         [self.delegate dataSource:self didFinishLoading:NO];
         [self loadMoreFeedInBackground];

@@ -209,23 +209,23 @@ static CGFloat kArticleSearchResultCellHeight = 70.0f;
     if (dataSource == self.searchDisplayController.searchResultsDataSource){
         //reload data
         [self.searchDisplayController.searchResultsTableView reloadData];
-        [self updateFooterView];
     }
+    [self updateFooterView];
 }
 
 -(void)dataSourceDidFinishSearching:(BRSearchDataSource*)dataSource{
     //reload table view
     if (dataSource == self.searchDisplayController.searchResultsDataSource){
         [self.searchDisplayController.searchResultsTableView reloadData];
-        [self updateFooterView];
     }
+    [self updateFooterView];
 }
 
 -(void)dataSourceDidLoadMore:(BRSearchDataSource*)dataSource{
     if (dataSource == self.searchDisplayController.searchResultsDataSource){
         [self.searchDisplayController.searchResultsTableView reloadData];
-        [self updateFooterView];
     }
+    [self updateFooterView];
 }
 
 -(void)dataSourceDidStartLoadMore:(BRSearchDataSource *)dataSource{
@@ -235,14 +235,14 @@ static CGFloat kArticleSearchResultCellHeight = 70.0f;
 -(void)updateFooterView{
     BRSearchDataSource* dataSource = (BRSearchDataSource*)self.searchDisplayController.searchResultsDataSource;
     UITableView* tableView = self.searchDisplayController.searchResultsTableView;
-    if ([dataSource hasMore]){
+    if ([dataSource hasMore] && [dataSource loaded]){
         tableView.tableFooterView = self.loadMoreView;
     }else{
         tableView.tableFooterView = nil;
     }
     
     NSString* title = nil;
-    if ([dataSource isLoading]){
+    if ([dataSource isLoading] || [dataSource isLoadingMore]){
         title = NSLocalizedString(@"title_loadingmore", nil);
         self.loadMoreButton.userInteractionEnabled = NO;
     }else{
