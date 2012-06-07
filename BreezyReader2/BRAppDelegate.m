@@ -93,12 +93,6 @@ void uncaughtExceptionHandler(NSException *exception) {
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
     //clear cache earlier than two days ago
-    if ([BRUserPreferenceDefine autoClearCache]){
-        NSTimeInterval outdate = 60 * 60 * 24 * 7;
-        NSDate* date = [NSDate dateWithTimeIntervalSinceNow:-outdate];
-        
-        [[BRCacheCleaner sharedCleaner] clearHTTPResponseCacheBeforeDate:date];
-    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -108,6 +102,12 @@ void uncaughtExceptionHandler(NSException *exception) {
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
     [ASIHTTPRequest clearSession];
+    if ([BRUserPreferenceDefine autoClearCache]){
+        NSTimeInterval outdate = 60 * 60 * 24 * 7;
+        NSDate* date = [NSDate dateWithTimeIntervalSinceNow:-outdate];
+        
+        [[BRCacheCleaner sharedCleaner] clearHTTPResponseCacheBeforeDate:date];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
