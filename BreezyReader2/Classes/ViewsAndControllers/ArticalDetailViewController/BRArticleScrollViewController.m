@@ -309,6 +309,7 @@
     NSString* content = (item.content)?item.content:item.summary;
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToInstapaperWithTitle:item.title message:content urlString:urlString];
+    [self showHideActionMenu];
 }
 
 -(void)shareToReadItLater:(NSNotification*)notification{
@@ -317,6 +318,7 @@
     NSString* content = (item.content)?item.content:item.summary;
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToReadItLaterWithTitle:item.title message:content urlString:urlString];
+    [self showHideActionMenu];
 }
 
 -(void)shareToMail:(NSNotification*)notification{

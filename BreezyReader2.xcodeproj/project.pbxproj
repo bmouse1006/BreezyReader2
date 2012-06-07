@@ -1514,7 +1514,7 @@
 		229E1BD9153D629D00DDBE0B /* config_grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "config_grey@2x.png"; sourceTree = "<group>"; };
 		229E1BDC153D639300DDBE0B /* arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_up.png; sourceTree = "<group>"; };
 		229E1BDD153D639300DDBE0B /* arrow_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_up@2x.png"; sourceTree = "<group>"; };
-		229E211F153E687C00DDBE0B /* BreezyReader2 free.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BreezyReader2 free.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		229E211F153E687C00DDBE0B /* BreezyReader2Free.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreezyReader2Free.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		229E22DB153E6FA500DDBE0B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		229E22E4153E775C00DDBE0B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		229E22E6153E776200DDBE0B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -4215,7 +4215,7 @@
 			children = (
 				22F8668614A216AA00D7B1CE /* BreezyReader2.app */,
 				22F866A114A216AA00D7B1CE /* BreezyReader2Tests.octest */,
-				229E211F153E687C00DDBE0B /* BreezyReader2 free.app */,
+				229E211F153E687C00DDBE0B /* BreezyReader2Free.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4276,9 +4276,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		229E1FD6153E687C00DDBE0B /* BreezyReader2 free */ = {
+		229E1FD6153E687C00DDBE0B /* BreezyReader2Free */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 229E211C153E687C00DDBE0B /* Build configuration list for PBXNativeTarget "BreezyReader2 free" */;
+			buildConfigurationList = 229E211C153E687C00DDBE0B /* Build configuration list for PBXNativeTarget "BreezyReader2Free" */;
 			buildPhases = (
 				229E1FD7153E687C00DDBE0B /* Sources */,
 				229E2089153E687C00DDBE0B /* Frameworks */,
@@ -4288,9 +4288,9 @@
 			);
 			dependencies = (
 			);
-			name = "BreezyReader2 free";
+			name = BreezyReader2Free;
 			productName = BreezyReader2;
-			productReference = 229E211F153E687C00DDBE0B /* BreezyReader2 free.app */;
+			productReference = 229E211F153E687C00DDBE0B /* BreezyReader2Free.app */;
 			productType = "com.apple.product-type.application";
 		};
 		22F8668514A216AA00D7B1CE /* BreezyReader2 */ = {
@@ -4353,7 +4353,7 @@
 			targets = (
 				22F8668514A216AA00D7B1CE /* BreezyReader2 */,
 				22F866A014A216AA00D7B1CE /* BreezyReader2Tests */,
-				229E1FD6153E687C00DDBE0B /* BreezyReader2 free */,
+				229E1FD6153E687C00DDBE0B /* BreezyReader2Free */,
 			);
 		};
 /* End PBXProject section */
@@ -5566,7 +5566,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "BreezyReader2 free";
+				PRODUCT_NAME = "${TARGET_NAME}";
 				VersionType = "FREEVERSION=1";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5603,7 +5603,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "BreezyReader2 free";
+				PRODUCT_NAME = "${TARGET_NAME}";
 				VersionType = "FREEVERSION=1";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5685,6 +5685,7 @@
 		22F866B514A216AA00D7B1CE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BreezyReader2/BreezyReader2-Prefix.pch";
@@ -5697,6 +5698,7 @@
 				);
 				OTHER_LDFLAGS = "-licucore";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -5738,7 +5740,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		229E211C153E687C00DDBE0B /* Build configuration list for PBXNativeTarget "BreezyReader2 free" */ = {
+		229E211C153E687C00DDBE0B /* Build configuration list for PBXNativeTarget "BreezyReader2Free" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				229E211D153E687C00DDBE0B /* Debug */,

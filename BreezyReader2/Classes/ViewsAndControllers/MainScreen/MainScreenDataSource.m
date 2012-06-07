@@ -66,9 +66,8 @@
     
     NSSet* showedLabels = [NSSet setWithSet:self.tagIDSet];
     
-    [showedLabels enumerateObjectsUsingBlock:^(id obj, BOOL* stop){
-        NSString* tagID = obj;
-        if ([[GoogleReaderClient subscriptionsWithTagID:tagID] count] == 0){
+    [showedLabels enumerateObjectsUsingBlock:^(NSString* tagID, BOOL* stop){
+        if ([[GoogleReaderClient subscriptionsWithTagID:tagID] count] == 0 || [allLabels containsObject:tagID] == NO){
             [self.tagIDSet removeObject:tagID];
             [self.tagControllers removeObjectForKey:tagID];
         }
@@ -133,6 +132,8 @@
 }
 
 -(void)reload{
+    [self.tagIDSet removeAllObjects];
+    [self.tagControllers removeAllObjects];
     [self reloadController];
 }
 

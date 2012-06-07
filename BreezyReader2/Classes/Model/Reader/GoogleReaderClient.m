@@ -601,16 +601,13 @@ static NSString* _userID = nil;
 
 +(void)removeStoredReaderData{
     NSFileManager* manager = [NSFileManager defaultManager];
-    NSString* filePath = [self filePathWithName:@"tagList"];
     NSError* error = nil;
+    NSString* filePath = [self filePathWithName:@"taglist"];
     [manager removeItemAtPath:filePath error:&error];
-    NSLog(@"%@", error);
-    filePath = [self filePathWithName:@"subList"];
+    filePath = [self filePathWithName:@"sublist"];
     [manager removeItemAtPath:filePath error:&error];
-    NSLog(@"%@", error);
     filePath = [self filePathWithName:@"unreadcount"];
     [manager removeItemAtPath:filePath error:&error];
-    NSLog(@"%@", error);
     
     [UniversalSubList removeAllObjects];
     [UniversalTagList removeAllObjects];

@@ -47,6 +47,7 @@
         self.autoresizesSubviews = NO;
         self.pagingEnabled = YES;
         _index = 0;
+        _count = 0;
     }
     
     return self;
@@ -85,6 +86,14 @@
 }
 
 -(void)generateAndSetupContainers{
+    
+    if (_count == 0){
+        [self.subviews enumerateObjectsUsingBlock:^(UIView* view, NSUInteger idx, BOOL* stop){
+            [view removeFromSuperview];
+        }];
+        return;
+    }
+    
     self.containers = [NSMutableSet setWithCapacity:0];
     
     for (UIView* sub in [self subviews]){
