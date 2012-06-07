@@ -17,7 +17,7 @@
 #define kShowRecommendations @"showrecommendations"
 #define kRememberMyAction @"rememberMyChoice"
 #define kShowUnreadOnly @"shouldShowUnreadOnly"
-
+#define kAutoClearCache @"autoclearcache"
 #define kUnreadOnlySet @"unreadOnlySet"
 
 #define kDefaultBackgroundImageName @"background1.jpg"
@@ -89,8 +89,12 @@ static UIImage* _backgroundImage = nil;
     [self valueChangedForIdentifier:kBackgroundImageName value:imageName];
 }
 
++(BOOL)autoClearCache{
+    return [self boolValueForIdentifier:kAutoClearCache];
+}
+
 +(BOOL)shouldLoadAD{
-    return YES;
+    return NO;
 }
 
 +(BOOL)shouldAutoFlipThumbnail{

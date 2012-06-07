@@ -28,6 +28,7 @@
 @synthesize request = _request;
 @synthesize delegate = _delegate;
 @synthesize defautImageMode = _defautImageMode, imageContentMode = _imageContentMode;
+@synthesize storagePolicy = _storagePolicy;
 
 -(void)dealloc{
     [_imageURL release];
@@ -67,7 +68,10 @@
 -(ASIHTTPRequest*)requestWithURL:(NSURL*)url{
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
     request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
-    request.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;
+    if (self.storagePolicy != ASICachePermanentlyCacheStoragePolicy || self.storagePolicy != ASICacheForSessionDurationCacheStoragePolicy){
+        self.storagePolicy = ASICacheForSessionDurationCacheStoragePolicy;
+    }
+    request.cacheStoragePolicy = self.storagePolicy;
     request.delegate = self;
     return request;
 }

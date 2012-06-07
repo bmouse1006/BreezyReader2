@@ -46,7 +46,8 @@
 "title_showrecommendation" = "显示推荐源";
 "title_changebackground" = "更换背景";
 "title_feedsinmostread" = "最常阅读中源的数量";
-"title_autocleancache" = "自动清除缓存";
+"title_autoclearcache" = "自动清理缓存";
+"title_manuallyclearcache" = "手动清理缓存";
 "title_viewarticles" = "查看文章";
 "title_showunreadonly" = "只显示未读";
 "title_remembermychoice" = "记住我的操作";
@@ -75,7 +76,8 @@
 "message_settingbackgroundimage" = "设置背景";
 "message_accountsectionfootertext" = "一旦有需要的时候，各服务的账户登录界面会自动出现";
 "message_manualsyncnote" = "网络可能发生了一些问题，请点击上方的同步按钮重新同步";
-"The request timed out" = "请求超时:(";
+"The request timed out" = "请求超时 :(";
+"message_clearcache" = "清理缓存中";
 
 "msg_searching" = "搜索中...";
 "msg_unstarfailed" = "去星标失败啦";

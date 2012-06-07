@@ -643,7 +643,8 @@ static NSString* _userID = nil;
                          exclude:(NSString*)excludeString 
                     continuation:(NSString*)continuationStr
                     forceRefresh:(BOOL)refresh 
-                        needAuth:(BOOL)needAuth priority:(NSOperationQueuePriority)priority{
+                        needAuth:(BOOL)needAuth 
+                        priority:(NSOperationQueuePriority)priority{
 	URLParameterSet* parameterSet = [self compileParameterSetWithCount:count startFrom:date exclude:excludeString continuation:continuationStr];
     if (identifer.length == 0){
         NSLog(@"stream id should not be nil");
@@ -657,6 +658,7 @@ static NSString* _userID = nil;
         policy = ASIDoNotReadFromCacheCachePolicy;
     }
     self.request.cachePolicy = policy;
+    self.request.cacheStoragePolicy = ASICachePermanentlyCacheStoragePolicy;
     self.request.delegate = self;
     [self.request setQueuePriority:priority];
     

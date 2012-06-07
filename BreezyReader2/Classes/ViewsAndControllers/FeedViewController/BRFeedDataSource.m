@@ -11,6 +11,7 @@
 #import "SBJSON.h"
 #import "BROperationQueues.h"
 #import "BRReadingStatistics.h"
+#import "BRImagePreviewCache.h"
 
 @interface BRFeedDataSource(){
     BOOL _loading;
@@ -149,6 +150,11 @@
         self.loadedTime = [NSDate date];
         GRFeed* feed = client.responseFeed;
         self.feed = feed;
+        //refresh image URL
+        NSArray* imageURLs = [feed imageURLs];
+        if ([imageURLs count] > 0){
+            [[BRImagePreviewCache sharedCache] storeImagePreviews:[feed imageURLs] key:self.subscription.ID];
+        }
         _loading = NO;
         [self.delegate dataSource:self didFinishLoading:NO];
         [self loadMoreFeedInBackground];

@@ -15,6 +15,7 @@
 #import "BRErrorHandler.h"
 #import "BRADManager.h"
 #import "BRUserPreferenceDefine.h"
+#import "BRReadingStatistics.h"
 
 #define kFeedTableRowHeight 97
 
@@ -179,7 +180,16 @@ static CGFloat refreshDistance = 60.0f;
     self.tableView.delegate = self;
     // Do any additional setup after loading the view from its nib.
     self.dataSource.subscription = self.subscription;
-    [self.dataSource loadDataMore:NO forceRefresh:NO];
+    
+    BOOL forceRefresh = NO;
+    //get last read time
+    NSTimeInterval lastReadTimestamp = [[BRReadingStatistics statistics] lastReadTimestampOfFeed:self.subscription.ID];
+    if ([[NSDate date] timeIntervalSince1970] - lastReadTimestamp > 60 * 60 * 4){
+        //4 hours ago
+        //refresh auto matically
+        forceRefresh = YES;
+    }
+    [self.dataSource loadDataMore:NO forceRefresh:forceRefresh];
     if ([self.dataSource isLoaded] == NO){
         [self.mainContainer addSubview:self.loadingView];
     }

@@ -47,7 +47,8 @@
 "title_showrecommendation" = "Show recommendation";
 "title_changebackground" = "Change background";
 "title_feedsinmostread" = "Feeds count in Most Read";
-"title_autocleancache" = "Auto clean cache";
+"title_autoclearcache" = "Auto clear cache";
+"title_manuallyclearcache" = "Manually clear cache";
 "title_viewarticles" = "View articles";
 "title_showunreadonly" = "Show unread only";
 "title_remembermychoice" = "Remember my action";
@@ -76,7 +77,8 @@
 "message_settingbackgroundimage" = "Setting background";
 "message_accountsectionfootertext" = "Account login UI for services will be promoted automatically if needed";
 "message_manualsyncnote" = "There might be something wrong with the network. Please tap the Sync button to sync again";
-"The request timed out" = "The request timed out";
+"The request timed out" = "The request timed out :(";
+"message_clearcache" = "Clearing cache";
 
 "msg_searching" = "Searching...";
 "msg_unstarfailed" = "Failed to remove star";

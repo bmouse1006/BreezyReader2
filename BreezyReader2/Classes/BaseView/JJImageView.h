@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ASIHTTPRequestDelegate.h"
+#import "ASIHTTPRequest.h"
 
 @class JJImageView;
 
@@ -26,5 +26,7 @@
 @property (nonatomic, assign) id<JJImageViewDelegate> delegate;
 
 @property (nonatomic, assign) UIViewContentMode defautImageMode;
+
+@property (nonatomic, assign) ASICacheStoragePolicy storagePolicy;
 
 @end

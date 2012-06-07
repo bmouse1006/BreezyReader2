@@ -369,7 +369,7 @@ static CGFloat kCaptionHeight = 40.0f;
     }else{
         self.imageRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:self.currentImageURL]];
         self.imageRequest.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
-        self.imageRequest.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;
+        self.imageRequest.cacheStoragePolicy = ASICachePermanentlyCacheStoragePolicy;
         self.imageRequest.delegate = self;
         [self.imageRequest startAsynchronous];
     }
@@ -402,7 +402,7 @@ static CGFloat kCaptionHeight = 40.0f;
     [self setImageURLs:nil];
     [self.grClient clearAndCancel];
     self.grClient = [GoogleReaderClient clientWithDelegate:self action:@selector(receivedGRResponse:)];
-    [self.grClient requestFeedWithIdentifier:sub.ID count:[NSNumber numberWithInt:2] startFrom:nil exclude:nil continuation:nil forceRefresh:NO needAuth:YES];
+    [self.grClient requestFeedWithIdentifier:sub.ID count:[NSNumber numberWithInt:2] startFrom:nil exclude:nil continuation:nil forceRefresh:YES needAuth:YES];
 }
 
 -(void)setObject:(id)obj{

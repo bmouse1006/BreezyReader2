@@ -101,5 +101,28 @@
 			</dict>
 		</array>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>title_cache</string>
+		<key>configs</key>
+		<array>
+			<dict>
+				<key>identifier</key>
+				<string>manuallyclearcache</string>
+				<key>type</key>
+				<string>custom</string>
+				<key>customViewClass</key>
+				<string>BRManuallyClearCacheView</string>
+			</dict>
+			<dict>
+				<key>identifier</key>
+				<string>autoclearcache</string>
+				<key>name</key>
+				<string>title_autoclearcache</string>
+				<key>type</key>
+				<string>switch</string>
+			</dict>
+		</array>
+	</dict>
 </array>
 </plist>

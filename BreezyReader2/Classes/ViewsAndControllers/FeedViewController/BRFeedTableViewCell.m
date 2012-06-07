@@ -99,6 +99,7 @@
     self.urlImageView.defautImageMode = UIViewContentModeCenter;
     self.urlImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.urlImageView.imageURL = nil;
+    self.urlImageView.storagePolicy = ASICachePermanentlyCacheStoragePolicy;
     
     [self.contentView addSubview:self.container];
 }

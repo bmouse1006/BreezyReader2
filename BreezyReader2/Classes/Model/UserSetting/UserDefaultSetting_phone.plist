@@ -12,7 +12,7 @@
 	<false/>
 	<key>feedsinmostread</key>
 	<integer>10</integer>
-	<key>autocleancache</key>
+	<key>autoclearcache</key>
 	<true/>
 	<key>backgroundimagename</key>
 	<string>background1.jpg</string>

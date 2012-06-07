@@ -94,7 +94,7 @@
     [self.request clearDelegatesAndCancel];
     self.request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:imageURL]];
     self.request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
-    self.request.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;
+    self.request.cacheStoragePolicy = ASICachePermanentlyCacheStoragePolicy;
     self.request.allowResumeForFileDownloads =  YES;
     self.request.delegate = self;
     self.request.downloadProgressDelegate = self;

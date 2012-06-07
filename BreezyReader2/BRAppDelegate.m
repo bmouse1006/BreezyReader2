@@ -16,10 +16,12 @@
 #import "BRErrorHandler.h"
 #import "ASIHTTPRequest.h"
 #import "ASIDownloadCache.h"
+#import "BRDownloadedCache.h"
 #import "BRTopContainer.h"
 #import "GoogleReaderClient.h"
 #import "JJSocialShareManager.h"
 #import "BRUserPreferenceDefine.h"
+#import "BRCacheCleaner.h"
 
 void uncaughtExceptionHandler(NSException *exception);
 
@@ -55,7 +57,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];
     //setup request cache
-    [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
+    [ASIHTTPRequest setDefaultCache:[BRDownloadedCache sharedCache]];
     [[ASIHTTPRequest sharedQueue] setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
     [self registerNotifications];
     
@@ -72,6 +74,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         BRUserVerifyController* verifyController = [[[BRUserVerifyController alloc] init] autorelease];
         [container addChildViewController:verifyController];
     }
+    
     self.window.rootViewController = container;
     [self.window makeKeyAndVisible];
     //setup global appearence
@@ -89,6 +92,13 @@ void uncaughtExceptionHandler(NSException *exception) {
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
+    //clear cache earlier than two days ago
+    if ([BRUserPreferenceDefine autoClearCache]){
+        NSTimeInterval outdate = 60 * 60 * 24 * 7;
+        NSDate* date = [NSDate dateWithTimeIntervalSinceNow:-outdate];
+        
+        [[BRCacheCleaner sharedCleaner] clearHTTPResponseCacheBeforeDate:date];
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
