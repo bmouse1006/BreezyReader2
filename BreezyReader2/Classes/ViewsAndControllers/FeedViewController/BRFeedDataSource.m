@@ -26,7 +26,6 @@
 
 @implementation BRFeedDataSource
 
-@synthesize items = _items;
 @synthesize subscription = _subscription, feed = _feed, moreFeed = _moreFeed;
 @synthesize client = _client;
 @synthesize unreadOnly = _unreadOnly;
@@ -35,7 +34,6 @@
 -(void)dealloc{
     [self.client clearAndCancel];
     self.client = nil;
-    self.items = nil;
     self.subscription = nil;
     self.feed = nil;
     self.moreFeed = nil;

@@ -79,7 +79,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleBlue;
         id value = [UserPreferenceDefine valueForIdentifier:identifier];
         if (value){
-            self.detailTextLabel.text = [value description];
+            self.detailTextLabel.text = NSLocalizedString([value description], nil);
         }
     }else if([type isEqualToString:@"custom"]){
         NSString* className = [config objectForKey:@"customViewClass"];

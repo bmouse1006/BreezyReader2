@@ -16,6 +16,7 @@
 #import "BRADManager.h"
 #import "BRUserPreferenceDefine.h"
 #import "BRReadingStatistics.h"
+#import "JJSocialShareManager.h"
 
 #define kFeedTableRowHeight 97
 
@@ -113,11 +114,15 @@ static CGFloat refreshDistance = 60.0f;
     [nc addObserver:self selector:@selector(unstarArticle:) name:NOTIFICATION_UNSTARITEM object:nil];
     [nc addObserver:self selector:@selector(markArticleAsRead:) name:NOTIFICATION_MARKITEMASREAD object:nil];
     [nc addObserver:self selector:@selector(markArticleAsUnread:) name:NOTIFICATION_MARKITEMASUNREAD object:nil];
+    [nc addObserver:self selector:@selector(swipeToRightAction:) name:NOTIFICATION_SWIPEACTION_RIGHT object:nil];
+    [nc addObserver:self selector:@selector(swipeToLeftAction:) name:NOTIFICATION_SWIPEACTION_LEFT object:nil];
     [nc addObserver:self selector:@selector(adLoaded:) name:NOTIFICATION_ADLOADED object:nil];
     [nc addObserver:self selector:@selector(markAllAsReadButtonClicked:) name:NOTIFICATION_MENUACTION_MARKALLASREAD object:nil];
     [nc addObserver:self selector:@selector(shouldShowUnreadOnly:) name:NOTIFICATION_MENUACTION_UNREADONLY object:nil];
     [nc addObserver:self selector:@selector(showAllArticles:) name:NOTIFICAITON_MENUACTION_ALLARTICLES object:nil];
     [nc addObserver:self selector:@selector(actionMenuDisappeared:) name:NOTIFICATION_MENUACTION_DISAPPEAR object:nil];
+    [nc addObserver:self selector:@selector(sendToReadItLater:) name:NOTIFICATION_SENDTOREADITLATER object:nil];
+    [nc addObserver:self selector:@selector(sendToInstapaper:) name:NOTIFICATION_SENDTOINSTAPAPER object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -575,6 +580,30 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)feedSubscribed:(NSNotification*)notification{
     [self.dataSource loadDataMore:NO forceRefresh:YES];
+}
+
+-(void)swipeToRightAction:(NSNotification*)notification{
+    NSNotification* newNotification = [NSNotification notificationWithName:[BRUserPreferenceDefine notificationNameForSwipeRightAction] object:notification.object userInfo:notification.userInfo];
+    [[NSNotificationCenter defaultCenter] postNotification:newNotification];
+}
+
+-(void)swipeToLeftAction:(NSNotification*)notification{
+    NSNotification* newNotification = [NSNotification notificationWithName:[BRUserPreferenceDefine notificationNameForSwipeLeftAction] object:notification.object userInfo:notification.userInfo];
+    [[NSNotificationCenter defaultCenter] postNotification:newNotification];
+}
+
+-(void)sendToReadItLater:(NSNotification*)notification{
+    GRItem* item = [notification.userInfo objectForKey:@"item"];
+    NSString* content = (item.content)?item.content:item.summary;
+    NSString* urlString = item.alternateLink;
+    [[JJSocialShareManager sharedManager] sendToReadItLaterWithTitle:item.title message:content urlString:urlString];
+}
+
+-(void)sendToInstapaper:(NSNotification*)notification{
+    GRItem* item = [notification.userInfo objectForKey:@"item"];
+    NSString* content = (item.content)?item.content:item.summary;
+    NSString* urlString = item.alternateLink;
+    [[JJSocialShareManager sharedManager] sendToInstapaperWithTitle:item.title message:content urlString:urlString];
 }
 
 #pragma mark - google reader client call back

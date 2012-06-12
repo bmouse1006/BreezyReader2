@@ -49,7 +49,7 @@
 "title_feedsinmostread" = "Feeds count in Most Read";
 "title_autoclearcache" = "Auto clear cache";
 "title_manuallyclearcache" = "Manually clear cache";
-"title_viewarticles" = "View articles";
+"title_viewarticles" = "View articles' list";
 "title_showunreadonly" = "Show unread only";
 "title_remembermychoice" = "Remember my action";
 "title_done" = "Done";
@@ -57,6 +57,13 @@
 "title_nomorearticles" = "No unread articles";
 "title_close" = "Close";
 "title_accountsetting" = "Account setting";
+"title_swipeleftinlist" = "Swipe left in list";
+"title_swiperightinlist" = "Swipe right in list";
+"NOTIFICATION_SENDTOREADITLATER" = "Send to RIL";
+"NOTIFICATION_SENDTOINSTAPAPER" = "Send to Instapaper";
+"NOTIFICATION_STARITEM" = "Add star";
+"NOTIFICATION_MARKITEMASREAD" = "Mark as read";
+"NOTIFICATION_MARKITEMASUNREAD" = "Mark as unread";
 
 "message_unsubscribe" = "Do you want to unsubscribe \"%@?\"";
 "message_subscribe" = "Do you want to subscribe \"%@?\"";

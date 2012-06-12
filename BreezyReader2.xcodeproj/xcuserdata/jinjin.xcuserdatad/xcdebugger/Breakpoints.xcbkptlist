@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/FeedViewController/BRFeedDataSource.m"
-         timestampString = "360751305.701258"
+         timestampString = "361211004.265985"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "98"
-         endingLineNumber = "98"
+         startingLineNumber = "96"
+         endingLineNumber = "96"
          landmarkName = "-loadDataMore:forceRefresh:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/FeedViewController/BRFeedViewController.m"
-         timestampString = "360751305.701258"
+         timestampString = "361211004.265985"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "488"
-         endingLineNumber = "488"
+         startingLineNumber = "493"
+         endingLineNumber = "493"
          landmarkName = "-startLoadingMore"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/FeedViewController/BRFeedViewController.m"
-         timestampString = "360751305.701258"
+         timestampString = "361211004.265985"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "280"
-         endingLineNumber = "280"
+         startingLineNumber = "285"
+         endingLineNumber = "285"
          landmarkName = "-viewDidDisappear:"
          landmarkType = "5">
       </FileBreakpoint>

@@ -99,6 +99,36 @@
 				<key>type</key>
 				<string>switch</string>
 			</dict>
+			<dict>
+				<key>identifier</key>
+				<string>swipeLeftAction</string>
+				<key>name</key>
+				<string>title_swipeleftinlist</string>
+				<key>type</key>
+				<string>pick</string>
+				<key>values</key>
+				<array>
+					<string>NOTIFICATION_SENDTOREADITLATER</string>
+					<string>NOTIFICATION_SENDTOINSTAPAPER</string>
+					<string>NOTIFICATION_MARKITEMASREAD</string>
+					<string>NOTIFICATION_MARKITEMASUNREAD</string>
+				</array>
+			</dict>
+			<dict>
+				<key>identifier</key>
+				<string>swipeRightAction</string>
+				<key>name</key>
+				<string>title_swiperightinlist</string>
+				<key>type</key>
+				<string>pick</string>
+				<key>values</key>
+				<array>
+					<string>NOTIFICATION_SENDTOREADITLATER</string>
+					<string>NOTIFICATION_SENDTOINSTAPAPER</string>
+					<string>NOTIFICATION_MARKITEMASREAD</string>
+					<string>NOTIFICATION_MARKITEMASUNREAD</string>
+				</array>
+			</dict>
 		</array>
 	</dict>
 	<dict>

@@ -128,15 +128,6 @@
         self.titleLabel.text = _item.title;
         self.timeLabel.text = [_item getShortUpdatedDateTime];
         
-//        NSString* previewContent = nil;
-//        if (_item.plainContent.length != 0){
-//            previewContent = _item.plainContent;
-//        }else if (_item.plainSummary != 0){
-//            previewContent = _item.plainSummary;
-//        }
-//        
-//        self.previewLabel.text = previewContent ;
-        
         self.authorLabel.text = _item.author;
     }
     [self setNeedsLayout];
@@ -212,17 +203,21 @@
 }
 
 -(void)swipeToRight:(UISwipeGestureRecognizer*)swipe{
-    DebugLog(@"mark as read by swiping");
-    [self postNotificationWithName:NOTIFICATION_MARKITEMASREAD];
+    DebugLog(@"swipe to right");
+    [self postNotificationWithName:NOTIFICATION_SWIPEACTION_RIGHT];
+//    [self postNotificationWithName:NOTIFICATION_MARKITEMASREAD];
 }
 
 -(void)swipeToLeft:(UISwipeGestureRecognizer*)swipe{
-    DebugLog(@"keep item as unread by swiping");
-    [self postNotificationWithName:NOTIFICATION_MARKITEMASUNREAD];
+    DebugLog(@"swipe to left");
+    [self postNotificationWithName:NOTIFICATION_SWIPEACTION_LEFT];
+//    [self postNotificationWithName:NOTIFICATION_MARKITEMASUNREAD];
 }
 
 -(void)postNotificationWithName:(NSString*)notificationName{
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:self.item.ID forKey:@"itemID"];
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:self.item.ID forKey:@"itemID"];
+    [userInfo setObject:self.item forKey:@"item"];
     NSNotification* notification = [NSNotification notificationWithName:notificationName object:nil userInfo:userInfo];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }

@@ -48,7 +48,7 @@
 "title_feedsinmostread" = "最常阅读中源的数量";
 "title_autoclearcache" = "自动清理缓存";
 "title_manuallyclearcache" = "手动清理缓存";
-"title_viewarticles" = "查看文章";
+"title_viewarticles" = "查看文章列表";
 "title_showunreadonly" = "只显示未读";
 "title_remembermychoice" = "记住我的操作";
 "title_done" = "完成";
@@ -56,6 +56,13 @@
 "title_nomorearticles" = "没有未读文章";
 "title_close" = "关闭";
 "title_accountsetting" = "帐号设置";
+"title_swipeleftinlist" = "在列表上向左滑动";
+"title_swiperightinlist" = "在列表上向右滑动";
+"NOTIFICATION_SENDTOREADITLATER" = "发送到RIL";
+"NOTIFICATION_SENDTOINSTAPAPER" = "发送到Instapaper";
+"NOTIFICATION_STARITEM" = "加星标";
+"NOTIFICATION_MARKITEMASREAD" = "标记为已读";
+"NOTIFICATION_MARKITEMASUNREAD" = "标记为未读";
 
 "message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
 "message_subscribe" = "您想要订阅 \"%@\" 吗?";

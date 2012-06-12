@@ -14,7 +14,6 @@
 
 @interface BRFeedDataSource : BRBaseDataSource
 
-@property (nonatomic, retain) NSMutableArray* items;
 @property (nonatomic, retain) GRSubscription* subscription;
 @property (nonatomic, retain) GRFeed* feed;
 @property (nonatomic, retain) GRFeed* moreFeed;

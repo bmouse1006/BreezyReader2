@@ -33,5 +33,7 @@ typedef enum{
 +(BOOL)shouldShowRecommendations;
 +(BOOL)unreadOnlyStatusForStream:(NSString*)streamID;
 +(void)rememberAction:(BOOL)unreadOnly forStream:(NSString*)streamID;
++(NSString*)notificationNameForSwipeRightAction;
++(NSString*)notificationNameForSwipeLeftAction;
 
 @end

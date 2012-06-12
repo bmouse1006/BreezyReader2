@@ -18,5 +18,9 @@
 	<string>background1.jpg</string>
 	<key>rememberMyChoice</key>
 	<true/>
+	<key>swipeLeftAction</key>
+	<string>NOTIFICATION_MARKITEMASUNREAD</string>
+	<key>swipeRightAction</key>
+	<string>NOTIFICATION_MARKITEMASREAD</string>
 </dict>
 </plist>

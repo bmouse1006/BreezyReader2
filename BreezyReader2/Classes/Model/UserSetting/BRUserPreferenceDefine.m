@@ -10,6 +10,8 @@
 #import "UIImage+addition.h"
 #import "GoogleReaderClient.h"
 
+#define kSwipeLeftAction @"swipeLeftAction"
+#define kSwipeRightAction @"swipeRightAction"
 #define kBackgroundImageName @"backgroundimagename"
 #define kMostReadCount       @"feedsinmostread"
 #define kAutoFlipThumbnail   @"animateflipview"
@@ -30,7 +32,7 @@ static UIImage* _backgroundImage = nil;
 //    return [UIColor colorWithRed:26/255.0 green:78/255.0 blue:138/255.0 alpha:0.6];
 //    return [UIColor colorWithRed:154/255.0 green:205/255.0 blue:244/255.0 alpha:0.6];
 //    return [UIColor colorWithRed:12/255.0 green:65/255.0 blue:122/255.0 alpha:0.4];
-    return [[UIColor blackColor] colorWithAlphaComponent:0.3];
+    return [[UIColor blackColor] colorWithAlphaComponent:0.4f];
 }
 
 +(UIColor*)barColor{
@@ -83,6 +85,14 @@ static UIImage* _backgroundImage = nil;
 
 +(NSString*)backgroundImageName{
     return [self valueForIdentifier:kBackgroundImageName];
+}
+
++(NSString*)notificationNameForSwipeRightAction{
+    return [self valueForIdentifier:kSwipeRightAction];
+}
+
++(NSString*)notificationNameForSwipeLeftAction{
+    return [self valueForIdentifier:kSwipeLeftAction];
 }
 
 +(void)setDefaultBackgroundImageName:(NSString*)imageName{

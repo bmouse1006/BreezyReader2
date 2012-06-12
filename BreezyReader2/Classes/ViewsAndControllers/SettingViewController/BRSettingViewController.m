@@ -184,7 +184,7 @@
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(12.0f, 0.0f, [pickerView rowSizeForComponent:component].width-12, [pickerView rowSizeForComponent:component].height)] autorelease];
     
-    [label setText:[[self.pickerData objectAtIndex:row] description]];
+    [label setText:NSLocalizedString([[self.pickerData objectAtIndex:row] description], nil)];
     [label setTextAlignment:UITextAlignmentCenter];
     label.backgroundColor = [UIColor clearColor];
     return label;
