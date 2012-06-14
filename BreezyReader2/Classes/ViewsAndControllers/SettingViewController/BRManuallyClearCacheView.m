@@ -38,9 +38,13 @@
     BaseActivityLabel* activity = [BaseActivityLabel loadFromBundle];
     activity.message = NSLocalizedString(@"message_clearcache", nil);
     [activity show];
-    [[BRCacheCleaner sharedCleaner] clearHTTPResponseCacheBeforeDate:[NSDate date]];
-    activity.message = NSLocalizedString(@"title_done", nil);
-    [activity setFinished:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[BRCacheCleaner sharedCleaner] clearHTTPResponseCacheBeforeDate:[NSDate date]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            activity.message = NSLocalizedString(@"title_done", nil);
+            [activity setFinished:YES];    
+        });
+    });
 }
 
 

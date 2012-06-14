@@ -46,8 +46,6 @@
 @synthesize weiboEngine = _weiboEngine;
 @synthesize initialText = _initialText, image = _image, urlString = _urlString;
 
-static OAuthEngine* oauthEngine = nil;
-
 -(void)dealloc{
     self.composeDialog = nil;
     self.backgroundView = nil;
@@ -187,9 +185,6 @@ static OAuthEngine* oauthEngine = nil;
     [super viewDidDisappear:animated];
     [self viewDidUnload];
     self.view = nil;
-    self.initialText = nil;
-    self.image = nil;
-    self.urlString = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -221,6 +216,9 @@ static OAuthEngine* oauthEngine = nil;
 }
 
 -(void)dismiss:(BOOL)animated{
+    self.initialText = nil;
+    self.urlString = nil;
+    self.image = nil;
     [self dismissViewControllerAnimated:YES completion:^{
         self.rootController.modalPresentationStyle = _previousPresentationStyle;
     }];
