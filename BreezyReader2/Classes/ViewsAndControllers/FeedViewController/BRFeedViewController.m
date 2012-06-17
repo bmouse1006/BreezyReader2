@@ -594,9 +594,9 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)sendToReadItLater:(NSNotification*)notification{
     GRItem* item = [notification.userInfo objectForKey:@"item"];
-    NSString* content = (item.content)?item.content:item.summary;
+//    NSString* content = (item.content)?item.content:item.summary;
     NSString* urlString = item.alternateLink;
-    [[JJSocialShareManager sharedManager] sendToReadItLaterWithTitle:item.title message:content urlString:urlString];
+    [[JJSocialShareManager sharedManager] sendToReadItLaterWithTitle:item.title message:@"" urlString:urlString];
 }
 
 -(void)sendToInstapaper:(NSNotification*)notification{

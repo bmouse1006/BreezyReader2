@@ -133,6 +133,21 @@
 	</dict>
 	<dict>
 		<key>name</key>
+		<string>title_viewariticle</string>
+		<key>configs</key>
+		<array>
+			<dict>
+				<key>identifier</key>
+				<string>autorotateimage</string>
+				<key>name</key>
+				<string>title_autorotateimage</string>
+				<key>type</key>
+				<string>switch</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
 		<string>title_cache</string>
 		<key>configs</key>
 		<array>

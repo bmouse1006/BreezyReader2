@@ -9,6 +9,7 @@
 #import "BRImageScrollController.h"
 #import "UIViewController+BRAddition.h"
 #import "BRAlertHandler.h"
+#import "BRUserPreferenceDefine.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface BRImageScrollController ()
@@ -18,9 +19,13 @@
 @implementation BRImageScrollController
 
 @synthesize saveButton = _saveButton;
+@synthesize buttonContainer = _buttonContainer;
+@synthesize buttonBackground = _buttonBackground;
 
 -(void)dealloc{
     self.saveButton = nil;
+    self.buttonBackground = nil;
+    self.buttonContainer = nil;
     [super dealloc];
 }
 
@@ -39,9 +44,9 @@
     
     //add save button
 //    self.saveButton.clipsToBounds = YES;
-    self.saveButton.layer.masksToBounds = YES;
-    self.saveButton.layer.cornerRadius = 5;
-    [self.view addSubview:self.saveButton];
+    self.buttonBackground.layer.masksToBounds = YES;
+    self.buttonBackground.layer.cornerRadius = 8.0f;
+    [self.view addSubview:self.buttonContainer];
     
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.scrollView.showPageControl = YES;
@@ -56,28 +61,24 @@
     // Release any retained subviews of the main view.
 }
 
--(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    CGRect frame = self.saveButton.frame;
-    frame.origin.x = self.view.frame.size.width - frame.size.width - 20;
-    frame.origin.y = self.view.frame.size.height - frame.size.height - 25;
-    self.saveButton.frame = frame;
-    self.scrollView.frame = self.view.bounds;
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    CGRect frame = self.buttonContainer.frame;
+    frame.origin.x = self.view.frame.size.width - frame.size.width - 10;
+    frame.origin.y = self.view.frame.size.height - frame.size.height - 20;
+    self.buttonContainer.frame = frame;
+    DebugLog(@"%@", NSStringFromCGRect(self.buttonContainer.frame));
+//    self.scrollView.bounds = self.view.bounds;
 }
-
-//-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
-//    DebugLog(@"%@", NSStringFromCGRect(self.view.bounds));
-//    [self viewWillLayoutSubviews];
-//    [self.scrollView reloadData];
-//}
-
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-//{
-//    return (interfaceOrientation != UIInterfaceOrientationPortrait);
-//}
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
     return NO;
+}
+
+-(void)oritationDidChange:(NSNotification*)notification{
+    if ([self shouldAutorotateImage]){
+        [super oritationDidChange:notification];
+    }
 }
 
 #pragma mark - actions
@@ -94,6 +95,11 @@
         //notify not loaded
         [BRAlertHandler promptAlertString:NSLocalizedString(@"msg_imagenotloaded", nil)];
     }
+}
+
+#pragma mark - auto rotate
+-(BOOL)shouldAutorotateImage{
+    return [BRUserPreferenceDefine shouldAutoRotateImage];
 }
 
 @end

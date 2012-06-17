@@ -20,4 +20,7 @@
 
 -(UIImage*)imageAtIndex:(NSInteger)index;
 
+-(void)oritationDidChange:(NSNotification*)notification;
+-(BOOL)shouldAutorotateImage;
+
 @end

@@ -31,6 +31,7 @@ typedef enum{
 +(BOOL)shouldAutoFlipThumbnail;
 +(BOOL)shouldSortByReadingFrequency;
 +(BOOL)shouldShowRecommendations;
++(BOOL)shouldAutoRotateImage;
 +(BOOL)unreadOnlyStatusForStream:(NSString*)streamID;
 +(void)rememberAction:(BOOL)unreadOnly forStream:(NSString*)streamID;
 +(NSString*)notificationNameForSwipeRightAction;

@@ -169,9 +169,9 @@
 -(IBAction)favoriteActionButtonClicked:(id)sender{
     DebugLog(@"share to read it later");
     GRItem* item = [self.feed.items objectAtIndex:self.index];
-    NSString* content = (item.content)?item.content:item.summary;
+//    NSString* content = (item.content)?item.content:item.summary;
     NSString* urlString = item.alternateLink;
-    [[JJSocialShareManager sharedManager] sendToReadItLaterWithTitle:item.title message:content urlString:urlString];
+    [[JJSocialShareManager sharedManager] sendToReadItLaterWithTitle:item.title message:@"" urlString:urlString];
 }
 
 -(IBAction)back:(id)sender{
@@ -319,9 +319,9 @@
 -(void)shareToReadItLater:(NSNotification*)notification{
     DebugLog(@"share to read it later");
     GRItem* item = [self.feed.items objectAtIndex:self.index];
-    NSString* content = (item.content)?item.content:item.summary;
+//    NSString* content = (item.content)?item.content:item.summary;
     NSString* urlString = item.alternateLink;
-    [[JJSocialShareManager sharedManager] sendToReadItLaterWithTitle:item.title message:content urlString:urlString];
+    [[JJSocialShareManager sharedManager] sendToReadItLaterWithTitle:item.title message:@"" urlString:urlString];
     [self showHideActionMenu];
 }
 

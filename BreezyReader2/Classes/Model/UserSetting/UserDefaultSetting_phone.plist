@@ -22,5 +22,7 @@
 	<string>NOTIFICATION_MARKITEMASUNREAD</string>
 	<key>swipeRightAction</key>
 	<string>NOTIFICATION_MARKITEMASREAD</string>
+	<key>autorotateimage</key>
+	<true/>
 </dict>
 </plist>

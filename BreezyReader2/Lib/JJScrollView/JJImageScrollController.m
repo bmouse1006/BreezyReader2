@@ -8,6 +8,7 @@
 
 #import "JJImageScrollController.h"
 #import "JJImageZoomView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface JJImageScrollController (){
     BOOL _outletHidden;
@@ -26,6 +27,7 @@
 @synthesize singleTap = _singleTap;
 
 -(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.scrollView = nil;
     self.imageList = nil;
     self.singleTap = nil;
@@ -38,7 +40,7 @@
     if (self) {
         // Custom initialization
         self.wantsFullScreenLayout = YES;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oritationDidChange:) name:UIDeviceOrientationDidChangeNotification object:self];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oritationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
     return self;
 }
@@ -67,9 +69,10 @@
     [self.scrollView addGestureRecognizer:self.singleTap];
     [self.view addSubview:self.scrollView];
     self.scrollView.pageIndex = self.index;
-    [self.scrollView reloadData];    
+    [self.scrollView reloadData];  
+    
+    self.view.backgroundColor = [UIColor blackColor];
 }
-
 
 - (void)viewDidUnload
 {
@@ -80,13 +83,19 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    
     [self.navigationController setToolbarHidden:YES animated:animated];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self oritationDidChange:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return NO;
 }
 
 -(UIImage*)imageAtIndex:(NSInteger)index{
@@ -95,10 +104,6 @@
 }
 
 -(void)singleTagAction:(UITapGestureRecognizer*)singleTap{
-    
-}
-
--(void)oritationDidChange:(NSNotification*)notification{
     
 }
 
@@ -117,7 +122,8 @@
 }
 
 -(UIView*)scrollView:(JJPageScrollView*)scrollView pageAtIndex:(NSInteger)index{
-    JJImageZoomView* imageView = [[JJImageZoomView alloc] initWithFrame:self.view.bounds];
+    NSLog(@"%@", NSStringFromCGRect(self.scrollView.bounds));
+    JJImageZoomView* imageView = [[JJImageZoomView alloc] initWithFrame:self.scrollView.bounds];
     for (UIGestureRecognizer* gesutre in imageView.gestureRecognizers){
         [self.singleTap requireGestureRecognizerToFail:gesutre];
     }
@@ -126,12 +132,54 @@
 }
 
 -(CGSize)scrollView:(JJPageScrollView*)scrollView sizeOfPageAtIndex:(NSInteger)index{
-    return self.view.bounds.size;
+    return self.scrollView.bounds.size;
 }
 
 -(void)setImageList:(NSArray *)imageList startIndex:(NSInteger)index{
     self.imageList = imageList;
     self.index = index;
+}
+
+#pragma mark - orientation notification
+-(void)oritationDidChange:(NSNotification*)notification{
+    switch ([UIDevice currentDevice].orientation) {
+        case UIDeviceOrientationLandscapeLeft:
+            //rotation -90
+        {
+            [UIView animateWithDuration:0.2f animations:^{
+                self.scrollView.bounds = CGRectMake(0, 0, 480, 320);
+                self.scrollView.transform = CGAffineTransformMakeRotation(M_PI/2);
+                [self.scrollView reloadData];
+            }];
+        }
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            //rotation 90
+        {
+            [UIView animateWithDuration:0.2f animations:^{
+                self.scrollView.bounds = CGRectMake(0, 0, 480, 320);
+                self.scrollView.transform = CGAffineTransformMakeRotation(-M_PI/2);
+                [self.scrollView reloadData];
+            }];
+        }
+            break;
+        case UIDeviceOrientationPortrait:
+        {
+            [UIView animateWithDuration:0.2f animations:^{
+                self.scrollView.bounds = CGRectMake(0, 0, 320, 480);
+                self.scrollView.transform = CGAffineTransformIdentity;
+                [self.scrollView reloadData];
+            }];
+        }
+            //rotation no
+            break;
+        default:
+            break;
+    }
+}
+
+-(BOOL)shouldAutorotateImage{
+    return NO;
 }
 
 @end

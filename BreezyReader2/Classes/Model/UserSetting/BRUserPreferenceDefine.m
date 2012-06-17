@@ -17,6 +17,7 @@
 #define kAutoFlipThumbnail   @"animateflipview"
 #define kSortByReadingFrequency @"sortingbyreadingfrequency"
 #define kShowRecommendations @"showrecommendations"
+#define kAutoRotateImage @"autorotateimage"
 #define kRememberMyAction @"rememberMyChoice"
 #define kShowUnreadOnly @"shouldShowUnreadOnly"
 #define kAutoClearCache @"autoclearcache"
@@ -125,6 +126,10 @@ static UIImage* _backgroundImage = nil;
 
 +(BOOL)shouldRememberMyActionWhileShowingArticles{
     return [self boolValueForIdentifier:kRememberMyAction];
+}
+
++(BOOL)shouldAutoRotateImage{
+    return [self boolValueForIdentifier:kAutoRotateImage];
 }
 
 +(BOOL)unreadOnlyStatusForStream:(NSString*)streamID{

@@ -354,6 +354,12 @@ static double kTransitionAnimationDuration = 0.2f;
         frame.size.height -= 20.0f;
         childController.view.frame = frame;
     }
+    
+//    if (childController.wantsFullScreenLayout == YES){
+//        childController.view.frame = self.view.bounds;
+//    }else{
+//        childController.view.frame = [UIScreen mainScreen].applicationFrame;
+//    }
 }
 
 -(void)insertSubviewOfChildViewController:(UIViewController*)viewController1 belowViewOfChildViewController:(UIViewController*)viewController2{

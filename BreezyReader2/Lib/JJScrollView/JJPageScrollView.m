@@ -151,7 +151,7 @@ inline CGPoint CGCenterOfRect(CGRect rect){
 
 -(void)createContents{
     //caculate content size
-    CGSize contentSize = CGSizeMake(0, self.frame.size.height);
+    CGSize contentSize = CGSizeMake(0, self.bounds.size.height);
     CGPoint preOrigin = CGPointMake(-self.bounds.size.width, 0);
     for (int i = 0; i< _pageCount; i++){
         CGSize size = [self.datasource scrollView:self sizeOfPageAtIndex:i];

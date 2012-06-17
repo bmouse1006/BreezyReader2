@@ -58,6 +58,8 @@
 "title_accountsetting" = "帐号设置";
 "title_swipeleftinlist" = "在列表上向左滑动";
 "title_swiperightinlist" = "在列表上向右滑动";
+"title_viewariticle" = "查看文章";
+"title_autorotateimage" = "自动旋转图片";
 "NOTIFICATION_SENDTOREADITLATER" = "发送到RIL";
 "NOTIFICATION_SENDTOINSTAPAPER" = "发送到Instapaper";
 "NOTIFICATION_STARITEM" = "加星标";
