@@ -94,8 +94,9 @@ static UIViewController* _rootViewController = nil;
 }
 
 -(BOOL)evernoteHandleOpenURL:(NSURL*)url{
-    [ENNoteComposerController setStartHandleOpenURL:YES];
-    return [[EvernoteSession sharedSession] handleOpenURL:url];
+//    [ENNoteComposerController setStartHandleOpenURL:YES];
+//    return [[EvernoteSession sharedSession] handleOpenURL:url];
+    return YES;
 }
 
 #pragma mark - send to interface

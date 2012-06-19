@@ -164,11 +164,11 @@ void uncaughtExceptionHandler(NSException *exception) {
 //    [[UISearchBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bgImg"]];
 }
 
--(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
-    if ([[JJSocialShareManager sharedManager] evernoteHandleOpenURL:url]) {
-        return YES;
-    } 
-    return NO;
-}
+//-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+//    if ([[JJSocialShareManager sharedManager] evernoteHandleOpenURL:url]) {
+//        return YES;
+//    } 
+//    return NO;
+//}
 
 @end

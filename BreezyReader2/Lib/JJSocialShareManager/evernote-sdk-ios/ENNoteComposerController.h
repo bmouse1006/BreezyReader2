@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EvernoteSDK.h"
 
-@interface ENNoteComposerController : UITableViewController
+@interface ENNoteComposerController : UITableViewController<UIAlertViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UITableViewCell* titleCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell* contentCell;

@@ -26,6 +26,8 @@
 		2212DDF71543EF9500FCDC50 /* BRFeedConfigBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2212DDF51543EF9400FCDC50 /* BRFeedConfigBase.m */; };
 		22187DA61590671100B36307 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22187DA51590671100B36307 /* iTunesArtwork@2x.png */; };
 		22187DA71590671100B36307 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22187DA51590671100B36307 /* iTunesArtwork@2x.png */; };
+		22187DBD1590839500B36307 /* ENOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22187DBC1590839500B36307 /* ENOAuthViewController.m */; };
+		22187DBE1590839500B36307 /* ENOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22187DBC1590839500B36307 /* ENOAuthViewController.m */; };
 		221943E1153329AD00A0C4E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C7F15273CAE00700504 /* InfoPlist.strings */; };
 		221943E515332BAB00A0C4E4 /* BRArticleScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943E315332BAB00A0C4E4 /* BRArticleScrollViewController.m */; };
 		221943E615332BAB00A0C4E4 /* BRArticleScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 221943E415332BAB00A0C4E4 /* BRArticleScrollViewController.xib */; };
@@ -1068,6 +1070,8 @@
 		2212DDF41543EF9400FCDC50 /* BRFeedConfigBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFeedConfigBase.h; sourceTree = "<group>"; };
 		2212DDF51543EF9400FCDC50 /* BRFeedConfigBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFeedConfigBase.m; sourceTree = "<group>"; };
 		22187DA51590671100B36307 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		22187DBB1590839400B36307 /* ENOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENOAuthViewController.h; path = internal/ENOAuthViewController.h; sourceTree = "<group>"; };
+		22187DBC1590839500B36307 /* ENOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENOAuthViewController.m; path = internal/ENOAuthViewController.m; sourceTree = "<group>"; };
 		221943E215332BAB00A0C4E4 /* BRArticleScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRArticleScrollViewController.h; sourceTree = "<group>"; };
 		221943E315332BAB00A0C4E4 /* BRArticleScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRArticleScrollViewController.m; sourceTree = "<group>"; };
 		221943E415332BAB00A0C4E4 /* BRArticleScrollViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRArticleScrollViewController.xib; sourceTree = "<group>"; };
@@ -3324,6 +3328,8 @@
 				22A51ABF156D18DC00A7BB76 /* ENNoteComposerController.m */,
 				22A51AC0156D18DC00A7BB76 /* ENNoteComposerController.xib */,
 				22A51AC1156D18DC00A7BB76 /* ENNoteContentTemplate.xml */,
+				22187DBB1590839400B36307 /* ENOAuthViewController.h */,
+				22187DBC1590839500B36307 /* ENOAuthViewController.m */,
 				22A51AC2156D18DC00A7BB76 /* evernote-sdk-ios-Prefix.pch */,
 				22A51AC3156D18DC00A7BB76 /* EvernoteCommonDefine.h */,
 				22A51AC4156D18DC00A7BB76 /* EvernoteNoteStore.h */,
@@ -5118,6 +5124,7 @@
 				22C735991580989D00716984 /* BRCacheCleaner.m in Sources */,
 				22C7359D15809B3800716984 /* BRDownloadedCache.m in Sources */,
 				22C735A11580A7BE00716984 /* BRManuallyClearCacheView.m in Sources */,
+				22187DBE1590839500B36307 /* ENOAuthViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5406,6 +5413,7 @@
 				22C735981580989D00716984 /* BRCacheCleaner.m in Sources */,
 				22C7359C15809B3800716984 /* BRDownloadedCache.m in Sources */,
 				22C735A01580A7BE00716984 /* BRManuallyClearCacheView.m in Sources */,
+				22187DBD1590839500B36307 /* ENOAuthViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

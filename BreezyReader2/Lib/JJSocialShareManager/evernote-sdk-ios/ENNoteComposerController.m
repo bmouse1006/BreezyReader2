@@ -8,7 +8,6 @@
 #import "EvernoteCommonDefine.h"
 #import "ENNoteComposerController.h"
 #import "ENNotebookListViewController.h"
-#import "EvernoteSDK.h"
 #import "BaseActivityLabel.h"
 #import "BaseAlertView.h"
 #import "RegexKitLite.h"
@@ -92,12 +91,36 @@ static BOOL _startHandleOpenURL;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSBundle mainBundle] localizedStringForKey:@"" value:@"" table:nil];
     self.title = EvernoteLocalizedString(@"title_sendtoevernote", nil);
     
     [self commonInit];
     [self.tableView reloadData];
+    
+    EvernoteSession *session = [EvernoteSession sharedSession];
+    if (session.isAuthenticated == NO){
+        //        BaseActivityLabel* activity = [BaseActivityLabel loadFromBundle];
+        //        activity.message = EvernoteLocalizedString(@"message_verifyevernote", nil);
+        //        [activity show];
+        [session authenticateWithViewController:self completionHandler:^(NSError *error) {
+            if (error || !session.isAuthenticated) {
+                DebugLog(@"%@", [error localizedDescription]);
+                UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:EvernoteLocalizedString(@"title_error", nil)
+                                                                 message:EvernoteLocalizedString(@"message_couldnotauthenticate", nil)
+                                                                delegate:self 
+                                                       cancelButtonTitle:EvernoteLocalizedString(@"title_ok", nil) 
+                                                       otherButtonTitles:nil] autorelease];
+                [alert show];
+                //                [activity setFinished:NO];
+            } else {
+                //success
+                //                [activity setFinished:YES];
+                [self updateUI];
+            } 
+            _startHandleOpenURL = NO;
+        }];
+    }
 }
 
 - (void)viewDidUnload
@@ -110,29 +133,6 @@ static BOOL _startHandleOpenURL;
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    EvernoteSession *session = [EvernoteSession sharedSession];
-    if (session.isAuthenticated == NO){
-        BaseActivityLabel* activity = [BaseActivityLabel loadFromBundle];
-        activity.message = EvernoteLocalizedString(@"message_verifyevernote", nil);
-        [activity show];
-        [session authenticateWithViewController:self completionHandler:^(NSError *error) {
-            if (error || !session.isAuthenticated) {
-                UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:EvernoteLocalizedString(@"title_error", nil)
-                                                                 message:EvernoteLocalizedString(@"message_couldnotauthenticate", nil)
-                                                                delegate:nil 
-                                                       cancelButtonTitle:EvernoteLocalizedString(@"title_ok", nil) 
-                                                       otherButtonTitles:nil] autorelease];
-                [alert show];
-                [self dismissViewControllerAnimated:YES completion:NULL];
-                [activity setFinished:NO];
-            } else {
-                //success
-                [activity setFinished:YES];
-                [self updateUI];
-            } 
-            _startHandleOpenURL = NO;
-        }];
-    }
     
     [self updateUI];
 }
@@ -228,26 +228,6 @@ static BOOL _startHandleOpenURL;
 
 -(IBAction)sendButtonClicked:(id)sender{
     
-//    EDAMNoteFilter* filter = [[[EDAMNoteFilter alloc] init] autorelease];
-//    filter.notebookGuid = @"b3eec62d-b007-4571-9b1e-c92d9a3d922d";
-//    
-//    EvernoteNoteStore* store = [EvernoteNoteStore noteStore];
-//    [store findNotesWithFilter:filter offset:0 maxNotes:10 success:^(EDAMNoteList* list){
-//        for (EDAMNote* note in list.notes){
-//            NSLog(@"+++++++%@", note.content);
-//            [store getNoteContentWithGuid:note.guid success:^(NSString* note){
-//                NSLog(@"------content is %@", note);
-//            }failure:^(NSError* error){
-//                
-//            }];
-//        }
-//    }
-//                       failure:^(NSError* error){
-//                           
-//                       }];
-//    
-//    return;
-    
     NSString* noteTemplate = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:kENNoteContentTemplateName ofType:@"xml"] 
                                                        encoding:NSUTF8StringEncoding 
                                                           error:NULL];
@@ -318,6 +298,11 @@ static BOOL _startHandleOpenURL;
 
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
     return EvernoteLocalizedString(@"title_imageswillnotbecopiedtoevernote", nil);
+}
+
+#pragma mark - alter view delegate
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end
