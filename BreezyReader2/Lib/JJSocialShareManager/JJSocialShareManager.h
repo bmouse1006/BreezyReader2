@@ -48,7 +48,6 @@ typedef enum{
 -(void)sendToInstapaperWithTitle:(NSString*)title message:(NSString*)message urlString:(NSString*)urlString;
 -(void)sendToMailWithTitle:(NSString*)title message:(NSString*)message urlString:(NSString*)urlString;
 
--(BOOL)evernoteHandleOpenURL:(NSURL*)url;
 -(BOOL)isServiceAutherized:(JJSocialShareService)service;
 -(JJSocialShareService)serviceTypeForIdentifier:(NSString*)identifier;
 -(void)logoutService:(JJSocialShareService)service;

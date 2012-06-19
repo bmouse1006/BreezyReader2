@@ -93,12 +93,6 @@ static UIViewController* _rootViewController = nil;
     }
 }
 
--(BOOL)evernoteHandleOpenURL:(NSURL*)url{
-//    [ENNoteComposerController setStartHandleOpenURL:YES];
-//    return [[EvernoteSession sharedSession] handleOpenURL:url];
-    return YES;
-}
-
 #pragma mark - send to interface
 -(void)sendToWeiboWithMessage:(NSString*)message urlString:(NSString*)urlString image:(UIImage*)image{
     

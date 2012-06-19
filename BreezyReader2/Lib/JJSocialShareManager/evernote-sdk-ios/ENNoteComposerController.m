@@ -21,17 +21,18 @@
 @property (nonatomic, copy) NSString* ENContent;
 @property (nonatomic, copy) NSString* ENURLString;
 
+@property (nonatomic, retain) BaseActivityLabel* activityLabel;
+
 @end
 
 @implementation ENNoteComposerController
-
-static BOOL _startHandleOpenURL;
 
 @synthesize titleCell = _titleCell, contentCell = _contentCell, urlCell = _urlCell, notebookCell = _notebookCell, urlStringCell = _urlStringCell;
 @synthesize cells = _cells;
 @synthesize sendButton = _sendButton, cancelButton = _cancelButton;
 @synthesize titleField = _titleField, contentView = _contentView;
 @synthesize ENTitle = _ENTitle, ENContent = _ENContent, ENURLString = _ENURLString;
+@synthesize activityLabel = _activityLabel;
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -94,21 +95,21 @@ static BOOL _startHandleOpenURL;
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSBundle mainBundle] localizedStringForKey:@"" value:@"" table:nil];
     self.title = EvernoteLocalizedString(@"title_sendtoevernote", nil);
-    
+    self.activityLabel = [BaseActivityLabel loadFromBundle];
     [self commonInit];
     [self.tableView reloadData];
     
     EvernoteSession *session = [EvernoteSession sharedSession];
     if (session.isAuthenticated == NO){
-        //        BaseActivityLabel* activity = [BaseActivityLabel loadFromBundle];
-        //        activity.message = EvernoteLocalizedString(@"message_verifyevernote", nil);
-        //        [activity show];
+        self.activityLabel.message = EvernoteLocalizedString(@"message_verifyevernote", nil);
+        [self.activityLabel show];
+        __block typeof(self) blockSelf = self;
         [session authenticateWithViewController:self completionHandler:^(NSError *error) {
             if (error || !session.isAuthenticated) {
                 DebugLog(@"%@", [error localizedDescription]);
                 UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:EvernoteLocalizedString(@"title_error", nil)
                                                                  message:EvernoteLocalizedString(@"message_couldnotauthenticate", nil)
-                                                                delegate:self 
+                                                                delegate:blockSelf 
                                                        cancelButtonTitle:EvernoteLocalizedString(@"title_ok", nil) 
                                                        otherButtonTitles:nil] autorelease];
                 [alert show];
@@ -118,7 +119,6 @@ static BOOL _startHandleOpenURL;
                 //                [activity setFinished:YES];
                 [self updateUI];
             } 
-            _startHandleOpenURL = NO;
         }];
     }
 }
@@ -133,8 +133,12 @@ static BOOL _startHandleOpenURL;
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
     [self updateUI];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.activityLabel dismiss];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -193,19 +197,6 @@ static BOOL _startHandleOpenURL;
     if (_ENURLString != urlString){
         [_ENURLString release];
         _ENURLString = [urlString copy];
-    }
-}
-
-+(void)setStartHandleOpenURL:(BOOL)started{
-    _startHandleOpenURL = started;
-}
-
-#pragma mark - notification call back
--(void)becomeActive:(NSNotification*)notification{
-    if (_startHandleOpenURL == NO){
-        BaseActivityLabel* activity = [BaseActivityLabel currentView];
-        [activity dismiss];
-        [self dismissViewControllerAnimated:YES completion:NULL];
     }
 }
 

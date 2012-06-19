@@ -8,7 +8,7 @@
 "title_ok" = "OK";
 "title_error" = "Error";
 "message_couldnotauthenticate" = "Could not authenticate";
-"message_verifyevernote" = "Verify Evernote user";
+"message_verifyevernote" = "Verify Evernote User";
 "message_fetchnotebooklist" = "Fetch notebook list";
 "message_fetchdefaultnotebook" = "Fetch default notebook";
 "message_sendtoevernoteok" = "Successfully send to Evernote";
