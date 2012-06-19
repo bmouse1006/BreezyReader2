@@ -115,7 +115,7 @@ static BOOL _startHandleOpenURL;
         BaseActivityLabel* activity = [BaseActivityLabel loadFromBundle];
         activity.message = EvernoteLocalizedString(@"message_verifyevernote", nil);
         [activity show];
-        [session authenticateWithCompletionHandler:^(NSError *error) {
+        [session authenticateWithViewController:self completionHandler:^(NSError *error) {
             if (error || !session.isAuthenticated) {
                 UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:EvernoteLocalizedString(@"title_error", nil)
                                                                  message:EvernoteLocalizedString(@"message_couldnotauthenticate", nil)
