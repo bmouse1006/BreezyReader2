@@ -24,6 +24,8 @@
 		2212DDF31543EF6A00FCDC50 /* BRFeedLabelsViewSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2212DDEF1543EF6A00FCDC50 /* BRFeedLabelsViewSource.xib */; };
 		2212DDF61543EF9500FCDC50 /* BRFeedConfigBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2212DDF51543EF9400FCDC50 /* BRFeedConfigBase.m */; };
 		2212DDF71543EF9500FCDC50 /* BRFeedConfigBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2212DDF51543EF9400FCDC50 /* BRFeedConfigBase.m */; };
+		22187DA61590671100B36307 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22187DA51590671100B36307 /* iTunesArtwork@2x.png */; };
+		22187DA71590671100B36307 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22187DA51590671100B36307 /* iTunesArtwork@2x.png */; };
 		221943E1153329AD00A0C4E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C7F15273CAE00700504 /* InfoPlist.strings */; };
 		221943E515332BAB00A0C4E4 /* BRArticleScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221943E315332BAB00A0C4E4 /* BRArticleScrollViewController.m */; };
 		221943E615332BAB00A0C4E4 /* BRArticleScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 221943E415332BAB00A0C4E4 /* BRArticleScrollViewController.xib */; };
@@ -1065,6 +1067,7 @@
 		2212DDEF1543EF6A00FCDC50 /* BRFeedLabelsViewSource.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRFeedLabelsViewSource.xib; sourceTree = "<group>"; };
 		2212DDF41543EF9400FCDC50 /* BRFeedConfigBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFeedConfigBase.h; sourceTree = "<group>"; };
 		2212DDF51543EF9400FCDC50 /* BRFeedConfigBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFeedConfigBase.m; sourceTree = "<group>"; };
+		22187DA51590671100B36307 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		221943E215332BAB00A0C4E4 /* BRArticleScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRArticleScrollViewController.h; sourceTree = "<group>"; };
 		221943E315332BAB00A0C4E4 /* BRArticleScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRArticleScrollViewController.m; sourceTree = "<group>"; };
 		221943E415332BAB00A0C4E4 /* BRArticleScrollViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRArticleScrollViewController.xib; sourceTree = "<group>"; };
@@ -2264,6 +2267,7 @@
 			children = (
 				222F5AFC157ECDE300ACD34F /* Icon.png */,
 				222F5AFD157ECDE300ACD34F /* Icon@2x.png */,
+				22187DA51590671100B36307 /* iTunesArtwork@2x.png */,
 				222F5AF9157ECDB400ACD34F /* iTunesArtwork */,
 				229B2C7D15273CAE00700504 /* BRAppDelegate.h */,
 				229B2B9615273CAE00700504 /* BRAppDelegate.m */,
@@ -4595,6 +4599,7 @@
 				224E3FD91573D7AE008FFF1A /* login_background_cn@2x.png in Resources */,
 				224E3FDB1573D7AE008FFF1A /* login_background@2x.png in Resources */,
 				22C735A61580A96100716984 /* BRManuallyClearCacheView.xib in Resources */,
+				22187DA71590671100B36307 /* iTunesArtwork@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4811,6 +4816,7 @@
 				222F5AFE157ECDE300ACD34F /* Icon.png in Resources */,
 				222F5AFF157ECDE300ACD34F /* Icon@2x.png in Resources */,
 				22C735A51580A96100716984 /* BRManuallyClearCacheView.xib in Resources */,
+				22187DA61590671100B36307 /* iTunesArtwork@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
