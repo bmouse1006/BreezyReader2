@@ -46,7 +46,7 @@
 //    self.saveButton.clipsToBounds = YES;
     self.buttonBackground.layer.masksToBounds = YES;
     self.buttonBackground.layer.cornerRadius = 8.0f;
-    [self.view addSubview:self.buttonContainer];
+//    [self.view addSubview:self.buttonContainer];
     
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.scrollView.showPageControl = YES;
