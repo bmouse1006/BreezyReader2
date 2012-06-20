@@ -8,6 +8,7 @@
 
 #import "ArticleSearchDataSource.h"
 #import "SearchLoadingCell.h"
+#import "BRFeedTableViewCell.h"
 
 #define kPageSize 10
 
@@ -50,6 +51,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"BRFeedTableViewCell"];
         if (cell == nil){
             cell = [[[NSBundle mainBundle] loadNibNamed:@"BRFeedTableViewCell" owner:nil options:nil] objectAtIndex:0];
+            ((BRFeedTableViewCell*)cell).showSource = YES;
         }
         
         [cell performSelector:@selector(setItem:) withObject:[self.results objectAtIndex:indexPath.row]];

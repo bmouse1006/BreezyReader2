@@ -62,16 +62,18 @@
 }
 
 -(id)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell* cell = nil;
+    BRFeedTableViewCell* cell = nil;
     if (indexPath.row % 10 == 0){
         cell = [tableView dequeueReusableCellWithIdentifier:@"BRFeedHeaderArticleCell"];
         if (cell == nil){
             cell = [[[NSBundle mainBundle] loadNibNamed:@"BRFeedHeaderArticleCell" owner:nil options:nil] objectAtIndex:0];
+            cell.showSource = ![self.subscription isStream];
         }
     }else{
         cell = [tableView dequeueReusableCellWithIdentifier:@"BRFeedTableViewCell"];
         if (cell == nil){
             cell = [[[NSBundle mainBundle] loadNibNamed:@"BRFeedTableViewCell" owner:nil options:nil] objectAtIndex:0];
+            cell.showSource = ![self.subscription isStream];
         }
     }
     

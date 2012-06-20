@@ -5,6 +5,7 @@
   Created by 金 津 on 12-3-16.
   Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 */
+"title_fromsource" = "来自: %@";
 "title_lastUpdatedLabel" = "最后更新: %@";
 "title_pulltorefresh" = "下拉刷新...";
 "title_release" = "可以放开了...";

@@ -29,6 +29,7 @@
 @synthesize authorLabel = _authorLabel;
 @synthesize unstarButton = _unstarButton, starButton = _starButton;
 @synthesize buttonContainer = _buttonContainer;
+@synthesize showSource = _showSource;
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
@@ -128,7 +129,11 @@
         self.titleLabel.text = _item.title;
         self.timeLabel.text = [_item getShortUpdatedDateTime];
         
-        self.authorLabel.text = _item.author;
+        if (self.showSource){
+            self.authorLabel.text = _item.origin_title;
+        }else{
+            self.authorLabel.text = _item.author;
+        }
     }
     [self setNeedsLayout];
 }

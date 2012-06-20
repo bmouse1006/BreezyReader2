@@ -31,6 +31,8 @@
 
 @property (nonatomic, retain) NSArray* imageList;
 
+@property (nonatomic, assign) BOOL showSource;
+
 -(IBAction)starButtonClicked:(id)sender;
 -(IBAction)unstarButtonClicked:(id)sender;
 

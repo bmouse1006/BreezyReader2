@@ -92,29 +92,24 @@
     static double authLabelHeight = 18.0f;
     
     CGFloat width = self.frame.size.width;
-    self.timeLabel.frame = CGRectMake(0, 6, width, authLabelHeight);
-    self.authorLabel.frame = CGRectMake(0, authLabelHeight+6, width, authLabelHeight);
+    self.authorLabel.frame = CGRectMake(0, 6, width, authLabelHeight);
+//    self.authorLabel.frame = CGRectMake(0, authLabelHeight+6, width, authLabelHeight);
     CGRect frame = self.buttonContainer.frame;
     frame.origin.x = width-35;
-    frame.origin.y = 10;
+    frame.origin.y = 6;
     self.buttonContainer.frame = frame;
     
     self.container.backgroundColor = [self.item.ID colorForString];
+    self.titleLabel.verticalAlignment = JJTextVerticalAlignmentBottom;
+    self.titleLabel.frame = CGRectMake(0, self.frame.size.height-titleLabelHeight, width, titleLabelHeight);
+    self.timeLabel.hidden = YES;
     
     if ([self.imageList count] > 0){
-        self.authorLabel.hidden = YES;
-        self.timeLabel.hidden = YES;
-        self.bottomShadow.hidden = NO;
+        self.authorLabel.hidden = !self.showSource;
         self.urlImageView.hidden = NO;
-        self.titleLabel.verticalAlignment = JJTextVerticalAlignmentBottom;
-        self.titleLabel.frame = CGRectMake(0, self.frame.size.height-titleLabelHeight, width, titleLabelHeight);
     }else{
         self.authorLabel.hidden = NO;
-        self.timeLabel.hidden = NO;
         self.urlImageView.hidden = YES;
-        self.titleLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
-        self.titleLabel.frame = CGRectMake(0, authLabelHeight*2, width, titleLabelHeight);
-        self.bottomShadow.hidden = YES;
     }
     [self updateStarButton];
 }

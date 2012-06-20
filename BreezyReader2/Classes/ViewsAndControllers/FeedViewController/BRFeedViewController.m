@@ -153,7 +153,6 @@ static CGFloat refreshDistance = 60.0f;
     self.title = self.subscription.title;
     self.tableView = [[[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain] autorelease];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    self.tableView.rowHeight = kFeedTableRowHeight;
     UIPinchGestureRecognizer* gesture = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonClicked:)] autorelease];
     [self.tableView addGestureRecognizer:gesture];
     
@@ -181,10 +180,10 @@ static CGFloat refreshDistance = 60.0f;
     self.dataSource = [[[BRFeedDataSource alloc] init] autorelease];
     self.dataSource.unreadOnly = [BRUserPreferenceDefine unreadOnlyStatusForStream:self.subscription.ID];
     self.dataSource.delegate = self;
+    self.dataSource.subscription = self.subscription;
     self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self;
     // Do any additional setup after loading the view from its nib.
-    self.dataSource.subscription = self.subscription;
     
     BOOL forceRefresh = NO;
     //get last read time

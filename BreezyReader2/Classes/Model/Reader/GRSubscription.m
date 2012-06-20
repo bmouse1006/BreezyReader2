@@ -97,6 +97,10 @@
 	return feed;
 }
 
+-(BOOL)isStream{
+    return [self.ID hasPrefix:@"feed/"];
+}
+
 +(GRSubscription*)subscriptionWithJSONObject:(NSDictionary*)JSONSub{
 
 	if (![JSONSub isKindOfClass:[NSDictionary class]]){

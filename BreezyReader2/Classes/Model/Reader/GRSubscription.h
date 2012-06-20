@@ -39,4 +39,6 @@
 +(GRSubscription*)subscriptionForLabel:(NSString*)label;
 +(GRSubscription*)subscriptionForGRRecFeed:(GRRecFeed*)recFeed;
 
+-(BOOL)isStream;
+
 @end

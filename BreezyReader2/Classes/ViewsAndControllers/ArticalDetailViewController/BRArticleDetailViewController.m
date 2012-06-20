@@ -16,6 +16,8 @@
 
 #import "JJSingleWebController.h"
 
+#define kPlaceHolderArticleHeader @"#BREEZYREADERARTICLEHEADER#"
+#define kPlaceHolderArticleHeaderUrl @"#BREEZYREADERARTICLEHEADERURL#"
 #define kPlaceHolderArticleTitle @"#BREEZYREADERARTICLETITLE#"
 #define kPlaceHolderArticleContent @"#BREEZYREADERARTICLECONTENT#"
 #define kPlaceHolderCSSFilePath @"#BREEZYREADERREADABILITYCSSFILEPATH#"
@@ -124,6 +126,10 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     [htmlTemplate replaceOccurrencesOfString:kPlaceHolderCSSFilePath withString:css_url options:NSLiteralSearch range:range2];
     NSRange range3 = {0, htmlTemplate.length};
     [htmlTemplate replaceOccurrencesOfString:kPlaceHolderJSFilePath withString:js_url options:NSLiteralSearch range:range3];
+    NSRange range4 = {0, htmlTemplate.length};
+    [htmlTemplate replaceOccurrencesOfString:kPlaceHolderArticleHeader withString:self.item.origin_title options:NSLiteralSearch range:range4];
+    NSRange range5 = {0, htmlTemplate.length};
+    [htmlTemplate replaceOccurrencesOfString:kPlaceHolderArticleHeaderUrl withString:self.item.origin_htmlUrl options:NSLiteralSearch range:range5];
 //    NSRange range4 = {0, htmlTemplate.length};
 //    [htmlTemplate replaceOccurrencesOfString:kPlaceHolderJQueryFilePath withString:jquery_url options:NSLiteralSearch range:range4];
 //    NSRange range5 = {0, htmlTemplate.length};
