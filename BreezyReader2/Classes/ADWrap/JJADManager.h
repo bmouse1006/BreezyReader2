@@ -9,11 +9,19 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-#import "JJAdView.h"
-
 #define NOTIFICATION_ADLOADED @"NOTIFICATION_ADLOADED"
 
+#ifdef FREEVERSION
+
+#import "JJAdView.h"
+
 @interface JJADManager : NSObject<JJAdViewDelegate, CLLocationManagerDelegate>
+
+#else
+
+@interface JJADManager : NSObject<CLLocationManagerDelegate>
+
+#endif
 
 +(id)sharedManager;
 +(void)checkCurrentCountry;

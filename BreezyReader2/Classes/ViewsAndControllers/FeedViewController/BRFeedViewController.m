@@ -116,7 +116,6 @@ static CGFloat refreshDistance = 60.0f;
     [nc addObserver:self selector:@selector(markArticleAsUnread:) name:NOTIFICATION_MARKITEMASUNREAD object:nil];
     [nc addObserver:self selector:@selector(swipeToRightAction:) name:NOTIFICATION_SWIPEACTION_RIGHT object:nil];
     [nc addObserver:self selector:@selector(swipeToLeftAction:) name:NOTIFICATION_SWIPEACTION_LEFT object:nil];
-    [nc addObserver:self selector:@selector(adLoaded:) name:NOTIFICATION_ADLOADED object:nil];
     [nc addObserver:self selector:@selector(markAllAsReadButtonClicked:) name:NOTIFICATION_MENUACTION_MARKALLASREAD object:nil];
     [nc addObserver:self selector:@selector(shouldShowUnreadOnly:) name:NOTIFICATION_MENUACTION_UNREADONLY object:nil];
     [nc addObserver:self selector:@selector(showAllArticles:) name:NOTIFICAITON_MENUACTION_ALLARTICLES object:nil];

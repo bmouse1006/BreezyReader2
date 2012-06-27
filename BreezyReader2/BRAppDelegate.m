@@ -56,6 +56,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
+    [UIApplication sharedApplication].statusBarHidden = NO;
+    
     [JJADManager checkCurrentCountry];
     
     self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];

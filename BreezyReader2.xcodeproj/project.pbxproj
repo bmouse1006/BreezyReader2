@@ -1003,7 +1003,6 @@
 		22E3FE54159A02CF007EFDBD /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E3FE4B159A02CF007EFDBD /* libGoogleAdMobAds.a */; };
 		22E3FE55159A02CF007EFDBD /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22E3FE53159A02CF007EFDBD /* README.txt */; };
 		22E3FE56159A03E4007EFDBD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2271F40C1534F8C800A50484 /* AudioToolbox.framework */; };
-		22E3FE59159A80A8007EFDBD /* JJAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E3FE58159A80A8007EFDBD /* JJAdView.m */; };
 		22E3FE5A159A80A8007EFDBD /* JJAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E3FE58159A80A8007EFDBD /* JJAdView.m */; };
 		22E530941539D77E001A3C60 /* NSDate+simpleFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E530931539D77E001A3C60 /* NSDate+simpleFormat.m */; };
 		22E556C3155645BC0048E331 /* BRArticleActionMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E556C1155645BA0048E331 /* BRArticleActionMenuViewController.m */; };
@@ -5151,7 +5150,6 @@
 				22C7359C15809B3800716984 /* BRDownloadedCache.m in Sources */,
 				22C735A01580A7BE00716984 /* BRManuallyClearCacheView.m in Sources */,
 				22187DBD1590839500B36307 /* ENOAuthViewController.m in Sources */,
-				22E3FE59159A80A8007EFDBD /* JJAdView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

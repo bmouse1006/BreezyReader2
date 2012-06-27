@@ -82,8 +82,10 @@
     if (self.adView){
         CGRect frame = self.adView.frame;
         frame.origin.x = 0;
-        frame.origin.y = self.view.bounds.size.height-self.bottomToolBar.frame.size.height-frame.size.height;
+//        frame.origin.y = self.view.bounds.size.height-self.bottomToolBar.frame.size.height-frame.size.height;
+        frame.origin.y = 0;
         self.adView.frame = frame;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adDidLoad:) name:NOTIFICATION_ADLOADED object:self.adView];
         [self.view addSubview:self.adView];
         [self.view bringSubviewToFront:self.bottomToolBar];
     }
@@ -101,13 +103,17 @@
     self.actionMenuController = nil;
 }
 
--(void)viewWillLayoutSubviews{
+-(void)viewDidLayoutSubviews{
     CGRect frame = self.bottomToolBar.frame;
     frame.origin.y = self.view.frame.size.height - frame.size.height;
     self.bottomToolBar.frame = frame;
     
     frame = self.scrollView.frame;
     frame.size.height = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
+    if (self.adView.hidden == NO){
+        frame.size.height -= self.adView.frame.size.height;
+        frame.origin.y += self.adView.frame.size.height;
+    }
     self.scrollView.frame = frame;
     
     frame = self.actionMenuController.view.frame;
@@ -116,6 +122,8 @@
     self.actionMenuController.view.frame = frame;
     
     [self.view bringSubviewToFront:self.bottomToolBar];
+    
+    [self.scrollView reloadData];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -147,6 +155,13 @@
     self.articleDetailControllers = controllers;
 }
 
+#pragma mark - ad action
+-(void)adDidLoad:(NSNotification*)notification{
+    if (self.adView == notification.object){
+        [self viewDidLayoutSubviews];
+    }
+}
+
 #pragma mark - UIScrollView delegate
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [self hideActionMenu];
@@ -166,7 +181,6 @@
 -(void)showActionMenu{
     CGFloat x = self.mainContainer.frame.size.width - 10;
     CGFloat y = self.bottomToolBar.frame.origin.y - 3;
-    y = (self.adView.hidden)?y:y-self.adView.frame.size.height;
     [self.actionMenuController showMenuInPosition:CGPointMake(x, y) anchorPoint:CGPointMake(1, 1)];
     
     _showMenu = YES;

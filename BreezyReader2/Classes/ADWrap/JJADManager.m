@@ -79,11 +79,11 @@ static BOOL inChina = YES;
 //    if ([BRUserPreferenceDefine shouldLoadAD] == NO){
 //        return nil;
 //    }
-    JJAdView* adView = nil;
+    id adView = nil;
 #ifdef FREEVERSION
     adView = [[[JJAdView alloc] initWithSize:CGSizeMake(320, 50)] autorelease];
-    adView.hidden = YES;
-    adView.delegate = self;
+    ((JJAdView*)adView).hidden = YES;
+    ((JJAdView*)adView).delegate = self;
     [adView loadAd];
 //    adView = [[[GHAdView alloc] initWithAdUnitId:GHUNITID size:CGSizeMake(320, 50)] autorelease];
 //    ((GHAdView*)adView).delegate = self;
@@ -101,6 +101,7 @@ static BOOL inChina = YES;
 -(void)adViewDidLoadAd:(UIView *)view{
     NSLog(@"ad is loaded");
     view.hidden = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADLOADED object:view];
 }
 
 -(void)adViewDidFailToLoadAd:(UIView *)view{
