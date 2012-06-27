@@ -1,5 +1,5 @@
 //
-//  BRADManager.h
+//  JJADManager.h
 //  BreezyReader2
 //
 //  Created by Jin Jin on 12-4-11.
@@ -7,16 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GHAdViewDelegate.h"
-#import "GHAdView.h"
 #import <CoreLocation/CoreLocation.h>
+
+#import "JJAdView.h"
 
 #define NOTIFICATION_ADLOADED @"NOTIFICATION_ADLOADED"
 
-@interface BRADManager : NSObject<GHAdViewDelegate, CLLocationManagerDelegate>
+@interface JJADManager : NSObject<JJAdViewDelegate, CLLocationManagerDelegate>
 
 +(id)sharedManager;
 
--(GHAdView*)adView;
+-(UIView*)adView;
 
 @end

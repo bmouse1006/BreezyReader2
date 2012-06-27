@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "229E1FD6153E687C00DDBE0B"
+               BlueprintIdentifier = "223215411599EF0000E2C7B3"
                BuildableName = "BreezyReader2Free.app"
                BlueprintName = "BreezyReader2Free"
                ReferencedContainer = "container:BreezyReader2.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "229E1FD6153E687C00DDBE0B"
+            BlueprintIdentifier = "223215411599EF0000E2C7B3"
             BuildableName = "BreezyReader2Free.app"
             BlueprintName = "BreezyReader2Free"
             ReferencedContainer = "container:BreezyReader2.xcodeproj">
@@ -51,7 +51,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "229E1FD6153E687C00DDBE0B"
+            BlueprintIdentifier = "223215411599EF0000E2C7B3"
             BuildableName = "BreezyReader2Free.app"
             BlueprintName = "BreezyReader2Free"
             ReferencedContainer = "container:BreezyReader2.xcodeproj">
@@ -69,7 +69,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "229E1FD6153E687C00DDBE0B"
+            BlueprintIdentifier = "223215411599EF0000E2C7B3"
             BuildableName = "BreezyReader2Free.app"
             BlueprintName = "BreezyReader2Free"
             ReferencedContainer = "container:BreezyReader2.xcodeproj">

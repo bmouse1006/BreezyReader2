@@ -12,7 +12,7 @@
 #import "GoogleReaderClient.h"
 #import "JJSingleWebController.h"
 #import "JJSocialShareManager.h"
-#import "BRADManager.h"
+#import "JJADManager.h"
 #import "GoogleReaderClientHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -78,7 +78,7 @@
 //    self.scrollView.dimTheInvisibleContentView = YES;
     [self.scrollView reloadData];
     
-    self.adView = [[BRADManager sharedManager] adView];
+    self.adView = [[JJADManager sharedManager] adView];
     if (self.adView){
         CGRect frame = self.adView.frame;
         frame.origin.x = 0;

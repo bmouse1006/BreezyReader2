@@ -1,38 +1,51 @@
 //
-//  BRADManager.m
+//  JJADManager.m
 //  BreezyReader2
 //
 //  Created by Jin Jin on 12-4-11.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "BRADManager.h"
+#import "JJADManager.h"
 #import "BRUserPreferenceDefine.h"
+#import "ASIHTTPRequest.h"
 
-#ifdef FREEVERSION
+static NSString* LOCATION_API = @"http://api.wipmania.com/";
 
-#import "GHAdView.h"
-
-#endif
-
-@interface BRADManager ()
+@interface JJADManager ()
 
 @property (nonatomic, assign) CLLocation* location;
 
 @end
 
-@implementation BRADManager
+@implementation JJADManager
 
-@synthesize location;
+@synthesize location = _location;
 
-static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
+static NSString* admobPublisherID = @"a14f851c3ba444f";
+//static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
+static BOOL inChina = NO;
+
++(void)initialize{
+    ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:LOCATION_API]];
+    
+    [request setCompletionBlock:^{
+        if (request.error == nil){
+            if ([request.responseString rangeOfString:@"CN"].length > 0){
+                inChina = YES;
+            }
+        }
+    }];
+    
+    [request startAsynchronous];
+}
 
 +(id)sharedManager{
     static dispatch_once_t pred;
-    __strong static BRADManager *obj = nil; 
+    __strong static JJADManager *obj = nil; 
     
     dispatch_once(&pred, ^{ 
-        obj = [[BRADManager alloc] init]; 
+        obj = [[JJADManager alloc] init]; 
     }); 
     
     return obj;
@@ -42,9 +55,9 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
     self = [super init];
     if (self){
 #ifdef FREEVERSION
-        CLLocationManager* manager = [[CLLocationManager alloc] init];
-        manager.delegate = self;
-        [manager startUpdatingLocation];
+//        CLLocationManager* manager = [[CLLocationManager alloc] init];
+//        manager.delegate = self;
+//        [manager startUpdatingLocation];
 #endif
     }
     
@@ -57,7 +70,7 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
-    self.location = location;
+    self.location = newLocation;
     [manager stopUpdatingLocation];
 }
 
@@ -65,12 +78,16 @@ static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
     if ([BRUserPreferenceDefine shouldLoadAD] == NO){
         return nil;
     }
-    UIView* adView = nil;
+    JJAdView* adView = nil;
 #ifdef FREEVERSION
-    adView = [[[GHAdView alloc] initWithAdUnitId:GHUNITID size:CGSizeMake(320, 50)] autorelease];
-    ((GHAdView*)adView).delegate = self;
+    adView = [[[JJAdView alloc] initWithSize:CGSizeMake(320, 50)] autorelease];
     adView.hidden = YES;
-    [(GHAdView*)adView loadAd];
+    adView.delegate = self;
+    adView.adMobPublisherID = admobPublisherID;
+//    adView = [[[GHAdView alloc] initWithAdUnitId:GHUNITID size:CGSizeMake(320, 50)] autorelease];
+//    ((GHAdView*)adView).delegate = self;
+//    adView.hidden = YES;
+//    [(GHAdView*)adView loadAd];
 #endif
     
     return adView;

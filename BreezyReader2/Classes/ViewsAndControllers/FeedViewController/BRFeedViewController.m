@@ -13,7 +13,7 @@
 #import "BRFeedActionMenuViewController.h"
 #import "GoogleReaderClient.h"
 #import "BRErrorHandler.h"
-#import "BRADManager.h"
+#import "JJADManager.h"
 #import "BRUserPreferenceDefine.h"
 #import "BRReadingStatistics.h"
 #import "JJSocialShareManager.h"
@@ -198,7 +198,7 @@ static CGFloat refreshDistance = 60.0f;
         [self.mainContainer addSubview:self.loadingView];
     }
     
-    UIView* adView = [[BRADManager sharedManager] adView];
+    UIView* adView = [[JJADManager sharedManager] adView];
     if (adView){
         self.adView = adView;
         [self.mainContainer addSubview:adView];

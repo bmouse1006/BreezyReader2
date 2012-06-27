@@ -8,7 +8,23 @@
 
 #import "JJAdView.h"
 
+@interface JJAdView()
+
+@property (nonatomic, assign) CGSize adSize;
+
+@end
+
 @implementation JJAdView
+
+@synthesize adSize = _adSize;
+@synthesize delegate = _delegate;
+
+@synthesize adMobPublisherID = _adMobPublisherID;
+
+-(void)dealloc{
+    self.adMobPublisherID = nil;
+    [super dealloc];
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -16,6 +32,22 @@
     if (self) {
         // Initialization code
     }
+    return self;
+}
+
+-(id)initWithSize:(CGSize)adSize{
+    CGRect frame = CGRectZero;
+    frame.size.width = adSize.width;
+    frame.size.height = adSize.height;
+    
+    self.adSize = adSize;
+    
+    self = [super initWithFrame:frame];
+    
+    if (self){
+        
+    }
+    
     return self;
 }
 

@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@class JJAdView;
+
+@protocol JJAdViewDelegate <NSObject>
+
+-(void)adViewDidLoadAd:(JJAdView *)view;
+-(void)adViewDidFailToLoadAd:(JJAdView *)view;
+-(UIViewController*)viewControllerForPresentingModalView;
+
+@end
+
 @interface JJAdView : UIView
+
+@property (nonatomic, assign) id<JJAdViewDelegate> delegate;
+
+@property (nonatomic, copy) NSString* adMobPublisherID;
+
+-(id)initWithSize:(CGSize)adSize;
 
 @end
