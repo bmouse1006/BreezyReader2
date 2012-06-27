@@ -22,6 +22,7 @@
 #import "JJSocialShareManager.h"
 #import "BRUserPreferenceDefine.h"
 #import "BRCacheCleaner.h"
+#import "JJADManager.h"
 
 void uncaughtExceptionHandler(NSException *exception);
 
@@ -54,6 +55,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    
+    [JJADManager checkCurrentCountry];
     
     self.client = [GoogleReaderClient clientWithDelegate:nil action:NULL];
     //setup request cache

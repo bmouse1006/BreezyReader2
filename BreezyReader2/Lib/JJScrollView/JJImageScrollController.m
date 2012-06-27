@@ -112,7 +112,7 @@
 
 }
 
--(void)scrollViewWillBeginDragging:(JJPageScrollView *)scrollView{
+-(void)scrollViewWillStartDragging:(JJPageScrollView *)scrollView{
     
 }
 

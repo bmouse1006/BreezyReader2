@@ -14,7 +14,7 @@ static NSString* LOCATION_API = @"http://api.wipmania.com/";
 
 @interface JJADManager ()
 
-@property (nonatomic, assign) CLLocation* location;
+@property (nonatomic, retain) CLLocation* location;
 
 @end
 
@@ -22,17 +22,18 @@ static NSString* LOCATION_API = @"http://api.wipmania.com/";
 
 @synthesize location = _location;
 
-static NSString* admobPublisherID = @"a14f851c3ba444f";
 //static NSString* GHUNITID = @"1f4b0d9d130afabeb578d0d522ed8f9a";
-static BOOL inChina = NO;
+static BOOL inChina = YES;
 
-+(void)initialize{
++(void)checkCurrentCountry{
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:LOCATION_API]];
     
     [request setCompletionBlock:^{
         if (request.error == nil){
             if ([request.responseString rangeOfString:@"CN"].length > 0){
                 inChina = YES;
+            }else{
+                inChina = NO;
             }
         }
     }];
@@ -55,9 +56,9 @@ static BOOL inChina = NO;
     self = [super init];
     if (self){
 #ifdef FREEVERSION
-//        CLLocationManager* manager = [[CLLocationManager alloc] init];
-//        manager.delegate = self;
-//        [manager startUpdatingLocation];
+        CLLocationManager* manager = [[CLLocationManager alloc] init];
+        manager.delegate = self;
+        [manager startUpdatingLocation];
 #endif
     }
     
@@ -75,15 +76,15 @@ static BOOL inChina = NO;
 }
 
 -(UIView*)adView{
-    if ([BRUserPreferenceDefine shouldLoadAD] == NO){
-        return nil;
-    }
+//    if ([BRUserPreferenceDefine shouldLoadAD] == NO){
+//        return nil;
+//    }
     JJAdView* adView = nil;
 #ifdef FREEVERSION
     adView = [[[JJAdView alloc] initWithSize:CGSizeMake(320, 50)] autorelease];
     adView.hidden = YES;
     adView.delegate = self;
-    adView.adMobPublisherID = admobPublisherID;
+    [adView loadAd];
 //    adView = [[[GHAdView alloc] initWithAdUnitId:GHUNITID size:CGSizeMake(320, 50)] autorelease];
 //    ((GHAdView*)adView).delegate = self;
 //    adView.hidden = YES;
@@ -108,6 +109,10 @@ static BOOL inChina = NO;
 
 - (CLLocation *)locationInfo{
     return self.location;
+}
+
+-(BOOL)shouldLoadiAd{
+    return inChina == NO;
 }
 
 @end

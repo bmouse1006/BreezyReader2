@@ -35,7 +35,7 @@ typedef enum{
 @optional
 -(void)scrollViewDidRemovePageAtIndex:(NSInteger)index;
 -(void)scrollView:(JJPageScrollView*)scrollView didScrollToPageAtIndex:(NSInteger)index;
--(void)scrollViewWillBeginDragging:(JJPageScrollView *)scrollView;
+-(void)scrollViewWillStartDragging:(JJPageScrollView *)scrollView;
 
 @end
 

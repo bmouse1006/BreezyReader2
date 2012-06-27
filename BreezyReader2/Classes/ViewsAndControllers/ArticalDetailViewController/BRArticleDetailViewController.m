@@ -48,6 +48,7 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 @synthesize item = _item;
 @synthesize loadingView = _loadingView;
 @synthesize loadingLabel = _loadingLabel;
+@synthesize delegate = _delegate;
 
 -(void)dealloc{
     NSString* tempFile = [self filePathForItemID:self.item.ID];
@@ -93,6 +94,7 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     
     self.loadingLabel.text = [self.item.title stringByReplacingHTMLTagAndTrim];
     
+    self.webView.scrollView.delegate = self.delegate;
     [self removeGradientImage:self.webView];
     UITapGestureRecognizer* singleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)] autorelease];
     singleTap.delegate = self;

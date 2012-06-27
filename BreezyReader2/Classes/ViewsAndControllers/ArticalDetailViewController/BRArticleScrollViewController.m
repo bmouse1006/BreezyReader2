@@ -139,6 +139,7 @@
     NSMutableArray* controllers = [NSMutableArray array];
     for (GRItem* item in self.feed.items){
         BRArticleDetailViewController* articleDetail = [[[BRArticleDetailViewController alloc] initWithItem:item] autorelease];
+        articleDetail.delegate = self;
         [controllers addObject:articleDetail];
         [self addChildViewController:articleDetail];
     }
@@ -146,19 +147,36 @@
     self.articleDetailControllers = controllers;
 }
 
+#pragma mark - UIScrollView delegate
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self hideActionMenu];
+}
+
 #pragma mark - action
 -(IBAction)showHideActionMenuButtonClicked:(id)sender{
     [self showHideActionMenu];
 }
 
+-(void)hideActionMenu{
+    [self.actionMenuController dismiss];    
+    
+    _showMenu = NO;
+}
+
+-(void)showActionMenu{
+    CGFloat x = self.mainContainer.frame.size.width - 10;
+    CGFloat y = self.bottomToolBar.frame.origin.y - 3;
+    y = (self.adView.hidden)?y:y-self.adView.frame.size.height;
+    [self.actionMenuController showMenuInPosition:CGPointMake(x, y) anchorPoint:CGPointMake(1, 1)];
+    
+    _showMenu = YES;
+}
+
 -(void)showHideActionMenu{
-    _showMenu = !_showMenu;
     if (_showMenu){
-        CGFloat x = self.mainContainer.frame.size.width - 10;
-        CGFloat y = self.bottomToolBar.frame.origin.y - self.adView.frame.size.height - 3;
-        [self.actionMenuController showMenuInPosition:CGPointMake(x, y) anchorPoint:CGPointMake(1, 1)];
+        [self hideActionMenu];
     }else{
-        [self.actionMenuController dismiss];
+        [self showActionMenu];
     }
 }
 
@@ -244,8 +262,8 @@
     }
 }
 
--(void)scrollViewWillBeginDragging:(JJPageScrollView *)scrollView{
-    
+-(void)scrollViewWillStartDragging:(JJPageScrollView *)scrollView{
+    [self hideActionMenu];
 }
 
 -(void)scrollViewDidRemovePageAtIndex:(NSInteger)index{
@@ -286,7 +304,7 @@
     GRItem* item = [self.feed.items objectAtIndex:self.index];
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToWeiboWithMessage:item.title urlString:urlString image:nil];
-    [self showHideActionMenu];
+    [self hideActionMenu];
 }
 
 -(void)shareToEvernote:(NSNotification*)notification{
@@ -296,7 +314,7 @@
     NSString* content = (item.content)?item.content:item.summary;
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToEvernoteWithTitle:title message:content urlString:urlString];
-    [self showHideActionMenu];
+    [self hideActionMenu];
 }
 
 -(void)shareToTwitter:(NSNotification*)notification{
@@ -304,7 +322,7 @@
     GRItem* item = [self.feed.items objectAtIndex:self.index];
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToTwitterWithText:item.title urlString:urlString image:nil];
-    [self showHideActionMenu];
+    [self hideActionMenu];
 }
 
 -(void)shareToInstapaper:(NSNotification*)notification{
@@ -313,7 +331,7 @@
     NSString* content = (item.content)?item.content:item.summary;
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToInstapaperWithTitle:item.title message:content urlString:urlString];
-    [self showHideActionMenu];
+    [self hideActionMenu];
 }
 
 -(void)shareToReadItLater:(NSNotification*)notification{
@@ -322,7 +340,7 @@
 //    NSString* content = (item.content)?item.content:item.summary;
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToReadItLaterWithTitle:item.title message:@"" urlString:urlString];
-    [self showHideActionMenu];
+    [self hideActionMenu];
 }
 
 -(void)shareToMail:(NSNotification*)notification{
@@ -331,7 +349,7 @@
     NSString* content = (item.content)?item.content:item.summary;
     NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToMailWithTitle:item.title message:content urlString:urlString];
-    [self showHideActionMenu];
+    [self hideActionMenu];
 }
 
 -(void)shareToFacebook:(NSNotification*)notification{
@@ -340,7 +358,7 @@
     NSString* content = (item.content)?item.content:item.summary;
 //    NSString* urlString = item.alternateLink;
     [[JJSocialShareManager sharedManager] sendToFacebookWithTitle:item.title message:content];
-    [self showHideActionMenu];
+    [self hideActionMenu];
 }
 
 @end

@@ -13,7 +13,7 @@
 #import "BRArticleActionMenuViewController.h"
 #import "BRBaseController.h"
 
-@interface BRArticleScrollViewController : BRBaseController<JJPageScrollViewDelegate, JJPageScrollViewDataSource>
+@interface BRArticleScrollViewController : BRBaseController<JJPageScrollViewDelegate, JJPageScrollViewDataSource, UIScrollViewDelegate>
 
 @property (nonatomic, retain) IBOutlet JJPageScrollView* scrollView;
 @property (nonatomic, retain) IBOutlet BRBottomToolBar* bottomToolBar;

@@ -16,6 +16,7 @@
 @interface JJADManager : NSObject<JJAdViewDelegate, CLLocationManagerDelegate>
 
 +(id)sharedManager;
++(void)checkCurrentCountry;
 
 -(UIView*)adView;
 

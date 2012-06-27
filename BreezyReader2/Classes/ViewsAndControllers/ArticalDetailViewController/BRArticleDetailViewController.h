@@ -17,6 +17,8 @@
 @property (nonatomic, retain) IBOutlet UIView* loadingView;
 @property (nonatomic, retain) IBOutlet UILabel* loadingLabel;
 
+@property (nonatomic, assign) id<UIScrollViewDelegate> delegate;
+
 @property (nonatomic, retain) GRItem* item;
 
 -(id)initWithItem:(GRItem*)item;

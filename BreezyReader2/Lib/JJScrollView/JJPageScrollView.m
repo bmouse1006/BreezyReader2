@@ -232,8 +232,8 @@ inline CGPoint CGCenterOfRect(CGRect rect){
 #pragma mark - scroll view delegate
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     //load more 
-    if ([self.delegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]){
-        [self.delegate scrollViewWillBeginDragging:self];
+    if ([self.delegate respondsToSelector:@selector(scrollViewWillStartDragging:)]){
+        [self.delegate scrollViewWillStartDragging:self];
     }
 }
 
