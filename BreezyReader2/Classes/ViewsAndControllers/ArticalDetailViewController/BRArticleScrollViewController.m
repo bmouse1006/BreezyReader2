@@ -112,7 +112,7 @@
     frame.size.height = self.view.frame.size.height - self.bottomToolBar.frame.size.height;
     if (self.adView.hidden == NO){
         frame.size.height -= self.adView.frame.size.height;
-        frame.origin.y += self.adView.frame.size.height;
+        frame.origin.y = self.adView.frame.size.height;
     }
     self.scrollView.frame = frame;
     

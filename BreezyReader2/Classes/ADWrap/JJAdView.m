@@ -93,6 +93,7 @@ static NSString* admobPublisherID = @"a14f851c3ba444f";
 
 -(void)loadiAd{
     [self.adView removeFromSuperview];
+    [self.adView setValue:nil forKey:@"delegate"];
     ADBannerView* bannerView = [[[ADBannerView alloc] initWithFrame:self.bounds] autorelease];
     bannerView.delegate = self;
     [self addSubview:bannerView];
@@ -101,6 +102,7 @@ static NSString* admobPublisherID = @"a14f851c3ba444f";
 
 -(void)loadAdmob{
     [self.adView removeFromSuperview];
+    [self.adView setValue:nil forKey:@"delegate"];
     GADBannerView* bannerView = [[[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner] autorelease];
     bannerView.delegate = self;
     bannerView.adUnitID = admobPublisherID;

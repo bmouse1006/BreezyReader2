@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">11D50</string>
+		<string key="IBDocument.SystemVersion">11E2705</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
-		<string key="IBDocument.AppKitVersion">1138.32</string>
-		<string key="IBDocument.HIToolboxVersion">568.00</string>
+		<string key="IBDocument.AppKitVersion">1138.47</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1181</string>
@@ -43,9 +43,12 @@
 				<bool key="IBUIHorizontal">NO</bool>
 			</object>
 			<object class="IBUIButton" id="86679330">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<string key="NSFrameSize">{38, 38}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor" id="252824147">
 					<int key="NSColorSpace">3</int>
@@ -55,7 +58,6 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUIContentHorizontalAlignment">0</int>
 				<int key="IBUIContentVerticalAlignment">0</int>
-				<bool key="IBUIShowsTouchWhenHighlighted">YES</bool>
 				<object class="NSColor" key="IBUIHighlightedTitleColor" id="339522349">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -182,7 +184,6 @@
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 												<int key="IBUIContentHorizontalAlignment">0</int>
 												<int key="IBUIContentVerticalAlignment">0</int>
-												<bool key="IBUIShowsTouchWhenHighlighted">YES</bool>
 												<reference key="IBUIHighlightedTitleColor" ref="339522349"/>
 												<object class="NSColor" key="IBUINormalTitleColor">
 													<int key="NSColorSpace">1</int>
@@ -827,7 +828,7 @@
 			<string key="globe.png">{24, 24}</string>
 			<string key="pocket_icon.png">{24, 24}</string>
 			<string key="sendto.png">{24, 24}</string>
-			<string key="star_complete_24.png">{24, 24}</string>
+			<string key="star_complete_24.png">{24, 22}</string>
 			<string key="star_empty_24.png">{24, 22}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
