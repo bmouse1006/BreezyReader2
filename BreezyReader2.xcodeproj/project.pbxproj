@@ -2508,8 +2508,8 @@
 		229B2C2D15273CAE00700504 /* FeedViewController */ = {
 			isa = PBXGroup;
 			children = (
-				22B2479B152F253A009DC4F1 /* BRBottomToolBar.h */,
 				22B2479C152F253A009DC4F1 /* BRBottomToolBar.m */,
+				22B2479B152F253A009DC4F1 /* BRBottomToolBar.h */,
 				22E556CB15565CCB0048E331 /* BRFeedActionMenuViewController.h */,
 				22E556CC15565CCB0048E331 /* BRFeedActionMenuViewController.m */,
 				22E556CD15565CCC0048E331 /* BRFeedActionMenuViewController.xib */,

@@ -19,9 +19,9 @@
 	<key>rememberMyChoice</key>
 	<true/>
 	<key>swipeLeftAction</key>
-	<string>NOTIFICATION_MARKITEMASUNREAD</string>
-	<key>swipeRightAction</key>
 	<string>NOTIFICATION_MARKITEMASREAD</string>
+	<key>swipeRightAction</key>
+	<string>NOTIFICATION_SENDTOREADITLATER</string>
 	<key>autorotateimage</key>
 	<true/>
 </dict>

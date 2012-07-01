@@ -8,6 +8,7 @@
 
 #import "BRFeedTableViewCell.h"
 #import "BRImagePreviewCache.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kCellLeftSpacing 7.0f
 #define kCellRightSpacing 7.0f
@@ -207,16 +208,18 @@
     [self postNotificationWithName:NOTIFICATION_UNSTARITEM];
 }
 
+#pragma mark - gesture action
+
 -(void)swipeToRight:(UISwipeGestureRecognizer*)swipe{
     DebugLog(@"swipe to right");
     [self postNotificationWithName:NOTIFICATION_SWIPEACTION_RIGHT];
-//    [self postNotificationWithName:NOTIFICATION_MARKITEMASREAD];
+    [self animateSwipeToRight];
 }
 
 -(void)swipeToLeft:(UISwipeGestureRecognizer*)swipe{
     DebugLog(@"swipe to left");
     [self postNotificationWithName:NOTIFICATION_SWIPEACTION_LEFT];
-//    [self postNotificationWithName:NOTIFICATION_MARKITEMASUNREAD];
+    [self animateSwipeToLeft];
 }
 
 -(void)postNotificationWithName:(NSString*)notificationName{
@@ -225,6 +228,37 @@
     [userInfo setObject:self.item forKey:@"item"];
     NSNotification* notification = [NSNotification notificationWithName:notificationName object:nil userInfo:userInfo];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+#pragma mark - animation
+
+static double ANIMATION_DURATION = 0.2f;
+
+-(void)animateSwipeToRight{
+    /*
+    CALayer* layer = self.container.layer;
+    
+    CAKeyframeAnimation* swipeToRight = [CAKeyframeAnimation animationWithKeyPath:@"swipeToRight"];
+    swipeToRight.duration = ANIMATION_DURATION*3;
+    
+    double y = 10;
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, self.contentView.center.x, self.contentView.center.y);
+    CGPathAddLineToPoint(path, NULL, self.contentView.center.x, self.contentView.center.y+y+dy*2);
+    CGPathAddLineToPoint(path, NULL, self.contentView.center.x, self.contentView.center.y+y-dy);
+    CGPathAddLineToPoint(path, NULL, self.contentView.center.x, self.contentView.center.y+y);
+    positionAnimation.path = path;
+    positionAnimation.timingFunction = [CAMediaTimingFunctionfunctionWithName:kCAMediaTimingFunctionEaseOut];
+    CGPathRelease(path);
+    
+    [self.contentView.layeraddAnimation:positionAnimation forKey:@"show"];self.contentView.center = CGPointMake(self.contentView.center.x, self.contentView.center.y+y);*/
+
+
+}
+
+-(void)animateSwipeToLeft{
+    
 }
 
 #pragma mark - notification register
