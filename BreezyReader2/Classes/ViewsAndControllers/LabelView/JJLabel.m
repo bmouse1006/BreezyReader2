@@ -11,6 +11,9 @@
 
 @interface JJLabel()
 
+@property (nonatomic, assign) id target;
+@property (nonatomic, assign) SEL action;
+
 -(void)drawTextInRect:(CGRect)rect;
 //- (CGRect)textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines;
 
@@ -18,6 +21,7 @@
 
 @implementation JJLabel
 
+@synthesize target = _target, action = _action;
 @synthesize shadowBlur = _shadowBlur, shadowEnable = _shadowEnable;
 @synthesize shadowColor = _shadowColor, shadowOffset = _shadowOffset;
 @synthesize text = _text, font = _font, textColor = _textColor;
@@ -32,6 +36,32 @@
     self.font = nil;
     self.textColor = nil;
     [super dealloc];
+}
+
+-(id)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    
+    if (self){
+        [self initialize];
+    }
+    
+    return self;
+}
+
+-(id)init{
+    self = [super init];
+    
+    if (self){
+        [self initialize];
+    }
+    
+    return self;
+}
+
+-(void)initialize{
+    UITapGestureRecognizer* singleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)] autorelease];
+    
+    [self addGestureRecognizer:singleTap];
 }
 
 #pragma mark - getter and setter
@@ -149,6 +179,18 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     [self setNeedsDisplay];
+}
+
+#pragma mark - action
+-(void)addTarget:(id)target action:(SEL)action{
+    self.target = target;
+    self.action = action;
+}
+
+-(void)singleTapAction:(UITapGestureRecognizer*)gesture{
+    if (self.target && self.action){
+        [self.target performSelector:self.action withObject:self];
+    }
 }
 
 @end

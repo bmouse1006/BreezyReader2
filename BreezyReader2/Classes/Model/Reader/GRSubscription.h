@@ -10,6 +10,8 @@
 #import "GRBaseProtocol.h"
 #import "GRRecFeed.h"
 
+@class GRTag;
+
 @interface GRSubscription : NSObject<GRBaseProtocol, NSCoding>
 
 @property (nonatomic, retain) NSString* ID;

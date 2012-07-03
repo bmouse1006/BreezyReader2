@@ -38,4 +38,6 @@ typedef enum {
 @property (nonatomic, readonly) NSInteger actualLineNumber;
 @property (nonatomic, readonly) CGSize contentSize;
 
+-(void)addTarget:(id)target action:(SEL)action;
+
 @end

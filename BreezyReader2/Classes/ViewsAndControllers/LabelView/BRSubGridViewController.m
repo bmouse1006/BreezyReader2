@@ -69,6 +69,7 @@ static CGFloat kTitleLabelHeight = 60.0f;
     self.titleLabel.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
     self.titleLabel.shadowOffset = CGSizeMake(0, 2);
     self.titleLabel.shadowBlur = 4;
+    [self.titleLabel addTarget:self action:@selector(didSelectTitleLabel:)];
     
     self.tableView.tableHeaderView = self.titleLabel;
     
@@ -184,6 +185,21 @@ static CGFloat kTitleLabelHeight = 60.0f;
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ALLOWFLIPANIMATION object:nil];
+}
+
+#pragma mark - title label tap action
+-(void)didSelectTitleLabel:(JJLabel*)titleLabel{
+    if ([GoogleReaderClient tagWithID:self.tag.ID] == nil){
+        return;
+    };
+    
+    GRSubscription* sub = [self.tag toSubscription];
+    BRFeedViewController* feedController = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
+    feedController.subscription = sub;
+    
+    //    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:feedController] autorelease];
+    
+    [[self topContainer] boomOutViewController:feedController fromView:titleLabel];
 }
 
 @end

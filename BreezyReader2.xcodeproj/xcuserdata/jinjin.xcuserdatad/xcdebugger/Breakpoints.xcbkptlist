@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/InfinityScrollView/InfinityScrollView.m"
-         timestampString = "360688360.954741"
+         timestampString = "363017311.333756"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "150"
-         endingLineNumber = "150"
+         startingLineNumber = "154"
+         endingLineNumber = "154"
          landmarkName = "-reloadData"
          landmarkType = "5">
       </FileBreakpoint>

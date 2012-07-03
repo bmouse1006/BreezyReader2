@@ -83,6 +83,10 @@
     CGFloat width = frame.size.width;
     self.contentSize = CGSizeMake(width * [self.containers count] , frame.size.height);
     self.contentOffset = CGPointMake(width, 0);
+    
+    _index = [self indexOfSelectedChildView];
+    [self.infinityDelegate scrollView:self 
+            didStopAtChildViewOfIndex:_index];
 }
 
 -(void)generateAndSetupContainers{
@@ -154,6 +158,7 @@
     CGPoint translate = [self.panGestureRecognizer translationInView:self];
     [self rearrangeContainers:translate];
     [self.infinityDelegate scrollView:self userDraggingOffset:translate];
+    [self.infinityDelegate scrollViewDidScroll:self];
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{

@@ -16,7 +16,6 @@
 
 @property (nonatomic, retain) GRTag* tag;
 @property (nonatomic, retain) BRSubGridSource* source;
-
 @property (nonatomic, retain) JJLabel* titleLabel;
 
 -(void)createSource;

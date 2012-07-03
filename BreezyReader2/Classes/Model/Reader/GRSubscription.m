@@ -7,7 +7,7 @@
 //
 
 #import "GRSubscription.h"
-
+#import "GRTag.h"
 
 @implementation GRSubscription
 
@@ -132,6 +132,7 @@
 +(GRSubscription*)subscriptionForLabel:(NSString*)label{
 	GRSubscription* allItems = [[GRSubscription alloc] init];
 	allItems.ID = label;
+    allItems.title = label;
 	allItems.sortID = @"000000";
 	return [allItems autorelease];
 }

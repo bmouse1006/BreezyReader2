@@ -19,6 +19,7 @@
 #import "BRSettingViewController.h"
 #import "BaseActivityLabel.h"
 #import "BRUserPreferenceDefine.h"
+#import "BRSubGridViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface BRMainScreenController (){
@@ -29,6 +30,8 @@
 @property (nonatomic, retain) MainScreenDataSource* dataSource;
 @property (nonatomic, retain) GoogleReaderClient* client;
 @property (nonatomic, retain) BaseActivityLabel* activityLabel;
+
+@property (nonatomic, retain) JJLabel* subtitleLabel;
 
 -(void)reload;
 
@@ -53,6 +56,7 @@
 
 @synthesize noteLabel = _noteLabel;
 
+@synthesize subtitleLabel = _subtitleLabel;
 #pragma mark - init and dealloc
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -82,6 +86,7 @@
     self.activityLabel = nil;
     self.firstSyncFailedView = nil;
     self.noteLabel = nil;
+    self.subtitleLabel = nil;
     [super dealloc];
 }
 
@@ -119,6 +124,18 @@
     self.noteLabel.shadowOffset = CGSizeMake(0,-1);
     self.noteLabel.shadowEnable = YES;
     self.noteLabel.text = NSLocalizedString(@"message_manualsyncnote", nil);
+    
+    self.subtitleLabel = [[[JJLabel alloc] initWithFrame:CGRectMake(265, 30, 100, 40)] autorelease];
+    self.subtitleLabel.backgroundColor = [UIColor clearColor];
+    self.subtitleLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
+    self.subtitleLabel.font = [UIFont boldSystemFontOfSize:24];
+    self.subtitleLabel.textColor = [UIColor whiteColor];
+    self.subtitleLabel.shadowEnable = YES;
+    self.subtitleLabel.shadowOffset = CGSizeMake(0, 2);
+    self.subtitleLabel.shadowBlur = 4.0f;
+    self.subtitleLabel.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+    self.subtitleLabel.alpha = 0.5f;
+    [self.view addSubview:self.subtitleLabel];
 }
 
 -(IBAction)syncReaderFirstTime:(id)sender{
@@ -166,6 +183,7 @@
     self.activityLabel = nil;
     self.firstSyncFailedView = nil;
     self.noteLabel = nil;
+    self.subtitleLabel = nil;
     _initialLoading = YES;
 //    self.
 }
@@ -313,6 +331,13 @@
 -(void)scrollView:(InfinityScrollView *)scrollView didStopAtChildViewOfIndex:(NSInteger)index{
     //add more code here
     _scrollIndex = index;
+    index = (index+1) % [self.dataSource.controllers count];
+    
+    BRSubGridViewController* gridViewController = [self.dataSource.controllers objectAtIndex:index];
+    self.subtitleLabel.text = [gridViewController.source title];
+    [UIView animateWithDuration:0.2f animations:^{
+        self.subtitleLabel.alpha = 0.5f;
+    }];
 }
 
 -(void)scrollView:(InfinityScrollView *)scrollView userDraggingOffset:(CGPoint)offset{
@@ -320,7 +345,9 @@
 }
 
 -(void)scrollViewDidScroll:(InfinityScrollView*)scrollView{
-
+    [UIView animateWithDuration:0.2f animations:^{
+        self.subtitleLabel.alpha = 0.0f;
+    }];
 }
 
 #pragma mark - NOTIFICATOIN call back
