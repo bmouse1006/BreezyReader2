@@ -80,19 +80,13 @@ static CGFloat distance = 0.0f;
     [contentViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     for (UIView* view in views){
+        CGFloat originAlpha = view.alpha;
         view.alpha = 0.0f;
         [self.mainContainer addSubview:view];
-    }
-    [UIView animateWithDuration:duration animations:^{
-         
-        [views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-            UIView* view = obj;
-            view.alpha = 1.0f;
+        [UIView animateWithDuration:duration animations:^{
+            view.alpha = originAlpha;
         }];
-
-    } completion:^(BOOL finished){
-
-    }];
+    }
 }
 
 #pragma mark - View lifecycle

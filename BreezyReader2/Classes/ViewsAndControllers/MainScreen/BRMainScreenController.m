@@ -135,7 +135,7 @@
     self.subtitleLabel.shadowBlur = 4.0f;
     self.subtitleLabel.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
     self.subtitleLabel.alpha = 0.5f;
-    [self.view addSubview:self.subtitleLabel];
+    [self.mainContainer addSubview:self.subtitleLabel];
 }
 
 -(IBAction)syncReaderFirstTime:(id)sender{
@@ -167,7 +167,7 @@
 
 -(void)firstLoadViews{
     [self reload];
-    [self switchContentViewsToViews:[NSArray arrayWithObjects:self.infinityScroll, self.sideMenuController.view, nil] animated:YES];
+    [self switchContentViewsToViews:[NSArray arrayWithObjects:self.infinityScroll, self.sideMenuController.view, self.subtitleLabel, nil] animated:YES];
 }
 
 - (void)viewDidUnload
@@ -366,6 +366,7 @@
 
 -(void)showSubscriptionList:(NSNotification*)notification{
     self.secondaryView = self.allSubListController.view;
+    self.subtitleLabel.hidden = YES;
     [self slideShowSecondaryViewWithCompletionBlock:NULL];
 }
 
@@ -446,6 +447,12 @@
             });
         });
     }
+}
+
+-(void)slideHideSecondaryView{
+    [self slideHideSecondaryViewWithCompletionBlock:^{
+        self.subtitleLabel.hidden = NO;
+    }];
 }
 
 #pragma mark - reader client call back
