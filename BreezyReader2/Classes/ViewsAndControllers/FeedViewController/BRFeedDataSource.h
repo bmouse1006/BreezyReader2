@@ -17,6 +17,7 @@
 @property (nonatomic, retain) GRSubscription* subscription;
 @property (nonatomic, retain) GRFeed* feed;
 @property (nonatomic, retain) GRFeed* moreFeed;
+@property (nonatomic, copy) NSString* exclude;
 @property (nonatomic, assign) BOOL unreadOnly;
 
 @property (nonatomic, retain) GoogleReaderClient* client;

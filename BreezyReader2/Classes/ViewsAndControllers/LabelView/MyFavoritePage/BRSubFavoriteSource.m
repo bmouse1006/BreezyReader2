@@ -32,8 +32,4 @@
     [self.delegate sourceLoadFinished];
 }
 
--(void)didSelectTitleLabel:(UITapGestureRecognizer*)gesture{
-    
-}
-
 @end

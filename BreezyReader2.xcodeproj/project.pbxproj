@@ -11,6 +11,10 @@
 		220160DE1542EC4F00FFA974 /* right_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 220160DC1542EC4F00FFA974 /* right_shadow@2x.png */; };
 		2207BD6714B731DC00ED0BE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2207BD6614B731DC00ED0BE6 /* SystemConfiguration.framework */; };
 		2207BD6914B731E700ED0BE6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2207BD6814B731E700ED0BE6 /* Security.framework */; };
+		220EFD3015AF0607003D57C7 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 220EFD2C15AF0607003D57C7 /* Icon.png */; };
+		220EFD3115AF0607003D57C7 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 220EFD2D15AF0607003D57C7 /* Icon@2x.png */; };
+		220EFD3215AF0607003D57C7 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 220EFD2E15AF0607003D57C7 /* iTunesArtwork.png */; };
+		220EFD3315AF0607003D57C7 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 220EFD2F15AF0607003D57C7 /* iTunesArtwork@2x.png */; };
 		2210232D153EA0F10072AE19 /* NSDate+simpleFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E530931539D77E001A3C60 /* NSDate+simpleFormat.m */; };
 		2212DDE11543E7C900FCDC50 /* BRRelatedFeedViewSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2212DDDF1543E7C900FCDC50 /* BRRelatedFeedViewSource.m */; };
 		2212DDE31543E7C900FCDC50 /* BRRelatedFeedViewSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2212DDE01543E7C900FCDC50 /* BRRelatedFeedViewSource.xib */; };
@@ -536,11 +540,7 @@
 		223217371599EF0000E2C7B3 /* login_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 224E3FD11573D7AD008FFF1A /* login_background.png */; };
 		223217381599EF0000E2C7B3 /* login_background_cn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 224E3FD21573D7AD008FFF1A /* login_background_cn@2x.png */; };
 		223217391599EF0000E2C7B3 /* login_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 224E3FD31573D7AD008FFF1A /* login_background@2x.png */; };
-		2232173A1599EF0000E2C7B3 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 222F5AF9157ECDB400ACD34F /* iTunesArtwork */; };
-		2232173B1599EF0000E2C7B3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 222F5AFC157ECDE300ACD34F /* Icon.png */; };
-		2232173C1599EF0000E2C7B3 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 222F5AFD157ECDE300ACD34F /* Icon@2x.png */; };
 		2232173D1599EF0000E2C7B3 /* BRManuallyClearCacheView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C735A81580A96100716984 /* BRManuallyClearCacheView.xib */; };
-		2232173E1599EF0000E2C7B3 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22187DA51590671100B36307 /* iTunesArtwork@2x.png */; };
 		22389A6D156B907A00EDA6B5 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22389A6C156B907A00EDA6B5 /* Twitter.framework */; };
 		22389D18156E54F600EDA6B5 /* login_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22389D15156E54ED00EDA6B5 /* login_button@2x.png */; };
 		22389D1A156E583B00EDA6B5 /* login_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 22389D1D156E583B00EDA6B5 /* login_button.png */; };
@@ -1032,6 +1032,10 @@
 		22F866A514A216AA00D7B1CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F8668C14A216AA00D7B1CE /* Foundation.framework */; };
 		22F866AD14A216AA00D7B1CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22F866AB14A216AA00D7B1CE /* InfoPlist.strings */; };
 		22F866B014A216AA00D7B1CE /* BreezyReader2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F866AF14A216AA00D7B1CE /* BreezyReader2Tests.m */; };
+		22FC38C815A5C57200D38EC0 /* BRExplorePageDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FC38C515A5C57200D38EC0 /* BRExplorePageDataSource.m */; };
+		22FC38C915A5C57200D38EC0 /* BRExplorePageDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FC38C515A5C57200D38EC0 /* BRExplorePageDataSource.m */; };
+		22FC38CA15A5C57200D38EC0 /* BRExplorePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FC38C715A5C57200D38EC0 /* BRExplorePageViewController.m */; };
+		22FC38CB15A5C57200D38EC0 /* BRExplorePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FC38C715A5C57200D38EC0 /* BRExplorePageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1049,6 +1053,10 @@
 		220160DC1542EC4F00FFA974 /* right_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_shadow@2x.png"; sourceTree = "<group>"; };
 		2207BD6614B731DC00ED0BE6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2207BD6814B731E700ED0BE6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		220EFD2C15AF0607003D57C7 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		220EFD2D15AF0607003D57C7 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		220EFD2E15AF0607003D57C7 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
+		220EFD2F15AF0607003D57C7 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		2212DDDE1543E7C900FCDC50 /* BRRelatedFeedViewSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRelatedFeedViewSource.h; sourceTree = "<group>"; };
 		2212DDDF1543E7C900FCDC50 /* BRRelatedFeedViewSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRelatedFeedViewSource.m; sourceTree = "<group>"; };
 		2212DDE01543E7C900FCDC50 /* BRRelatedFeedViewSource.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRRelatedFeedViewSource.xib; sourceTree = "<group>"; };
@@ -2016,6 +2024,10 @@
 		22F866AC14A216AA00D7B1CE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		22F866AE14A216AA00D7B1CE /* BreezyReader2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BreezyReader2Tests.h; sourceTree = "<group>"; };
 		22F866AF14A216AA00D7B1CE /* BreezyReader2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreezyReader2Tests.m; sourceTree = "<group>"; };
+		22FC38C415A5C57200D38EC0 /* BRExplorePageDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRExplorePageDataSource.h; sourceTree = "<group>"; };
+		22FC38C515A5C57200D38EC0 /* BRExplorePageDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRExplorePageDataSource.m; sourceTree = "<group>"; };
+		22FC38C615A5C57200D38EC0 /* BRExplorePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRExplorePageViewController.h; sourceTree = "<group>"; };
+		22FC38C715A5C57200D38EC0 /* BRExplorePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRExplorePageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2555,6 +2567,7 @@
 		229B2C4715273CAE00700504 /* LabelView */ = {
 			isa = PBXGroup;
 			children = (
+				22FC38C315A5C57200D38EC0 /* ExplorePage */,
 				222E662C153AB7F400318A87 /* RecommendationPage */,
 				22B2478E152E6FB3009DC4F1 /* MyFavoritePage */,
 				229B2C4815273CAE00700504 /* BRSubGridSource.h */,
@@ -2987,6 +3000,10 @@
 		229E22E0153E76EC00DDBE0B /* BreezyReader2-Free */ = {
 			isa = PBXGroup;
 			children = (
+				220EFD2C15AF0607003D57C7 /* Icon.png */,
+				220EFD2D15AF0607003D57C7 /* Icon@2x.png */,
+				220EFD2E15AF0607003D57C7 /* iTunesArtwork.png */,
+				220EFD2F15AF0607003D57C7 /* iTunesArtwork@2x.png */,
 				229E22E9153E7FA900DDBE0B /* ADSupport */,
 				229E22E5153E775C00DDBE0B /* InfoPlist.strings */,
 				223217441599EF0100E2C7B3 /* BreezyReader2Free-Info.plist */,
@@ -4038,6 +4055,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		22FC38C315A5C57200D38EC0 /* ExplorePage */ = {
+			isa = PBXGroup;
+			children = (
+				22FC38C415A5C57200D38EC0 /* BRExplorePageDataSource.h */,
+				22FC38C515A5C57200D38EC0 /* BRExplorePageDataSource.m */,
+				22FC38C615A5C57200D38EC0 /* BRExplorePageViewController.h */,
+				22FC38C715A5C57200D38EC0 /* BRExplorePageViewController.m */,
+			);
+			path = ExplorePage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4327,12 +4355,12 @@
 				223217371599EF0000E2C7B3 /* login_background.png in Resources */,
 				223217381599EF0000E2C7B3 /* login_background_cn@2x.png in Resources */,
 				223217391599EF0000E2C7B3 /* login_background@2x.png in Resources */,
-				2232173A1599EF0000E2C7B3 /* iTunesArtwork in Resources */,
-				2232173B1599EF0000E2C7B3 /* Icon.png in Resources */,
-				2232173C1599EF0000E2C7B3 /* Icon@2x.png in Resources */,
 				2232173D1599EF0000E2C7B3 /* BRManuallyClearCacheView.xib in Resources */,
-				2232173E1599EF0000E2C7B3 /* iTunesArtwork@2x.png in Resources */,
 				22E3FE55159A02CF007EFDBD /* README.txt in Resources */,
+				220EFD3015AF0607003D57C7 /* Icon.png in Resources */,
+				220EFD3115AF0607003D57C7 /* Icon@2x.png in Resources */,
+				220EFD3215AF0607003D57C7 /* iTunesArtwork.png in Resources */,
+				220EFD3315AF0607003D57C7 /* iTunesArtwork@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4861,6 +4889,8 @@
 				2232165B1599EF0000E2C7B3 /* BRManuallyClearCacheView.m in Sources */,
 				2232165C1599EF0000E2C7B3 /* ENOAuthViewController.m in Sources */,
 				22E3FE5A159A80A8007EFDBD /* JJAdView.m in Sources */,
+				22FC38C915A5C57200D38EC0 /* BRExplorePageDataSource.m in Sources */,
+				22FC38CB15A5C57200D38EC0 /* BRExplorePageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5150,6 +5180,8 @@
 				22C7359C15809B3800716984 /* BRDownloadedCache.m in Sources */,
 				22C735A01580A7BE00716984 /* BRManuallyClearCacheView.m in Sources */,
 				22187DBD1590839500B36307 /* ENOAuthViewController.m in Sources */,
+				22FC38C815A5C57200D38EC0 /* BRExplorePageDataSource.m in Sources */,
+				22FC38CA15A5C57200D38EC0 /* BRExplorePageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -401,7 +401,12 @@ static NSString* _userID = nil;
     [[GoogleAuthManager shared] authRequest:self.request completionBlock:^(NSError* error){
         if (error == nil){
             [self postNotification:NOTIFICATION_BEGIN_UPDATEUNREADCOUNT object:nil];
-            [blockSelf.request startAsynchronous];
+            @try {
+                [blockSelf.request startAsynchronous];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", [exception reason]);
+            }
         }
     }];
 }

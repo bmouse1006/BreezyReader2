@@ -124,9 +124,15 @@
 
 +(GRSubscription*)subscriptionForAllItems{
     
-	GRSubscription* allItems = [self subscriptionForLabel:@"usr/-/state/com.google/reading-list"];
+	GRSubscription* allItems = [self subscriptionForLabel:@"user/-/state/com.google/reading-list"];
 	allItems.title = @"reading-list";
 	return allItems;
+}
+
++(GRSubscription*)subscriptionForUnread{
+    GRSubscription* unread = [self subscriptionForLabel:@"user/-/state/com.google/reading-list?xt=user/-/state/com.google/read"];
+    unread.title = @"unread";
+    return unread;
 }
 
 +(GRSubscription*)subscriptionForLabel:(NSString*)label{

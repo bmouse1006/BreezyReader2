@@ -13,6 +13,7 @@
 #import "BRReadingStatistics.h"
 #import "GoogleReaderClient.h"
 #import "BRUserPreferenceDefine.h"
+#import "BRExplorePageViewController.h"
 
 @interface MainScreenDataSource ()
 
@@ -21,6 +22,7 @@
 
 @property (nonatomic, retain) BRRecommendationPageViewController* recommendationPage;
 @property (nonatomic, retain) BRSubFavoritePageController* favoritePage;
+@property (nonatomic, retain) BRExplorPageViewController* explorePage;
 
 @end
 
@@ -29,6 +31,7 @@
 @synthesize controllers = _controllers;
 @synthesize tagIDSet = _tagIDSet, tagControllers = _tagControllers;
 @synthesize recommendationPage = _recommendationPage, favoritePage = _favoritePage;
+@synthesize explorePage = _explorePage;
 
 -(id)init{
     self = [super init];
@@ -47,6 +50,7 @@
     self.recommendationPage = nil;
     self.favoritePage = nil;
     self.tagControllers = nil;
+    self.explorePage = nil;
     [super dealloc];
 }
 
@@ -83,6 +87,11 @@
         }
     }];
     
+    //load explor page
+    if (self.explorePage == nil){
+        self.explorePage = [[[BRExplorPageViewController alloc] init] autorelease];
+    }
+    
     //load favorite page
     if (self.favoritePage == nil){
         if ([[BRReadingStatistics statistics] countOfRecordedReadingFrequency] >= 6){
@@ -101,9 +110,14 @@
 
 -(void)composeControllerList{
     [self.controllers removeAllObjects];
+    
     if (self.favoritePage){
         [self.controllers addObject:self.favoritePage];
     }
+    
+//    if (self.explorePage){
+//        [self.controllers addObject:self.explorePage];
+//    }
     
     NSArray* sortedKeys = [[self.tagControllers allKeys] sortedArrayUsingComparator:^(id obj1, id obj2){
         NSString* sortID1 = [GoogleReaderClient tagWithID:obj1].sortID;

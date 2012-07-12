@@ -20,8 +20,6 @@
 
 -(void)loadMoreFeedInBackground;
 
-@property (nonatomic, retain) NSString* exclude;
-
 @end
 
 @implementation BRFeedDataSource

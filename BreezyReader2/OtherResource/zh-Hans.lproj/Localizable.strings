@@ -61,6 +61,8 @@
 "title_swiperightinlist" = "在列表上向右滑动";
 "title_viewariticle" = "查看文章";
 "title_autorotateimage" = "自动旋转图片";
+"title_explore" = "探索";
+
 "NOTIFICATION_SENDTOREADITLATER" = "发送到RIL";
 "NOTIFICATION_SENDTOINSTAPAPER" = "发送到Instapaper";
 "NOTIFICATION_STARITEM" = "加星标";

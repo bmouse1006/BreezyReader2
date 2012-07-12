@@ -232,7 +232,7 @@
 
 #pragma mark - animation
 
-static double ANIMATION_DURATION = 0.2f;
+//static double ANIMATION_DURATION = 0.2f;
 
 -(void)animateSwipeToRight{
     /*

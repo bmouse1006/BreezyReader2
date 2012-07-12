@@ -61,6 +61,8 @@
 "title_viewariticle" = "View ariticle";
 "title_autorotateimage" = "Auto rotate image";
 "title_swiperightinlist" = "Swipe right in list";
+"title_explore" = "Explor";
+
 "NOTIFICATION_SENDTOREADITLATER" = "Send to RIL";
 "NOTIFICATION_SENDTOINSTAPAPER" = "Send to Instapaper";
 "NOTIFICATION_STARITEM" = "Add star";
