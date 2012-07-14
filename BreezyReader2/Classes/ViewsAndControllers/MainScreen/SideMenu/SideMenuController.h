@@ -10,6 +10,8 @@
 
 @interface SideMenuController : UIViewController
 
+@property (nonatomic, retain) IBOutlet UIButton* buyButton;
+
 -(IBAction)searchButtonClicked:(id)sender;
 -(IBAction)downloadButtonClicked:(id)sender;
 
@@ -20,5 +22,7 @@
 -(IBAction)showSubListButtonClicked:(id)sender;
 
 -(IBAction)reloadButtonClicked:(id)sender;
+
+-(IBAction)buyButtonClicked:(id)sender;
 
 @end

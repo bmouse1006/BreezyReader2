@@ -62,6 +62,8 @@
 "title_autorotateimage" = "Auto rotate image";
 "title_swiperightinlist" = "Swipe right in list";
 "title_explore" = "Explor";
+"title_nothanks" = "No thanks";
+"title_buyinappstore" = "Buy in App Store";
 
 "NOTIFICATION_SENDTOREADITLATER" = "Send to RIL";
 "NOTIFICATION_SENDTOINSTAPAPER" = "Send to Instapaper";
@@ -69,6 +71,7 @@
 "NOTIFICATION_MARKITEMASREAD" = "Mark as read";
 "NOTIFICATION_MARKITEMASUNREAD" = "Mark as unread";
 
+"message_removeadvertisement" = "Would like to remove advertisement? Full version only cost 0.99$";
 "message_unsubscribe" = "Do you want to unsubscribe \"%@?\"";
 "message_subscribe" = "Do you want to subscribe \"%@?\"";
 "message_unsubscribing" = "Unsubscribe feed";

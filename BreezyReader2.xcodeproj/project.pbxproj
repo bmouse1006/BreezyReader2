@@ -1036,6 +1036,10 @@
 		22FC38C915A5C57200D38EC0 /* BRExplorePageDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FC38C515A5C57200D38EC0 /* BRExplorePageDataSource.m */; };
 		22FC38CA15A5C57200D38EC0 /* BRExplorePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FC38C715A5C57200D38EC0 /* BRExplorePageViewController.m */; };
 		22FC38CB15A5C57200D38EC0 /* BRExplorePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FC38C715A5C57200D38EC0 /* BRExplorePageViewController.m */; };
+		22FCECED15B061BC005303F9 /* dollar.png in Resources */ = {isa = PBXBuildFile; fileRef = 22FCECEB15B061BC005303F9 /* dollar.png */; };
+		22FCECEE15B061BC005303F9 /* dollar.png in Resources */ = {isa = PBXBuildFile; fileRef = 22FCECEB15B061BC005303F9 /* dollar.png */; };
+		22FCECEF15B061BC005303F9 /* dollar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22FCECEC15B061BC005303F9 /* dollar@2x.png */; };
+		22FCECF015B061BC005303F9 /* dollar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22FCECEC15B061BC005303F9 /* dollar@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2028,6 +2032,8 @@
 		22FC38C515A5C57200D38EC0 /* BRExplorePageDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRExplorePageDataSource.m; sourceTree = "<group>"; };
 		22FC38C615A5C57200D38EC0 /* BRExplorePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRExplorePageViewController.h; sourceTree = "<group>"; };
 		22FC38C715A5C57200D38EC0 /* BRExplorePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRExplorePageViewController.m; sourceTree = "<group>"; };
+		22FCECEB15B061BC005303F9 /* dollar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dollar.png; sourceTree = "<group>"; };
+		22FCECEC15B061BC005303F9 /* dollar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dollar@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2730,8 +2736,6 @@
 		229B2C8715273CAE00700504 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				22524F601570FF9A0094CA60 /* sync_button.png */,
-				22524F611570FF9A0094CA60 /* sync_button@2x.png */,
 				22502CE01564754A00EBCF5E /* album.png */,
 				22502CDD1564750D00EBCF5E /* album@2x.png */,
 				229B2C8815273CAE00700504 /* arrow_left.png */,
@@ -2756,6 +2760,8 @@
 				229B2C9115273CAE00700504 /* delete_white@2x.png */,
 				22E191B0154445A500F787CB /* disclosure-arrow.png */,
 				22E191B1154445A500F787CB /* disclosure-arrow@2x.png */,
+				22FCECEB15B061BC005303F9 /* dollar.png */,
+				22FCECEC15B061BC005303F9 /* dollar@2x.png */,
 				229B2C9215273CAE00700504 /* download.png */,
 				229B2C9315273CAE00700504 /* download@2x.png */,
 				229B2C9415273CAE00700504 /* favorite.png */,
@@ -2808,6 +2814,8 @@
 				2281C663154D4A01003C253D /* star_empty_white_20@2x.png */,
 				222E6634153AC1CA00318A87 /* star_white.png */,
 				222E6635153AC1CA00318A87 /* star_white@2x.png */,
+				22524F601570FF9A0094CA60 /* sync_button.png */,
+				22524F611570FF9A0094CA60 /* sync_button@2x.png */,
 			);
 			path = Icons;
 			sourceTree = "<group>";
@@ -4361,6 +4369,8 @@
 				220EFD3115AF0607003D57C7 /* Icon@2x.png in Resources */,
 				220EFD3215AF0607003D57C7 /* iTunesArtwork.png in Resources */,
 				220EFD3315AF0607003D57C7 /* iTunesArtwork@2x.png in Resources */,
+				22FCECEE15B061BC005303F9 /* dollar.png in Resources */,
+				22FCECF015B061BC005303F9 /* dollar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4572,6 +4582,8 @@
 				222F5AFF157ECDE300ACD34F /* Icon@2x.png in Resources */,
 				22C735A51580A96100716984 /* BRManuallyClearCacheView.xib in Resources */,
 				22187DA61590671100B36307 /* iTunesArtwork@2x.png in Resources */,
+				22FCECED15B061BC005303F9 /* dollar.png in Resources */,
+				22FCECEF15B061BC005303F9 /* dollar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

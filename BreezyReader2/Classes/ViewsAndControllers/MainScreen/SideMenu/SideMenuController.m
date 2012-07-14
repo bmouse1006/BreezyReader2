@@ -15,6 +15,13 @@
 
 @implementation SideMenuController
 
+@synthesize buyButton = _buyButton;
+
+-(void)dealloc{
+    self.buyButton = nil;
+    [super dealloc];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -28,6 +35,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+#ifdef FREEVERSION
+    self.buyButton.hidden = NO;
+#else
+    self.buyButton.hidden = YES;
+#endif
 }
 
 - (void)viewDidUnload
@@ -63,11 +75,15 @@
 }
 
 -(IBAction)showSubListButtonClicked:(id)sender{
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOWAUBLISTBUTTONCLICKED object:sender];  
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOWSUBLISTBUTTONCLICKED object:sender];  
 }
 
 -(IBAction)reloadButtonClicked:(id)sender{
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_RELOADBUTTONCLICKED object:sender];      
+}
+
+-(IBAction)buyButtonClicked:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BUYBUTTONCLICKED object:sender];  
 }
 
 @end

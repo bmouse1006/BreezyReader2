@@ -22,6 +22,9 @@
 #import "BRSubGridViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define refreshAlertViewTag 1
+#define buyAlertViewTag 2
+
 @interface BRMainScreenController (){
     BOOL _initialLoading;
     NSInteger _scrollIndex;
@@ -261,7 +264,8 @@
     [nc addObserver:self selector:@selector(showLogoutDialog:) name:NOTIFICATION_LOGOUTBUTTONCLICKED object:nil];
     [nc addObserver:self selector:@selector(showConfigUI:) name:NOTIFICATION_CONFIGBUTTONCLICKED object:nil];
     [nc addObserver:self selector:@selector(showStarItems:) name:NOTIFICATION_STARBUTTONCLICKED object:nil];
-    [nc addObserver:self selector:@selector(showSubscriptionList:) name:NOTIFICATION_SHOWAUBLISTBUTTONCLICKED object:nil];
+    [nc addObserver:self selector:@selector(showSubscriptionList:) name:NOTIFICATION_SHOWSUBLISTBUTTONCLICKED object:nil];
+    [nc addObserver:self selector:@selector(askToBuyProVersion:) name:NOTIFICATION_BUYBUTTONCLICKED object:nil];
     [nc addObserver:self selector:@selector(finishedFlipTile:) name:NOTIFICATION_FINISHEDFLIPSUBTILEVIEW object:nil];
     [nc addObserver:self selector:@selector(pickImageForBackground:) name:NOTIFICAITON_SETTING_PICKIMAGEFORBACKGROUND object:nil];
 }
@@ -370,6 +374,12 @@
     [self slideShowSecondaryViewWithCompletionBlock:NULL];
 }
 
+-(void)askToBuyProVersion:(NSNotification*)notification{
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"message_removeadvertisement", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"title_nothanks", nil) otherButtonTitles:NSLocalizedString(@"title_buyinappstore", nil), nil];
+    alertView.tag = buyAlertViewTag;
+    [alertView show];
+}
+
 -(void)switchDownloadMode:(NSNotification*)notification{
     DebugLog(@"switch download mode");
 }
@@ -389,17 +399,29 @@
 -(void)refreshClientData:(NSNotification*)notification{
     DebugLog(@"refresh client data");
     UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"title_reloadalldata", nil) message:NSLocalizedString(@"message_reloadalldata", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) otherButtonTitles:NSLocalizedString(@"title_ok", nil), nil] autorelease];
+    alertView.tag = refreshAlertViewTag;
     [alertView show];
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1){
-        //ok button
-        //start refresh data
-        self.activityLabel = [BaseActivityLabel loadFromBundle];
-        self.activityLabel.message = NSLocalizedString(@"message_startloading", nil);
-        [self.activityLabel show];
-        [self startRefreshReaderAndWaiting:NULL];
+    switch (alertView.tag) {
+        case refreshAlertViewTag:
+            if (buttonIndex == 1){
+                //ok button
+                //start refresh data
+                self.activityLabel = [BaseActivityLabel loadFromBundle];
+                self.activityLabel.message = NSLocalizedString(@"message_startloading", nil);
+                [self.activityLabel show];
+                [self startRefreshReaderAndWaiting:NULL];
+            }
+            break;
+        case buyAlertViewTag:
+            if (buttonIndex == 1){
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/us/app/breezy-reader-2.0/id533663338?ls=1&mt=8"]];
+            }
+            break;
+        default:
+            break;
     }
 }
 

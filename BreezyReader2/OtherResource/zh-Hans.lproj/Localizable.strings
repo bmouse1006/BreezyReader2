@@ -62,6 +62,8 @@
 "title_viewariticle" = "查看文章";
 "title_autorotateimage" = "自动旋转图片";
 "title_explore" = "探索";
+"title_nothanks" = "不，谢谢";
+"title_buyinappstore" = "去App Store购买";
 
 "NOTIFICATION_SENDTOREADITLATER" = "发送到RIL";
 "NOTIFICATION_SENDTOINSTAPAPER" = "发送到Instapaper";
@@ -69,6 +71,7 @@
 "NOTIFICATION_MARKITEMASREAD" = "标记为已读";
 "NOTIFICATION_MARKITEMASUNREAD" = "标记为未读";
 
+"message_removeadvertisement" = "想要将广告移除吗？只需6元即可获得完整版";
 "message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
 "message_subscribe" = "您想要订阅 \"%@\" 吗?";
 "message_unsubscribing" = "取消订阅";
