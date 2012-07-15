@@ -278,6 +278,48 @@
 								<string key="NSFrameSize">{320, 20}</string>
 								<reference key="NSSuperview" ref="12954124"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="105876148"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<reference key="IBUIHighlightedTitleColor" ref="339522349"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="538971536"/>
+								<reference key="IBUIFontDescription" ref="138125160"/>
+								<reference key="IBUIFont" ref="74109680"/>
+							</object>
+							<object class="IBUIButton" id="105876148">
+								<reference key="NSNextResponder" ref="12954124"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrameSize">{30, 436}</string>
+								<reference key="NSSuperview" ref="12954124"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="1067313598"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<reference key="IBUIHighlightedTitleColor" ref="339522349"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="538971536"/>
+								<reference key="IBUIFontDescription" ref="138125160"/>
+								<reference key="IBUIFont" ref="74109680"/>
+							</object>
+							<object class="IBUIButton" id="1067313598">
+								<reference key="NSNextResponder" ref="12954124"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{290, 0}, {30, 436}}</string>
+								<reference key="NSSuperview" ref="12954124"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="569774252"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -396,6 +438,22 @@
 					<int key="connectionID">44</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">leftScrollButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="105876148"/>
+					</object>
+					<int key="connectionID">50</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">rightScrollButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1067313598"/>
+					</object>
+					<int key="connectionID">51</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">scrollCurrentPageToTop:</string>
 						<reference key="source" ref="922778037"/>
@@ -458,6 +516,24 @@
 					</object>
 					<int key="connectionID">41</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">scrollToPreviousPage:</string>
+						<reference key="source" ref="105876148"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">53</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">scrollToNextPage:</string>
+						<reference key="source" ref="1067313598"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">49</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -503,6 +579,8 @@
 							<reference ref="979656644"/>
 							<reference ref="569774252"/>
 							<reference ref="922778037"/>
+							<reference ref="1067313598"/>
+							<reference ref="105876148"/>
 						</array>
 						<reference key="parent" ref="1015721774"/>
 					</object>
@@ -561,6 +639,16 @@
 						<reference key="object" ref="97789381"/>
 						<reference key="parent" ref="919638849"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">46</int>
+						<reference key="object" ref="105876148"/>
+						<reference key="parent" ref="12954124"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">47</int>
+						<reference key="object" ref="1067313598"/>
+						<reference key="parent" ref="12954124"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -588,6 +676,8 @@
 				<string key="39.CustomClassName">BRArticleActionMenuViewController</string>
 				<string key="39.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="46.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="47.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -595,7 +685,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">45</int>
+			<int key="maxID">53</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -667,6 +757,8 @@
 						<string key="back:">id</string>
 						<string key="favoriteActionButtonClicked:">id</string>
 						<string key="scrollCurrentPageToTop:">id</string>
+						<string key="scrollToNextPage:">id</string>
+						<string key="scrollToPreviousPage:">id</string>
 						<string key="showHideActionMenuButtonClicked:">id</string>
 						<string key="showHideFontsizeMenu:">id</string>
 						<string key="starItem:">id</string>
@@ -684,6 +776,14 @@
 						</object>
 						<object class="IBActionInfo" key="scrollCurrentPageToTop:">
 							<string key="name">scrollCurrentPageToTop:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="scrollToNextPage:">
+							<string key="name">scrollToNextPage:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="scrollToPreviousPage:">
+							<string key="name">scrollToPreviousPage:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showHideActionMenuButtonClicked:">
@@ -711,6 +811,8 @@
 						<string key="actionMenuController">BRArticleActionMenuViewController</string>
 						<string key="backButton">UIButton</string>
 						<string key="bottomToolBar">BRBottomToolBar</string>
+						<string key="leftScrollButton">UIButton</string>
+						<string key="rightScrollButton">UIButton</string>
 						<string key="scrollView">JJPageScrollView</string>
 						<string key="starButton">UIButton</string>
 						<string key="starButtonContainer">UIView</string>
@@ -728,6 +830,14 @@
 						<object class="IBToOneOutletInfo" key="bottomToolBar">
 							<string key="name">bottomToolBar</string>
 							<string key="candidateClassName">BRBottomToolBar</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="leftScrollButton">
+							<string key="name">leftScrollButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="rightScrollButton">
+							<string key="name">rightScrollButton</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="scrollView">
 							<string key="name">scrollView</string>

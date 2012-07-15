@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BreezyReader2/Classes/ViewsAndControllers/ArticalDetailViewController/BRArticleScrollViewController.m"
-         timestampString = "362505236.335129"
+         timestampString = "364050088.468366"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "160"
-         endingLineNumber = "160"
+         startingLineNumber = "163"
+         endingLineNumber = "163"
          landmarkName = "-adDidLoad:"
          landmarkType = "5">
       </FileBreakpoint>

@@ -25,6 +25,8 @@
 @property (nonatomic, retain) IBOutlet UIButton* starButton;
 @property (nonatomic, retain) IBOutlet UIButton* unstarButton;
 @property (nonatomic, retain) IBOutlet UIView* starButtonContainer;
+@property (nonatomic, retain) IBOutlet UIButton* leftScrollButton;
+@property (nonatomic, retain) IBOutlet UIButton* rightScrollButton;
 
 @property (nonatomic, retain) IBOutlet BRArticleActionMenuViewController* actionMenuController;
 
@@ -37,5 +39,8 @@
 -(IBAction)favoriteActionButtonClicked:(id)sender;
 
 -(IBAction)showHideActionMenuButtonClicked:(id)sender;
+
+-(IBAction)scrollToNextPage:(id)sender;
+-(IBAction)scrollToPreviousPage:(id)sender;
 
 @end

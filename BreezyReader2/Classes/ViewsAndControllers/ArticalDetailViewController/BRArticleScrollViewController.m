@@ -40,6 +40,7 @@
 @synthesize starButton = _starButton, unstarButton = _unstarButton;
 @synthesize starButtonContainer = _starButtonContainer;
 @synthesize actionMenuController = _actionMenuController;
+@synthesize leftScrollButton = _leftScrollButton, rightScrollButton = _rightScrollButton;
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -55,6 +56,8 @@
     self.unstarButton = nil;
     self.starButtonContainer = nil;
     self.actionMenuController = nil;
+    self.leftScrollButton = nil;
+    self.rightScrollButton = nil;
     [super dealloc];
 }
 
@@ -247,6 +250,21 @@
             [self.unstarButton removeFromSuperview]; 
         }];
     }
+}
+
+-(IBAction)scrollToNextPage:(id)sender{
+    NSInteger index = [self.scrollView currentIndex];
+    if (index + 1 < [self numberOfPagesInScrollView:self.scrollView]){
+        [self.scrollView scrollToPageAtIndex:index + 1 animated:YES];
+    }
+}
+
+-(IBAction)scrollToPreviousPage:(id)sender{
+    NSInteger index = [self.scrollView currentIndex];
+    if (index - 1 >= 0){
+        [self.scrollView scrollToPageAtIndex:index - 1 animated:YES];
+    }
+
 }
 
 #pragma mark - JJPageScrollView data source
