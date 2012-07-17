@@ -144,6 +144,11 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.adView performSelector:@selector(resumeAdRequest)];
+    
+    [UIView animateWithDuration:3.0f animations:^{
+        self.leftScrollButton.alpha = 0.05f;
+        self.rightScrollButton.alpha = 0.05f;
+    }];
 }
 
 -(void)loadControllers{

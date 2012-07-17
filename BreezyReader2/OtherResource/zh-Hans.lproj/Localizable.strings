@@ -64,6 +64,7 @@
 "title_explore" = "探索";
 "title_nothanks" = "不，谢谢";
 "title_buyinappstore" = "去App Store购买";
+"title_blurbackgroundimage" = "模糊背景图片";
 
 "NOTIFICATION_SENDTOREADITLATER" = "发送到RIL";
 "NOTIFICATION_SENDTOINSTAPAPER" = "发送到Instapaper";

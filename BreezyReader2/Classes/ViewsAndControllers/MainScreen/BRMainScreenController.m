@@ -20,6 +20,7 @@
 #import "BaseActivityLabel.h"
 #import "BRUserPreferenceDefine.h"
 #import "BRSubGridViewController.h"
+#import "GPUImage.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define refreshAlertViewTag 1
@@ -106,6 +107,8 @@
 {
     [super viewDidLoad];
     
+//    GPUImageView* imageView = [[[GPUImageView alloc] initWithFrame:self.view.bounds] autorelease];
+//    imageView.contentMode = UIViewContentModeScaleAspectFill;
     UIImageView* imageView = [[[UIImageView alloc] initWithFrame:self.view.bounds] autorelease];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundView = imageView;
@@ -213,7 +216,9 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     UIImageView* imageView = (UIImageView*)self.backgroundView;
-    imageView.image = [BRUserPreferenceDefine backgroundImage];
+    UIImage* image = [BRUserPreferenceDefine backgroundImage];
+    imageView.image = image;
+    
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:NO];
@@ -375,7 +380,7 @@
 }
 
 -(void)askToBuyProVersion:(NSNotification*)notification{
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"message_removeadvertisement", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"title_nothanks", nil) otherButtonTitles:NSLocalizedString(@"title_buyinappstore", nil), nil];
+    UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"message_removeadvertisement", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"title_nothanks", nil) otherButtonTitles:NSLocalizedString(@"title_buyinappstore", nil), nil] autorelease];
     alertView.tag = buyAlertViewTag;
     [alertView show];
 }

@@ -965,6 +965,252 @@
 		22C5F64A15607FD900858F0A /* BRSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C5F64815607FD400858F0A /* BRSettingViewController.m */; };
 		22C5F64C15607FD900858F0A /* BRSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C5F64915607FD700858F0A /* BRSettingViewController.xib */; };
 		22C5F6501560889100858F0A /* BRChooseBackgroundImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C5F64F1560889000858F0A /* BRChooseBackgroundImage.m */; };
+		22C6CE9015B45865004481D1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 22C6CCA615B45864004481D1 /* .gitignore */; };
+		22C6CE9115B45865004481D1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 22C6CCA615B45864004481D1 /* .gitignore */; };
+		22C6CF4815B45865004481D1 /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7315B45864004481D1 /* GLProgram.m */; };
+		22C6CF4915B45865004481D1 /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7315B45864004481D1 /* GLProgram.m */; };
+		22C6CF4A15B45865004481D1 /* GPUImage3x3ConvolutionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7715B45864004481D1 /* GPUImage3x3ConvolutionFilter.m */; };
+		22C6CF4B15B45865004481D1 /* GPUImage3x3ConvolutionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7715B45864004481D1 /* GPUImage3x3ConvolutionFilter.m */; };
+		22C6CF4C15B45865004481D1 /* GPUImage3x3TextureSamplingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7915B45864004481D1 /* GPUImage3x3TextureSamplingFilter.m */; };
+		22C6CF4D15B45865004481D1 /* GPUImage3x3TextureSamplingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7915B45864004481D1 /* GPUImage3x3TextureSamplingFilter.m */; };
+		22C6CF4E15B45865004481D1 /* GPUImageAdaptiveThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7B15B45864004481D1 /* GPUImageAdaptiveThresholdFilter.m */; };
+		22C6CF4F15B45865004481D1 /* GPUImageAdaptiveThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7B15B45864004481D1 /* GPUImageAdaptiveThresholdFilter.m */; };
+		22C6CF5015B45865004481D1 /* GPUImageAlphaBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7D15B45864004481D1 /* GPUImageAlphaBlendFilter.m */; };
+		22C6CF5115B45865004481D1 /* GPUImageAlphaBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7D15B45864004481D1 /* GPUImageAlphaBlendFilter.m */; };
+		22C6CF5215B45865004481D1 /* GPUImageBilateralFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7F15B45864004481D1 /* GPUImageBilateralFilter.m */; };
+		22C6CF5315B45865004481D1 /* GPUImageBilateralFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD7F15B45864004481D1 /* GPUImageBilateralFilter.m */; };
+		22C6CF5415B45865004481D1 /* GPUImageBoxBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8115B45864004481D1 /* GPUImageBoxBlurFilter.m */; };
+		22C6CF5515B45865004481D1 /* GPUImageBoxBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8115B45864004481D1 /* GPUImageBoxBlurFilter.m */; };
+		22C6CF5615B45865004481D1 /* GPUImageBrightnessFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8315B45864004481D1 /* GPUImageBrightnessFilter.m */; };
+		22C6CF5715B45865004481D1 /* GPUImageBrightnessFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8315B45864004481D1 /* GPUImageBrightnessFilter.m */; };
+		22C6CF5815B45865004481D1 /* GPUImageBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8515B45864004481D1 /* GPUImageBuffer.m */; };
+		22C6CF5915B45865004481D1 /* GPUImageBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8515B45864004481D1 /* GPUImageBuffer.m */; };
+		22C6CF5A15B45865004481D1 /* GPUImageBulgeDistortionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8715B45864004481D1 /* GPUImageBulgeDistortionFilter.m */; };
+		22C6CF5B15B45865004481D1 /* GPUImageBulgeDistortionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8715B45864004481D1 /* GPUImageBulgeDistortionFilter.m */; };
+		22C6CF5C15B45865004481D1 /* GPUImageCannyEdgeDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8915B45864004481D1 /* GPUImageCannyEdgeDetectionFilter.m */; };
+		22C6CF5D15B45865004481D1 /* GPUImageCannyEdgeDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8915B45864004481D1 /* GPUImageCannyEdgeDetectionFilter.m */; };
+		22C6CF5E15B45865004481D1 /* GPUImageCGAColorspaceFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8B15B45864004481D1 /* GPUImageCGAColorspaceFilter.m */; };
+		22C6CF5F15B45865004481D1 /* GPUImageCGAColorspaceFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8B15B45864004481D1 /* GPUImageCGAColorspaceFilter.m */; };
+		22C6CF6015B45865004481D1 /* GPUImageChromaKeyBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8D15B45864004481D1 /* GPUImageChromaKeyBlendFilter.m */; };
+		22C6CF6115B45865004481D1 /* GPUImageChromaKeyBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8D15B45864004481D1 /* GPUImageChromaKeyBlendFilter.m */; };
+		22C6CF6215B45865004481D1 /* GPUImageClosingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8F15B45864004481D1 /* GPUImageClosingFilter.m */; };
+		22C6CF6315B45865004481D1 /* GPUImageClosingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD8F15B45864004481D1 /* GPUImageClosingFilter.m */; };
+		22C6CF6415B45865004481D1 /* GPUImageColorBurnBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9115B45864004481D1 /* GPUImageColorBurnBlendFilter.m */; };
+		22C6CF6515B45865004481D1 /* GPUImageColorBurnBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9115B45864004481D1 /* GPUImageColorBurnBlendFilter.m */; };
+		22C6CF6615B45865004481D1 /* GPUImageColorDodgeBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9315B45864004481D1 /* GPUImageColorDodgeBlendFilter.m */; };
+		22C6CF6715B45865004481D1 /* GPUImageColorDodgeBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9315B45864004481D1 /* GPUImageColorDodgeBlendFilter.m */; };
+		22C6CF6815B45865004481D1 /* GPUImageColorInvertFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9515B45864004481D1 /* GPUImageColorInvertFilter.m */; };
+		22C6CF6915B45865004481D1 /* GPUImageColorInvertFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9515B45864004481D1 /* GPUImageColorInvertFilter.m */; };
+		22C6CF6A15B45865004481D1 /* GPUImageColorMatrixFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9715B45864004481D1 /* GPUImageColorMatrixFilter.m */; };
+		22C6CF6B15B45865004481D1 /* GPUImageColorMatrixFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9715B45864004481D1 /* GPUImageColorMatrixFilter.m */; };
+		22C6CF6C15B45865004481D1 /* GPUImageColorPackingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9915B45864004481D1 /* GPUImageColorPackingFilter.m */; };
+		22C6CF6D15B45865004481D1 /* GPUImageColorPackingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9915B45864004481D1 /* GPUImageColorPackingFilter.m */; };
+		22C6CF6E15B45865004481D1 /* GPUImageContrastFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9B15B45864004481D1 /* GPUImageContrastFilter.m */; };
+		22C6CF6F15B45865004481D1 /* GPUImageContrastFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9B15B45864004481D1 /* GPUImageContrastFilter.m */; };
+		22C6CF7015B45865004481D1 /* GPUImageCropFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9D15B45864004481D1 /* GPUImageCropFilter.m */; };
+		22C6CF7115B45865004481D1 /* GPUImageCropFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9D15B45864004481D1 /* GPUImageCropFilter.m */; };
+		22C6CF7215B45865004481D1 /* GPUImageCrosshairGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9F15B45864004481D1 /* GPUImageCrosshairGenerator.m */; };
+		22C6CF7315B45865004481D1 /* GPUImageCrosshairGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CD9F15B45864004481D1 /* GPUImageCrosshairGenerator.m */; };
+		22C6CF7415B45865004481D1 /* GPUImageCrosshatchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDA115B45864004481D1 /* GPUImageCrosshatchFilter.m */; };
+		22C6CF7515B45865004481D1 /* GPUImageCrosshatchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDA115B45864004481D1 /* GPUImageCrosshatchFilter.m */; };
+		22C6CF7615B45865004481D1 /* GPUImageDarkenBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDA315B45864004481D1 /* GPUImageDarkenBlendFilter.m */; };
+		22C6CF7715B45865004481D1 /* GPUImageDarkenBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDA315B45864004481D1 /* GPUImageDarkenBlendFilter.m */; };
+		22C6CF7815B45865004481D1 /* GPUImageDifferenceBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDA515B45864004481D1 /* GPUImageDifferenceBlendFilter.m */; };
+		22C6CF7915B45865004481D1 /* GPUImageDifferenceBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDA515B45864004481D1 /* GPUImageDifferenceBlendFilter.m */; };
+		22C6CF7A15B45865004481D1 /* GPUImageDilationFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDA715B45864004481D1 /* GPUImageDilationFilter.m */; };
+		22C6CF7B15B45865004481D1 /* GPUImageDilationFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDA715B45864004481D1 /* GPUImageDilationFilter.m */; };
+		22C6CF7C15B45865004481D1 /* GPUImageDirectionalNonMaximumSuppressionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDA915B45864004481D1 /* GPUImageDirectionalNonMaximumSuppressionFilter.m */; };
+		22C6CF7D15B45865004481D1 /* GPUImageDirectionalNonMaximumSuppressionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDA915B45864004481D1 /* GPUImageDirectionalNonMaximumSuppressionFilter.m */; };
+		22C6CF7E15B45865004481D1 /* GPUimageDirectionalSobelEdgeDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDAB15B45864004481D1 /* GPUimageDirectionalSobelEdgeDetectionFilter.m */; };
+		22C6CF7F15B45865004481D1 /* GPUimageDirectionalSobelEdgeDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDAB15B45864004481D1 /* GPUimageDirectionalSobelEdgeDetectionFilter.m */; };
+		22C6CF8015B45865004481D1 /* GPUImageDissolveBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDAD15B45864004481D1 /* GPUImageDissolveBlendFilter.m */; };
+		22C6CF8115B45865004481D1 /* GPUImageDissolveBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDAD15B45864004481D1 /* GPUImageDissolveBlendFilter.m */; };
+		22C6CF8215B45865004481D1 /* GPUImageEmbossFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDAF15B45864004481D1 /* GPUImageEmbossFilter.m */; };
+		22C6CF8315B45865004481D1 /* GPUImageEmbossFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDAF15B45864004481D1 /* GPUImageEmbossFilter.m */; };
+		22C6CF8415B45865004481D1 /* GPUImageErosionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDB115B45864004481D1 /* GPUImageErosionFilter.m */; };
+		22C6CF8515B45865004481D1 /* GPUImageErosionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDB115B45864004481D1 /* GPUImageErosionFilter.m */; };
+		22C6CF8615B45865004481D1 /* GPUImageExclusionBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDB315B45864004481D1 /* GPUImageExclusionBlendFilter.m */; };
+		22C6CF8715B45865004481D1 /* GPUImageExclusionBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDB315B45864004481D1 /* GPUImageExclusionBlendFilter.m */; };
+		22C6CF8815B45865004481D1 /* GPUImageExposureFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDB515B45864004481D1 /* GPUImageExposureFilter.m */; };
+		22C6CF8915B45865004481D1 /* GPUImageExposureFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDB515B45864004481D1 /* GPUImageExposureFilter.m */; };
+		22C6CF8A15B45865004481D1 /* GPUImageFastBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDB715B45864004481D1 /* GPUImageFastBlurFilter.m */; };
+		22C6CF8B15B45865004481D1 /* GPUImageFastBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDB715B45864004481D1 /* GPUImageFastBlurFilter.m */; };
+		22C6CF8C15B45865004481D1 /* GPUImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDB915B45864004481D1 /* GPUImageFilter.m */; };
+		22C6CF8D15B45865004481D1 /* GPUImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDB915B45864004481D1 /* GPUImageFilter.m */; };
+		22C6CF8E15B45865004481D1 /* GPUImageFilterGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDBB15B45864004481D1 /* GPUImageFilterGroup.m */; };
+		22C6CF8F15B45865004481D1 /* GPUImageFilterGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDBB15B45864004481D1 /* GPUImageFilterGroup.m */; };
+		22C6CF9015B45865004481D1 /* GPUImageFilterPipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDBD15B45864004481D1 /* GPUImageFilterPipeline.m */; };
+		22C6CF9115B45865004481D1 /* GPUImageFilterPipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDBD15B45864004481D1 /* GPUImageFilterPipeline.m */; };
+		22C6CF9215B45865004481D1 /* GPUImageGammaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDBF15B45864004481D1 /* GPUImageGammaFilter.m */; };
+		22C6CF9315B45865004481D1 /* GPUImageGammaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDBF15B45864004481D1 /* GPUImageGammaFilter.m */; };
+		22C6CF9415B45865004481D1 /* GPUImageGaussianBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDC115B45864004481D1 /* GPUImageGaussianBlurFilter.m */; };
+		22C6CF9515B45865004481D1 /* GPUImageGaussianBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDC115B45864004481D1 /* GPUImageGaussianBlurFilter.m */; };
+		22C6CF9615B45865004481D1 /* GPUImageGaussianSelectiveBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDC315B45864004481D1 /* GPUImageGaussianSelectiveBlurFilter.m */; };
+		22C6CF9715B45865004481D1 /* GPUImageGaussianSelectiveBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDC315B45864004481D1 /* GPUImageGaussianSelectiveBlurFilter.m */; };
+		22C6CF9815B45865004481D1 /* GPUImageGrayscaleFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDC515B45864004481D1 /* GPUImageGrayscaleFilter.m */; };
+		22C6CF9915B45865004481D1 /* GPUImageGrayscaleFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDC515B45864004481D1 /* GPUImageGrayscaleFilter.m */; };
+		22C6CF9A15B45865004481D1 /* GPUImageHardLightBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDC715B45864004481D1 /* GPUImageHardLightBlendFilter.m */; };
+		22C6CF9B15B45865004481D1 /* GPUImageHardLightBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDC715B45864004481D1 /* GPUImageHardLightBlendFilter.m */; };
+		22C6CF9C15B45865004481D1 /* GPUImageHarrisCornerDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDC915B45864004481D1 /* GPUImageHarrisCornerDetectionFilter.m */; };
+		22C6CF9D15B45865004481D1 /* GPUImageHarrisCornerDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDC915B45864004481D1 /* GPUImageHarrisCornerDetectionFilter.m */; };
+		22C6CF9E15B45865004481D1 /* GPUImageHazeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDCB15B45864004481D1 /* GPUImageHazeFilter.m */; };
+		22C6CF9F15B45865004481D1 /* GPUImageHazeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDCB15B45864004481D1 /* GPUImageHazeFilter.m */; };
+		22C6CFA015B45865004481D1 /* GPUImageHistogramFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDCD15B45864004481D1 /* GPUImageHistogramFilter.m */; };
+		22C6CFA115B45865004481D1 /* GPUImageHistogramFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDCD15B45864004481D1 /* GPUImageHistogramFilter.m */; };
+		22C6CFA215B45865004481D1 /* GPUImageHistogramGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDCF15B45864004481D1 /* GPUImageHistogramGenerator.m */; };
+		22C6CFA315B45865004481D1 /* GPUImageHistogramGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDCF15B45864004481D1 /* GPUImageHistogramGenerator.m */; };
+		22C6CFA415B45865004481D1 /* GPUImageJFAVoroniFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDD115B45864004481D1 /* GPUImageJFAVoroniFilter.m */; };
+		22C6CFA515B45865004481D1 /* GPUImageJFAVoroniFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDD115B45864004481D1 /* GPUImageJFAVoroniFilter.m */; };
+		22C6CFA615B45865004481D1 /* GPUImageKuwaharaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDD315B45864004481D1 /* GPUImageKuwaharaFilter.m */; };
+		22C6CFA715B45865004481D1 /* GPUImageKuwaharaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDD315B45864004481D1 /* GPUImageKuwaharaFilter.m */; };
+		22C6CFA815B45865004481D1 /* GPUImageLightenBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDD515B45864004481D1 /* GPUImageLightenBlendFilter.m */; };
+		22C6CFA915B45865004481D1 /* GPUImageLightenBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDD515B45864004481D1 /* GPUImageLightenBlendFilter.m */; };
+		22C6CFAA15B45865004481D1 /* GPUImageLuminanceThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDD715B45864004481D1 /* GPUImageLuminanceThresholdFilter.m */; };
+		22C6CFAB15B45865004481D1 /* GPUImageLuminanceThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDD715B45864004481D1 /* GPUImageLuminanceThresholdFilter.m */; };
+		22C6CFAC15B45865004481D1 /* GPUImageMaskFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDD915B45864004481D1 /* GPUImageMaskFilter.m */; };
+		22C6CFAD15B45865004481D1 /* GPUImageMaskFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDD915B45864004481D1 /* GPUImageMaskFilter.m */; };
+		22C6CFAE15B45865004481D1 /* GPUImageMedianFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDDB15B45864004481D1 /* GPUImageMedianFilter.m */; };
+		22C6CFAF15B45865004481D1 /* GPUImageMedianFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDDB15B45864004481D1 /* GPUImageMedianFilter.m */; };
+		22C6CFB015B45865004481D1 /* GPUImageMonochromeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDDD15B45864004481D1 /* GPUImageMonochromeFilter.m */; };
+		22C6CFB115B45865004481D1 /* GPUImageMonochromeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDDD15B45864004481D1 /* GPUImageMonochromeFilter.m */; };
+		22C6CFB215B45865004481D1 /* GPUImageMosaicFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDDF15B45864004481D1 /* GPUImageMosaicFilter.m */; };
+		22C6CFB315B45865004481D1 /* GPUImageMosaicFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDDF15B45864004481D1 /* GPUImageMosaicFilter.m */; };
+		22C6CFB415B45865004481D1 /* GPUImageMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDE115B45864004481D1 /* GPUImageMovie.m */; };
+		22C6CFB515B45865004481D1 /* GPUImageMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDE115B45864004481D1 /* GPUImageMovie.m */; };
+		22C6CFB615B45865004481D1 /* GPUImageMovieWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDE315B45864004481D1 /* GPUImageMovieWriter.m */; };
+		22C6CFB715B45865004481D1 /* GPUImageMovieWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDE315B45864004481D1 /* GPUImageMovieWriter.m */; };
+		22C6CFB815B45865004481D1 /* GPUImageMultiplyBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDE515B45864004481D1 /* GPUImageMultiplyBlendFilter.m */; };
+		22C6CFB915B45865004481D1 /* GPUImageMultiplyBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDE515B45864004481D1 /* GPUImageMultiplyBlendFilter.m */; };
+		22C6CFBA15B45865004481D1 /* GPUImageNobleCornerDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDE715B45864004481D1 /* GPUImageNobleCornerDetectionFilter.m */; };
+		22C6CFBB15B45865004481D1 /* GPUImageNobleCornerDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDE715B45864004481D1 /* GPUImageNobleCornerDetectionFilter.m */; };
+		22C6CFBC15B45865004481D1 /* GPUImageNonMaximumSuppressionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDE915B45864004481D1 /* GPUImageNonMaximumSuppressionFilter.m */; };
+		22C6CFBD15B45865004481D1 /* GPUImageNonMaximumSuppressionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDE915B45864004481D1 /* GPUImageNonMaximumSuppressionFilter.m */; };
+		22C6CFBE15B45865004481D1 /* GPUImageOpacityFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDEB15B45864004481D1 /* GPUImageOpacityFilter.m */; };
+		22C6CFBF15B45865004481D1 /* GPUImageOpacityFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDEB15B45864004481D1 /* GPUImageOpacityFilter.m */; };
+		22C6CFC015B45865004481D1 /* GPUImageOpenGLESContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDED15B45864004481D1 /* GPUImageOpenGLESContext.m */; };
+		22C6CFC115B45865004481D1 /* GPUImageOpenGLESContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDED15B45864004481D1 /* GPUImageOpenGLESContext.m */; };
+		22C6CFC215B45865004481D1 /* GPUImageOpeningFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDEF15B45864004481D1 /* GPUImageOpeningFilter.m */; };
+		22C6CFC315B45865004481D1 /* GPUImageOpeningFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDEF15B45864004481D1 /* GPUImageOpeningFilter.m */; };
+		22C6CFC415B45865004481D1 /* GPUImageOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDF115B45864004481D1 /* GPUImageOutput.m */; };
+		22C6CFC515B45865004481D1 /* GPUImageOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDF115B45864004481D1 /* GPUImageOutput.m */; };
+		22C6CFC615B45865004481D1 /* GPUImageOverlayBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDF315B45864004481D1 /* GPUImageOverlayBlendFilter.m */; };
+		22C6CFC715B45865004481D1 /* GPUImageOverlayBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDF315B45864004481D1 /* GPUImageOverlayBlendFilter.m */; };
+		22C6CFC815B45865004481D1 /* GPUImagePerlinNoiseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDF515B45864004481D1 /* GPUImagePerlinNoiseFilter.m */; };
+		22C6CFC915B45865004481D1 /* GPUImagePerlinNoiseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDF515B45864004481D1 /* GPUImagePerlinNoiseFilter.m */; };
+		22C6CFCA15B45865004481D1 /* GPUImagePicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDF715B45864004481D1 /* GPUImagePicture.m */; };
+		22C6CFCB15B45865004481D1 /* GPUImagePicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDF715B45864004481D1 /* GPUImagePicture.m */; };
+		22C6CFCC15B45865004481D1 /* GPUImagePinchDistortionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDF915B45864004481D1 /* GPUImagePinchDistortionFilter.m */; };
+		22C6CFCD15B45865004481D1 /* GPUImagePinchDistortionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDF915B45864004481D1 /* GPUImagePinchDistortionFilter.m */; };
+		22C6CFCE15B45865004481D1 /* GPUImagePixellateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDFB15B45864004481D1 /* GPUImagePixellateFilter.m */; };
+		22C6CFCF15B45865004481D1 /* GPUImagePixellateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDFB15B45864004481D1 /* GPUImagePixellateFilter.m */; };
+		22C6CFD015B45865004481D1 /* GPUImagePolarPixellateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDFD15B45864004481D1 /* GPUImagePolarPixellateFilter.m */; };
+		22C6CFD115B45865004481D1 /* GPUImagePolarPixellateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDFD15B45864004481D1 /* GPUImagePolarPixellateFilter.m */; };
+		22C6CFD215B45865004481D1 /* GPUImagePosterizeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDFF15B45864004481D1 /* GPUImagePosterizeFilter.m */; };
+		22C6CFD315B45865004481D1 /* GPUImagePosterizeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CDFF15B45864004481D1 /* GPUImagePosterizeFilter.m */; };
+		22C6CFD415B45865004481D1 /* GPUImagePrewittEdgeDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0115B45864004481D1 /* GPUImagePrewittEdgeDetectionFilter.m */; };
+		22C6CFD515B45865004481D1 /* GPUImagePrewittEdgeDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0115B45864004481D1 /* GPUImagePrewittEdgeDetectionFilter.m */; };
+		22C6CFD615B45865004481D1 /* GPUImageRawDataInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0315B45864004481D1 /* GPUImageRawDataInput.m */; };
+		22C6CFD715B45865004481D1 /* GPUImageRawDataInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0315B45864004481D1 /* GPUImageRawDataInput.m */; };
+		22C6CFD815B45865004481D1 /* GPUImageRawDataOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0515B45864004481D1 /* GPUImageRawDataOutput.m */; };
+		22C6CFD915B45865004481D1 /* GPUImageRawDataOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0515B45864004481D1 /* GPUImageRawDataOutput.m */; };
+		22C6CFDA15B45865004481D1 /* GPUImageRGBClosingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0715B45864004481D1 /* GPUImageRGBClosingFilter.m */; };
+		22C6CFDB15B45865004481D1 /* GPUImageRGBClosingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0715B45864004481D1 /* GPUImageRGBClosingFilter.m */; };
+		22C6CFDC15B45865004481D1 /* GPUImageRGBDilationFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0915B45864004481D1 /* GPUImageRGBDilationFilter.m */; };
+		22C6CFDD15B45865004481D1 /* GPUImageRGBDilationFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0915B45864004481D1 /* GPUImageRGBDilationFilter.m */; };
+		22C6CFDE15B45865004481D1 /* GPUImageRGBErosionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0B15B45864004481D1 /* GPUImageRGBErosionFilter.m */; };
+		22C6CFDF15B45865004481D1 /* GPUImageRGBErosionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0B15B45864004481D1 /* GPUImageRGBErosionFilter.m */; };
+		22C6CFE015B45865004481D1 /* GPUImageRGBFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0D15B45864004481D1 /* GPUImageRGBFilter.m */; };
+		22C6CFE115B45865004481D1 /* GPUImageRGBFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0D15B45864004481D1 /* GPUImageRGBFilter.m */; };
+		22C6CFE215B45865004481D1 /* GPUImageRGBOpeningFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0F15B45864004481D1 /* GPUImageRGBOpeningFilter.m */; };
+		22C6CFE315B45865004481D1 /* GPUImageRGBOpeningFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE0F15B45864004481D1 /* GPUImageRGBOpeningFilter.m */; };
+		22C6CFE415B45865004481D1 /* GPUImageSaturationFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1115B45864004481D1 /* GPUImageSaturationFilter.m */; };
+		22C6CFE515B45865004481D1 /* GPUImageSaturationFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1115B45864004481D1 /* GPUImageSaturationFilter.m */; };
+		22C6CFE615B45865004481D1 /* GPUImageScreenBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1315B45864004481D1 /* GPUImageScreenBlendFilter.m */; };
+		22C6CFE715B45865004481D1 /* GPUImageScreenBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1315B45864004481D1 /* GPUImageScreenBlendFilter.m */; };
+		22C6CFE815B45865004481D1 /* GPUImageSepiaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1515B45864004481D1 /* GPUImageSepiaFilter.m */; };
+		22C6CFE915B45865004481D1 /* GPUImageSepiaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1515B45864004481D1 /* GPUImageSepiaFilter.m */; };
+		22C6CFEA15B45865004481D1 /* GPUImageSharpenFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1715B45864004481D1 /* GPUImageSharpenFilter.m */; };
+		22C6CFEB15B45865004481D1 /* GPUImageSharpenFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1715B45864004481D1 /* GPUImageSharpenFilter.m */; };
+		22C6CFEC15B45865004481D1 /* GPUImageShiTomasiFeatureDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1915B45864004481D1 /* GPUImageShiTomasiFeatureDetectionFilter.m */; };
+		22C6CFED15B45865004481D1 /* GPUImageShiTomasiFeatureDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1915B45864004481D1 /* GPUImageShiTomasiFeatureDetectionFilter.m */; };
+		22C6CFEE15B45865004481D1 /* GPUImageSingleComponentFastBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1B15B45864004481D1 /* GPUImageSingleComponentFastBlurFilter.m */; };
+		22C6CFEF15B45865004481D1 /* GPUImageSingleComponentFastBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1B15B45864004481D1 /* GPUImageSingleComponentFastBlurFilter.m */; };
+		22C6CFF015B45865004481D1 /* GPUImageSingleComponentGaussianBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1D15B45864004481D1 /* GPUImageSingleComponentGaussianBlurFilter.m */; };
+		22C6CFF115B45865004481D1 /* GPUImageSingleComponentGaussianBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1D15B45864004481D1 /* GPUImageSingleComponentGaussianBlurFilter.m */; };
+		22C6CFF215B45865004481D1 /* GPUImageSketchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1F15B45864004481D1 /* GPUImageSketchFilter.m */; };
+		22C6CFF315B45865004481D1 /* GPUImageSketchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE1F15B45864004481D1 /* GPUImageSketchFilter.m */; };
+		22C6CFF415B45865004481D1 /* GPUImageSmoothToonFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2115B45864004481D1 /* GPUImageSmoothToonFilter.m */; };
+		22C6CFF515B45865004481D1 /* GPUImageSmoothToonFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2115B45864004481D1 /* GPUImageSmoothToonFilter.m */; };
+		22C6CFF615B45865004481D1 /* GPUImageSobelEdgeDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2315B45864004481D1 /* GPUImageSobelEdgeDetectionFilter.m */; };
+		22C6CFF715B45865004481D1 /* GPUImageSobelEdgeDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2315B45864004481D1 /* GPUImageSobelEdgeDetectionFilter.m */; };
+		22C6CFF815B45865004481D1 /* GPUImageSoftLightBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2515B45864004481D1 /* GPUImageSoftLightBlendFilter.m */; };
+		22C6CFF915B45865004481D1 /* GPUImageSoftLightBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2515B45864004481D1 /* GPUImageSoftLightBlendFilter.m */; };
+		22C6CFFA15B45865004481D1 /* GPUImageSphereRefractionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2715B45864004481D1 /* GPUImageSphereRefractionFilter.m */; };
+		22C6CFFB15B45865004481D1 /* GPUImageSphereRefractionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2715B45864004481D1 /* GPUImageSphereRefractionFilter.m */; };
+		22C6CFFC15B45865004481D1 /* GPUImageStillCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2915B45864004481D1 /* GPUImageStillCamera.m */; };
+		22C6CFFD15B45865004481D1 /* GPUImageStillCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2915B45864004481D1 /* GPUImageStillCamera.m */; };
+		22C6CFFE15B45865004481D1 /* GPUImageStretchDistortionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2B15B45864004481D1 /* GPUImageStretchDistortionFilter.m */; };
+		22C6CFFF15B45865004481D1 /* GPUImageStretchDistortionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2B15B45864004481D1 /* GPUImageStretchDistortionFilter.m */; };
+		22C6D00015B45865004481D1 /* GPUImageSubtractBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2D15B45864004481D1 /* GPUImageSubtractBlendFilter.m */; };
+		22C6D00115B45865004481D1 /* GPUImageSubtractBlendFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2D15B45864004481D1 /* GPUImageSubtractBlendFilter.m */; };
+		22C6D00215B45865004481D1 /* GPUImageSwirlFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2F15B45864004481D1 /* GPUImageSwirlFilter.m */; };
+		22C6D00315B45865004481D1 /* GPUImageSwirlFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE2F15B45864004481D1 /* GPUImageSwirlFilter.m */; };
+		22C6D00415B45865004481D1 /* GPUImageTextureInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3115B45864004481D1 /* GPUImageTextureInput.m */; };
+		22C6D00515B45865004481D1 /* GPUImageTextureInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3115B45864004481D1 /* GPUImageTextureInput.m */; };
+		22C6D00615B45865004481D1 /* GPUImageTextureOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3315B45864004481D1 /* GPUImageTextureOutput.m */; };
+		22C6D00715B45865004481D1 /* GPUImageTextureOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3315B45864004481D1 /* GPUImageTextureOutput.m */; };
+		22C6D00815B45865004481D1 /* GPUImageThresholdEdgeDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3515B45864004481D1 /* GPUImageThresholdEdgeDetection.m */; };
+		22C6D00915B45865004481D1 /* GPUImageThresholdEdgeDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3515B45864004481D1 /* GPUImageThresholdEdgeDetection.m */; };
+		22C6D00A15B45865004481D1 /* GPUImageTiltShiftFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3715B45864004481D1 /* GPUImageTiltShiftFilter.m */; };
+		22C6D00B15B45865004481D1 /* GPUImageTiltShiftFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3715B45864004481D1 /* GPUImageTiltShiftFilter.m */; };
+		22C6D00C15B45865004481D1 /* GPUImageToneCurveFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3915B45864004481D1 /* GPUImageToneCurveFilter.m */; };
+		22C6D00D15B45865004481D1 /* GPUImageToneCurveFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3915B45864004481D1 /* GPUImageToneCurveFilter.m */; };
+		22C6D00E15B45865004481D1 /* GPUImageToonFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3B15B45864004481D1 /* GPUImageToonFilter.m */; };
+		22C6D00F15B45865004481D1 /* GPUImageToonFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3B15B45864004481D1 /* GPUImageToonFilter.m */; };
+		22C6D01015B45865004481D1 /* GPUImageTransformFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3D15B45864004481D1 /* GPUImageTransformFilter.m */; };
+		22C6D01115B45865004481D1 /* GPUImageTransformFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3D15B45864004481D1 /* GPUImageTransformFilter.m */; };
+		22C6D01215B45865004481D1 /* GPUImageTwoInputFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3F15B45864004481D1 /* GPUImageTwoInputFilter.m */; };
+		22C6D01315B45865004481D1 /* GPUImageTwoInputFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE3F15B45864004481D1 /* GPUImageTwoInputFilter.m */; };
+		22C6D01415B45865004481D1 /* GPUImageTwoPassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4115B45864004481D1 /* GPUImageTwoPassFilter.m */; };
+		22C6D01515B45865004481D1 /* GPUImageTwoPassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4115B45864004481D1 /* GPUImageTwoPassFilter.m */; };
+		22C6D01615B45865004481D1 /* GPUImageTwoPassTextureSamplingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4315B45864004481D1 /* GPUImageTwoPassTextureSamplingFilter.m */; };
+		22C6D01715B45865004481D1 /* GPUImageTwoPassTextureSamplingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4315B45864004481D1 /* GPUImageTwoPassTextureSamplingFilter.m */; };
+		22C6D01815B45865004481D1 /* GPUImageUIElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4515B45864004481D1 /* GPUImageUIElement.m */; };
+		22C6D01915B45865004481D1 /* GPUImageUIElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4515B45864004481D1 /* GPUImageUIElement.m */; };
+		22C6D01A15B45865004481D1 /* GPUImageUnsharpMaskFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4715B45864004481D1 /* GPUImageUnsharpMaskFilter.m */; };
+		22C6D01B15B45865004481D1 /* GPUImageUnsharpMaskFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4715B45864004481D1 /* GPUImageUnsharpMaskFilter.m */; };
+		22C6D01C15B45865004481D1 /* GPUImageVideoCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4915B45864004481D1 /* GPUImageVideoCamera.m */; };
+		22C6D01D15B45865004481D1 /* GPUImageVideoCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4915B45864004481D1 /* GPUImageVideoCamera.m */; };
+		22C6D01E15B45865004481D1 /* GPUImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4B15B45864004481D1 /* GPUImageView.m */; };
+		22C6D01F15B45865004481D1 /* GPUImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4B15B45864004481D1 /* GPUImageView.m */; };
+		22C6D02015B45865004481D1 /* GPUImageVignetteFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4D15B45864004481D1 /* GPUImageVignetteFilter.m */; };
+		22C6D02115B45865004481D1 /* GPUImageVignetteFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4D15B45864004481D1 /* GPUImageVignetteFilter.m */; };
+		22C6D02215B45865004481D1 /* GPUImageVoroniConsumerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4F15B45864004481D1 /* GPUImageVoroniConsumerFilter.m */; };
+		22C6D02315B45865004481D1 /* GPUImageVoroniConsumerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE4F15B45864004481D1 /* GPUImageVoroniConsumerFilter.m */; };
+		22C6D02415B45865004481D1 /* GPUImageWeakPixelInclusionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE5115B45864004481D1 /* GPUImageWeakPixelInclusionFilter.m */; };
+		22C6D02515B45865004481D1 /* GPUImageWeakPixelInclusionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE5115B45864004481D1 /* GPUImageWeakPixelInclusionFilter.m */; };
+		22C6D02615B45865004481D1 /* GPUImageXYDerivativeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE5315B45864004481D1 /* GPUImageXYDerivativeFilter.m */; };
+		22C6D02715B45865004481D1 /* GPUImageXYDerivativeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C6CE5315B45864004481D1 /* GPUImageXYDerivativeFilter.m */; };
+		22C6D02815B45865004481D1 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22C6CE5415B45864004481D1 /* License.txt */; };
+		22C6D02915B45865004481D1 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22C6CE5415B45864004481D1 /* License.txt */; };
+		22C6D02A15B45865004481D1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 22C6CE5515B45864004481D1 /* README.md */; };
+		22C6D02B15B45865004481D1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 22C6CE5515B45864004481D1 /* README.md */; };
+		22C6D07D15B46D8D004481D1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C6D07C15B46D8D004481D1 /* OpenGLES.framework */; };
+		22C6D07E15B46D99004481D1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C6D07C15B46D8D004481D1 /* OpenGLES.framework */; };
+		22C6D08015B46DC9004481D1 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C6D07F15B46DC9004481D1 /* CoreMedia.framework */; };
+		22C6D08215B46DCE004481D1 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C6D08115B46DCE004481D1 /* CoreVideo.framework */; };
+		22C6D08315B46DD5004481D1 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C6D07F15B46DC9004481D1 /* CoreMedia.framework */; };
+		22C6D08415B46DDA004481D1 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C6D08115B46DCE004481D1 /* CoreVideo.framework */; };
+		22C6D08515B46E0C004481D1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227E473D153652700057B706 /* AVFoundation.framework */; };
+		22C6D08615B46E12004481D1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227E473D153652700057B706 /* AVFoundation.framework */; };
+		22C6D09A15B59A0F004481D1 /* arrow_black_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C6D09615B59A0F004481D1 /* arrow_black_left.png */; };
+		22C6D09B15B59A0F004481D1 /* arrow_black_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C6D09615B59A0F004481D1 /* arrow_black_left.png */; };
+		22C6D09C15B59A0F004481D1 /* arrow_black_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C6D09715B59A0F004481D1 /* arrow_black_left@2x.png */; };
+		22C6D09D15B59A0F004481D1 /* arrow_black_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C6D09715B59A0F004481D1 /* arrow_black_left@2x.png */; };
+		22C6D09E15B59A0F004481D1 /* arrow_black_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C6D09815B59A0F004481D1 /* arrow_black_right.png */; };
+		22C6D09F15B59A0F004481D1 /* arrow_black_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C6D09815B59A0F004481D1 /* arrow_black_right.png */; };
+		22C6D0A015B59A0F004481D1 /* arrow_black_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C6D09915B59A0F004481D1 /* arrow_black_right@2x.png */; };
+		22C6D0A115B59A0F004481D1 /* arrow_black_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C6D09915B59A0F004481D1 /* arrow_black_right@2x.png */; };
 		22C735981580989D00716984 /* BRCacheCleaner.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C735971580989D00716984 /* BRCacheCleaner.m */; };
 		22C7359C15809B3800716984 /* BRDownloadedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7359B15809B3700716984 /* BRDownloadedCache.m */; };
 		22C735A01580A7BE00716984 /* BRManuallyClearCacheView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7359F1580A7BC00716984 /* BRManuallyClearCacheView.m */; };
@@ -1043,6 +1289,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		22C6D03E15B45865004481D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22C6CD6815B45864004481D1 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A33414DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+		22C6D04015B45865004481D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22C6CD6815B45864004481D1 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A34414DDB1EC00852800;
+			remoteInfo = GPUImageTests;
+		};
 		22F866A614A216AA00D7B1CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 22F8667D14A216AA00D7B1CE /* Project object */;
@@ -1929,6 +2189,243 @@
 		22C5F64915607FD700858F0A /* BRSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRSettingViewController.xib; sourceTree = "<group>"; };
 		22C5F64E1560888F00858F0A /* BRChooseBackgroundImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChooseBackgroundImage.h; sourceTree = "<group>"; };
 		22C5F64F1560889000858F0A /* BRChooseBackgroundImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChooseBackgroundImage.m; sourceTree = "<group>"; };
+		22C6CCA615B45864004481D1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		22C6CD6815B45864004481D1 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = GPUImage.xcodeproj; sourceTree = "<group>"; };
+		22C6CD7215B45864004481D1 /* GLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgram.h; sourceTree = "<group>"; };
+		22C6CD7315B45864004481D1 /* GLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProgram.m; sourceTree = "<group>"; };
+		22C6CD7415B45864004481D1 /* GPUImage-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GPUImage-Prefix.pch"; sourceTree = "<group>"; };
+		22C6CD7515B45864004481D1 /* GPUImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImage.h; sourceTree = "<group>"; };
+		22C6CD7615B45864004481D1 /* GPUImage3x3ConvolutionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImage3x3ConvolutionFilter.h; sourceTree = "<group>"; };
+		22C6CD7715B45864004481D1 /* GPUImage3x3ConvolutionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImage3x3ConvolutionFilter.m; sourceTree = "<group>"; };
+		22C6CD7815B45864004481D1 /* GPUImage3x3TextureSamplingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImage3x3TextureSamplingFilter.h; sourceTree = "<group>"; };
+		22C6CD7915B45864004481D1 /* GPUImage3x3TextureSamplingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImage3x3TextureSamplingFilter.m; sourceTree = "<group>"; };
+		22C6CD7A15B45864004481D1 /* GPUImageAdaptiveThresholdFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageAdaptiveThresholdFilter.h; sourceTree = "<group>"; };
+		22C6CD7B15B45864004481D1 /* GPUImageAdaptiveThresholdFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageAdaptiveThresholdFilter.m; sourceTree = "<group>"; };
+		22C6CD7C15B45864004481D1 /* GPUImageAlphaBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageAlphaBlendFilter.h; sourceTree = "<group>"; };
+		22C6CD7D15B45864004481D1 /* GPUImageAlphaBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageAlphaBlendFilter.m; sourceTree = "<group>"; };
+		22C6CD7E15B45864004481D1 /* GPUImageBilateralFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBilateralFilter.h; sourceTree = "<group>"; };
+		22C6CD7F15B45864004481D1 /* GPUImageBilateralFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBilateralFilter.m; sourceTree = "<group>"; };
+		22C6CD8015B45864004481D1 /* GPUImageBoxBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBoxBlurFilter.h; sourceTree = "<group>"; };
+		22C6CD8115B45864004481D1 /* GPUImageBoxBlurFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBoxBlurFilter.m; sourceTree = "<group>"; };
+		22C6CD8215B45864004481D1 /* GPUImageBrightnessFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBrightnessFilter.h; sourceTree = "<group>"; };
+		22C6CD8315B45864004481D1 /* GPUImageBrightnessFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBrightnessFilter.m; sourceTree = "<group>"; };
+		22C6CD8415B45864004481D1 /* GPUImageBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBuffer.h; sourceTree = "<group>"; };
+		22C6CD8515B45864004481D1 /* GPUImageBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBuffer.m; sourceTree = "<group>"; };
+		22C6CD8615B45864004481D1 /* GPUImageBulgeDistortionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBulgeDistortionFilter.h; sourceTree = "<group>"; };
+		22C6CD8715B45864004481D1 /* GPUImageBulgeDistortionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBulgeDistortionFilter.m; sourceTree = "<group>"; };
+		22C6CD8815B45864004481D1 /* GPUImageCannyEdgeDetectionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageCannyEdgeDetectionFilter.h; sourceTree = "<group>"; };
+		22C6CD8915B45864004481D1 /* GPUImageCannyEdgeDetectionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageCannyEdgeDetectionFilter.m; sourceTree = "<group>"; };
+		22C6CD8A15B45864004481D1 /* GPUImageCGAColorspaceFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageCGAColorspaceFilter.h; sourceTree = "<group>"; };
+		22C6CD8B15B45864004481D1 /* GPUImageCGAColorspaceFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageCGAColorspaceFilter.m; sourceTree = "<group>"; };
+		22C6CD8C15B45864004481D1 /* GPUImageChromaKeyBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageChromaKeyBlendFilter.h; sourceTree = "<group>"; };
+		22C6CD8D15B45864004481D1 /* GPUImageChromaKeyBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageChromaKeyBlendFilter.m; sourceTree = "<group>"; };
+		22C6CD8E15B45864004481D1 /* GPUImageClosingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageClosingFilter.h; sourceTree = "<group>"; };
+		22C6CD8F15B45864004481D1 /* GPUImageClosingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageClosingFilter.m; sourceTree = "<group>"; };
+		22C6CD9015B45864004481D1 /* GPUImageColorBurnBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageColorBurnBlendFilter.h; sourceTree = "<group>"; };
+		22C6CD9115B45864004481D1 /* GPUImageColorBurnBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageColorBurnBlendFilter.m; sourceTree = "<group>"; };
+		22C6CD9215B45864004481D1 /* GPUImageColorDodgeBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageColorDodgeBlendFilter.h; sourceTree = "<group>"; };
+		22C6CD9315B45864004481D1 /* GPUImageColorDodgeBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageColorDodgeBlendFilter.m; sourceTree = "<group>"; };
+		22C6CD9415B45864004481D1 /* GPUImageColorInvertFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageColorInvertFilter.h; sourceTree = "<group>"; };
+		22C6CD9515B45864004481D1 /* GPUImageColorInvertFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageColorInvertFilter.m; sourceTree = "<group>"; };
+		22C6CD9615B45864004481D1 /* GPUImageColorMatrixFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageColorMatrixFilter.h; sourceTree = "<group>"; };
+		22C6CD9715B45864004481D1 /* GPUImageColorMatrixFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageColorMatrixFilter.m; sourceTree = "<group>"; };
+		22C6CD9815B45864004481D1 /* GPUImageColorPackingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageColorPackingFilter.h; sourceTree = "<group>"; };
+		22C6CD9915B45864004481D1 /* GPUImageColorPackingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageColorPackingFilter.m; sourceTree = "<group>"; };
+		22C6CD9A15B45864004481D1 /* GPUImageContrastFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageContrastFilter.h; sourceTree = "<group>"; };
+		22C6CD9B15B45864004481D1 /* GPUImageContrastFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageContrastFilter.m; sourceTree = "<group>"; };
+		22C6CD9C15B45864004481D1 /* GPUImageCropFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageCropFilter.h; sourceTree = "<group>"; };
+		22C6CD9D15B45864004481D1 /* GPUImageCropFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageCropFilter.m; sourceTree = "<group>"; };
+		22C6CD9E15B45864004481D1 /* GPUImageCrosshairGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageCrosshairGenerator.h; sourceTree = "<group>"; };
+		22C6CD9F15B45864004481D1 /* GPUImageCrosshairGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageCrosshairGenerator.m; sourceTree = "<group>"; };
+		22C6CDA015B45864004481D1 /* GPUImageCrosshatchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageCrosshatchFilter.h; sourceTree = "<group>"; };
+		22C6CDA115B45864004481D1 /* GPUImageCrosshatchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageCrosshatchFilter.m; sourceTree = "<group>"; };
+		22C6CDA215B45864004481D1 /* GPUImageDarkenBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageDarkenBlendFilter.h; sourceTree = "<group>"; };
+		22C6CDA315B45864004481D1 /* GPUImageDarkenBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageDarkenBlendFilter.m; sourceTree = "<group>"; };
+		22C6CDA415B45864004481D1 /* GPUImageDifferenceBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageDifferenceBlendFilter.h; sourceTree = "<group>"; };
+		22C6CDA515B45864004481D1 /* GPUImageDifferenceBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageDifferenceBlendFilter.m; sourceTree = "<group>"; };
+		22C6CDA615B45864004481D1 /* GPUImageDilationFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageDilationFilter.h; sourceTree = "<group>"; };
+		22C6CDA715B45864004481D1 /* GPUImageDilationFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageDilationFilter.m; sourceTree = "<group>"; };
+		22C6CDA815B45864004481D1 /* GPUImageDirectionalNonMaximumSuppressionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageDirectionalNonMaximumSuppressionFilter.h; sourceTree = "<group>"; };
+		22C6CDA915B45864004481D1 /* GPUImageDirectionalNonMaximumSuppressionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageDirectionalNonMaximumSuppressionFilter.m; sourceTree = "<group>"; };
+		22C6CDAA15B45864004481D1 /* GPUimageDirectionalSobelEdgeDetectionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUimageDirectionalSobelEdgeDetectionFilter.h; sourceTree = "<group>"; };
+		22C6CDAB15B45864004481D1 /* GPUimageDirectionalSobelEdgeDetectionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUimageDirectionalSobelEdgeDetectionFilter.m; sourceTree = "<group>"; };
+		22C6CDAC15B45864004481D1 /* GPUImageDissolveBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageDissolveBlendFilter.h; sourceTree = "<group>"; };
+		22C6CDAD15B45864004481D1 /* GPUImageDissolveBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageDissolveBlendFilter.m; sourceTree = "<group>"; };
+		22C6CDAE15B45864004481D1 /* GPUImageEmbossFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageEmbossFilter.h; sourceTree = "<group>"; };
+		22C6CDAF15B45864004481D1 /* GPUImageEmbossFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageEmbossFilter.m; sourceTree = "<group>"; };
+		22C6CDB015B45864004481D1 /* GPUImageErosionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageErosionFilter.h; sourceTree = "<group>"; };
+		22C6CDB115B45864004481D1 /* GPUImageErosionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageErosionFilter.m; sourceTree = "<group>"; };
+		22C6CDB215B45864004481D1 /* GPUImageExclusionBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageExclusionBlendFilter.h; sourceTree = "<group>"; };
+		22C6CDB315B45864004481D1 /* GPUImageExclusionBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageExclusionBlendFilter.m; sourceTree = "<group>"; };
+		22C6CDB415B45864004481D1 /* GPUImageExposureFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageExposureFilter.h; sourceTree = "<group>"; };
+		22C6CDB515B45864004481D1 /* GPUImageExposureFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageExposureFilter.m; sourceTree = "<group>"; };
+		22C6CDB615B45864004481D1 /* GPUImageFastBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageFastBlurFilter.h; sourceTree = "<group>"; };
+		22C6CDB715B45864004481D1 /* GPUImageFastBlurFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageFastBlurFilter.m; sourceTree = "<group>"; };
+		22C6CDB815B45864004481D1 /* GPUImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageFilter.h; sourceTree = "<group>"; };
+		22C6CDB915B45864004481D1 /* GPUImageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageFilter.m; sourceTree = "<group>"; };
+		22C6CDBA15B45864004481D1 /* GPUImageFilterGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageFilterGroup.h; sourceTree = "<group>"; };
+		22C6CDBB15B45864004481D1 /* GPUImageFilterGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageFilterGroup.m; sourceTree = "<group>"; };
+		22C6CDBC15B45864004481D1 /* GPUImageFilterPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageFilterPipeline.h; sourceTree = "<group>"; };
+		22C6CDBD15B45864004481D1 /* GPUImageFilterPipeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageFilterPipeline.m; sourceTree = "<group>"; };
+		22C6CDBE15B45864004481D1 /* GPUImageGammaFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageGammaFilter.h; sourceTree = "<group>"; };
+		22C6CDBF15B45864004481D1 /* GPUImageGammaFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageGammaFilter.m; sourceTree = "<group>"; };
+		22C6CDC015B45864004481D1 /* GPUImageGaussianBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageGaussianBlurFilter.h; sourceTree = "<group>"; };
+		22C6CDC115B45864004481D1 /* GPUImageGaussianBlurFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageGaussianBlurFilter.m; sourceTree = "<group>"; };
+		22C6CDC215B45864004481D1 /* GPUImageGaussianSelectiveBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageGaussianSelectiveBlurFilter.h; sourceTree = "<group>"; };
+		22C6CDC315B45864004481D1 /* GPUImageGaussianSelectiveBlurFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageGaussianSelectiveBlurFilter.m; sourceTree = "<group>"; };
+		22C6CDC415B45864004481D1 /* GPUImageGrayscaleFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageGrayscaleFilter.h; sourceTree = "<group>"; };
+		22C6CDC515B45864004481D1 /* GPUImageGrayscaleFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageGrayscaleFilter.m; sourceTree = "<group>"; };
+		22C6CDC615B45864004481D1 /* GPUImageHardLightBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageHardLightBlendFilter.h; sourceTree = "<group>"; };
+		22C6CDC715B45864004481D1 /* GPUImageHardLightBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageHardLightBlendFilter.m; sourceTree = "<group>"; };
+		22C6CDC815B45864004481D1 /* GPUImageHarrisCornerDetectionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageHarrisCornerDetectionFilter.h; sourceTree = "<group>"; };
+		22C6CDC915B45864004481D1 /* GPUImageHarrisCornerDetectionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageHarrisCornerDetectionFilter.m; sourceTree = "<group>"; };
+		22C6CDCA15B45864004481D1 /* GPUImageHazeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageHazeFilter.h; sourceTree = "<group>"; };
+		22C6CDCB15B45864004481D1 /* GPUImageHazeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageHazeFilter.m; sourceTree = "<group>"; };
+		22C6CDCC15B45864004481D1 /* GPUImageHistogramFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageHistogramFilter.h; sourceTree = "<group>"; };
+		22C6CDCD15B45864004481D1 /* GPUImageHistogramFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageHistogramFilter.m; sourceTree = "<group>"; };
+		22C6CDCE15B45864004481D1 /* GPUImageHistogramGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageHistogramGenerator.h; sourceTree = "<group>"; };
+		22C6CDCF15B45864004481D1 /* GPUImageHistogramGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageHistogramGenerator.m; sourceTree = "<group>"; };
+		22C6CDD015B45864004481D1 /* GPUImageJFAVoroniFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageJFAVoroniFilter.h; sourceTree = "<group>"; };
+		22C6CDD115B45864004481D1 /* GPUImageJFAVoroniFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageJFAVoroniFilter.m; sourceTree = "<group>"; };
+		22C6CDD215B45864004481D1 /* GPUImageKuwaharaFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageKuwaharaFilter.h; sourceTree = "<group>"; };
+		22C6CDD315B45864004481D1 /* GPUImageKuwaharaFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageKuwaharaFilter.m; sourceTree = "<group>"; };
+		22C6CDD415B45864004481D1 /* GPUImageLightenBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageLightenBlendFilter.h; sourceTree = "<group>"; };
+		22C6CDD515B45864004481D1 /* GPUImageLightenBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageLightenBlendFilter.m; sourceTree = "<group>"; };
+		22C6CDD615B45864004481D1 /* GPUImageLuminanceThresholdFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageLuminanceThresholdFilter.h; sourceTree = "<group>"; };
+		22C6CDD715B45864004481D1 /* GPUImageLuminanceThresholdFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageLuminanceThresholdFilter.m; sourceTree = "<group>"; };
+		22C6CDD815B45864004481D1 /* GPUImageMaskFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageMaskFilter.h; sourceTree = "<group>"; };
+		22C6CDD915B45864004481D1 /* GPUImageMaskFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageMaskFilter.m; sourceTree = "<group>"; };
+		22C6CDDA15B45864004481D1 /* GPUImageMedianFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageMedianFilter.h; sourceTree = "<group>"; };
+		22C6CDDB15B45864004481D1 /* GPUImageMedianFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageMedianFilter.m; sourceTree = "<group>"; };
+		22C6CDDC15B45864004481D1 /* GPUImageMonochromeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageMonochromeFilter.h; sourceTree = "<group>"; };
+		22C6CDDD15B45864004481D1 /* GPUImageMonochromeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageMonochromeFilter.m; sourceTree = "<group>"; };
+		22C6CDDE15B45864004481D1 /* GPUImageMosaicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageMosaicFilter.h; sourceTree = "<group>"; };
+		22C6CDDF15B45864004481D1 /* GPUImageMosaicFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageMosaicFilter.m; sourceTree = "<group>"; };
+		22C6CDE015B45864004481D1 /* GPUImageMovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageMovie.h; sourceTree = "<group>"; };
+		22C6CDE115B45864004481D1 /* GPUImageMovie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageMovie.m; sourceTree = "<group>"; };
+		22C6CDE215B45864004481D1 /* GPUImageMovieWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageMovieWriter.h; sourceTree = "<group>"; };
+		22C6CDE315B45864004481D1 /* GPUImageMovieWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageMovieWriter.m; sourceTree = "<group>"; };
+		22C6CDE415B45864004481D1 /* GPUImageMultiplyBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageMultiplyBlendFilter.h; sourceTree = "<group>"; };
+		22C6CDE515B45864004481D1 /* GPUImageMultiplyBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageMultiplyBlendFilter.m; sourceTree = "<group>"; };
+		22C6CDE615B45864004481D1 /* GPUImageNobleCornerDetectionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageNobleCornerDetectionFilter.h; sourceTree = "<group>"; };
+		22C6CDE715B45864004481D1 /* GPUImageNobleCornerDetectionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageNobleCornerDetectionFilter.m; sourceTree = "<group>"; };
+		22C6CDE815B45864004481D1 /* GPUImageNonMaximumSuppressionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageNonMaximumSuppressionFilter.h; sourceTree = "<group>"; };
+		22C6CDE915B45864004481D1 /* GPUImageNonMaximumSuppressionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageNonMaximumSuppressionFilter.m; sourceTree = "<group>"; };
+		22C6CDEA15B45864004481D1 /* GPUImageOpacityFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageOpacityFilter.h; sourceTree = "<group>"; };
+		22C6CDEB15B45864004481D1 /* GPUImageOpacityFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageOpacityFilter.m; sourceTree = "<group>"; };
+		22C6CDEC15B45864004481D1 /* GPUImageOpenGLESContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageOpenGLESContext.h; sourceTree = "<group>"; };
+		22C6CDED15B45864004481D1 /* GPUImageOpenGLESContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageOpenGLESContext.m; sourceTree = "<group>"; };
+		22C6CDEE15B45864004481D1 /* GPUImageOpeningFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageOpeningFilter.h; sourceTree = "<group>"; };
+		22C6CDEF15B45864004481D1 /* GPUImageOpeningFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageOpeningFilter.m; sourceTree = "<group>"; };
+		22C6CDF015B45864004481D1 /* GPUImageOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageOutput.h; sourceTree = "<group>"; };
+		22C6CDF115B45864004481D1 /* GPUImageOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageOutput.m; sourceTree = "<group>"; };
+		22C6CDF215B45864004481D1 /* GPUImageOverlayBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageOverlayBlendFilter.h; sourceTree = "<group>"; };
+		22C6CDF315B45864004481D1 /* GPUImageOverlayBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageOverlayBlendFilter.m; sourceTree = "<group>"; };
+		22C6CDF415B45864004481D1 /* GPUImagePerlinNoiseFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImagePerlinNoiseFilter.h; sourceTree = "<group>"; };
+		22C6CDF515B45864004481D1 /* GPUImagePerlinNoiseFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImagePerlinNoiseFilter.m; sourceTree = "<group>"; };
+		22C6CDF615B45864004481D1 /* GPUImagePicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImagePicture.h; sourceTree = "<group>"; };
+		22C6CDF715B45864004481D1 /* GPUImagePicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImagePicture.m; sourceTree = "<group>"; };
+		22C6CDF815B45864004481D1 /* GPUImagePinchDistortionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImagePinchDistortionFilter.h; sourceTree = "<group>"; };
+		22C6CDF915B45864004481D1 /* GPUImagePinchDistortionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImagePinchDistortionFilter.m; sourceTree = "<group>"; };
+		22C6CDFA15B45864004481D1 /* GPUImagePixellateFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImagePixellateFilter.h; sourceTree = "<group>"; };
+		22C6CDFB15B45864004481D1 /* GPUImagePixellateFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImagePixellateFilter.m; sourceTree = "<group>"; };
+		22C6CDFC15B45864004481D1 /* GPUImagePolarPixellateFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImagePolarPixellateFilter.h; sourceTree = "<group>"; };
+		22C6CDFD15B45864004481D1 /* GPUImagePolarPixellateFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImagePolarPixellateFilter.m; sourceTree = "<group>"; };
+		22C6CDFE15B45864004481D1 /* GPUImagePosterizeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImagePosterizeFilter.h; sourceTree = "<group>"; };
+		22C6CDFF15B45864004481D1 /* GPUImagePosterizeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImagePosterizeFilter.m; sourceTree = "<group>"; };
+		22C6CE0015B45864004481D1 /* GPUImagePrewittEdgeDetectionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImagePrewittEdgeDetectionFilter.h; sourceTree = "<group>"; };
+		22C6CE0115B45864004481D1 /* GPUImagePrewittEdgeDetectionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImagePrewittEdgeDetectionFilter.m; sourceTree = "<group>"; };
+		22C6CE0215B45864004481D1 /* GPUImageRawDataInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageRawDataInput.h; sourceTree = "<group>"; };
+		22C6CE0315B45864004481D1 /* GPUImageRawDataInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageRawDataInput.m; sourceTree = "<group>"; };
+		22C6CE0415B45864004481D1 /* GPUImageRawDataOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageRawDataOutput.h; sourceTree = "<group>"; };
+		22C6CE0515B45864004481D1 /* GPUImageRawDataOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageRawDataOutput.m; sourceTree = "<group>"; };
+		22C6CE0615B45864004481D1 /* GPUImageRGBClosingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageRGBClosingFilter.h; sourceTree = "<group>"; };
+		22C6CE0715B45864004481D1 /* GPUImageRGBClosingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageRGBClosingFilter.m; sourceTree = "<group>"; };
+		22C6CE0815B45864004481D1 /* GPUImageRGBDilationFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageRGBDilationFilter.h; sourceTree = "<group>"; };
+		22C6CE0915B45864004481D1 /* GPUImageRGBDilationFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageRGBDilationFilter.m; sourceTree = "<group>"; };
+		22C6CE0A15B45864004481D1 /* GPUImageRGBErosionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageRGBErosionFilter.h; sourceTree = "<group>"; };
+		22C6CE0B15B45864004481D1 /* GPUImageRGBErosionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageRGBErosionFilter.m; sourceTree = "<group>"; };
+		22C6CE0C15B45864004481D1 /* GPUImageRGBFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageRGBFilter.h; sourceTree = "<group>"; };
+		22C6CE0D15B45864004481D1 /* GPUImageRGBFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageRGBFilter.m; sourceTree = "<group>"; };
+		22C6CE0E15B45864004481D1 /* GPUImageRGBOpeningFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageRGBOpeningFilter.h; sourceTree = "<group>"; };
+		22C6CE0F15B45864004481D1 /* GPUImageRGBOpeningFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageRGBOpeningFilter.m; sourceTree = "<group>"; };
+		22C6CE1015B45864004481D1 /* GPUImageSaturationFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSaturationFilter.h; sourceTree = "<group>"; };
+		22C6CE1115B45864004481D1 /* GPUImageSaturationFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSaturationFilter.m; sourceTree = "<group>"; };
+		22C6CE1215B45864004481D1 /* GPUImageScreenBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageScreenBlendFilter.h; sourceTree = "<group>"; };
+		22C6CE1315B45864004481D1 /* GPUImageScreenBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageScreenBlendFilter.m; sourceTree = "<group>"; };
+		22C6CE1415B45864004481D1 /* GPUImageSepiaFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSepiaFilter.h; sourceTree = "<group>"; };
+		22C6CE1515B45864004481D1 /* GPUImageSepiaFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSepiaFilter.m; sourceTree = "<group>"; };
+		22C6CE1615B45864004481D1 /* GPUImageSharpenFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSharpenFilter.h; sourceTree = "<group>"; };
+		22C6CE1715B45864004481D1 /* GPUImageSharpenFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSharpenFilter.m; sourceTree = "<group>"; };
+		22C6CE1815B45864004481D1 /* GPUImageShiTomasiFeatureDetectionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageShiTomasiFeatureDetectionFilter.h; sourceTree = "<group>"; };
+		22C6CE1915B45864004481D1 /* GPUImageShiTomasiFeatureDetectionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageShiTomasiFeatureDetectionFilter.m; sourceTree = "<group>"; };
+		22C6CE1A15B45864004481D1 /* GPUImageSingleComponentFastBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSingleComponentFastBlurFilter.h; sourceTree = "<group>"; };
+		22C6CE1B15B45864004481D1 /* GPUImageSingleComponentFastBlurFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSingleComponentFastBlurFilter.m; sourceTree = "<group>"; };
+		22C6CE1C15B45864004481D1 /* GPUImageSingleComponentGaussianBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSingleComponentGaussianBlurFilter.h; sourceTree = "<group>"; };
+		22C6CE1D15B45864004481D1 /* GPUImageSingleComponentGaussianBlurFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSingleComponentGaussianBlurFilter.m; sourceTree = "<group>"; };
+		22C6CE1E15B45864004481D1 /* GPUImageSketchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSketchFilter.h; sourceTree = "<group>"; };
+		22C6CE1F15B45864004481D1 /* GPUImageSketchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSketchFilter.m; sourceTree = "<group>"; };
+		22C6CE2015B45864004481D1 /* GPUImageSmoothToonFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSmoothToonFilter.h; sourceTree = "<group>"; };
+		22C6CE2115B45864004481D1 /* GPUImageSmoothToonFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSmoothToonFilter.m; sourceTree = "<group>"; };
+		22C6CE2215B45864004481D1 /* GPUImageSobelEdgeDetectionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSobelEdgeDetectionFilter.h; sourceTree = "<group>"; };
+		22C6CE2315B45864004481D1 /* GPUImageSobelEdgeDetectionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSobelEdgeDetectionFilter.m; sourceTree = "<group>"; };
+		22C6CE2415B45864004481D1 /* GPUImageSoftLightBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSoftLightBlendFilter.h; sourceTree = "<group>"; };
+		22C6CE2515B45864004481D1 /* GPUImageSoftLightBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSoftLightBlendFilter.m; sourceTree = "<group>"; };
+		22C6CE2615B45864004481D1 /* GPUImageSphereRefractionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSphereRefractionFilter.h; sourceTree = "<group>"; };
+		22C6CE2715B45864004481D1 /* GPUImageSphereRefractionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSphereRefractionFilter.m; sourceTree = "<group>"; };
+		22C6CE2815B45864004481D1 /* GPUImageStillCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageStillCamera.h; sourceTree = "<group>"; };
+		22C6CE2915B45864004481D1 /* GPUImageStillCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageStillCamera.m; sourceTree = "<group>"; };
+		22C6CE2A15B45864004481D1 /* GPUImageStretchDistortionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageStretchDistortionFilter.h; sourceTree = "<group>"; };
+		22C6CE2B15B45864004481D1 /* GPUImageStretchDistortionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageStretchDistortionFilter.m; sourceTree = "<group>"; };
+		22C6CE2C15B45864004481D1 /* GPUImageSubtractBlendFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSubtractBlendFilter.h; sourceTree = "<group>"; };
+		22C6CE2D15B45864004481D1 /* GPUImageSubtractBlendFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSubtractBlendFilter.m; sourceTree = "<group>"; };
+		22C6CE2E15B45864004481D1 /* GPUImageSwirlFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageSwirlFilter.h; sourceTree = "<group>"; };
+		22C6CE2F15B45864004481D1 /* GPUImageSwirlFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageSwirlFilter.m; sourceTree = "<group>"; };
+		22C6CE3015B45864004481D1 /* GPUImageTextureInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageTextureInput.h; sourceTree = "<group>"; };
+		22C6CE3115B45864004481D1 /* GPUImageTextureInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageTextureInput.m; sourceTree = "<group>"; };
+		22C6CE3215B45864004481D1 /* GPUImageTextureOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageTextureOutput.h; sourceTree = "<group>"; };
+		22C6CE3315B45864004481D1 /* GPUImageTextureOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageTextureOutput.m; sourceTree = "<group>"; };
+		22C6CE3415B45864004481D1 /* GPUImageThresholdEdgeDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageThresholdEdgeDetection.h; sourceTree = "<group>"; };
+		22C6CE3515B45864004481D1 /* GPUImageThresholdEdgeDetection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageThresholdEdgeDetection.m; sourceTree = "<group>"; };
+		22C6CE3615B45864004481D1 /* GPUImageTiltShiftFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageTiltShiftFilter.h; sourceTree = "<group>"; };
+		22C6CE3715B45864004481D1 /* GPUImageTiltShiftFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageTiltShiftFilter.m; sourceTree = "<group>"; };
+		22C6CE3815B45864004481D1 /* GPUImageToneCurveFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageToneCurveFilter.h; sourceTree = "<group>"; };
+		22C6CE3915B45864004481D1 /* GPUImageToneCurveFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageToneCurveFilter.m; sourceTree = "<group>"; };
+		22C6CE3A15B45864004481D1 /* GPUImageToonFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageToonFilter.h; sourceTree = "<group>"; };
+		22C6CE3B15B45864004481D1 /* GPUImageToonFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageToonFilter.m; sourceTree = "<group>"; };
+		22C6CE3C15B45864004481D1 /* GPUImageTransformFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageTransformFilter.h; sourceTree = "<group>"; };
+		22C6CE3D15B45864004481D1 /* GPUImageTransformFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageTransformFilter.m; sourceTree = "<group>"; };
+		22C6CE3E15B45864004481D1 /* GPUImageTwoInputFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageTwoInputFilter.h; sourceTree = "<group>"; };
+		22C6CE3F15B45864004481D1 /* GPUImageTwoInputFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageTwoInputFilter.m; sourceTree = "<group>"; };
+		22C6CE4015B45864004481D1 /* GPUImageTwoPassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageTwoPassFilter.h; sourceTree = "<group>"; };
+		22C6CE4115B45864004481D1 /* GPUImageTwoPassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageTwoPassFilter.m; sourceTree = "<group>"; };
+		22C6CE4215B45864004481D1 /* GPUImageTwoPassTextureSamplingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageTwoPassTextureSamplingFilter.h; sourceTree = "<group>"; };
+		22C6CE4315B45864004481D1 /* GPUImageTwoPassTextureSamplingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageTwoPassTextureSamplingFilter.m; sourceTree = "<group>"; };
+		22C6CE4415B45864004481D1 /* GPUImageUIElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageUIElement.h; sourceTree = "<group>"; };
+		22C6CE4515B45864004481D1 /* GPUImageUIElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageUIElement.m; sourceTree = "<group>"; };
+		22C6CE4615B45864004481D1 /* GPUImageUnsharpMaskFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageUnsharpMaskFilter.h; sourceTree = "<group>"; };
+		22C6CE4715B45864004481D1 /* GPUImageUnsharpMaskFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageUnsharpMaskFilter.m; sourceTree = "<group>"; };
+		22C6CE4815B45864004481D1 /* GPUImageVideoCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageVideoCamera.h; sourceTree = "<group>"; };
+		22C6CE4915B45864004481D1 /* GPUImageVideoCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageVideoCamera.m; sourceTree = "<group>"; };
+		22C6CE4A15B45864004481D1 /* GPUImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageView.h; sourceTree = "<group>"; };
+		22C6CE4B15B45864004481D1 /* GPUImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageView.m; sourceTree = "<group>"; };
+		22C6CE4C15B45864004481D1 /* GPUImageVignetteFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageVignetteFilter.h; sourceTree = "<group>"; };
+		22C6CE4D15B45864004481D1 /* GPUImageVignetteFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageVignetteFilter.m; sourceTree = "<group>"; };
+		22C6CE4E15B45864004481D1 /* GPUImageVoroniConsumerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageVoroniConsumerFilter.h; sourceTree = "<group>"; };
+		22C6CE4F15B45864004481D1 /* GPUImageVoroniConsumerFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageVoroniConsumerFilter.m; sourceTree = "<group>"; };
+		22C6CE5015B45864004481D1 /* GPUImageWeakPixelInclusionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageWeakPixelInclusionFilter.h; sourceTree = "<group>"; };
+		22C6CE5115B45864004481D1 /* GPUImageWeakPixelInclusionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageWeakPixelInclusionFilter.m; sourceTree = "<group>"; };
+		22C6CE5215B45864004481D1 /* GPUImageXYDerivativeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageXYDerivativeFilter.h; sourceTree = "<group>"; };
+		22C6CE5315B45864004481D1 /* GPUImageXYDerivativeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageXYDerivativeFilter.m; sourceTree = "<group>"; };
+		22C6CE5415B45864004481D1 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
+		22C6CE5515B45864004481D1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		22C6D07C15B46D8D004481D1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		22C6D07F15B46DC9004481D1 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		22C6D08115B46DCE004481D1 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		22C6D09615B59A0F004481D1 /* arrow_black_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_black_left.png; sourceTree = "<group>"; };
+		22C6D09715B59A0F004481D1 /* arrow_black_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_black_left@2x.png"; sourceTree = "<group>"; };
+		22C6D09815B59A0F004481D1 /* arrow_black_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_black_right.png; sourceTree = "<group>"; };
+		22C6D09915B59A0F004481D1 /* arrow_black_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_black_right@2x.png"; sourceTree = "<group>"; };
 		22C735961580989D00716984 /* BRCacheCleaner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCacheCleaner.h; sourceTree = "<group>"; };
 		22C735971580989D00716984 /* BRCacheCleaner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRCacheCleaner.m; sourceTree = "<group>"; };
 		22C7359A15809B3700716984 /* BRDownloadedCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRDownloadedCache.h; sourceTree = "<group>"; };
@@ -2041,6 +2538,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C6D08615B46E12004481D1 /* AVFoundation.framework in Frameworks */,
+				22C6D08215B46DCE004481D1 /* CoreVideo.framework in Frameworks */,
+				22C6D08015B46DC9004481D1 /* CoreMedia.framework in Frameworks */,
+				22C6D07E15B46D99004481D1 /* OpenGLES.framework in Frameworks */,
 				22E3FE56159A03E4007EFDBD /* AudioToolbox.framework in Frameworks */,
 				22E3FE3A1599F2AD007EFDBD /* iAd.framework in Frameworks */,
 				2232165E1599EF0000E2C7B3 /* MessageUI.framework in Frameworks */,
@@ -2071,6 +2572,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C6D08515B46E0C004481D1 /* AVFoundation.framework in Frameworks */,
+				22C6D08415B46DDA004481D1 /* CoreVideo.framework in Frameworks */,
+				22C6D08315B46DD5004481D1 /* CoreMedia.framework in Frameworks */,
+				22C6D07D15B46D8D004481D1 /* OpenGLES.framework in Frameworks */,
 				2271F4111534F8D500A50484 /* MessageUI.framework in Frameworks */,
 				22389A6D156B907A00EDA6B5 /* Twitter.framework in Frameworks */,
 				2207BD6914B731E700ED0BE6 /* Security.framework in Frameworks */,
@@ -2738,6 +3243,10 @@
 			children = (
 				22502CE01564754A00EBCF5E /* album.png */,
 				22502CDD1564750D00EBCF5E /* album@2x.png */,
+				22C6D09615B59A0F004481D1 /* arrow_black_left.png */,
+				22C6D09715B59A0F004481D1 /* arrow_black_left@2x.png */,
+				22C6D09815B59A0F004481D1 /* arrow_black_right.png */,
+				22C6D09915B59A0F004481D1 /* arrow_black_right@2x.png */,
 				229B2C8815273CAE00700504 /* arrow_left.png */,
 				229B2C8915273CAE00700504 /* arrow_left@2x.png */,
 				229E1BDC153D639300DDBE0B /* arrow_up.png */,
@@ -2823,6 +3332,7 @@
 		229B2CA415273CAE00700504 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				22C6CCA515B45864004481D1 /* GPUImage */,
 				22A51A79156D18DC00A7BB76 /* JJSocialShareManager */,
 				22E98FBA1558D1C000192FBD /* JQuery */,
 				22872D331552DC6A0083E700 /* JJUserSetting */,
@@ -3879,6 +4389,268 @@
 			path = ADWrap;
 			sourceTree = "<group>";
 		};
+		22C6CCA515B45864004481D1 /* GPUImage */ = {
+			isa = PBXGroup;
+			children = (
+				22C6CCA615B45864004481D1 /* .gitignore */,
+				22C6CD6715B45864004481D1 /* framework */,
+				22C6CE5415B45864004481D1 /* License.txt */,
+				22C6CE5515B45864004481D1 /* README.md */,
+			);
+			path = GPUImage;
+			sourceTree = "<group>";
+		};
+		22C6CD6715B45864004481D1 /* framework */ = {
+			isa = PBXGroup;
+			children = (
+				22C6CD6815B45864004481D1 /* GPUImage.xcodeproj */,
+				22C6CD7115B45864004481D1 /* Source */,
+			);
+			path = framework;
+			sourceTree = "<group>";
+		};
+		22C6CD6915B45864004481D1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22C6D03F15B45865004481D1 /* libGPUImage.a */,
+				22C6D04115B45865004481D1 /* GPUImageTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		22C6CD7115B45864004481D1 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				22C6CD7215B45864004481D1 /* GLProgram.h */,
+				22C6CD7315B45864004481D1 /* GLProgram.m */,
+				22C6CD7415B45864004481D1 /* GPUImage-Prefix.pch */,
+				22C6CD7515B45864004481D1 /* GPUImage.h */,
+				22C6CD7615B45864004481D1 /* GPUImage3x3ConvolutionFilter.h */,
+				22C6CD7715B45864004481D1 /* GPUImage3x3ConvolutionFilter.m */,
+				22C6CD7815B45864004481D1 /* GPUImage3x3TextureSamplingFilter.h */,
+				22C6CD7915B45864004481D1 /* GPUImage3x3TextureSamplingFilter.m */,
+				22C6CD7A15B45864004481D1 /* GPUImageAdaptiveThresholdFilter.h */,
+				22C6CD7B15B45864004481D1 /* GPUImageAdaptiveThresholdFilter.m */,
+				22C6CD7C15B45864004481D1 /* GPUImageAlphaBlendFilter.h */,
+				22C6CD7D15B45864004481D1 /* GPUImageAlphaBlendFilter.m */,
+				22C6CD7E15B45864004481D1 /* GPUImageBilateralFilter.h */,
+				22C6CD7F15B45864004481D1 /* GPUImageBilateralFilter.m */,
+				22C6CD8015B45864004481D1 /* GPUImageBoxBlurFilter.h */,
+				22C6CD8115B45864004481D1 /* GPUImageBoxBlurFilter.m */,
+				22C6CD8215B45864004481D1 /* GPUImageBrightnessFilter.h */,
+				22C6CD8315B45864004481D1 /* GPUImageBrightnessFilter.m */,
+				22C6CD8415B45864004481D1 /* GPUImageBuffer.h */,
+				22C6CD8515B45864004481D1 /* GPUImageBuffer.m */,
+				22C6CD8615B45864004481D1 /* GPUImageBulgeDistortionFilter.h */,
+				22C6CD8715B45864004481D1 /* GPUImageBulgeDistortionFilter.m */,
+				22C6CD8815B45864004481D1 /* GPUImageCannyEdgeDetectionFilter.h */,
+				22C6CD8915B45864004481D1 /* GPUImageCannyEdgeDetectionFilter.m */,
+				22C6CD8A15B45864004481D1 /* GPUImageCGAColorspaceFilter.h */,
+				22C6CD8B15B45864004481D1 /* GPUImageCGAColorspaceFilter.m */,
+				22C6CD8C15B45864004481D1 /* GPUImageChromaKeyBlendFilter.h */,
+				22C6CD8D15B45864004481D1 /* GPUImageChromaKeyBlendFilter.m */,
+				22C6CD8E15B45864004481D1 /* GPUImageClosingFilter.h */,
+				22C6CD8F15B45864004481D1 /* GPUImageClosingFilter.m */,
+				22C6CD9015B45864004481D1 /* GPUImageColorBurnBlendFilter.h */,
+				22C6CD9115B45864004481D1 /* GPUImageColorBurnBlendFilter.m */,
+				22C6CD9215B45864004481D1 /* GPUImageColorDodgeBlendFilter.h */,
+				22C6CD9315B45864004481D1 /* GPUImageColorDodgeBlendFilter.m */,
+				22C6CD9415B45864004481D1 /* GPUImageColorInvertFilter.h */,
+				22C6CD9515B45864004481D1 /* GPUImageColorInvertFilter.m */,
+				22C6CD9615B45864004481D1 /* GPUImageColorMatrixFilter.h */,
+				22C6CD9715B45864004481D1 /* GPUImageColorMatrixFilter.m */,
+				22C6CD9815B45864004481D1 /* GPUImageColorPackingFilter.h */,
+				22C6CD9915B45864004481D1 /* GPUImageColorPackingFilter.m */,
+				22C6CD9A15B45864004481D1 /* GPUImageContrastFilter.h */,
+				22C6CD9B15B45864004481D1 /* GPUImageContrastFilter.m */,
+				22C6CD9C15B45864004481D1 /* GPUImageCropFilter.h */,
+				22C6CD9D15B45864004481D1 /* GPUImageCropFilter.m */,
+				22C6CD9E15B45864004481D1 /* GPUImageCrosshairGenerator.h */,
+				22C6CD9F15B45864004481D1 /* GPUImageCrosshairGenerator.m */,
+				22C6CDA015B45864004481D1 /* GPUImageCrosshatchFilter.h */,
+				22C6CDA115B45864004481D1 /* GPUImageCrosshatchFilter.m */,
+				22C6CDA215B45864004481D1 /* GPUImageDarkenBlendFilter.h */,
+				22C6CDA315B45864004481D1 /* GPUImageDarkenBlendFilter.m */,
+				22C6CDA415B45864004481D1 /* GPUImageDifferenceBlendFilter.h */,
+				22C6CDA515B45864004481D1 /* GPUImageDifferenceBlendFilter.m */,
+				22C6CDA615B45864004481D1 /* GPUImageDilationFilter.h */,
+				22C6CDA715B45864004481D1 /* GPUImageDilationFilter.m */,
+				22C6CDA815B45864004481D1 /* GPUImageDirectionalNonMaximumSuppressionFilter.h */,
+				22C6CDA915B45864004481D1 /* GPUImageDirectionalNonMaximumSuppressionFilter.m */,
+				22C6CDAA15B45864004481D1 /* GPUimageDirectionalSobelEdgeDetectionFilter.h */,
+				22C6CDAB15B45864004481D1 /* GPUimageDirectionalSobelEdgeDetectionFilter.m */,
+				22C6CDAC15B45864004481D1 /* GPUImageDissolveBlendFilter.h */,
+				22C6CDAD15B45864004481D1 /* GPUImageDissolveBlendFilter.m */,
+				22C6CDAE15B45864004481D1 /* GPUImageEmbossFilter.h */,
+				22C6CDAF15B45864004481D1 /* GPUImageEmbossFilter.m */,
+				22C6CDB015B45864004481D1 /* GPUImageErosionFilter.h */,
+				22C6CDB115B45864004481D1 /* GPUImageErosionFilter.m */,
+				22C6CDB215B45864004481D1 /* GPUImageExclusionBlendFilter.h */,
+				22C6CDB315B45864004481D1 /* GPUImageExclusionBlendFilter.m */,
+				22C6CDB415B45864004481D1 /* GPUImageExposureFilter.h */,
+				22C6CDB515B45864004481D1 /* GPUImageExposureFilter.m */,
+				22C6CDB615B45864004481D1 /* GPUImageFastBlurFilter.h */,
+				22C6CDB715B45864004481D1 /* GPUImageFastBlurFilter.m */,
+				22C6CDB815B45864004481D1 /* GPUImageFilter.h */,
+				22C6CDB915B45864004481D1 /* GPUImageFilter.m */,
+				22C6CDBA15B45864004481D1 /* GPUImageFilterGroup.h */,
+				22C6CDBB15B45864004481D1 /* GPUImageFilterGroup.m */,
+				22C6CDBC15B45864004481D1 /* GPUImageFilterPipeline.h */,
+				22C6CDBD15B45864004481D1 /* GPUImageFilterPipeline.m */,
+				22C6CDBE15B45864004481D1 /* GPUImageGammaFilter.h */,
+				22C6CDBF15B45864004481D1 /* GPUImageGammaFilter.m */,
+				22C6CDC015B45864004481D1 /* GPUImageGaussianBlurFilter.h */,
+				22C6CDC115B45864004481D1 /* GPUImageGaussianBlurFilter.m */,
+				22C6CDC215B45864004481D1 /* GPUImageGaussianSelectiveBlurFilter.h */,
+				22C6CDC315B45864004481D1 /* GPUImageGaussianSelectiveBlurFilter.m */,
+				22C6CDC415B45864004481D1 /* GPUImageGrayscaleFilter.h */,
+				22C6CDC515B45864004481D1 /* GPUImageGrayscaleFilter.m */,
+				22C6CDC615B45864004481D1 /* GPUImageHardLightBlendFilter.h */,
+				22C6CDC715B45864004481D1 /* GPUImageHardLightBlendFilter.m */,
+				22C6CDC815B45864004481D1 /* GPUImageHarrisCornerDetectionFilter.h */,
+				22C6CDC915B45864004481D1 /* GPUImageHarrisCornerDetectionFilter.m */,
+				22C6CDCA15B45864004481D1 /* GPUImageHazeFilter.h */,
+				22C6CDCB15B45864004481D1 /* GPUImageHazeFilter.m */,
+				22C6CDCC15B45864004481D1 /* GPUImageHistogramFilter.h */,
+				22C6CDCD15B45864004481D1 /* GPUImageHistogramFilter.m */,
+				22C6CDCE15B45864004481D1 /* GPUImageHistogramGenerator.h */,
+				22C6CDCF15B45864004481D1 /* GPUImageHistogramGenerator.m */,
+				22C6CDD015B45864004481D1 /* GPUImageJFAVoroniFilter.h */,
+				22C6CDD115B45864004481D1 /* GPUImageJFAVoroniFilter.m */,
+				22C6CDD215B45864004481D1 /* GPUImageKuwaharaFilter.h */,
+				22C6CDD315B45864004481D1 /* GPUImageKuwaharaFilter.m */,
+				22C6CDD415B45864004481D1 /* GPUImageLightenBlendFilter.h */,
+				22C6CDD515B45864004481D1 /* GPUImageLightenBlendFilter.m */,
+				22C6CDD615B45864004481D1 /* GPUImageLuminanceThresholdFilter.h */,
+				22C6CDD715B45864004481D1 /* GPUImageLuminanceThresholdFilter.m */,
+				22C6CDD815B45864004481D1 /* GPUImageMaskFilter.h */,
+				22C6CDD915B45864004481D1 /* GPUImageMaskFilter.m */,
+				22C6CDDA15B45864004481D1 /* GPUImageMedianFilter.h */,
+				22C6CDDB15B45864004481D1 /* GPUImageMedianFilter.m */,
+				22C6CDDC15B45864004481D1 /* GPUImageMonochromeFilter.h */,
+				22C6CDDD15B45864004481D1 /* GPUImageMonochromeFilter.m */,
+				22C6CDDE15B45864004481D1 /* GPUImageMosaicFilter.h */,
+				22C6CDDF15B45864004481D1 /* GPUImageMosaicFilter.m */,
+				22C6CDE015B45864004481D1 /* GPUImageMovie.h */,
+				22C6CDE115B45864004481D1 /* GPUImageMovie.m */,
+				22C6CDE215B45864004481D1 /* GPUImageMovieWriter.h */,
+				22C6CDE315B45864004481D1 /* GPUImageMovieWriter.m */,
+				22C6CDE415B45864004481D1 /* GPUImageMultiplyBlendFilter.h */,
+				22C6CDE515B45864004481D1 /* GPUImageMultiplyBlendFilter.m */,
+				22C6CDE615B45864004481D1 /* GPUImageNobleCornerDetectionFilter.h */,
+				22C6CDE715B45864004481D1 /* GPUImageNobleCornerDetectionFilter.m */,
+				22C6CDE815B45864004481D1 /* GPUImageNonMaximumSuppressionFilter.h */,
+				22C6CDE915B45864004481D1 /* GPUImageNonMaximumSuppressionFilter.m */,
+				22C6CDEA15B45864004481D1 /* GPUImageOpacityFilter.h */,
+				22C6CDEB15B45864004481D1 /* GPUImageOpacityFilter.m */,
+				22C6CDEC15B45864004481D1 /* GPUImageOpenGLESContext.h */,
+				22C6CDED15B45864004481D1 /* GPUImageOpenGLESContext.m */,
+				22C6CDEE15B45864004481D1 /* GPUImageOpeningFilter.h */,
+				22C6CDEF15B45864004481D1 /* GPUImageOpeningFilter.m */,
+				22C6CDF015B45864004481D1 /* GPUImageOutput.h */,
+				22C6CDF115B45864004481D1 /* GPUImageOutput.m */,
+				22C6CDF215B45864004481D1 /* GPUImageOverlayBlendFilter.h */,
+				22C6CDF315B45864004481D1 /* GPUImageOverlayBlendFilter.m */,
+				22C6CDF415B45864004481D1 /* GPUImagePerlinNoiseFilter.h */,
+				22C6CDF515B45864004481D1 /* GPUImagePerlinNoiseFilter.m */,
+				22C6CDF615B45864004481D1 /* GPUImagePicture.h */,
+				22C6CDF715B45864004481D1 /* GPUImagePicture.m */,
+				22C6CDF815B45864004481D1 /* GPUImagePinchDistortionFilter.h */,
+				22C6CDF915B45864004481D1 /* GPUImagePinchDistortionFilter.m */,
+				22C6CDFA15B45864004481D1 /* GPUImagePixellateFilter.h */,
+				22C6CDFB15B45864004481D1 /* GPUImagePixellateFilter.m */,
+				22C6CDFC15B45864004481D1 /* GPUImagePolarPixellateFilter.h */,
+				22C6CDFD15B45864004481D1 /* GPUImagePolarPixellateFilter.m */,
+				22C6CDFE15B45864004481D1 /* GPUImagePosterizeFilter.h */,
+				22C6CDFF15B45864004481D1 /* GPUImagePosterizeFilter.m */,
+				22C6CE0015B45864004481D1 /* GPUImagePrewittEdgeDetectionFilter.h */,
+				22C6CE0115B45864004481D1 /* GPUImagePrewittEdgeDetectionFilter.m */,
+				22C6CE0215B45864004481D1 /* GPUImageRawDataInput.h */,
+				22C6CE0315B45864004481D1 /* GPUImageRawDataInput.m */,
+				22C6CE0415B45864004481D1 /* GPUImageRawDataOutput.h */,
+				22C6CE0515B45864004481D1 /* GPUImageRawDataOutput.m */,
+				22C6CE0615B45864004481D1 /* GPUImageRGBClosingFilter.h */,
+				22C6CE0715B45864004481D1 /* GPUImageRGBClosingFilter.m */,
+				22C6CE0815B45864004481D1 /* GPUImageRGBDilationFilter.h */,
+				22C6CE0915B45864004481D1 /* GPUImageRGBDilationFilter.m */,
+				22C6CE0A15B45864004481D1 /* GPUImageRGBErosionFilter.h */,
+				22C6CE0B15B45864004481D1 /* GPUImageRGBErosionFilter.m */,
+				22C6CE0C15B45864004481D1 /* GPUImageRGBFilter.h */,
+				22C6CE0D15B45864004481D1 /* GPUImageRGBFilter.m */,
+				22C6CE0E15B45864004481D1 /* GPUImageRGBOpeningFilter.h */,
+				22C6CE0F15B45864004481D1 /* GPUImageRGBOpeningFilter.m */,
+				22C6CE1015B45864004481D1 /* GPUImageSaturationFilter.h */,
+				22C6CE1115B45864004481D1 /* GPUImageSaturationFilter.m */,
+				22C6CE1215B45864004481D1 /* GPUImageScreenBlendFilter.h */,
+				22C6CE1315B45864004481D1 /* GPUImageScreenBlendFilter.m */,
+				22C6CE1415B45864004481D1 /* GPUImageSepiaFilter.h */,
+				22C6CE1515B45864004481D1 /* GPUImageSepiaFilter.m */,
+				22C6CE1615B45864004481D1 /* GPUImageSharpenFilter.h */,
+				22C6CE1715B45864004481D1 /* GPUImageSharpenFilter.m */,
+				22C6CE1815B45864004481D1 /* GPUImageShiTomasiFeatureDetectionFilter.h */,
+				22C6CE1915B45864004481D1 /* GPUImageShiTomasiFeatureDetectionFilter.m */,
+				22C6CE1A15B45864004481D1 /* GPUImageSingleComponentFastBlurFilter.h */,
+				22C6CE1B15B45864004481D1 /* GPUImageSingleComponentFastBlurFilter.m */,
+				22C6CE1C15B45864004481D1 /* GPUImageSingleComponentGaussianBlurFilter.h */,
+				22C6CE1D15B45864004481D1 /* GPUImageSingleComponentGaussianBlurFilter.m */,
+				22C6CE1E15B45864004481D1 /* GPUImageSketchFilter.h */,
+				22C6CE1F15B45864004481D1 /* GPUImageSketchFilter.m */,
+				22C6CE2015B45864004481D1 /* GPUImageSmoothToonFilter.h */,
+				22C6CE2115B45864004481D1 /* GPUImageSmoothToonFilter.m */,
+				22C6CE2215B45864004481D1 /* GPUImageSobelEdgeDetectionFilter.h */,
+				22C6CE2315B45864004481D1 /* GPUImageSobelEdgeDetectionFilter.m */,
+				22C6CE2415B45864004481D1 /* GPUImageSoftLightBlendFilter.h */,
+				22C6CE2515B45864004481D1 /* GPUImageSoftLightBlendFilter.m */,
+				22C6CE2615B45864004481D1 /* GPUImageSphereRefractionFilter.h */,
+				22C6CE2715B45864004481D1 /* GPUImageSphereRefractionFilter.m */,
+				22C6CE2815B45864004481D1 /* GPUImageStillCamera.h */,
+				22C6CE2915B45864004481D1 /* GPUImageStillCamera.m */,
+				22C6CE2A15B45864004481D1 /* GPUImageStretchDistortionFilter.h */,
+				22C6CE2B15B45864004481D1 /* GPUImageStretchDistortionFilter.m */,
+				22C6CE2C15B45864004481D1 /* GPUImageSubtractBlendFilter.h */,
+				22C6CE2D15B45864004481D1 /* GPUImageSubtractBlendFilter.m */,
+				22C6CE2E15B45864004481D1 /* GPUImageSwirlFilter.h */,
+				22C6CE2F15B45864004481D1 /* GPUImageSwirlFilter.m */,
+				22C6CE3015B45864004481D1 /* GPUImageTextureInput.h */,
+				22C6CE3115B45864004481D1 /* GPUImageTextureInput.m */,
+				22C6CE3215B45864004481D1 /* GPUImageTextureOutput.h */,
+				22C6CE3315B45864004481D1 /* GPUImageTextureOutput.m */,
+				22C6CE3415B45864004481D1 /* GPUImageThresholdEdgeDetection.h */,
+				22C6CE3515B45864004481D1 /* GPUImageThresholdEdgeDetection.m */,
+				22C6CE3615B45864004481D1 /* GPUImageTiltShiftFilter.h */,
+				22C6CE3715B45864004481D1 /* GPUImageTiltShiftFilter.m */,
+				22C6CE3815B45864004481D1 /* GPUImageToneCurveFilter.h */,
+				22C6CE3915B45864004481D1 /* GPUImageToneCurveFilter.m */,
+				22C6CE3A15B45864004481D1 /* GPUImageToonFilter.h */,
+				22C6CE3B15B45864004481D1 /* GPUImageToonFilter.m */,
+				22C6CE3C15B45864004481D1 /* GPUImageTransformFilter.h */,
+				22C6CE3D15B45864004481D1 /* GPUImageTransformFilter.m */,
+				22C6CE3E15B45864004481D1 /* GPUImageTwoInputFilter.h */,
+				22C6CE3F15B45864004481D1 /* GPUImageTwoInputFilter.m */,
+				22C6CE4015B45864004481D1 /* GPUImageTwoPassFilter.h */,
+				22C6CE4115B45864004481D1 /* GPUImageTwoPassFilter.m */,
+				22C6CE4215B45864004481D1 /* GPUImageTwoPassTextureSamplingFilter.h */,
+				22C6CE4315B45864004481D1 /* GPUImageTwoPassTextureSamplingFilter.m */,
+				22C6CE4415B45864004481D1 /* GPUImageUIElement.h */,
+				22C6CE4515B45864004481D1 /* GPUImageUIElement.m */,
+				22C6CE4615B45864004481D1 /* GPUImageUnsharpMaskFilter.h */,
+				22C6CE4715B45864004481D1 /* GPUImageUnsharpMaskFilter.m */,
+				22C6CE4815B45864004481D1 /* GPUImageVideoCamera.h */,
+				22C6CE4915B45864004481D1 /* GPUImageVideoCamera.m */,
+				22C6CE4A15B45864004481D1 /* GPUImageView.h */,
+				22C6CE4B15B45864004481D1 /* GPUImageView.m */,
+				22C6CE4C15B45864004481D1 /* GPUImageVignetteFilter.h */,
+				22C6CE4D15B45864004481D1 /* GPUImageVignetteFilter.m */,
+				22C6CE4E15B45864004481D1 /* GPUImageVoroniConsumerFilter.h */,
+				22C6CE4F15B45864004481D1 /* GPUImageVoroniConsumerFilter.m */,
+				22C6CE5015B45864004481D1 /* GPUImageWeakPixelInclusionFilter.h */,
+				22C6CE5115B45864004481D1 /* GPUImageWeakPixelInclusionFilter.m */,
+				22C6CE5215B45864004481D1 /* GPUImageXYDerivativeFilter.h */,
+				22C6CE5315B45864004481D1 /* GPUImageXYDerivativeFilter.m */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		22C735941580987300716984 /* BRCacheCleaner */ = {
 			isa = PBXGroup;
 			children = (
@@ -4020,7 +4792,9 @@
 				22F8668E14A216AA00D7B1CE /* CoreGraphics.framework */,
 				2267CF6A15579FA20037BAFF /* CoreImage.framework */,
 				2271F4141534F91500A50484 /* CoreLocation.framework */,
+				22C6D07F15B46DC9004481D1 /* CoreMedia.framework */,
 				2271F4161534F91B00A50484 /* CoreTelephony.framework */,
+				22C6D08115B46DCE004481D1 /* CoreVideo.framework */,
 				22F8668C14A216AA00D7B1CE /* Foundation.framework */,
 				2271F4121534F8E000A50484 /* iAd.framework */,
 				222A92141535B98B0000B7DD /* ImageIO.framework */,
@@ -4034,6 +4808,7 @@
 				2271F40E1534F8CE00A50484 /* MediaPlayer.framework */,
 				2271F4101534F8D400A50484 /* MessageUI.framework */,
 				22608C3314F0C9AF00732D2B /* MobileCoreServices.framework */,
+				22C6D07C15B46D8D004481D1 /* OpenGLES.framework */,
 				22CC17A814D974E400272147 /* QuartzCore.framework */,
 				2207BD6814B731E700ED0BE6 /* Security.framework */,
 				22F866A214A216AA00D7B1CE /* SenTestingKit.framework */,
@@ -4150,6 +4925,12 @@
 			mainGroup = 22F8667B14A216AA00D7B1CE;
 			productRefGroup = 22F8668714A216AA00D7B1CE /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 22C6CD6915B45864004481D1 /* Products */;
+					ProjectRef = 22C6CD6815B45864004481D1 /* GPUImage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				22F8668514A216AA00D7B1CE /* BreezyReader2 */,
@@ -4158,6 +4939,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		22C6D03F15B45865004481D1 /* libGPUImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGPUImage.a;
+			remoteRef = 22C6D03E15B45865004481D1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		22C6D04115B45865004481D1 /* GPUImageTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GPUImageTests.octest;
+			remoteRef = 22C6D04015B45865004481D1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		223216721599EF0000E2C7B3 /* Resources */ = {
@@ -4371,6 +5169,13 @@
 				220EFD3315AF0607003D57C7 /* iTunesArtwork@2x.png in Resources */,
 				22FCECEE15B061BC005303F9 /* dollar.png in Resources */,
 				22FCECF015B061BC005303F9 /* dollar@2x.png in Resources */,
+				22C6CE9115B45865004481D1 /* .gitignore in Resources */,
+				22C6D02915B45865004481D1 /* License.txt in Resources */,
+				22C6D02B15B45865004481D1 /* README.md in Resources */,
+				22C6D09B15B59A0F004481D1 /* arrow_black_left.png in Resources */,
+				22C6D09D15B59A0F004481D1 /* arrow_black_left@2x.png in Resources */,
+				22C6D09F15B59A0F004481D1 /* arrow_black_right.png in Resources */,
+				22C6D0A115B59A0F004481D1 /* arrow_black_right@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4584,6 +5389,13 @@
 				22187DA61590671100B36307 /* iTunesArtwork@2x.png in Resources */,
 				22FCECED15B061BC005303F9 /* dollar.png in Resources */,
 				22FCECEF15B061BC005303F9 /* dollar@2x.png in Resources */,
+				22C6CE9015B45865004481D1 /* .gitignore in Resources */,
+				22C6D02815B45865004481D1 /* License.txt in Resources */,
+				22C6D02A15B45865004481D1 /* README.md in Resources */,
+				22C6D09A15B59A0F004481D1 /* arrow_black_left.png in Resources */,
+				22C6D09C15B59A0F004481D1 /* arrow_black_left@2x.png in Resources */,
+				22C6D09E15B59A0F004481D1 /* arrow_black_right.png in Resources */,
+				22C6D0A015B59A0F004481D1 /* arrow_black_right@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4903,6 +5715,118 @@
 				22E3FE5A159A80A8007EFDBD /* JJAdView.m in Sources */,
 				22FC38C915A5C57200D38EC0 /* BRExplorePageDataSource.m in Sources */,
 				22FC38CB15A5C57200D38EC0 /* BRExplorePageViewController.m in Sources */,
+				22C6CF4915B45865004481D1 /* GLProgram.m in Sources */,
+				22C6CF4B15B45865004481D1 /* GPUImage3x3ConvolutionFilter.m in Sources */,
+				22C6CF4D15B45865004481D1 /* GPUImage3x3TextureSamplingFilter.m in Sources */,
+				22C6CF4F15B45865004481D1 /* GPUImageAdaptiveThresholdFilter.m in Sources */,
+				22C6CF5115B45865004481D1 /* GPUImageAlphaBlendFilter.m in Sources */,
+				22C6CF5315B45865004481D1 /* GPUImageBilateralFilter.m in Sources */,
+				22C6CF5515B45865004481D1 /* GPUImageBoxBlurFilter.m in Sources */,
+				22C6CF5715B45865004481D1 /* GPUImageBrightnessFilter.m in Sources */,
+				22C6CF5915B45865004481D1 /* GPUImageBuffer.m in Sources */,
+				22C6CF5B15B45865004481D1 /* GPUImageBulgeDistortionFilter.m in Sources */,
+				22C6CF5D15B45865004481D1 /* GPUImageCannyEdgeDetectionFilter.m in Sources */,
+				22C6CF5F15B45865004481D1 /* GPUImageCGAColorspaceFilter.m in Sources */,
+				22C6CF6115B45865004481D1 /* GPUImageChromaKeyBlendFilter.m in Sources */,
+				22C6CF6315B45865004481D1 /* GPUImageClosingFilter.m in Sources */,
+				22C6CF6515B45865004481D1 /* GPUImageColorBurnBlendFilter.m in Sources */,
+				22C6CF6715B45865004481D1 /* GPUImageColorDodgeBlendFilter.m in Sources */,
+				22C6CF6915B45865004481D1 /* GPUImageColorInvertFilter.m in Sources */,
+				22C6CF6B15B45865004481D1 /* GPUImageColorMatrixFilter.m in Sources */,
+				22C6CF6D15B45865004481D1 /* GPUImageColorPackingFilter.m in Sources */,
+				22C6CF6F15B45865004481D1 /* GPUImageContrastFilter.m in Sources */,
+				22C6CF7115B45865004481D1 /* GPUImageCropFilter.m in Sources */,
+				22C6CF7315B45865004481D1 /* GPUImageCrosshairGenerator.m in Sources */,
+				22C6CF7515B45865004481D1 /* GPUImageCrosshatchFilter.m in Sources */,
+				22C6CF7715B45865004481D1 /* GPUImageDarkenBlendFilter.m in Sources */,
+				22C6CF7915B45865004481D1 /* GPUImageDifferenceBlendFilter.m in Sources */,
+				22C6CF7B15B45865004481D1 /* GPUImageDilationFilter.m in Sources */,
+				22C6CF7D15B45865004481D1 /* GPUImageDirectionalNonMaximumSuppressionFilter.m in Sources */,
+				22C6CF7F15B45865004481D1 /* GPUimageDirectionalSobelEdgeDetectionFilter.m in Sources */,
+				22C6CF8115B45865004481D1 /* GPUImageDissolveBlendFilter.m in Sources */,
+				22C6CF8315B45865004481D1 /* GPUImageEmbossFilter.m in Sources */,
+				22C6CF8515B45865004481D1 /* GPUImageErosionFilter.m in Sources */,
+				22C6CF8715B45865004481D1 /* GPUImageExclusionBlendFilter.m in Sources */,
+				22C6CF8915B45865004481D1 /* GPUImageExposureFilter.m in Sources */,
+				22C6CF8B15B45865004481D1 /* GPUImageFastBlurFilter.m in Sources */,
+				22C6CF8D15B45865004481D1 /* GPUImageFilter.m in Sources */,
+				22C6CF8F15B45865004481D1 /* GPUImageFilterGroup.m in Sources */,
+				22C6CF9115B45865004481D1 /* GPUImageFilterPipeline.m in Sources */,
+				22C6CF9315B45865004481D1 /* GPUImageGammaFilter.m in Sources */,
+				22C6CF9515B45865004481D1 /* GPUImageGaussianBlurFilter.m in Sources */,
+				22C6CF9715B45865004481D1 /* GPUImageGaussianSelectiveBlurFilter.m in Sources */,
+				22C6CF9915B45865004481D1 /* GPUImageGrayscaleFilter.m in Sources */,
+				22C6CF9B15B45865004481D1 /* GPUImageHardLightBlendFilter.m in Sources */,
+				22C6CF9D15B45865004481D1 /* GPUImageHarrisCornerDetectionFilter.m in Sources */,
+				22C6CF9F15B45865004481D1 /* GPUImageHazeFilter.m in Sources */,
+				22C6CFA115B45865004481D1 /* GPUImageHistogramFilter.m in Sources */,
+				22C6CFA315B45865004481D1 /* GPUImageHistogramGenerator.m in Sources */,
+				22C6CFA515B45865004481D1 /* GPUImageJFAVoroniFilter.m in Sources */,
+				22C6CFA715B45865004481D1 /* GPUImageKuwaharaFilter.m in Sources */,
+				22C6CFA915B45865004481D1 /* GPUImageLightenBlendFilter.m in Sources */,
+				22C6CFAB15B45865004481D1 /* GPUImageLuminanceThresholdFilter.m in Sources */,
+				22C6CFAD15B45865004481D1 /* GPUImageMaskFilter.m in Sources */,
+				22C6CFAF15B45865004481D1 /* GPUImageMedianFilter.m in Sources */,
+				22C6CFB115B45865004481D1 /* GPUImageMonochromeFilter.m in Sources */,
+				22C6CFB315B45865004481D1 /* GPUImageMosaicFilter.m in Sources */,
+				22C6CFB515B45865004481D1 /* GPUImageMovie.m in Sources */,
+				22C6CFB715B45865004481D1 /* GPUImageMovieWriter.m in Sources */,
+				22C6CFB915B45865004481D1 /* GPUImageMultiplyBlendFilter.m in Sources */,
+				22C6CFBB15B45865004481D1 /* GPUImageNobleCornerDetectionFilter.m in Sources */,
+				22C6CFBD15B45865004481D1 /* GPUImageNonMaximumSuppressionFilter.m in Sources */,
+				22C6CFBF15B45865004481D1 /* GPUImageOpacityFilter.m in Sources */,
+				22C6CFC115B45865004481D1 /* GPUImageOpenGLESContext.m in Sources */,
+				22C6CFC315B45865004481D1 /* GPUImageOpeningFilter.m in Sources */,
+				22C6CFC515B45865004481D1 /* GPUImageOutput.m in Sources */,
+				22C6CFC715B45865004481D1 /* GPUImageOverlayBlendFilter.m in Sources */,
+				22C6CFC915B45865004481D1 /* GPUImagePerlinNoiseFilter.m in Sources */,
+				22C6CFCB15B45865004481D1 /* GPUImagePicture.m in Sources */,
+				22C6CFCD15B45865004481D1 /* GPUImagePinchDistortionFilter.m in Sources */,
+				22C6CFCF15B45865004481D1 /* GPUImagePixellateFilter.m in Sources */,
+				22C6CFD115B45865004481D1 /* GPUImagePolarPixellateFilter.m in Sources */,
+				22C6CFD315B45865004481D1 /* GPUImagePosterizeFilter.m in Sources */,
+				22C6CFD515B45865004481D1 /* GPUImagePrewittEdgeDetectionFilter.m in Sources */,
+				22C6CFD715B45865004481D1 /* GPUImageRawDataInput.m in Sources */,
+				22C6CFD915B45865004481D1 /* GPUImageRawDataOutput.m in Sources */,
+				22C6CFDB15B45865004481D1 /* GPUImageRGBClosingFilter.m in Sources */,
+				22C6CFDD15B45865004481D1 /* GPUImageRGBDilationFilter.m in Sources */,
+				22C6CFDF15B45865004481D1 /* GPUImageRGBErosionFilter.m in Sources */,
+				22C6CFE115B45865004481D1 /* GPUImageRGBFilter.m in Sources */,
+				22C6CFE315B45865004481D1 /* GPUImageRGBOpeningFilter.m in Sources */,
+				22C6CFE515B45865004481D1 /* GPUImageSaturationFilter.m in Sources */,
+				22C6CFE715B45865004481D1 /* GPUImageScreenBlendFilter.m in Sources */,
+				22C6CFE915B45865004481D1 /* GPUImageSepiaFilter.m in Sources */,
+				22C6CFEB15B45865004481D1 /* GPUImageSharpenFilter.m in Sources */,
+				22C6CFED15B45865004481D1 /* GPUImageShiTomasiFeatureDetectionFilter.m in Sources */,
+				22C6CFEF15B45865004481D1 /* GPUImageSingleComponentFastBlurFilter.m in Sources */,
+				22C6CFF115B45865004481D1 /* GPUImageSingleComponentGaussianBlurFilter.m in Sources */,
+				22C6CFF315B45865004481D1 /* GPUImageSketchFilter.m in Sources */,
+				22C6CFF515B45865004481D1 /* GPUImageSmoothToonFilter.m in Sources */,
+				22C6CFF715B45865004481D1 /* GPUImageSobelEdgeDetectionFilter.m in Sources */,
+				22C6CFF915B45865004481D1 /* GPUImageSoftLightBlendFilter.m in Sources */,
+				22C6CFFB15B45865004481D1 /* GPUImageSphereRefractionFilter.m in Sources */,
+				22C6CFFD15B45865004481D1 /* GPUImageStillCamera.m in Sources */,
+				22C6CFFF15B45865004481D1 /* GPUImageStretchDistortionFilter.m in Sources */,
+				22C6D00115B45865004481D1 /* GPUImageSubtractBlendFilter.m in Sources */,
+				22C6D00315B45865004481D1 /* GPUImageSwirlFilter.m in Sources */,
+				22C6D00515B45865004481D1 /* GPUImageTextureInput.m in Sources */,
+				22C6D00715B45865004481D1 /* GPUImageTextureOutput.m in Sources */,
+				22C6D00915B45865004481D1 /* GPUImageThresholdEdgeDetection.m in Sources */,
+				22C6D00B15B45865004481D1 /* GPUImageTiltShiftFilter.m in Sources */,
+				22C6D00D15B45865004481D1 /* GPUImageToneCurveFilter.m in Sources */,
+				22C6D00F15B45865004481D1 /* GPUImageToonFilter.m in Sources */,
+				22C6D01115B45865004481D1 /* GPUImageTransformFilter.m in Sources */,
+				22C6D01315B45865004481D1 /* GPUImageTwoInputFilter.m in Sources */,
+				22C6D01515B45865004481D1 /* GPUImageTwoPassFilter.m in Sources */,
+				22C6D01715B45865004481D1 /* GPUImageTwoPassTextureSamplingFilter.m in Sources */,
+				22C6D01915B45865004481D1 /* GPUImageUIElement.m in Sources */,
+				22C6D01B15B45865004481D1 /* GPUImageUnsharpMaskFilter.m in Sources */,
+				22C6D01D15B45865004481D1 /* GPUImageVideoCamera.m in Sources */,
+				22C6D01F15B45865004481D1 /* GPUImageView.m in Sources */,
+				22C6D02115B45865004481D1 /* GPUImageVignetteFilter.m in Sources */,
+				22C6D02315B45865004481D1 /* GPUImageVoroniConsumerFilter.m in Sources */,
+				22C6D02515B45865004481D1 /* GPUImageWeakPixelInclusionFilter.m in Sources */,
+				22C6D02715B45865004481D1 /* GPUImageXYDerivativeFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5194,6 +6118,118 @@
 				22187DBD1590839500B36307 /* ENOAuthViewController.m in Sources */,
 				22FC38C815A5C57200D38EC0 /* BRExplorePageDataSource.m in Sources */,
 				22FC38CA15A5C57200D38EC0 /* BRExplorePageViewController.m in Sources */,
+				22C6CF4815B45865004481D1 /* GLProgram.m in Sources */,
+				22C6CF4A15B45865004481D1 /* GPUImage3x3ConvolutionFilter.m in Sources */,
+				22C6CF4C15B45865004481D1 /* GPUImage3x3TextureSamplingFilter.m in Sources */,
+				22C6CF4E15B45865004481D1 /* GPUImageAdaptiveThresholdFilter.m in Sources */,
+				22C6CF5015B45865004481D1 /* GPUImageAlphaBlendFilter.m in Sources */,
+				22C6CF5215B45865004481D1 /* GPUImageBilateralFilter.m in Sources */,
+				22C6CF5415B45865004481D1 /* GPUImageBoxBlurFilter.m in Sources */,
+				22C6CF5615B45865004481D1 /* GPUImageBrightnessFilter.m in Sources */,
+				22C6CF5815B45865004481D1 /* GPUImageBuffer.m in Sources */,
+				22C6CF5A15B45865004481D1 /* GPUImageBulgeDistortionFilter.m in Sources */,
+				22C6CF5C15B45865004481D1 /* GPUImageCannyEdgeDetectionFilter.m in Sources */,
+				22C6CF5E15B45865004481D1 /* GPUImageCGAColorspaceFilter.m in Sources */,
+				22C6CF6015B45865004481D1 /* GPUImageChromaKeyBlendFilter.m in Sources */,
+				22C6CF6215B45865004481D1 /* GPUImageClosingFilter.m in Sources */,
+				22C6CF6415B45865004481D1 /* GPUImageColorBurnBlendFilter.m in Sources */,
+				22C6CF6615B45865004481D1 /* GPUImageColorDodgeBlendFilter.m in Sources */,
+				22C6CF6815B45865004481D1 /* GPUImageColorInvertFilter.m in Sources */,
+				22C6CF6A15B45865004481D1 /* GPUImageColorMatrixFilter.m in Sources */,
+				22C6CF6C15B45865004481D1 /* GPUImageColorPackingFilter.m in Sources */,
+				22C6CF6E15B45865004481D1 /* GPUImageContrastFilter.m in Sources */,
+				22C6CF7015B45865004481D1 /* GPUImageCropFilter.m in Sources */,
+				22C6CF7215B45865004481D1 /* GPUImageCrosshairGenerator.m in Sources */,
+				22C6CF7415B45865004481D1 /* GPUImageCrosshatchFilter.m in Sources */,
+				22C6CF7615B45865004481D1 /* GPUImageDarkenBlendFilter.m in Sources */,
+				22C6CF7815B45865004481D1 /* GPUImageDifferenceBlendFilter.m in Sources */,
+				22C6CF7A15B45865004481D1 /* GPUImageDilationFilter.m in Sources */,
+				22C6CF7C15B45865004481D1 /* GPUImageDirectionalNonMaximumSuppressionFilter.m in Sources */,
+				22C6CF7E15B45865004481D1 /* GPUimageDirectionalSobelEdgeDetectionFilter.m in Sources */,
+				22C6CF8015B45865004481D1 /* GPUImageDissolveBlendFilter.m in Sources */,
+				22C6CF8215B45865004481D1 /* GPUImageEmbossFilter.m in Sources */,
+				22C6CF8415B45865004481D1 /* GPUImageErosionFilter.m in Sources */,
+				22C6CF8615B45865004481D1 /* GPUImageExclusionBlendFilter.m in Sources */,
+				22C6CF8815B45865004481D1 /* GPUImageExposureFilter.m in Sources */,
+				22C6CF8A15B45865004481D1 /* GPUImageFastBlurFilter.m in Sources */,
+				22C6CF8C15B45865004481D1 /* GPUImageFilter.m in Sources */,
+				22C6CF8E15B45865004481D1 /* GPUImageFilterGroup.m in Sources */,
+				22C6CF9015B45865004481D1 /* GPUImageFilterPipeline.m in Sources */,
+				22C6CF9215B45865004481D1 /* GPUImageGammaFilter.m in Sources */,
+				22C6CF9415B45865004481D1 /* GPUImageGaussianBlurFilter.m in Sources */,
+				22C6CF9615B45865004481D1 /* GPUImageGaussianSelectiveBlurFilter.m in Sources */,
+				22C6CF9815B45865004481D1 /* GPUImageGrayscaleFilter.m in Sources */,
+				22C6CF9A15B45865004481D1 /* GPUImageHardLightBlendFilter.m in Sources */,
+				22C6CF9C15B45865004481D1 /* GPUImageHarrisCornerDetectionFilter.m in Sources */,
+				22C6CF9E15B45865004481D1 /* GPUImageHazeFilter.m in Sources */,
+				22C6CFA015B45865004481D1 /* GPUImageHistogramFilter.m in Sources */,
+				22C6CFA215B45865004481D1 /* GPUImageHistogramGenerator.m in Sources */,
+				22C6CFA415B45865004481D1 /* GPUImageJFAVoroniFilter.m in Sources */,
+				22C6CFA615B45865004481D1 /* GPUImageKuwaharaFilter.m in Sources */,
+				22C6CFA815B45865004481D1 /* GPUImageLightenBlendFilter.m in Sources */,
+				22C6CFAA15B45865004481D1 /* GPUImageLuminanceThresholdFilter.m in Sources */,
+				22C6CFAC15B45865004481D1 /* GPUImageMaskFilter.m in Sources */,
+				22C6CFAE15B45865004481D1 /* GPUImageMedianFilter.m in Sources */,
+				22C6CFB015B45865004481D1 /* GPUImageMonochromeFilter.m in Sources */,
+				22C6CFB215B45865004481D1 /* GPUImageMosaicFilter.m in Sources */,
+				22C6CFB415B45865004481D1 /* GPUImageMovie.m in Sources */,
+				22C6CFB615B45865004481D1 /* GPUImageMovieWriter.m in Sources */,
+				22C6CFB815B45865004481D1 /* GPUImageMultiplyBlendFilter.m in Sources */,
+				22C6CFBA15B45865004481D1 /* GPUImageNobleCornerDetectionFilter.m in Sources */,
+				22C6CFBC15B45865004481D1 /* GPUImageNonMaximumSuppressionFilter.m in Sources */,
+				22C6CFBE15B45865004481D1 /* GPUImageOpacityFilter.m in Sources */,
+				22C6CFC015B45865004481D1 /* GPUImageOpenGLESContext.m in Sources */,
+				22C6CFC215B45865004481D1 /* GPUImageOpeningFilter.m in Sources */,
+				22C6CFC415B45865004481D1 /* GPUImageOutput.m in Sources */,
+				22C6CFC615B45865004481D1 /* GPUImageOverlayBlendFilter.m in Sources */,
+				22C6CFC815B45865004481D1 /* GPUImagePerlinNoiseFilter.m in Sources */,
+				22C6CFCA15B45865004481D1 /* GPUImagePicture.m in Sources */,
+				22C6CFCC15B45865004481D1 /* GPUImagePinchDistortionFilter.m in Sources */,
+				22C6CFCE15B45865004481D1 /* GPUImagePixellateFilter.m in Sources */,
+				22C6CFD015B45865004481D1 /* GPUImagePolarPixellateFilter.m in Sources */,
+				22C6CFD215B45865004481D1 /* GPUImagePosterizeFilter.m in Sources */,
+				22C6CFD415B45865004481D1 /* GPUImagePrewittEdgeDetectionFilter.m in Sources */,
+				22C6CFD615B45865004481D1 /* GPUImageRawDataInput.m in Sources */,
+				22C6CFD815B45865004481D1 /* GPUImageRawDataOutput.m in Sources */,
+				22C6CFDA15B45865004481D1 /* GPUImageRGBClosingFilter.m in Sources */,
+				22C6CFDC15B45865004481D1 /* GPUImageRGBDilationFilter.m in Sources */,
+				22C6CFDE15B45865004481D1 /* GPUImageRGBErosionFilter.m in Sources */,
+				22C6CFE015B45865004481D1 /* GPUImageRGBFilter.m in Sources */,
+				22C6CFE215B45865004481D1 /* GPUImageRGBOpeningFilter.m in Sources */,
+				22C6CFE415B45865004481D1 /* GPUImageSaturationFilter.m in Sources */,
+				22C6CFE615B45865004481D1 /* GPUImageScreenBlendFilter.m in Sources */,
+				22C6CFE815B45865004481D1 /* GPUImageSepiaFilter.m in Sources */,
+				22C6CFEA15B45865004481D1 /* GPUImageSharpenFilter.m in Sources */,
+				22C6CFEC15B45865004481D1 /* GPUImageShiTomasiFeatureDetectionFilter.m in Sources */,
+				22C6CFEE15B45865004481D1 /* GPUImageSingleComponentFastBlurFilter.m in Sources */,
+				22C6CFF015B45865004481D1 /* GPUImageSingleComponentGaussianBlurFilter.m in Sources */,
+				22C6CFF215B45865004481D1 /* GPUImageSketchFilter.m in Sources */,
+				22C6CFF415B45865004481D1 /* GPUImageSmoothToonFilter.m in Sources */,
+				22C6CFF615B45865004481D1 /* GPUImageSobelEdgeDetectionFilter.m in Sources */,
+				22C6CFF815B45865004481D1 /* GPUImageSoftLightBlendFilter.m in Sources */,
+				22C6CFFA15B45865004481D1 /* GPUImageSphereRefractionFilter.m in Sources */,
+				22C6CFFC15B45865004481D1 /* GPUImageStillCamera.m in Sources */,
+				22C6CFFE15B45865004481D1 /* GPUImageStretchDistortionFilter.m in Sources */,
+				22C6D00015B45865004481D1 /* GPUImageSubtractBlendFilter.m in Sources */,
+				22C6D00215B45865004481D1 /* GPUImageSwirlFilter.m in Sources */,
+				22C6D00415B45865004481D1 /* GPUImageTextureInput.m in Sources */,
+				22C6D00615B45865004481D1 /* GPUImageTextureOutput.m in Sources */,
+				22C6D00815B45865004481D1 /* GPUImageThresholdEdgeDetection.m in Sources */,
+				22C6D00A15B45865004481D1 /* GPUImageTiltShiftFilter.m in Sources */,
+				22C6D00C15B45865004481D1 /* GPUImageToneCurveFilter.m in Sources */,
+				22C6D00E15B45865004481D1 /* GPUImageToonFilter.m in Sources */,
+				22C6D01015B45865004481D1 /* GPUImageTransformFilter.m in Sources */,
+				22C6D01215B45865004481D1 /* GPUImageTwoInputFilter.m in Sources */,
+				22C6D01415B45865004481D1 /* GPUImageTwoPassFilter.m in Sources */,
+				22C6D01615B45865004481D1 /* GPUImageTwoPassTextureSamplingFilter.m in Sources */,
+				22C6D01815B45865004481D1 /* GPUImageUIElement.m in Sources */,
+				22C6D01A15B45865004481D1 /* GPUImageUnsharpMaskFilter.m in Sources */,
+				22C6D01C15B45865004481D1 /* GPUImageVideoCamera.m in Sources */,
+				22C6D01E15B45865004481D1 /* GPUImageView.m in Sources */,
+				22C6D02015B45865004481D1 /* GPUImageVignetteFilter.m in Sources */,
+				22C6D02215B45865004481D1 /* GPUImageVoroniConsumerFilter.m in Sources */,
+				22C6D02415B45865004481D1 /* GPUImageWeakPixelInclusionFilter.m in Sources */,
+				22C6D02615B45865004481D1 /* GPUImageXYDerivativeFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

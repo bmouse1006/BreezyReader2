@@ -24,5 +24,7 @@
 	<string>NOTIFICATION_SENDTOREADITLATER</string>
 	<key>autorotateimage</key>
 	<true/>
+	<key>blurBackgroundImage</key>
+	<true/>
 </dict>
 </plist>

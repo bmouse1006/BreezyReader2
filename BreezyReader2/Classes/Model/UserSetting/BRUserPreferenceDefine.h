@@ -26,6 +26,7 @@ typedef enum{
 +(UIColor*)flipThumbnailColor;
 +(UIColor*)barColor;
 
++(BOOL)shouldBlurBackgroundImage;
 +(BOOL)autoClearCache;
 +(BOOL)shouldLoadAD;
 +(BOOL)shouldAutoFlipThumbnail;

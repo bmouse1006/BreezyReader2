@@ -433,19 +433,19 @@ static CGFloat kCaptionHeight = 40.0f;
 #pragma mark - control action
 -(void)thumbTouchedDown:(id)sender{
     CGAffineTransform scale = CGAffineTransformMakeScale(0.95, 0.95);
-    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.05 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.transform = scale;
     } completion:NULL];
 }
 
 -(void)thumbTouched:(id)sender{
-    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.05 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.transform = CGAffineTransformIdentity;
     } completion:NULL];
 }
 
 -(void)thumbTouchMoveOut:(id)sender{
-    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.05 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.transform = CGAffineTransformIdentity;
     } completion:NULL];    
 }

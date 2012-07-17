@@ -40,6 +40,14 @@
 			</dict>
 			<dict>
 				<key>identifier</key>
+				<string>blurBackgroundImage</string>
+				<key>name</key>
+				<string>title_blurbackgroundimage</string>
+				<key>type</key>
+				<string>switch</string>
+			</dict>
+			<dict>
+				<key>identifier</key>
 				<string>animateflipview</string>
 				<key>name</key>
 				<string>title_flipthumbnail</string>

@@ -64,6 +64,7 @@
 "title_explore" = "Explor";
 "title_nothanks" = "No thanks";
 "title_buyinappstore" = "Buy in App Store";
+"title_blurbackgroundimage" = "Blur background image";
 
 "NOTIFICATION_SENDTOREADITLATER" = "Send to RIL";
 "NOTIFICATION_SENDTOINSTAPAPER" = "Send to Instapaper";

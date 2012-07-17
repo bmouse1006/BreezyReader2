@@ -12,6 +12,7 @@
 #import "UIViewController+BRAddition.h"
 #import "UIViewController+addition.h"
 #import "BRViewControllerNotification.h"
+#import <mach/mach_time.h>
 #import <QuartzCore/QuartzCore.h>
 
 @interface BRSubGridViewController()
@@ -137,6 +138,7 @@ static CGFloat kTitleLabelHeight = 60.0f;
 -(void)mediaLibTableViewCell:(JJMediaLibTableViewCell *)cell didSelectMediaAtIndex:(NSInteger)index{
     GRSubscription* sub = [self.source mediaAtIndex:index];
     UIView* view = [cell.thumbnailViews objectAtIndex:index - [cell startIndex]];
+
     BRFeedViewController* feedController = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
     feedController.subscription = sub;
     

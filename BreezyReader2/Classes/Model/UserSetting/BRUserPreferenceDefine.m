@@ -9,6 +9,7 @@
 #import "BRUserPreferenceDefine.h"
 #import "UIImage+addition.h"
 #import "GoogleReaderClient.h"
+#import "GPUImage.h"
 
 #define kSwipeLeftAction @"swipeLeftAction"
 #define kSwipeRightAction @"swipeRightAction"
@@ -22,12 +23,14 @@
 #define kShowUnreadOnly @"shouldShowUnreadOnly"
 #define kAutoClearCache @"autoclearcache"
 #define kUnreadOnlySet @"unreadOnlySet"
+#define kBlurBackgroundImage @"blurBackgroundImage"
 
 #define kDefaultBackgroundImageName @"background1.jpg"
 
 @implementation BRUserPreferenceDefine
 
 static UIImage* _backgroundImage = nil;
+static UIImage* _blurBackgroundImage = nil;
 
 +(UIColor*)flipThumbnailColor{
 //    return [UIColor colorWithRed:26/255.0 green:78/255.0 blue:138/255.0 alpha:0.6];
@@ -54,7 +57,22 @@ static UIImage* _backgroundImage = nil;
     return [NSURL fileURLWithPath:compelePath];
 }
 
++(NSURL*)blurBackgroundImageStoreURL{
+    
+    NSString* cachePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"backgroundCache"];
+    NSFileManager* fm = [NSFileManager defaultManager];
+    BOOL isDictionary = NO;
+    if ([fm fileExistsAtPath:cachePath isDirectory:&isDictionary] == NO){
+        [fm createDirectoryAtPath:cachePath withIntermediateDirectories:NO attributes:nil error:NULL];
+    }
+    
+    NSString* compelePath = [cachePath stringByAppendingPathComponent:@"blurbackground.png"];
+    
+    return [NSURL fileURLWithPath:compelePath];
+}
+
 +(UIImage*)backgroundImage{
+    
     if (!_backgroundImage){
         UIImage* image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[self backgroundImageStoreURL]]];
         
@@ -62,23 +80,42 @@ static UIImage* _backgroundImage = nil;
             [self setDefaultBackgroundImage:[UIImage imageNamed:kDefaultBackgroundImageName] withName:kDefaultBackgroundImageName];
         }else{
             _backgroundImage = [image retain];
+            _blurBackgroundImage = [[self applyBlurImage:_backgroundImage] retain];
         }
     }
     
-    return _backgroundImage;
+    return ([self shouldBlurBackgroundImage])?_blurBackgroundImage:_backgroundImage;
 }
 
 +(void)setDefaultBackgroundImage:(UIImage*)image withName:(NSString*)name{
     [self valueChangedForIdentifier:kBackgroundImageName value:name];
     image = [image clippedThumbnailWithSize:[UIScreen mainScreen].bounds.size];
-    if (_backgroundImage != image){
-        [_backgroundImage release];
-        _backgroundImage = [image retain];
-    }
+    UIImage* blurImage = [self applyBlurImage:image];
+    
+    [_backgroundImage release];
+    _backgroundImage = [image retain];
+    
+    [_blurBackgroundImage release];
+    _blurBackgroundImage = [blurImage retain];
+    
     [[NSFileManager defaultManager] removeItemAtURL:[self backgroundImageStoreURL] error:NULL];
     [UIImagePNGRepresentation(image) writeToURL:[self backgroundImageStoreURL] atomically:YES];
+    
+    [[NSFileManager defaultManager] removeItemAtURL:[self blurBackgroundImageStoreURL] error:NULL];
+    [UIImagePNGRepresentation(blurImage) writeToURL:[self blurBackgroundImageStoreURL] atomically:YES];
 }
 
+#pragma mark - blur background image
++(UIImage*)applyBlurImage:(UIImage*)image{
+    GPUImagePicture* sourcePicture = [[[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES] autorelease];
+    GPUImageGaussianBlurFilter* blurFilter = [[[GPUImageGaussianBlurFilter alloc] init] autorelease];
+    blurFilter.blurSize = 8.0f;
+    
+    [sourcePicture addTarget:blurFilter];
+    [sourcePicture processImage];
+    
+    return [blurFilter imageFromCurrentlyProcessedOutput];
+}
 
 +(NSInteger)mostReadCount{
     return [[self valueForIdentifier:kMostReadCount] intValue];
@@ -98,6 +135,10 @@ static UIImage* _backgroundImage = nil;
 
 +(void)setDefaultBackgroundImageName:(NSString*)imageName{
     [self valueChangedForIdentifier:kBackgroundImageName value:imageName];
+}
+
++(BOOL)shouldBlurBackgroundImage{
+    return [self boolValueForIdentifier:kBlurBackgroundImage];
 }
 
 +(BOOL)autoClearCache{
