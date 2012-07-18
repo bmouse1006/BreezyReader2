@@ -7,7 +7,7 @@
 //
 
 #import "BRUserVerifyController.h"
-#import "GTMOAuthAuthentication.h"
+#import "GTMOAuth2Authentication.h"
 #import "GoogleAppConstants.h"
 #import "GoogleAuthManager.h"
 
@@ -33,10 +33,10 @@
     if (self) {
         // Custom initialization
         NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-        [nc addObserver:self selector:@selector(oauthUserSignedIn:) name:kGTMOAuthUserHasSignedIn object:nil];
-        [nc addObserver:self selector:@selector(oauthUserWillSignin:) name:kGTMOAuthUserWillSignIn object:nil];
-        [nc addObserver:self selector:@selector(oauthFetchStarted:) name:kGTMOAuthFetchStarted object:nil];
-        [nc addObserver:self selector:@selector(oauthFetchStopped:) name:kGTMOAuthFetchStopped object:nil];
+        [nc addObserver:self selector:@selector(oauthUserSignedIn:) name:kGTMOAuth2UserSignedIn object:nil];
+        [nc addObserver:self selector:@selector(oauthUserWillSignin:) name:kGTMOAuth2UserSignedIn object:nil];
+        [nc addObserver:self selector:@selector(oauthFetchStarted:) name:kGTMOAuth2FetchStarted object:nil];
+        [nc addObserver:self selector:@selector(oauthFetchStopped:) name:kGTMOAuth2FetchStopped object:nil];
         [nc addObserver:self selector:@selector(userSigninFinished:) name:NOTIFICATION_USERSIGNEDINFINISHED object:nil];
         [nc addObserver:self selector:@selector(loginNeeded:) name:LOGINNEEDED object:nil];
     }

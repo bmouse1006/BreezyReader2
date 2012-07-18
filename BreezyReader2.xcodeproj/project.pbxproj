@@ -68,7 +68,6 @@
 		2232155C1599EF0000E2C7B3 /* NSString+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D56B28152767E80098A85F /* NSString+Addition.m */; };
 		2232155D1599EF0000E2C7B3 /* BRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9615273CAE00700504 /* BRAppDelegate.m */; };
 		2232155E1599EF0000E2C7B3 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */; };
-		2232155F1599EF0000E2C7B3 /* GTMOAuthAuthentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9F15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m */; };
 		223215601599EF0000E2C7B3 /* NSObject+Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA115273CAE00700504 /* NSObject+Notifications.m */; };
 		223215611599EF0000E2C7B3 /* UIColor+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA315273CAE00700504 /* UIColor+Addition.m */; };
 		223215621599EF0000E2C7B3 /* UIView+util.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA515273CAE00700504 /* UIView+util.m */; };
@@ -105,9 +104,6 @@
 		223215811599EF0000E2C7B3 /* GRTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0115273CAE00700504 /* GRTag.m */; };
 		223215821599EF0000E2C7B3 /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0315273CAE00700504 /* ImageDownloader.m */; };
 		223215831599EF0000E2C7B3 /* ImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0515273CAE00700504 /* ImageFilter.m */; };
-		223215841599EF0000E2C7B3 /* GTMOAuthAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0915273CAE00700504 /* GTMOAuthAuthentication.m */; };
-		223215851599EF0000E2C7B3 /* GTMOAuthSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0B15273CAE00700504 /* GTMOAuthSignIn.m */; };
-		223215861599EF0000E2C7B3 /* GTMOAuthViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0D15273CAE00700504 /* GTMOAuthViewControllerTouch.m */; };
 		223215871599EF0000E2C7B3 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1115273CAE00700504 /* GTMHTTPFetcher.m */; };
 		223215881599EF0000E2C7B3 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1315273CAE00700504 /* GTMOAuth2Authentication.m */; };
 		223215891599EF0000E2C7B3 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1515273CAE00700504 /* GTMOAuth2SignIn.m */; };
@@ -347,7 +343,6 @@
 		223216761599EF0000E2C7B3 /* readability.js in Resources */ = {isa = PBXBuildFile; fileRef = 229B2D0615273CAE00700504 /* readability.js */; };
 		223216771599EF0000E2C7B3 /* BaseAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2BAE15273CAE00700504 /* BaseAlertView.xib */; };
 		223216781599EF0000E2C7B3 /* BaseMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2BB415273CAE00700504 /* BaseMessageView.xib */; };
-		223216791599EF0000E2C7B3 /* GTMOAuthViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C0E15273CAE00700504 /* GTMOAuthViewTouch.xib */; };
 		2232167A1599EF0000E2C7B3 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C1815273CAE00700504 /* GTMOAuth2ViewTouch.xib */; };
 		2232167B1599EF0000E2C7B3 /* BRArticleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C1F15273CAE00700504 /* BRArticleDetailViewController.xib */; };
 		2232167C1599EF0000E2C7B3 /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C2015273CAE00700504 /* template.html */; };
@@ -639,7 +634,6 @@
 		22994A15152DC90D00EE50C5 /* BRReadingStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 22994A14152DC90D00EE50C5 /* BRReadingStatistics.m */; };
 		229B2D0915273CAE00700504 /* BRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9615273CAE00700504 /* BRAppDelegate.m */; };
 		229B2D0B15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */; };
-		229B2D0C15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2B9F15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m */; };
 		229B2D0D15273CAE00700504 /* NSObject+Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA115273CAE00700504 /* NSObject+Notifications.m */; };
 		229B2D0E15273CAE00700504 /* UIColor+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA315273CAE00700504 /* UIColor+Addition.m */; };
 		229B2D0F15273CAE00700504 /* UIView+util.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2BA515273CAE00700504 /* UIView+util.m */; };
@@ -678,10 +672,6 @@
 		229B2D3815273CAE00700504 /* GRTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0115273CAE00700504 /* GRTag.m */; };
 		229B2D3915273CAE00700504 /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0315273CAE00700504 /* ImageDownloader.m */; };
 		229B2D3A15273CAE00700504 /* ImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0515273CAE00700504 /* ImageFilter.m */; };
-		229B2D3B15273CAE00700504 /* GTMOAuthAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0915273CAE00700504 /* GTMOAuthAuthentication.m */; };
-		229B2D3C15273CAE00700504 /* GTMOAuthSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0B15273CAE00700504 /* GTMOAuthSignIn.m */; };
-		229B2D3D15273CAE00700504 /* GTMOAuthViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C0D15273CAE00700504 /* GTMOAuthViewControllerTouch.m */; };
-		229B2D3E15273CAE00700504 /* GTMOAuthViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229B2C0E15273CAE00700504 /* GTMOAuthViewTouch.xib */; };
 		229B2D3F15273CAE00700504 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1115273CAE00700504 /* GTMHTTPFetcher.m */; };
 		229B2D4015273CAE00700504 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1315273CAE00700504 /* GTMOAuth2Authentication.m */; };
 		229B2D4115273CAE00700504 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 229B2C1515273CAE00700504 /* GTMOAuth2SignIn.m */; };
@@ -1491,8 +1481,6 @@
 		229B2B9915273CAE00700504 /* BreezyReader2-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BreezyReader2-Prefix.pch"; sourceTree = "<group>"; };
 		229B2B9C15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMOAuth2Authentication+ASIHTTPRequest.h"; sourceTree = "<group>"; };
 		229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMOAuth2Authentication+ASIHTTPRequest.m"; sourceTree = "<group>"; };
-		229B2B9E15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMOAuthAuthentication+ASIHTTPRequest.h"; sourceTree = "<group>"; };
-		229B2B9F15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMOAuthAuthentication+ASIHTTPRequest.m"; sourceTree = "<group>"; };
 		229B2BA015273CAE00700504 /* NSObject+Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Notifications.h"; sourceTree = "<group>"; };
 		229B2BA115273CAE00700504 /* NSObject+Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Notifications.m"; sourceTree = "<group>"; };
 		229B2BA215273CAE00700504 /* UIColor+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Addition.h"; sourceTree = "<group>"; };
@@ -1570,13 +1558,6 @@
 		229B2C0315273CAE00700504 /* ImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDownloader.m; sourceTree = "<group>"; };
 		229B2C0415273CAE00700504 /* ImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilter.h; sourceTree = "<group>"; };
 		229B2C0515273CAE00700504 /* ImageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilter.m; sourceTree = "<group>"; };
-		229B2C0815273CAE00700504 /* GTMOAuthAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuthAuthentication.h; sourceTree = "<group>"; };
-		229B2C0915273CAE00700504 /* GTMOAuthAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuthAuthentication.m; sourceTree = "<group>"; };
-		229B2C0A15273CAE00700504 /* GTMOAuthSignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuthSignIn.h; sourceTree = "<group>"; };
-		229B2C0B15273CAE00700504 /* GTMOAuthSignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuthSignIn.m; sourceTree = "<group>"; };
-		229B2C0C15273CAE00700504 /* GTMOAuthViewControllerTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuthViewControllerTouch.h; sourceTree = "<group>"; };
-		229B2C0D15273CAE00700504 /* GTMOAuthViewControllerTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuthViewControllerTouch.m; sourceTree = "<group>"; };
-		229B2C0E15273CAE00700504 /* GTMOAuthViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuthViewTouch.xib; sourceTree = "<group>"; };
 		229B2C1015273CAE00700504 /* GTMHTTPFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcher.h; sourceTree = "<group>"; };
 		229B2C1115273CAE00700504 /* GTMHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcher.m; sourceTree = "<group>"; };
 		229B2C1215273CAE00700504 /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2Authentication.h; sourceTree = "<group>"; };
@@ -2747,8 +2728,6 @@
 				22E530931539D77E001A3C60 /* NSDate+simpleFormat.m */,
 				229B2B9C15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.h */,
 				229B2B9D15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m */,
-				229B2B9E15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.h */,
-				229B2B9F15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m */,
 				222132C3152DE0460087D05E /* NSMutableString+Addition.h */,
 				222132C4152DE0460087D05E /* NSMutableString+Addition.m */,
 				229B2BA015273CAE00700504 /* NSObject+Notifications.h */,
@@ -2923,24 +2902,9 @@
 		229B2C0615273CAE00700504 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				229B2C0715273CAE00700504 /* GoogleOAuth1 */,
 				229B2C0F15273CAE00700504 /* GoogleOAuth2 */,
 			);
 			path = SDK;
-			sourceTree = "<group>";
-		};
-		229B2C0715273CAE00700504 /* GoogleOAuth1 */ = {
-			isa = PBXGroup;
-			children = (
-				229B2C0815273CAE00700504 /* GTMOAuthAuthentication.h */,
-				229B2C0915273CAE00700504 /* GTMOAuthAuthentication.m */,
-				229B2C0A15273CAE00700504 /* GTMOAuthSignIn.h */,
-				229B2C0B15273CAE00700504 /* GTMOAuthSignIn.m */,
-				229B2C0C15273CAE00700504 /* GTMOAuthViewControllerTouch.h */,
-				229B2C0D15273CAE00700504 /* GTMOAuthViewControllerTouch.m */,
-				229B2C0E15273CAE00700504 /* GTMOAuthViewTouch.xib */,
-			);
-			path = GoogleOAuth1;
 			sourceTree = "<group>";
 		};
 		229B2C0F15273CAE00700504 /* GoogleOAuth2 */ = {
@@ -4968,7 +4932,6 @@
 				223216761599EF0000E2C7B3 /* readability.js in Resources */,
 				223216771599EF0000E2C7B3 /* BaseAlertView.xib in Resources */,
 				223216781599EF0000E2C7B3 /* BaseMessageView.xib in Resources */,
-				223216791599EF0000E2C7B3 /* GTMOAuthViewTouch.xib in Resources */,
 				2232167A1599EF0000E2C7B3 /* GTMOAuth2ViewTouch.xib in Resources */,
 				2232167B1599EF0000E2C7B3 /* BRArticleDetailViewController.xib in Resources */,
 				2232167C1599EF0000E2C7B3 /* template.html in Resources */,
@@ -5189,7 +5152,6 @@
 				229B2DC215273D9C00700504 /* readability.js in Resources */,
 				229B2D1315273CAE00700504 /* BaseAlertView.xib in Resources */,
 				229B2D1715273CAE00700504 /* BaseMessageView.xib in Resources */,
-				229B2D3E15273CAE00700504 /* GTMOAuthViewTouch.xib in Resources */,
 				229B2D4315273CAE00700504 /* GTMOAuth2ViewTouch.xib in Resources */,
 				229B2D4615273CAE00700504 /* BRArticleDetailViewController.xib in Resources */,
 				229B2D4715273CAE00700504 /* template.html in Resources */,
@@ -5458,7 +5420,6 @@
 				2232155C1599EF0000E2C7B3 /* NSString+Addition.m in Sources */,
 				2232155D1599EF0000E2C7B3 /* BRAppDelegate.m in Sources */,
 				2232155E1599EF0000E2C7B3 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */,
-				2232155F1599EF0000E2C7B3 /* GTMOAuthAuthentication+ASIHTTPRequest.m in Sources */,
 				223215601599EF0000E2C7B3 /* NSObject+Notifications.m in Sources */,
 				223215611599EF0000E2C7B3 /* UIColor+Addition.m in Sources */,
 				223215621599EF0000E2C7B3 /* UIView+util.m in Sources */,
@@ -5495,9 +5456,6 @@
 				223215811599EF0000E2C7B3 /* GRTag.m in Sources */,
 				223215821599EF0000E2C7B3 /* ImageDownloader.m in Sources */,
 				223215831599EF0000E2C7B3 /* ImageFilter.m in Sources */,
-				223215841599EF0000E2C7B3 /* GTMOAuthAuthentication.m in Sources */,
-				223215851599EF0000E2C7B3 /* GTMOAuthSignIn.m in Sources */,
-				223215861599EF0000E2C7B3 /* GTMOAuthViewControllerTouch.m in Sources */,
 				223215871599EF0000E2C7B3 /* GTMHTTPFetcher.m in Sources */,
 				223215881599EF0000E2C7B3 /* GTMOAuth2Authentication.m in Sources */,
 				223215891599EF0000E2C7B3 /* GTMOAuth2SignIn.m in Sources */,
@@ -5862,7 +5820,6 @@
 				22D56B2B152768DA0098A85F /* NSString+Addition.m in Sources */,
 				229B2D0915273CAE00700504 /* BRAppDelegate.m in Sources */,
 				229B2D0B15273CAE00700504 /* GTMOAuth2Authentication+ASIHTTPRequest.m in Sources */,
-				229B2D0C15273CAE00700504 /* GTMOAuthAuthentication+ASIHTTPRequest.m in Sources */,
 				229B2D0D15273CAE00700504 /* NSObject+Notifications.m in Sources */,
 				229B2D0E15273CAE00700504 /* UIColor+Addition.m in Sources */,
 				229B2D0F15273CAE00700504 /* UIView+util.m in Sources */,
@@ -5899,9 +5856,6 @@
 				229B2D3815273CAE00700504 /* GRTag.m in Sources */,
 				229B2D3915273CAE00700504 /* ImageDownloader.m in Sources */,
 				229B2D3A15273CAE00700504 /* ImageFilter.m in Sources */,
-				229B2D3B15273CAE00700504 /* GTMOAuthAuthentication.m in Sources */,
-				229B2D3C15273CAE00700504 /* GTMOAuthSignIn.m in Sources */,
-				229B2D3D15273CAE00700504 /* GTMOAuthViewControllerTouch.m in Sources */,
 				229B2D3F15273CAE00700504 /* GTMHTTPFetcher.m in Sources */,
 				229B2D4015273CAE00700504 /* GTMOAuth2Authentication.m in Sources */,
 				229B2D4115273CAE00700504 /* GTMOAuth2SignIn.m in Sources */,

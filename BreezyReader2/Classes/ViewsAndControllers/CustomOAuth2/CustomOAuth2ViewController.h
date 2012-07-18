@@ -7,7 +7,6 @@
 //
 
 #import "GTMOAuth2ViewControllerTouch.h"
-#import "GTMOAuthViewControllerTouch.h"
 
 @interface CustomOAuth2ViewController : GTMOAuth2ViewControllerTouch
 
