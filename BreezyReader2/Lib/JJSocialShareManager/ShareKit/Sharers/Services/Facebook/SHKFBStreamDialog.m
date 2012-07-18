@@ -13,11 +13,6 @@
 
 @synthesize defaultStatus;
 
-- (void)dealloc
-{
-	[defaultStatus release];
-	[super dealloc];	
-}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView 
 {

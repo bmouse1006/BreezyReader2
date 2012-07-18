@@ -10,7 +10,7 @@
 
 @interface GoogleReaderClientHelper()
 
-@property (nonatomic, retain) NSMutableArray* clientQueue;
+@property (nonatomic, strong) NSMutableArray* clientQueue;
 
 @end
 
@@ -29,8 +29,6 @@
 
 -(void)dealloc{
     [self.clientQueue makeObjectsPerformSelector:@selector(clearAndCancel)];
-    self.clientQueue = nil;
-    [super dealloc];
 }
 
 +(id)sharedHelper{

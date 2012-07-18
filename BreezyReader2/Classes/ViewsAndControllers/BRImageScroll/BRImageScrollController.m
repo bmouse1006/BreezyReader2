@@ -22,12 +22,6 @@
 @synthesize buttonContainer = _buttonContainer;
 @synthesize buttonBackground = _buttonBackground;
 
--(void)dealloc{
-    self.saveButton = nil;
-    self.buttonBackground = nil;
-    self.buttonContainer = nil;
-    [super dealloc];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

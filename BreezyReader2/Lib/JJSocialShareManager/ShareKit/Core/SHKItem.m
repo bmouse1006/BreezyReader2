@@ -30,7 +30,7 @@
 
 
 @interface SHKItem()
-@property (nonatomic, retain)	NSMutableDictionary *custom;
+@property (nonatomic, strong)	NSMutableDictionary *custom;
 @end
 
 
@@ -40,24 +40,6 @@
 @synthesize URL, image, title, text, tags, data, mimeType, filename;
 @synthesize custom;
 
-- (void)dealloc
-{
-	[URL release];
-	
-	[image release];
-	
-	[title release];
-	[text release];
-	[tags release];
-	
-	[data release];
-	[mimeType release];
-	[filename release];
-	
-	[custom release];
-	
-	[super dealloc];
-}
 
 
 + (SHKItem *)URL:(NSURL *)url
@@ -72,7 +54,7 @@
 	item.URL = url;
 	item.title = title;
 	
-	return [item autorelease];
+	return item;
 }
 
 + (SHKItem *)image:(UIImage *)image
@@ -87,7 +69,7 @@
 	item.image = image;
 	item.title = title;
 	
-	return [item autorelease];
+	return item;
 }
 
 + (SHKItem *)text:(NSString *)text
@@ -96,7 +78,7 @@
 	item.shareType = SHKShareTypeText;
 	item.text = text;
 	
-	return [item autorelease];
+	return item;
 }
 
 + (SHKItem *)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
@@ -108,7 +90,7 @@
 	item.mimeType = mimeType;
 	item.title = title;
 	
-	return [item autorelease];
+	return item;
 }
 
 #pragma mark -
@@ -151,9 +133,9 @@
 	item.tags = [dictionary objectForKey:@"tags"];	
 		
 	if ([dictionary objectForKey:@"custom"] != nil)
-		item.custom = [[[dictionary objectForKey:@"custom"] mutableCopy] autorelease];
+		item.custom = [[dictionary objectForKey:@"custom"] mutableCopy];
 	
-	return [item autorelease];
+	return item;
 }
 
 - (NSDictionary *)dictionaryRepresentation

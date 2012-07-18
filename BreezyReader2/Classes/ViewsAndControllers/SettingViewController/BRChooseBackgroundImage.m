@@ -19,13 +19,6 @@
 
 @synthesize image1Button = _image1Button, image2Button = _image2Button, image3Button = _image3Button, userImageButton = _userImageButton;
 
--(void)dealloc{
-    self.image1Button = nil;
-    self.image2Button = nil;
-    self.image3Button = nil;
-    self.userImageButton = nil;
-    [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame
 {

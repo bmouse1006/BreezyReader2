@@ -12,10 +12,6 @@
 
 @synthesize label = _label;
 
--(void)dealloc{
-    self.label = nil;
-    [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame
 {

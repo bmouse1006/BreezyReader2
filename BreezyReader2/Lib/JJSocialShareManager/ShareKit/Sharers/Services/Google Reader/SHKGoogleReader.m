@@ -44,11 +44,6 @@ Google Reader API is unoffical, this was hobbled together from:
 @synthesize sendAfterLogin;
 
 
-- (void)dealloc
-{
-	[session release];
-	[super dealloc];
-}
 
 
 
@@ -107,12 +102,12 @@ Google Reader API is unoffical, this was hobbled together from:
 						SHKEncode(password)
 						];
 	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.google.com/accounts/ClientLogin"]
+	self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.google.com/accounts/ClientLogin"]
 											params:params
 										  delegate:self
 								isFinishedSelector:@selector(authFinished:)
 											method:@"POST"
-										 autostart:YES] autorelease];
+										 autostart:YES];
 }
 
 - (void)authFinished:(SHKRequest *)aRequest
@@ -160,11 +155,11 @@ Google Reader API is unoffical, this was hobbled together from:
 		if (message == nil) // TODO - Could use some clearer message here.
 			message = SHKLocalizedString(@"There was an error logging into Google Reader");			
 		
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
+		[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
 									 message:message
 									delegate:nil
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
-						   otherButtonTitles:nil] autorelease] show];	
+						   otherButtonTitles:nil] show];	
 	}
 }
 
@@ -206,7 +201,7 @@ Google Reader API is unoffical, this was hobbled together from:
 		cookie = [NSHTTPCookie cookieWithProperties:cookieDictionary];
 		[cookies addObject:cookie];
 	}
-	NSMutableDictionary *headers = [[[NSHTTPCookie requestHeaderFieldsWithCookies:cookies] mutableCopy] autorelease];
+	NSMutableDictionary *headers = [[NSHTTPCookie requestHeaderFieldsWithCookies:cookies] mutableCopy];
 	
 	[headers setObject:[NSString stringWithFormat:@"GoogleLogin auth=%@",[session objectForKey:@"Auth"]] forKey:@"Authorization"];
 	
@@ -232,7 +227,7 @@ Google Reader API is unoffical, this was hobbled together from:
 			
 			self.sendAfterLogin = NO;
 			
-			self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
+			self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:
 															 [NSString stringWithFormat:
 															  @"http://www.google.com/reader/api/0/token?ck=%i",
 															  [[NSDate date] timeIntervalSince1970]
@@ -241,7 +236,7 @@ Google Reader API is unoffical, this was hobbled together from:
 																 delegate:self
 													   isFinishedSelector:@selector(tokenFinished:)
 																   method:@"GET"
-																autostart:NO] autorelease];
+																autostart:NO];
 			[self signRequest:request];
 			[request start];	
 		}			
@@ -277,12 +272,12 @@ Google Reader API is unoffical, this was hobbled together from:
 						[item customBoolForSwitchKey:@"share"]?@"true":@""
 						];
 	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.google.com/reader/api/0/item/edit"]
+	self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.google.com/reader/api/0/item/edit"]
 								 params:params
 							   delegate:self
 					 isFinishedSelector:@selector(sendFinished:)
 								 method:@"POST"
-							  autostart:NO] autorelease];
+							  autostart:NO];
 	
 	[self signRequest:request];	
 	[request start];

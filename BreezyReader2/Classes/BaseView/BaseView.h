@@ -30,9 +30,9 @@
 +(id)loadFromBundle;
 +(id)currentView;
 
-@property (nonatomic, readonly, getter = getSuperView) UIView* superView;
+@property (weak, nonatomic, readonly, getter = getSuperView) UIView* superView;
 @property (nonatomic, assign) BOOL touchToDismiss;
 
-@property (nonatomic, assign) id<BaseViewDelegate> baseViewDelegate;
+@property (nonatomic, unsafe_unretained) id<BaseViewDelegate> baseViewDelegate;
 
 @end

@@ -28,11 +28,11 @@ inline CGPoint CGCenterOfRect(CGRect rect){
 
 -(void)clearInvisiblePages;
 
-@property (nonatomic, retain) NSMutableDictionary* loadedPages;
-@property (nonatomic, retain) NSMutableDictionary* pageFrames;
+@property (nonatomic, strong) NSMutableDictionary* loadedPages;
+@property (nonatomic, strong) NSMutableDictionary* pageFrames;
 
-@property (nonatomic, retain) UIScrollView* scrollView;
-@property (nonatomic, retain) UIPageControl* pageControl;
+@property (nonatomic, strong) UIScrollView* scrollView;
+@property (nonatomic, strong) UIPageControl* pageControl;
 
 @end
 
@@ -50,11 +50,6 @@ inline CGPoint CGCenterOfRect(CGRect rect){
 
 -(void)dealloc{
     self.datasource = nil;
-    self.loadedPages = nil;
-    self.pageFrames = nil;
-    self.scrollView = nil;
-    self.pageControl = nil;
-    [super dealloc];
 }
 
 -(id)initWithFrame:(CGRect)frame{
@@ -73,7 +68,7 @@ inline CGPoint CGCenterOfRect(CGRect rect){
 
 -(void)createViews{
     
-    self.scrollView = [[[UIScrollView alloc] initWithFrame:self.bounds] autorelease];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     self.scrollView.backgroundColor = [UIColor clearColor];
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -82,7 +77,7 @@ inline CGPoint CGCenterOfRect(CGRect rect){
     self.scrollView.bounces = YES;
     [self addSubview:self.scrollView];
     
-    self.pageControl = [[[UIPageControl alloc] initWithFrame:CGRectZero] autorelease];
+    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectZero];
     self.pageControl.hidesForSinglePage = YES;
     [self addSubview:self.pageControl];
     

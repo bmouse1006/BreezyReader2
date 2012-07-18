@@ -36,18 +36,13 @@
 {
   self = [super init];
 
-  mInputFileHandle = [inputFileHandle retain];
-  mOutputFileHandle = [outputFileHandle retain];
+  mInputFileHandle = inputFileHandle;
+  mOutputFileHandle = outputFileHandle;
 
   return self;
 }
 
 
-- (void) dealloc {
-  [mInputFileHandle release];
-  [mOutputFileHandle release];
-  [super dealloc];
-}
 
 
 - (int) readAll: (uint8_t *) buf offset: (int) off length: (int) len
@@ -79,7 +74,6 @@
                                            reason: [NSString stringWithFormat: @"%s: Unable to write data: %@", __PRETTY_FUNCTION__, e]];
   }
 
-  [dataObject release];
 }
 
 

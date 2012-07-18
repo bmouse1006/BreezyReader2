@@ -12,7 +12,7 @@
 
 @interface ENNotebookListViewController ()
 
-@property (nonatomic, retain) NSArray* notebookList;
+@property (nonatomic, strong) NSArray* notebookList;
 
 @end
 
@@ -20,10 +20,6 @@
 
 @synthesize notebookList = _notebookList;
 
--(void)dealloc{
-    self.notebookList = nil;
-    [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -90,7 +86,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     EDAMNotebook* notebook = [self.notebookList objectAtIndex:indexPath.row];

@@ -24,8 +24,8 @@
 
 @interface GoogleReaderController : NSObject
 
-@property (retain) NSString* errorMsg;
-@property (assign) id<GoogleReaderControllerDelegate> delegate;
+@property  NSString* errorMsg;
+@property (unsafe_unretained) id<GoogleReaderControllerDelegate> delegate;
 
 +(id)controller;
 //Google Reader interface

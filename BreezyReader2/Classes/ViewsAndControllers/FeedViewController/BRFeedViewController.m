@@ -32,12 +32,12 @@
 @property (nonatomic, assign) BOOL okToRefresh;
 @property (nonatomic, assign) BOOL okToLoadMore;
 
-@property (nonatomic, retain) GoogleReaderClient* client;
+@property (nonatomic, strong) GoogleReaderClient* client;
 
-@property (nonatomic, retain) NSMutableSet* clients;
-@property (nonatomic, retain) NSMutableDictionary* itemIDs;
+@property (nonatomic, strong) NSMutableSet* clients;
+@property (nonatomic, strong) NSMutableDictionary* itemIDs;
 
-@property (nonatomic, retain) UIView* adView;
+@property (nonatomic, strong) UIView* adView;
 
 -(void)startLoadingMore;
 -(void)startRefreshing;
@@ -71,28 +71,8 @@ static CGFloat refreshDistance = 60.0f;
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.tableView = nil;
-    self.dragController = nil;
-    self.subscription = nil;
-    self.dataSource = nil;
-    self.loadMoreController = nil;
-    self.loadingView = nil;
-    self.titleView = nil;
-    self.bottomToolBar = nil;
-    self.titleLabel = nil;
-    self.loadingLabel = nil;
     [self.client clearAndCancel];
-    self.client = nil;
     [[self.clients allObjects] makeObjectsPerformSelector:@selector(clearAndCancel)];
-    self.clients = nil;
-    self.itemIDs = nil;
-    self.adView = nil;
-    self.menuButton = nil;
-    self.configViewController = nil;
-    self.configButton = nil;
-    self.noMoreView = nil;
-    self.noMoreLabel = nil;
-    [super dealloc];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -150,9 +130,9 @@ static CGFloat refreshDistance = 60.0f;
     insetsTop = 0;
     insetsBottom = -self.loadMoreController.view.frame.size.height;
     self.title = self.subscription.title;
-    self.tableView = [[[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain] autorelease];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    UIPinchGestureRecognizer* gesture = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonClicked:)] autorelease];
+    UIPinchGestureRecognizer* gesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonClicked:)];
     [self.tableView addGestureRecognizer:gesture];
     
     [self setupTableViewEdgeInsetByStatus];
@@ -161,7 +141,7 @@ static CGFloat refreshDistance = 60.0f;
     self.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     self.titleLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
     self.titleLabel.text = self.title;
-    UISwipeGestureRecognizer* swipeLeft = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showConfigMenu)] autorelease];
+    UISwipeGestureRecognizer* swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showConfigMenu)];
     [self.titleLabel addGestureRecognizer:swipeLeft];
     
     [self.mainContainer addSubview:self.tableView];
@@ -176,7 +156,7 @@ static CGFloat refreshDistance = 60.0f;
     self.noMoreLabel.text = NSLocalizedString(@"title_nomorearticles", nil);
     
     self.dragController.view.alpha = 0;
-    self.dataSource = [[[BRFeedDataSource alloc] init] autorelease];
+    self.dataSource = [[BRFeedDataSource alloc] init];
     self.dataSource.unreadOnly = [BRUserPreferenceDefine unreadOnlyStatusForStream:self.subscription.ID];
     self.dataSource.delegate = self;
     self.dataSource.subscription = self.subscription;
@@ -355,8 +335,7 @@ static CGFloat refreshDistance = 60.0f;
         NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
         [nc removeObserver:self name:NOTIFICATION_FEED_UNSUBSCRIBED object:_subscription.ID];
         [nc removeObserver:self name:NOTIFICATION_FEED_SUBSCRIBED object:_subscription.ID];
-        [_subscription release];
-        _subscription = [subscription retain];
+        _subscription = subscription;
         [nc addObserver:self selector:@selector(feedUnsubscribed:) name:NOTIFICATION_FEED_UNSUBSCRIBED object:_subscription.ID];
         [nc addObserver:self selector:@selector(feedSubscribed:) name:NOTIFICATION_FEED_SUBSCRIBED object:_subscription.ID];
     }
@@ -406,7 +385,7 @@ static CGFloat refreshDistance = 60.0f;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    BRArticleScrollViewController* article = [[[BRArticleScrollViewController alloc] initWithTheNibOfSameName] autorelease];
+    BRArticleScrollViewController* article = [[BRArticleScrollViewController alloc] initWithTheNibOfSameName];
     article.feed = self.dataSource.feed;
     article.index = indexPath.row;
     [[self topContainer] slideInViewController:article];

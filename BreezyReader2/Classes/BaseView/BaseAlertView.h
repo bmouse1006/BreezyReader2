@@ -11,8 +11,8 @@
 
 @interface BaseAlertView : BaseView
 
-@property (nonatomic, retain) IBOutlet UIView* contentView;
-@property (nonatomic, retain) IBOutlet UILabel* titleLabel;
+@property (nonatomic, strong) IBOutlet UIView* contentView;
+@property (nonatomic, strong) IBOutlet UILabel* titleLabel;
 
 @property (nonatomic, copy, setter = setMessage:) NSString* message;
 

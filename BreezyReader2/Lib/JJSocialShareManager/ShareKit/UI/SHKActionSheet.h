@@ -35,9 +35,9 @@
 	SHKItem *item;
 }
 
-@property (retain) NSMutableArray *sharers;
+@property (strong)  NSMutableArray *sharers;
 
-@property (retain) SHKItem *item;
+@property (strong)  SHKItem *item;
 
 + (SHKActionSheet *)actionSheetForType:(SHKShareType)type;
 + (SHKActionSheet *)actionSheetForItem:(SHKItem *)i;

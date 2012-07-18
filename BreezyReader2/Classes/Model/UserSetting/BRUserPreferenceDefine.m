@@ -79,8 +79,8 @@ static UIImage* _blurBackgroundImage = nil;
         if (!image){
             [self setDefaultBackgroundImage:[UIImage imageNamed:kDefaultBackgroundImageName] withName:kDefaultBackgroundImageName];
         }else{
-            _backgroundImage = [image retain];
-            _blurBackgroundImage = [[self applyBlurImage:_backgroundImage] retain];
+            _backgroundImage = image;
+            _blurBackgroundImage = [self applyBlurImage:_backgroundImage];
         }
     }
     
@@ -92,11 +92,9 @@ static UIImage* _blurBackgroundImage = nil;
     image = [image clippedThumbnailWithSize:[UIScreen mainScreen].bounds.size];
     UIImage* blurImage = [self applyBlurImage:image];
     
-    [_backgroundImage release];
-    _backgroundImage = [image retain];
+    _backgroundImage = image;
     
-    [_blurBackgroundImage release];
-    _blurBackgroundImage = [blurImage retain];
+    _blurBackgroundImage = blurImage;
     
     [[NSFileManager defaultManager] removeItemAtURL:[self backgroundImageStoreURL] error:NULL];
     [UIImagePNGRepresentation(image) writeToURL:[self backgroundImageStoreURL] atomically:YES];
@@ -107,8 +105,8 @@ static UIImage* _blurBackgroundImage = nil;
 
 #pragma mark - blur background image
 +(UIImage*)applyBlurImage:(UIImage*)image{
-    GPUImagePicture* sourcePicture = [[[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES] autorelease];
-    GPUImageGaussianBlurFilter* blurFilter = [[[GPUImageGaussianBlurFilter alloc] init] autorelease];
+    GPUImagePicture* sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
+    GPUImageGaussianBlurFilter* blurFilter = [[GPUImageGaussianBlurFilter alloc] init];
     blurFilter.blurSize = 8.0f;
     
     [sourcePicture addTarget:blurFilter];

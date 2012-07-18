@@ -16,12 +16,12 @@
     BOOL _saveURLOnly;
 }
 
-@property (nonatomic, retain) NSArray* cells;
+@property (nonatomic, strong) NSArray* cells;
 @property (nonatomic, copy) NSString* ENTitle;
 @property (nonatomic, copy) NSString* ENContent;
 @property (nonatomic, copy) NSString* ENURLString;
 
-@property (nonatomic, retain) BaseActivityLabel* activityLabel;
+@property (nonatomic, strong) BaseActivityLabel* activityLabel;
 
 @end
 
@@ -36,24 +36,13 @@
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.titleCell = nil;
-    self.contentCell = nil;
-    self.urlCell = nil;
-    self.urlStringCell = nil;
-    self.notebookCell = nil;
-    self.cells = nil;
-    self.sendButton = nil;
-    self.cancelButton = nil;
-    self.titleField = nil;
-    self.contentView = nil;
     self.ENContent = nil;
     self.ENTitle = nil;
     self.ENURLString = nil;
-    [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style{
-    [super initWithStyle:style];
+    self = [super initWithStyle:style];
     
     if (self){
 
@@ -107,11 +96,11 @@
         [session authenticateWithViewController:self completionHandler:^(NSError *error) {
             if (error || !session.isAuthenticated) {
                 DebugLog(@"%@", [error localizedDescription]);
-                UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:EvernoteLocalizedString(@"title_error", nil)
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:EvernoteLocalizedString(@"title_error", nil)
                                                                  message:EvernoteLocalizedString(@"message_couldnotauthenticate", nil)
                                                                 delegate:blockSelf 
                                                        cancelButtonTitle:EvernoteLocalizedString(@"title_ok", nil) 
-                                                       otherButtonTitles:nil] autorelease];
+                                                       otherButtonTitles:nil];
                 [alert show];
                 //                [activity setFinished:NO];
             } else {
@@ -179,7 +168,6 @@
 
 -(void)setENContent:(NSString*)content{
     if (_ENContent != content){
-        [_ENContent release];
         _ENContent = [content copy];
     }
 //    self.contentTextView.text = content;
@@ -187,7 +175,6 @@
 
 -(void)setENTitle:(NSString*)title{
     if (_ENTitle != title){
-        [_ENTitle release];
         _ENTitle = [title copy];
     }
     self.titleField.text = title;
@@ -195,7 +182,6 @@
 
 -(void)setENURLString:(NSString*)urlString{
     if (_ENURLString != urlString){
-        [_ENURLString release];
         _ENURLString = [urlString copy];
     }
 }
@@ -235,10 +221,10 @@
     
     EvernoteNoteStore* noteStore = [EvernoteNoteStore noteStore];
 
-    EDAMNoteAttributes * attributes = [[[EDAMNoteAttributes alloc] init] autorelease];
+    EDAMNoteAttributes * attributes = [[EDAMNoteAttributes alloc] init];
     attributes.sourceURL = self.ENURLString;
     
-    EDAMNote* note = [[[EDAMNote alloc] init] autorelease];
+    EDAMNote* note = [[EDAMNote alloc] init];
     note.title = self.titleField.text;
     
     note.content = formattedContent;
@@ -282,7 +268,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([tableView cellForRowAtIndexPath:indexPath] == self.notebookCell){
         //show note book list
-        ENNotebookListViewController* notebookList = [[[ENNotebookListViewController alloc] initWithNibName:@"ENNotebookListViewController" bundle:nil] autorelease];
+        ENNotebookListViewController* notebookList = [[ENNotebookListViewController alloc] initWithNibName:@"ENNotebookListViewController" bundle:nil];
         [self.navigationController pushViewController:notebookList animated:YES];
     }
 }

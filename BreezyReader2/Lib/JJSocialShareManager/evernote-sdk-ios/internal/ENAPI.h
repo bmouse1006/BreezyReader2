@@ -33,9 +33,9 @@
 // Superclass for Evernote API classes (EvernoteNoteStore, EvernoteUserStore, etc.)
 @interface ENAPI : NSObject
 
-@property (nonatomic, retain) EvernoteSession *session;
-@property (nonatomic, readonly) EDAMNoteStoreClient *noteStore;
-@property (nonatomic, readonly) EDAMUserStoreClient *userStore;
+@property (nonatomic, strong) EvernoteSession *session;
+@property (weak, nonatomic, readonly) EDAMNoteStoreClient *noteStore;
+@property (weak, nonatomic, readonly) EDAMUserStoreClient *userStore;
 
 - (id)initWithSession:(EvernoteSession *)session;
 

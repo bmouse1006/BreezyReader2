@@ -31,9 +31,9 @@
 	NSString *key;
 	NSString *secret;
 }
-@property(retain) NSString *pin;			//added for the Twitter OAuth implementation
-@property(retain) NSString *key;
-@property(retain) NSString *secret;
+@property (strong) NSString *pin;			//added for the Twitter OAuth implementation
+@property (strong) NSString *key;
+@property (strong) NSString *secret;
 
 - (id)initWithKey:(NSString *)aKey secret:(NSString *)aSecret;
 - (id)initWithUserDefaultsUsingServiceProviderName:(NSString *)provider prefix:(NSString *)prefix;

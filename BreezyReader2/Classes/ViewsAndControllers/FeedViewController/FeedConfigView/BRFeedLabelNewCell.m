@@ -13,11 +13,6 @@
 @synthesize addNewButton = _addNewButton;
 @synthesize addNewLabel = _addNewLabel;
 
--(void)dealloc{
-    self.addNewButton = nil;
-    self.addNewLabel = nil;
-    [super dealloc];
-}
 
 -(void)awakeFromNib{
     [super awakeFromNib];

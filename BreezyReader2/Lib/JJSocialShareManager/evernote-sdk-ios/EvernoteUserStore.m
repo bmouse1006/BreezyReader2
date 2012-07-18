@@ -33,7 +33,7 @@
 
 + (EvernoteUserStore *)userStore
 {
-    EvernoteUserStore *userStore = [[[EvernoteUserStore alloc] initWithSession:[EvernoteSession sharedSession]] autorelease];
+    EvernoteUserStore *userStore = [[EvernoteUserStore alloc] initWithSession:[EvernoteSession sharedSession]];
     return userStore;
 }
 

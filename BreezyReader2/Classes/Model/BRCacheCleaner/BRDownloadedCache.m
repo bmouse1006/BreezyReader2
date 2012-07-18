@@ -21,7 +21,7 @@
 	}
 	NSString *path = [[self storagePath] stringByAppendingPathComponent:(storagePolicy == ASICacheForSessionDurationCacheStoragePolicy ? sessionCacheFolder : permanentCacheFolder)];
     
-	NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
+	NSFileManager *fileManager = [[NSFileManager alloc] init];
     
 	BOOL isDirectory = NO;
 	BOOL exists = [fileManager fileExistsAtPath:path isDirectory:&isDirectory];

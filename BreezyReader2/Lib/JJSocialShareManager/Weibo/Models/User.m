@@ -31,16 +31,16 @@
 	if (self) {
 		userId = [stmt getInt64:0];
 		userKey = [[NSNumber alloc] initWithLongLong:userId];
-		screenName = [[stmt getString:1] retain];
-		name = [[stmt getString:2] retain];
-		province = [[stmt getString:3]retain];
-		city = [[stmt getString:4]retain];
-		location = [[stmt getString:5]retain];
-		description = [[stmt getString:6]retain];
-		url = [[stmt getString:7] retain];
-		profileImageUrl = [[stmt getString:8]retain];
-		profileLargeImageUrl = [[profileImageUrl stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"] retain];
-		domain = [[stmt getString:9]retain];
+		screenName = [stmt getString:1];
+		name = [stmt getString:2];
+		province = [stmt getString:3];
+		city = [stmt getString:4];
+		location = [stmt getString:5];
+		description = [stmt getString:6];
+		url = [stmt getString:7];
+		profileImageUrl = [stmt getString:8];
+		profileLargeImageUrl = [profileImageUrl stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
+		domain = [stmt getString:9];
 		gender = [stmt getInt32:10];
 		followersCount = [stmt getInt32:11];
 		friendsCount = [stmt getInt32:12];
@@ -66,16 +66,6 @@
 
 - (void)updateWithJSonDictionary:(NSDictionary*)dic
 {
-	[userKey release];
-    [screenName release];
-    [name release];
-	[province release];
-	[city release];
-    [location release];
-    [description release];
-    [url release];
-    [profileImageUrl release];
-	[domain release];
     
     userId          = [[dic objectForKey:@"id"] longLongValue];
     userKey			= [[NSNumber alloc] initWithLongLong:userId];
@@ -131,23 +121,15 @@
     if ((id)profileImageUrl == [NSNull null]) profileImageUrl = @"";
     if ((id)domain == [NSNull null]) domain = @"";
     
-    [screenName retain];
-    [name retain];
-	[province retain];
-	[city retain];
-    location = [[location unescapeHTML] retain];
-    description = [[description unescapeHTML] retain];
-    [url retain];
-    [profileImageUrl retain];
-	[domain retain];
-	profileLargeImageUrl = [[profileImageUrl stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"] retain];
+    location = [location unescapeHTML];
+    description = [description unescapeHTML];
+	profileLargeImageUrl = [profileImageUrl stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
 }
 
 + (User*)userWithScreenName:(NSString *)_screenName {
 	static Statement *stmt = nil;
     if (stmt == nil) {
         stmt = [DBConnection statementWithQuery:"SELECT userId FROM users WHERE screenName = ?"];
-        [stmt retain];
     }
     
     [stmt bindString:_screenName forIndex:1];
@@ -170,7 +152,6 @@
     static Statement *stmt = nil;
     if (stmt == nil) {
         stmt = [DBConnection statementWithQuery:"SELECT * FROM users WHERE userId = ?"];
-        [stmt retain];
     }
     
     [stmt bindInt64:uid forIndex:1];
@@ -180,7 +161,7 @@
         return nil;
     }
     
-    user = [[[User alloc] initWithStatement:stmt] autorelease];
+    user = [[User alloc] initWithStatement:stmt];
 	
     [stmt reset];
 	
@@ -193,24 +174,9 @@
     User *u;
     
     u = [[User alloc] initWithJsonDictionary:dic];
-    return [u autorelease];
+    return u;
 }
 
-- (void)dealloc
-{
-	[userKey release];
-    [screenName release];
-    [name release];
-	[province release];
-	[city release];
-    [location release];
-    [description release];
-    [url release];
-    [profileImageUrl release];
-	[profileLargeImageUrl release];
-	[domain release];
-   	[super dealloc];
-}
 
 
 
@@ -219,7 +185,6 @@
     static Statement *stmt = nil;
     if (stmt == nil) {
         stmt = [DBConnection statementWithQuery:"REPLACE INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"];
-        [stmt retain];
     }
     [stmt bindInt64:userId              forIndex:1];
     [stmt bindString:screenName               forIndex:2];

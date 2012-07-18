@@ -11,7 +11,7 @@
 
 @interface InfinityScrollViewController : UIViewController <InfinityScrollViewDataSource>
 
-@property (nonatomic, retain) IBOutlet InfinityScrollView* scrollView;
-@property (nonatomic, retain) NSArray* contentControllers;
+@property (nonatomic, strong) IBOutlet InfinityScrollView* scrollView;
+@property (nonatomic, strong) NSArray* contentControllers;
 
 @end

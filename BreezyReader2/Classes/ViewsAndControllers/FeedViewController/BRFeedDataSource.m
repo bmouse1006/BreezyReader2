@@ -31,12 +31,6 @@
 
 -(void)dealloc{
     [self.client clearAndCancel];
-    self.client = nil;
-    self.subscription = nil;
-    self.feed = nil;
-    self.moreFeed = nil;
-    self.exclude = nil;
-    [super dealloc];
 }
 
 -(void)setUnreadOnly:(BOOL)unreadOnly{

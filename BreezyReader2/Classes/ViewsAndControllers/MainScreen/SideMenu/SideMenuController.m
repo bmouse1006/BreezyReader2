@@ -17,10 +17,6 @@
 
 @synthesize buyButton = _buyButton;
 
--(void)dealloc{
-    self.buyButton = nil;
-    [super dealloc];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

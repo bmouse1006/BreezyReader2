@@ -21,12 +21,12 @@
 
 @interface FBRequest : NSObject {
   FBSession*            _session;
-  id<FBRequestDelegate> _delegate;
+  id<FBRequestDelegate> __unsafe_unretained _delegate;
   NSString*             _url;
   NSString*             _method;
   id                    _userInfo;
-  NSMutableDictionary*  _params;
-  NSObject*             _dataParam;
+  NSMutableDictionary*  __weak _params;
+  NSObject*             __unsafe_unretained _dataParam;
   NSDate*               _timestamp;
   NSURLConnection*      _connection;
   NSMutableData*        _responseText;
@@ -52,7 +52,7 @@
  */
 + (FBRequest*)requestWithSession:(FBSession*)session delegate:(id<FBRequestDelegate>)delegate;
 
-@property(nonatomic,assign) id<FBRequestDelegate> delegate;
+@property(nonatomic,unsafe_unretained) id<FBRequestDelegate> delegate;
 
 /**
  * The URL which will be contacted to execute the request.
@@ -67,7 +67,7 @@
 /**
  * An object used by the user of the request to help identify the meaning of the request.
  */
-@property(nonatomic,retain) id userInfo;
+@property(nonatomic, strong) id userInfo;
 
 /**
  * The dictionary of parameters to pass to the method.
@@ -75,7 +75,7 @@
  * These values in the dictionary will be converted to strings using the 
  * standard Objective-C object-to-string conversion facilities.
  */
-@property(nonatomic,readonly) NSDictionary* params;
+@property(weak, nonatomic,readonly) NSDictionary* params;
 
 /**
  * A data parameter.
@@ -83,7 +83,7 @@
  * Used for methods such as photos.upload, video.upload, events.create, and
  * events.edit.
  */
-@property(nonatomic,readonly) NSObject* dataParam;
+@property(unsafe_unretained, nonatomic,readonly) NSObject* dataParam;
 
 /**
  * The timestamp of when the request was sent to the server.

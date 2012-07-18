@@ -11,18 +11,18 @@
 
 @interface ENNoteComposerController : UITableViewController<UIAlertViewDelegate>
 
-@property (nonatomic, retain) IBOutlet UITableViewCell* titleCell;
-@property (nonatomic, retain) IBOutlet UITableViewCell* contentCell;
-@property (nonatomic, retain) IBOutlet UITableViewCell* urlCell;
-@property (nonatomic, retain) IBOutlet UITableViewCell* notebookCell;
-@property (nonatomic, retain) IBOutlet UITableViewCell* urlStringCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* titleCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* contentCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* urlCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* notebookCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* urlStringCell;
 
-@property (nonatomic, retain) IBOutlet UITextField* titleField;
+@property (nonatomic, strong) IBOutlet UITextField* titleField;
 //@property (nonatomic, retain) IBOutlet UITextView* contentTextView;
-@property (nonatomic, retain) IBOutlet UIWebView* contentView;
+@property (nonatomic, strong) IBOutlet UIWebView* contentView;
 
-@property (nonatomic, retain) IBOutlet UIBarButtonItem* sendButton;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem* cancelButton;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem* sendButton;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem* cancelButton;
 
 -(IBAction)cancelButtonClicked:(id)sender;
 -(IBAction)sendButtonClicked:(id)sender;

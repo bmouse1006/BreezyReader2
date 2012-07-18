@@ -31,8 +31,8 @@
     BOOL _searching;
 }
 
-@property (nonatomic, retain) NSMutableArray* results;
-@property (nonatomic, retain) ASIHTTPRequest* request;
+@property (nonatomic, strong) NSMutableArray* results;
+@property (nonatomic, strong) ASIHTTPRequest* request;
 
 -(void)startSearchWithKeywords:(NSString*)keywords;
 -(void)searchFinished;
@@ -44,8 +44,8 @@
 -(BOOL)loaded;
 -(BOOL)isLoadingMore;
 
-@property (nonatomic, retain) GoogleReaderClient* client;
+@property (nonatomic, strong) GoogleReaderClient* client;
 @property (nonatomic, copy) NSString* keywords;
-@property (nonatomic, assign) NSObject<BRSearchDelegate>* delegate;
+@property (nonatomic, unsafe_unretained) NSObject<BRSearchDelegate>* delegate;
 
 @end

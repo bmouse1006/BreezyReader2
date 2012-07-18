@@ -26,9 +26,9 @@
 }
 
 -(void)setupBackground{
-    UIView* black = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0.5)] autorelease];
+    UIView* black = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0.5)];
     black.backgroundColor = [UIColor lightGrayColor];
-    UIView* white = [[[UIView alloc] initWithFrame:CGRectMake(0, 0.5, 320, 0.5)] autorelease];
+    UIView* white = [[UIView alloc] initWithFrame:CGRectMake(0, 0.5, 320, 0.5)];
     white.backgroundColor = [UIColor whiteColor];
     
     [self addSubview:black];

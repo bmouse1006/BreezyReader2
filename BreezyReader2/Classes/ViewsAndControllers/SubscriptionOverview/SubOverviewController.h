@@ -12,14 +12,14 @@
 
 @interface SubOverviewController : UIViewController
 
-@property (nonatomic, retain) IBOutlet UIView* dimBackground;
-@property (nonatomic, retain) IBOutlet UIView* container;
-@property (nonatomic, retain) IBOutlet UIButton* dismissButton;
-@property (nonatomic, retain) IBOutlet UIView* subDetailView;
+@property (nonatomic, strong) IBOutlet UIView* dimBackground;
+@property (nonatomic, strong) IBOutlet UIView* container;
+@property (nonatomic, strong) IBOutlet UIButton* dismissButton;
+@property (nonatomic, strong) IBOutlet UIView* subDetailView;
 
-@property (nonatomic, retain) IBOutlet UILabel* titleLabel;
-@property (nonatomic, retain) IBOutlet UILabel* subscriberCountLabel;
-@property (nonatomic, retain) IBOutlet UILabel* velocityLabel;
+@property (nonatomic, strong) IBOutlet UILabel* titleLabel;
+@property (nonatomic, strong) IBOutlet UILabel* subscriberCountLabel;
+@property (nonatomic, strong) IBOutlet UILabel* velocityLabel;
 
 -(void)showOverviewForSub:(GRSubscription*)sub inView:(UIView*)view flipFrom:(UIView*)originView;
 

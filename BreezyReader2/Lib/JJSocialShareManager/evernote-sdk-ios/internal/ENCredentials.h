@@ -31,11 +31,11 @@
 
 @interface ENCredentials : NSObject <NSCoding>
 
-@property (nonatomic, retain) NSString *host;
-@property (nonatomic, retain) NSString *edamUserId;
-@property (nonatomic, retain) NSString *noteStoreUrl;
-@property (nonatomic, retain) NSString *webApiUrlPrefix;
-@property (nonatomic, retain) NSString *authenticationToken;
+@property (nonatomic, strong) NSString *host;
+@property (nonatomic, strong) NSString *edamUserId;
+@property (nonatomic, strong) NSString *noteStoreUrl;
+@property (nonatomic, strong) NSString *webApiUrlPrefix;
+@property (nonatomic, strong) NSString *authenticationToken;
 
 - (id)initWithHost:(NSString *)host
         edamUserId:(NSString *)edamUserId

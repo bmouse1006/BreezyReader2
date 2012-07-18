@@ -11,8 +11,8 @@
 
 @interface BRFeedAndArticlesSearchController : UIViewController<UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDelegate, BRSearchDelegate>
 
-@property (nonatomic, retain) IBOutlet UIView* loadMoreView;
-@property (nonatomic, retain) IBOutlet UIButton* loadMoreButton;
+@property (nonatomic, strong) IBOutlet UIView* loadMoreView;
+@property (nonatomic, strong) IBOutlet UIButton* loadMoreButton;
 
 -(void)getReadyForSearch;
 

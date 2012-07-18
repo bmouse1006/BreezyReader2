@@ -21,14 +21,6 @@
     self.touchToDismiss = NO;
 }
 
--(void)dealloc{
-    self.contentView = nil;
-    self.label = nil;
-    self.doneImage = nil;
-    self.activityView = nil;
-    self.failedImage = nil;
-    [super dealloc];
-}
 
 -(NSString*)message{
     return self.label.text;

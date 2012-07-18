@@ -32,7 +32,7 @@
  * resume method after instantiating your session.
  */
 @interface FBSession : NSObject {
-  NSMutableArray* _delegates;
+  NSMutableArray* __weak _delegates;
   NSString* _apiKey;
   NSString* _apiSecret;
   NSString* _getSessionProxy;
@@ -49,17 +49,17 @@
 /**
  * Delegates which implement FBSessionDelegate.
  */
-@property(nonatomic,readonly) NSMutableArray* delegates;
+@property(weak, nonatomic,readonly) NSMutableArray* delegates;
 
 /**
  * The URL used for API HTTP requests.
  */
-@property(nonatomic,readonly) NSString* apiURL;
+@property(weak, nonatomic,readonly) NSString* apiURL;
 
 /**
  * The URL used for secure API HTTP requests.
  */
-@property(nonatomic,readonly) NSString* apiSecureURL;
+@property(weak, nonatomic,readonly) NSString* apiSecureURL;
 
 /**
  * Your application's API key, as passed to the constructor.

@@ -53,11 +53,6 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 -(void)dealloc{
     NSString* tempFile = [self filePathForItemID:self.item.ID];
     [[NSFileManager defaultManager] removeItemAtPath:tempFile error:NULL];
-    self.webView = nil;
-    self.item = nil;
-    self.loadingView = nil;
-    self.loadingLabel = nil;
-    [super dealloc];
 }
 
 -(id)initWithItem:(GRItem*)item{
@@ -96,7 +91,7 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     
     self.webView.scrollView.delegate = self.delegate;
     [self removeGradientImage:self.webView];
-    UITapGestureRecognizer* singleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)] autorelease];
+    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
     singleTap.delegate = self;
     [self.webView addGestureRecognizer:singleTap];
     self.webView.delegate = self;
@@ -185,9 +180,9 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
         //promote a single web view;
         NSString* scheme = [[request URL].scheme lowercaseString];
         if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]){
-            JJSingleWebController* singleWeb = [[[JJSingleWebController alloc] init] autorelease];
+            JJSingleWebController* singleWeb = [[JJSingleWebController alloc] init];
             singleWeb.URL = [request URL];
-            UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:singleWeb] autorelease];
+            UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:singleWeb];
             [UIApplication sharedApplication].statusBarHidden = NO;
             [self presentViewController:nav animated:YES completion:NULL];
         }
@@ -235,7 +230,7 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
         //show image scroll
         NSArray* imageList = [self.item imageURLList];
         NSInteger index = [imageList indexOfObject:imageUrl];
-        BRImageScrollController* imageScroller = [[[BRImageScrollController alloc] initWithTheNibOfSameName] autorelease];
+        BRImageScrollController* imageScroller = [[BRImageScrollController alloc] initWithTheNibOfSameName];
         [imageScroller setImageList:imageList startIndex:index];
         [[self topContainer] addToTop:imageScroller animated:YES];
     }else{

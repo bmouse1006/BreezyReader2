@@ -17,10 +17,7 @@
 @synthesize delegate = _delegate;
 
 -(void)dealloc{
-    self.tag = nil;
-    self.subscriptions = nil;
     self.delegate = nil;
-    [super dealloc];
 }
 
 -(NSString*)title{

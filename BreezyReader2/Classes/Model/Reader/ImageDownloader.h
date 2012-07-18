@@ -18,10 +18,10 @@
 
 @interface ImageDownloader : NSObject 
 
-@property (nonatomic, retain) NSString* imageURL;
-@property (nonatomic, retain) NSURLConnection* connection;
-@property (nonatomic, retain) NSMutableData* cachedData;
-@property (nonatomic, retain) NSObject<ImageDownloaderDelegate>* delegate;
+@property (nonatomic, strong) NSString* imageURL;
+@property (nonatomic, strong) NSURLConnection* connection;
+@property (nonatomic, strong) NSMutableData* cachedData;
+@property (nonatomic, strong) NSObject<ImageDownloaderDelegate>* delegate;
 
 -(id)initWithImageURL:(NSString*)URL delegate:(NSObject<ImageDownloaderDelegate>*)mDelegate startNow:(BOOL)start;
 -(void)cancel;

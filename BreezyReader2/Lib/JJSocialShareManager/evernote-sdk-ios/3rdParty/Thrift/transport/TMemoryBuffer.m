@@ -61,11 +61,7 @@
 }
 
 - (NSData *)getBuffer {
-	return [[mBuffer copy] autorelease];
+	return [mBuffer copy];
 }
 
-- (void)dealloc {
-	[mBuffer release];
-	[super dealloc];
-}
 @end

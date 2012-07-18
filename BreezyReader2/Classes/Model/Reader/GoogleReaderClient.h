@@ -22,13 +22,13 @@ typedef void(^GoogleReaderCompletionHandler)(NSError*);
 
 @interface GoogleReaderClient : NSObject<ASIHTTPRequestDelegate>
 
-@property (nonatomic, readonly) NSError* error;
-@property (nonatomic, readonly) NSString* responseString;
-@property (nonatomic, readonly) NSData* responseData;
+@property (weak, nonatomic, readonly) NSError* error;
+@property (weak, nonatomic, readonly) NSString* responseString;
+@property (weak, nonatomic, readonly) NSData* responseData;
 @property (nonatomic, readonly) BOOL isResponseOK;
-@property (nonatomic, readonly) id responseJSONValue;
-@property (nonatomic, readonly) id responseFeedSearchingJSONValue;
-@property (nonatomic, readonly) GRFeed* responseFeed;
+@property (unsafe_unretained, nonatomic, readonly) id responseJSONValue;
+@property (unsafe_unretained, nonatomic, readonly) id responseFeedSearchingJSONValue;
+@property (weak, nonatomic, readonly) GRFeed* responseFeed;
 @property (nonatomic, readonly) BOOL didUseCachedData;
 
 +(id)clientWithDelegate:(id)delegate action:(SEL)action;

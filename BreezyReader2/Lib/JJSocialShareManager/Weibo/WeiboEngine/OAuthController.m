@@ -12,7 +12,7 @@
 #import "WeiboCommonDefine.h"
 
 @interface OAuthController ()
-@property (nonatomic, readonly) UIToolbar *pinCopyPromptBar;
+@property (weak, weak, nonatomic, readonly) UIToolbar *pinCopyPromptBar;
 @property (nonatomic, readwrite) UIInterfaceOrientation orientation;
 
 - (id) initWithEngine: (OAuthEngine *) engine andOrientation:(UIInterfaceOrientation)theOrientation;
@@ -53,17 +53,14 @@
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	_webView.delegate = nil;
 	[_webView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: @""]]];
-	[_webView release];
 	
 	self.view = nil;
-	self.engine = nil;
-	[super dealloc];
 }
 
 + (OAuthController *) controllerToEnterCredentialsWithEngine: (OAuthEngine *) engine delegate: (id <OAuthControllerDelegate>) delegate forOrientation: (UIInterfaceOrientation)theOrientation {
 	if (![self credentialEntryRequiredWithEngine: engine]) return nil;			//not needed
 	
-	OAuthController					*controller = [[[OAuthController alloc] initWithEngine: engine andOrientation: theOrientation] autorelease];
+	OAuthController					*controller = [[OAuthController alloc] initWithEngine: engine andOrientation: theOrientation];
 	
 	controller.delegate = delegate;
 	return controller;
@@ -119,8 +116,8 @@
 #pragma mark View Controller Stuff
 - (void) loadView {
 	[super loadView];
-	self.view = [[[UIView alloc] initWithFrame: ApplicationFrame(self.orientation)] autorelease];
-	_navBar = [[[UINavigationBar alloc] initWithFrame: CGRectMake(0, 0, self.view.frame.size.width, 44)] autorelease];
+	self.view = [[UIView alloc] initWithFrame: ApplicationFrame(self.orientation)];
+	_navBar = [[UINavigationBar alloc] initWithFrame: CGRectMake(0, 0, self.view.frame.size.width, 44)];
 	
 	_navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -141,14 +138,14 @@
 	[self.view addSubview: _webView];
 	[self.view addSubview: _navBar];
 	
-	_blockerView = [[[UIView alloc] initWithFrame: CGRectMake(0, 0, 200, 60)] autorelease];
+	_blockerView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 200, 60)];
 	_blockerView.backgroundColor = [UIColor colorWithWhite: 0.0 alpha: 0.8];
 	_blockerView.center = CGPointMake(self.view.bounds.size.width / 2, self.view.bounds.size.height / 2);
 	_blockerView.alpha = 0.0;
 	_blockerView.clipsToBounds = YES;
 	if ([_blockerView.layer respondsToSelector: @selector(setCornerRadius:)]) [(id) _blockerView.layer setCornerRadius: 10];
 	
-	UILabel								*label = [[[UILabel alloc] initWithFrame: CGRectMake(0, 5, _blockerView.bounds.size.width, 15)] autorelease];
+	UILabel								*label = [[UILabel alloc] initWithFrame: CGRectMake(0, 5, _blockerView.bounds.size.width, 15)];
 	label.text = WeiboLocalizedString(@"Please Wait", nil);
 	label.backgroundColor = [UIColor clearColor];
 	label.textColor = [UIColor whiteColor];
@@ -156,15 +153,15 @@
 	label.font = [UIFont boldSystemFontOfSize: 15];
 	[_blockerView addSubview: label];
 	
-	UIActivityIndicatorView				*spinner = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhite] autorelease];
+	UIActivityIndicatorView				*spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhite];
 	
 	spinner.center = CGPointMake(_blockerView.bounds.size.width / 2, _blockerView.bounds.size.height / 2 + 10);
 	[_blockerView addSubview: spinner];
 	[self.view addSubview: _blockerView];
 	[spinner startAnimating];
 	
-	UINavigationItem				*navItem = [[[UINavigationItem alloc] initWithTitle: WeiboLocalizedString(@"Sina Weibo Login", nil)] autorelease];
-	navItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel target: self action: @selector(cancel:)] autorelease];
+	UINavigationItem				*navItem = [[UINavigationItem alloc] initWithTitle: WeiboLocalizedString(@"Sina Weibo Login", nil)];
+	navItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel target: self action: @selector(cancel:)];
 	
 	[_navBar pushNavigationItem: navItem animated: NO];
 	[self locateAuthPinInWebView: nil];
@@ -298,14 +295,14 @@
 	if (_pinCopyPromptBar == nil){
 		CGRect					bounds = self.view.bounds;
 		
-		_pinCopyPromptBar = [[[UIToolbar alloc] initWithFrame:CGRectMake(0, 44, bounds.size.width, 44)] autorelease];
+		_pinCopyPromptBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 44, bounds.size.width, 44)];
 		_pinCopyPromptBar.barStyle = UIBarStyleBlackTranslucent;
 		_pinCopyPromptBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 		
 		_pinCopyPromptBar.items = [NSArray arrayWithObjects: 
-								   [[[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace target: nil action: nil] autorelease],
-								   [[[UIBarButtonItem alloc] initWithTitle: WeiboLocalizedString(@"Select and Copy the PIN", @"Select and Copy the PIN") style: UIBarButtonItemStylePlain target: nil action: nil] autorelease], 
-								   [[[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace target: nil action: nil] autorelease], 
+								   [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace target: nil action: nil],
+								   [[UIBarButtonItem alloc] initWithTitle: WeiboLocalizedString(@"Select and Copy the PIN", @"Select and Copy the PIN") style: UIBarButtonItemStylePlain target: nil action: nil], 
+								   [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace target: nil action: nil], 
 								   nil];
 	}
 	

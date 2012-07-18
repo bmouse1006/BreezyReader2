@@ -12,7 +12,7 @@
 
 @interface BRFeedLabelNewCell : BRFeedConfigBaseCell
 
-@property (nonatomic, retain) IBOutlet UIButton* addNewButton;
-@property (nonatomic, retain) IBOutlet JJLabel* addNewLabel;
+@property (nonatomic, strong) IBOutlet UIButton* addNewButton;
+@property (nonatomic, strong) IBOutlet JJLabel* addNewLabel;
 
 @end

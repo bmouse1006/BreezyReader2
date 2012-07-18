@@ -25,11 +25,11 @@
     UIModalPresentationStyle _previousPresentationStyle;
 }
 
-@property (nonatomic, assign) UIViewController* rootController;
-@property (nonatomic, retain) OAuthEngine* weiboEngine;
+@property (nonatomic, weak) UIViewController* rootController;
+@property (nonatomic, strong) OAuthEngine* weiboEngine;
 
 @property (nonatomic, copy) NSString* initialText;
-@property (nonatomic, retain) UIImage* image;
+@property (nonatomic, strong) UIImage* image;
 @property (nonatomic, copy) NSString* urlString;
 
 @end
@@ -46,23 +46,6 @@
 @synthesize weiboEngine = _weiboEngine;
 @synthesize initialText = _initialText, image = _image, urlString = _urlString;
 
--(void)dealloc{
-    self.composeDialog = nil;
-    self.backgroundView = nil;
-    self.toolBar = nil;
-    self.sepertorLine = nil;
-    self.titleLabel = nil;
-    self.contentImageView = nil;
-    self.contentContainer = nil;
-    self.textView = nil;
-    self.contentView = nil;
-    self.checkedButton = nil;
-    self.weiboEngine = nil;
-    self.initialText = nil;
-    self.image = nil;
-    self.urlString = nil;
-    [super dealloc];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,7 +54,7 @@
         // Custom initialization
         self.wantsFullScreenLayout = YES;
         _autoPromoteAuthController = YES;
-        self.weiboEngine = [[[OAuthEngine alloc] initOAuthWithDelegate:self] autorelease];
+        self.weiboEngine = [[OAuthEngine alloc] initOAuthWithDelegate:self];
         self.weiboEngine.consumerKey = kWeiboOAuthConsumerKey;
         self.weiboEngine.consumerSecret = kWeiboOAuthConsumerSecret;
     }
@@ -244,9 +227,9 @@
 #pragma mark - weibo api
 
 -(void)postWeiboMessage:(NSString*)message image:(UIImage*)image{
-    WeiboClient *client = [[[WeiboClient alloc] initWithTarget:self 
+    WeiboClient *client = [[WeiboClient alloc] initWithTarget:self 
 													   engine:self.weiboEngine
-													   action:@selector(postStatusDidFinish:obj:)] autorelease];
+													   action:@selector(postStatusDidFinish:obj:)];
     if (image){
         NSData* jpegImage = UIImageJPEGRepresentation(image, 0.7);
         [client upload:jpegImage status:message];

@@ -14,12 +14,12 @@
 
 @interface BRFeedDataSource : BRBaseDataSource
 
-@property (nonatomic, retain) GRSubscription* subscription;
-@property (nonatomic, retain) GRFeed* feed;
-@property (nonatomic, retain) GRFeed* moreFeed;
+@property (nonatomic, strong) GRSubscription* subscription;
+@property (nonatomic, strong) GRFeed* feed;
+@property (nonatomic, strong) GRFeed* moreFeed;
 @property (nonatomic, copy) NSString* exclude;
 @property (nonatomic, assign) BOOL unreadOnly;
 
-@property (nonatomic, retain) GoogleReaderClient* client;
+@property (nonatomic, strong) GoogleReaderClient* client;
 
 @end

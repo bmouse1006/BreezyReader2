@@ -39,12 +39,6 @@ static CGFloat kThumbSpacing = 4.0f;
     return self;
 }
 
--(void)dealloc{
-    self.dataSource = nil;
-    self.mediaSource = nil;
-    self.tableView = nil;
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -58,11 +52,11 @@ static CGFloat kThumbSpacing = 4.0f;
 
 -(void)loadView{
 //    [super loadView];
-    self.view = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+    self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    self.tableView = [[[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain] autorelease];
+    self.tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     self.tableView.rowHeight = [self rowHeight];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -112,7 +106,7 @@ static CGFloat kThumbSpacing = 4.0f;
 }
 
 -(id<UITableViewDataSource>)generateDataSourceWithMediaSource:(id<JJMediaSource>)source{
-    return [[[JJMediaDataSource alloc] initWithMediaSource:source delegate:self] autorelease];
+    return [[JJMediaDataSource alloc] initWithMediaSource:source delegate:self];
 }
 
 -(CGFloat)thumbSize{

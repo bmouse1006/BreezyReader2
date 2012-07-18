@@ -16,7 +16,7 @@
 @implementation BRSubFavoritePageController
 
 -(void)createSource{
-    self.source = [[[BRSubFavoriteSource alloc] init] autorelease];
+    self.source = [[BRSubFavoriteSource alloc] init];
     self.source.delegate = self;
 }
 

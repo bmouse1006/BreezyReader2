@@ -19,12 +19,6 @@
 
 @synthesize showAllButton = _showAllButton, unreadOnlyButton = _unreadOnlyButton, markAllAsReadButton = _markAllAsReadButton;
 
--(void)dealloc{
-    self.showAllButton = nil;
-    self.unreadOnlyButton = nil;
-    self.markAllAsReadButton = nil;
-    [super dealloc];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

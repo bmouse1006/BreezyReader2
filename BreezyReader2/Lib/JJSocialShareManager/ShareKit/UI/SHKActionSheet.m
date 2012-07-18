@@ -35,12 +35,6 @@
 
 @synthesize item, sharers;
 
-- (void)dealloc
-{
-	[item release];
-	[sharers release];
-	[super dealloc];
-}
 
 + (SHKActionSheet *)actionSheetForType:(SHKShareType)type
 {
@@ -49,7 +43,7 @@
 											 cancelButtonTitle:nil
 										destructiveButtonTitle:nil
 											 otherButtonTitles:nil];
-	as.item = [[[SHKItem alloc] init] autorelease];
+	as.item = [[SHKItem alloc] init];
 	as.item.shareType = type;
 	
 	as.sharers = [NSMutableArray arrayWithCapacity:0];
@@ -74,7 +68,7 @@
 	[as addButtonWithTitle:SHKLocalizedString(@"Cancel")];
 	as.cancelButtonIndex = as.numberOfButtons -1;
 	
-	return [as autorelease];
+	return as;
 }
 
 + (SHKActionSheet *)actionSheetForItem:(SHKItem *)i
@@ -98,7 +92,6 @@
 		SHKShareMenu *shareMenu = [[SHKCustomShareMenu alloc] initWithStyle:UITableViewStyleGrouped];
 		shareMenu.item = item;
 		[[SHK currentHelper] showViewController:shareMenu];
-		[shareMenu release];
 	}
 	
 	[super dismissWithClickedButtonIndex:buttonIndex animated:animated];

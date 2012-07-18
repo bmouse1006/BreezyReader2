@@ -76,7 +76,6 @@
 													selector:@selector(mainDownloadTask)
 													  object:nil];
 		self.thread = mThread;
-		[mThread release];
 
 		[self.thread start];
 		
@@ -102,7 +101,6 @@
 		[downloader cancel];
 	}
 	
-	[dictionary release];
 	[self setDownloaderStates:GRDownloaderStatesStopped];
 	self.numberOfSuccessDownload = 0;
 	@synchronized(_currentDownloaderPool){
@@ -130,78 +128,74 @@
 #pragma mark -
 #pragma mark main task
 -(void)mainDownloadTask{
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	DebugLog(@"GR Sub Downloader started");
-	//did start downloading subscription
-	[self.delegate didStartDownloadingSubscription:self.subscription];
-	NSUInteger unreadCount = self.subscription.unreadCount;
-	NSUInteger itemCount = 1;
-	
-	GoogleReaderController* grController = [[GoogleReaderController alloc] initWithDelegate:self];
-	GRFeed* feed = nil;
-	NSString* continuation = nil;
-	NSString* excludeLabel = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_READ];
-	
-	NSUInteger count = 0;
-	
-	do{
+	@autoreleasepool {
+		DebugLog(@"GR Sub Downloader started");
+		//did start downloading subscription
+		[self.delegate didStartDownloadingSubscription:self.subscription];
+		NSUInteger unreadCount = self.subscription.unreadCount;
+		NSUInteger itemCount = 1;
 		
-		feed = [grController getFeedForID:self.subscription.ID
-									count:[NSNumber numberWithInt:itemCount]
-								startFrom:nil 
-								  exclude:excludeLabel
-							 continuation:continuation];//read online
-		if (self.subscriptionLoadingFailed){
-			break;
-		}
+		GoogleReaderController* grController = [[GoogleReaderController alloc] initWithDelegate:self];
+		GRFeed* feed = nil;
+		NSString* continuation = nil;
+		NSString* excludeLabel = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_READ];
 		
-		continuation = feed.gr_continuation;
+		NSUInteger count = 0;
 		
-		if ([self.thread isCancelled]){
-			break;
-		}
-		
-		[feed retain];
-		
-		for (GRItem* item in feed.items){
-			@synchronized(_currentDownloaderPool){
-				GRItemDownloader* downloader = [[GRItemDownloader alloc] initWithGRItem:item
-																			   delegate:self
-																			   startNow:NO 
-																				context:self.context];
-				DebugLog(@"downloader address is %d", downloader);
-				[self.currentDownloaderPool setObject:downloader 
-											   forKey:item.ID];
-				[downloader start];
-				
-				[downloader release];
+		do{
+			
+			feed = [grController getFeedForID:self.subscription.ID
+										count:[NSNumber numberWithInt:itemCount]
+									startFrom:nil 
+									  exclude:excludeLabel
+								 continuation:continuation];//read online
+			if (self.subscriptionLoadingFailed){
+				break;
 			}
-			count++;
+			
+			continuation = feed.gr_continuation;
 			
 			if ([self.thread isCancelled]){
 				break;
 			}
-		}
+			
+			
+			for (GRItem* item in feed.items){
+				@synchronized(_currentDownloaderPool){
+					GRItemDownloader* downloader = [[GRItemDownloader alloc] initWithGRItem:item
+																				   delegate:self
+																				   startNow:NO 
+																					context:self.context];
+					DebugLog(@"downloader address is %d", downloader);
+					[self.currentDownloaderPool setObject:downloader 
+												   forKey:item.ID];
+					[downloader start];
+					
+				}
+				count++;
+				
+				if ([self.thread isCancelled]){
+					break;
+				}
+			}
+			
+			
+			DebugLog(@"continuation is %@", continuation);
+			DebugLog(@"count is %i", count);
+			if ([self.thread isCancelled]){
+				break;
+			}
+			
+		}while (continuation && count < unreadCount);
 		
-		[feed release];
+		DebugLog(@"all downloaders are started");
 		
-		DebugLog(@"continuation is %@", continuation);
-		DebugLog(@"count is %i", count);
-		if ([self.thread isCancelled]){
-			break;
-		}
 		
-	}while (continuation && count < unreadCount);
+		self.itemLoadingDone = YES;
+		
+		[self finishedLoadingItems];
 	
-	DebugLog(@"all downloaders are started");
-	
-	[grController release];
-	
-	self.itemLoadingDone = YES;
-	
-	[self finishedLoadingItems];
-	
-	[pool release];
+	}
 }
 
 -(NSUInteger)numberOfItemsToBeDownloaded:(GRSubscription*)sub{
@@ -211,7 +205,6 @@
 #pragma mark delegate method
 
 -(void)finishedDownloadingGRItem:(GRItem*)item{
-	[item retain];
 	@synchronized(_currentDownloaderPool){
 		DebugLog(@"finished loading item for id %@", item.ID);
 		//update downloaded time;
@@ -235,7 +228,6 @@
 			[self finishedLoadingItems];
 		}
 	}
-	[item release];
 }
 
 -(void)failedDownloadingGRItem:(GRItem*)item{
@@ -283,17 +275,6 @@
 	
 }
 
--(void)dealloc{
-    self.delegate = nil;
-    self.connection = nil;
-    self.subscription = nil;
-    self.currentDownloaderPool = nil;
-    self.operationQueue = nil;
-    self.downloadError = nil;
-    self.thread = nil;
-    self.context = nil;
-	[super dealloc];
-}
 
 @end
 

@@ -14,9 +14,9 @@
 
 @interface BRSubGridViewController : JJMediaLibController<JJMediaSourceDelegate, UIScrollViewDelegate, UITableViewDelegate>
 
-@property (nonatomic, retain) GRTag* tag;
-@property (nonatomic, retain) BRSubGridSource* source;
-@property (nonatomic, retain) JJLabel* titleLabel;
+@property (nonatomic, strong) GRTag* tag;
+@property (nonatomic, strong) BRSubGridSource* source;
+@property (nonatomic, strong) JJLabel* titleLabel;
 
 -(void)createSource;
 

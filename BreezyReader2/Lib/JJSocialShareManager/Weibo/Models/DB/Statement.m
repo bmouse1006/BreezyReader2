@@ -23,7 +23,7 @@
 
 + (id)statementWithDB:(sqlite3*)db query:(const char*)sql
 {
-    return [[[Statement alloc] initWithDB:db query:sql] autorelease];
+    return [[Statement alloc] initWithDB:db query:sql];
 }
 
 - (int)step
@@ -39,7 +39,6 @@
 - (void)dealloc
 {
     sqlite3_finalize(stmt);
-    [super dealloc];
 }
 
 //

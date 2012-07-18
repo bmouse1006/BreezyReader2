@@ -19,11 +19,6 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 
 #pragma mark -
 #pragma mark Memory management
-- (void)dealloc{
-    [data release];
-    [response release];
-    [super dealloc];
-}
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -76,12 +71,12 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
                         SHKEncode([formValues objectForKey:@"password"])
                         ];
 	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kTumblrAuthenticationURL]
+	self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:kTumblrAuthenticationURL]
                                              params:params
                                            delegate:self
                                  isFinishedSelector:@selector(authFinished:)
                                              method:@"POST"
-                                          autostart:YES] autorelease];
+                                          autostart:YES];
 	
 	self.pendingForm = form;
 }
@@ -98,11 +93,11 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
         else
             errorMessage = SHKLocalizedString(@"The service encountered an error. Please try again later.");
         
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
+		[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
                                      message:errorMessage
                                     delegate:nil
                            cancelButtonTitle:SHKLocalizedString(@"Close")
-                           otherButtonTitles:nil] autorelease] show];
+                           otherButtonTitles:nil] show];
 	}
 }
 
@@ -210,17 +205,17 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
                 }
                 [params appendFormat:@"&body=%@", SHKEncode([item text])];
             }
-            self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kTumblrWriteURL]
+            self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:kTumblrWriteURL]
                                                      params:params
                                                    delegate:self
                                          isFinishedSelector:@selector(sendFinished:)
                                                      method:@"POST"
-                                                  autostart:YES] autorelease];
+                                                  autostart:YES];
         }
         else if([item shareType] == SHKShareTypeImage){
             
             NSData *imageData = UIImageJPEGRepresentation([item image], 0.9);
-            NSMutableURLRequest *aRequest = [[[NSMutableURLRequest alloc] init] autorelease];
+            NSMutableURLRequest *aRequest = [[NSMutableURLRequest alloc] init];
             [aRequest setURL:[NSURL URLWithString:kTumblrWriteURL]];
             [aRequest setHTTPMethod:@"POST"];
             NSString *boundary = @"0xKhTmLbOuNdArY";
@@ -328,8 +323,7 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 #pragma mark -
 #pragma mark NSURLConnection delegate methods for image posts
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)theResponse {
-    [response release];
-	response = [theResponse retain];
+	response = theResponse;
 	
 	[data setLength:0];
 }

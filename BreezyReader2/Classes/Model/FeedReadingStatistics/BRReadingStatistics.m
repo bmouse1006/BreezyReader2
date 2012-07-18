@@ -22,7 +22,7 @@
 @implementation BRReadingStatistics
 
 +(id)statistics{
-    return [[[self alloc] init] autorelease];
+    return [[self alloc] init];
 }
 
 -(NSMutableDictionary*)firstReadTimestamps{

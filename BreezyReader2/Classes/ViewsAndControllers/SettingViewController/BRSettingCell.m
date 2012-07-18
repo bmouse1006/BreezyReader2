@@ -12,8 +12,8 @@
 
 @interface BRSettingCell ()
 
-@property (nonatomic, retain) NSDictionary* config;
-@property (nonatomic, retain) BRSettingCustomBaseView* customView;
+@property (nonatomic, strong) NSDictionary* config;
+@property (nonatomic, strong) BRSettingCustomBaseView* customView;
 
 @end
 
@@ -23,11 +23,6 @@
 @synthesize delegate = _delegate;
 @synthesize customView = _customView;
 
--(void)dealloc{
-    self.customView = nil;
-    self.config = nil;
-    [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -68,7 +63,7 @@
     self.accessoryType = UITableViewCellAccessoryNone;
     
     if ([type isEqualToString:@"switch"]){
-        UISwitch* switcher = [[[UISwitch alloc] init] autorelease];
+        UISwitch* switcher = [[UISwitch alloc] init];
         switcher.on = [UserPreferenceDefine boolValueForIdentifier:identifier];
         [switcher addTarget:self action:@selector(boolValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.accessoryView = switcher;

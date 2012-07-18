@@ -16,7 +16,7 @@
 - (id)init {
 	
 	if (self = [super init]) {
-		draftId = [[NSString generateGuid] retain];
+		draftId = [NSString generateGuid];
 	}
 	return self;
 }
@@ -28,17 +28,10 @@
 	return self;
 }
 
-- (void)dealloc {
-	[draftId release];
-	[text release];
-	[attachmentData release];
-	[attachmentImage release];
-	[super dealloc];
-}
 
 - (NSData *)attachmentData {
 	if (!attachmentData && attachmentImage) {
-		attachmentData = [UIImageJPEGRepresentation(attachmentImage, 0.8) retain];
+		attachmentData = UIImageJPEGRepresentation(attachmentImage, 0.8);
 	}
 	return attachmentData;
 }
@@ -46,11 +39,9 @@
 - (void)setAttachmentImage:(UIImage *)_image {
 	// todo: auto resize image;
 	if (attachmentImage != _image) {
-		[attachmentImage release];
-		attachmentImage = [_image retain];
-		[attachmentData release];
+		attachmentImage = _image;
 		if (attachmentImage) {
-			attachmentData = [UIImageJPEGRepresentation(_image, 0.8) retain];
+			attachmentData = UIImageJPEGRepresentation(_image, 0.8);
 		}
 		else {
 			attachmentData = nil;
@@ -62,7 +53,7 @@
 
 - (id)initWithStatement:(Statement *)stmt {
 	if (self = [super init]) {
-		draftId = [[stmt getString:0] retain];
+		draftId = [stmt getString:0];
 		draftType = [stmt getInt32:1];
 		draftStatus = [stmt getInt32:2];
 		statusId = [stmt getInt64:3];
@@ -70,14 +61,14 @@
 		recipientedId = [stmt getInt32:5];
 		commentOrRetweet = [stmt getInt32:6];
 		createdAt = [stmt getInt32:7];
-		text = [[stmt getString:8] retain];
+		text = [stmt getString:8];
 		latitude = [stmt getDouble:9];
 		longitude = [stmt getDouble:10];
 
 		NSData *data = [stmt getData:11];
 		if (data) {
-			attachmentData = [data retain];
-			attachmentImage = [[UIImage imageWithData:attachmentData] retain];
+			attachmentData = data;
+			attachmentImage = [UIImage imageWithData:attachmentData];
 		}
 	}
 	return self;
@@ -85,7 +76,7 @@
 
 - (id)initWithCoder:(NSCoder *)decoder {
 	if (self = [super init]) {
-		draftId = [[decoder decodeObjectForKey:@"draftId"] retain];
+		draftId = [decoder decodeObjectForKey:@"draftId"];
 		draftType = [decoder decodeIntForKey:@"draftType"];
 		draftStatus = [decoder decodeIntForKey:@"draftStatus"];
 		statusId = [decoder decodeInt64ForKey:@"statusId"];
@@ -93,14 +84,14 @@
 		recipientedId = [decoder decodeIntForKey:@"recipientedId"];
 		commentOrRetweet = [decoder decodeBoolForKey:@"commentOrRetweet"];
 		createdAt = [decoder decodeIntForKey:@"createdAt"];
-		text = [[decoder decodeObjectForKey:@"text"] retain];
+		text = [decoder decodeObjectForKey:@"text"];
 		latitude = [decoder decodeDoubleForKey:@"latitude"];
 		longitude = [decoder decodeDoubleForKey:@"longitude"];
 		
 		NSData *data = [decoder decodeObjectForKey:@"attachmentImage"];
 		if (data) {
-			attachmentData = [data retain];
-			attachmentImage = [[UIImage imageWithData:attachmentData] retain];
+			attachmentData = data;
+			attachmentImage = [UIImage imageWithData:attachmentData];
 		}
 		
 	}
@@ -127,7 +118,6 @@
     static Statement *stmt = nil;
     if (stmt == nil) {
         stmt = [DBConnection statementWithQuery:"REPLACE INTO drafts VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"];
-        [stmt retain];
     }
     [stmt bindString:draftId              forIndex:1];
     [stmt bindInt32:draftType               forIndex:2];

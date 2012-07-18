@@ -11,20 +11,20 @@
 
 @interface WBWeiboComposeViewController : UIViewController<OAuthControllerDelegate, UITextViewDelegate>
 
-@property (nonatomic, retain) IBOutlet UIView* backgroundView;
-@property (nonatomic, retain) IBOutlet UIView* composeDialog;
-@property (nonatomic, retain) IBOutlet UIToolbar* toolBar;
+@property (nonatomic, strong) IBOutlet UIView* backgroundView;
+@property (nonatomic, strong) IBOutlet UIView* composeDialog;
+@property (nonatomic, strong) IBOutlet UIToolbar* toolBar;
 
-@property (nonatomic, retain) IBOutlet UIView* sepertorLine;
-@property (nonatomic, retain) IBOutlet UILabel* titleLabel;
+@property (nonatomic, strong) IBOutlet UIView* sepertorLine;
+@property (nonatomic, strong) IBOutlet UILabel* titleLabel;
 
-@property (nonatomic, retain) IBOutlet UITextView* textView;
-@property (nonatomic, retain) IBOutlet UIImageView* contentImageView;
+@property (nonatomic, strong) IBOutlet UITextView* textView;
+@property (nonatomic, strong) IBOutlet UIImageView* contentImageView;
 
-@property (nonatomic, retain) IBOutlet UIView* contentContainer;
-@property (nonatomic, retain) IBOutlet UIView* contentView;
+@property (nonatomic, strong) IBOutlet UIView* contentContainer;
+@property (nonatomic, strong) IBOutlet UIView* contentView;
 
-@property (nonatomic, retain) IBOutlet UIButton* checkedButton;
+@property (nonatomic, strong) IBOutlet UIButton* checkedButton;
 
 -(void)addInitialText:(NSString*)text;
 -(void)addImage:(UIImage*)image;

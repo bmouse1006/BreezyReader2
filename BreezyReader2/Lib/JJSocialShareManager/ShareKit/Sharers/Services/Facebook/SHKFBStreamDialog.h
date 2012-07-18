@@ -14,6 +14,6 @@
 	NSString *defaultStatus;
 }
 
-@property (nonatomic, retain) NSString *defaultStatus;
+@property (nonatomic, strong) NSString *defaultStatus;
 
 @end

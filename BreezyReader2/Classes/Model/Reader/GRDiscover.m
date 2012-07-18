@@ -59,10 +59,5 @@
 	return self;
 }
 
--(void)dealloc{
-	self.theIcon = nil;
-	self.string = nil;
-	[super dealloc];
-}
 
 @end

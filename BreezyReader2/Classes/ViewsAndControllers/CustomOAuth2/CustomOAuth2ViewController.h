@@ -10,11 +10,11 @@
 
 @interface CustomOAuth2ViewController : GTMOAuth2ViewControllerTouch
 
-@property (nonatomic, retain) IBOutlet UIBarButtonItem* backItem;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem* forwardItem;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem* refreshItem;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem* backItem;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem* forwardItem;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem* refreshItem;
 
-@property (nonatomic, retain) IBOutlet UIButton* clostItem;
+@property (nonatomic, strong) IBOutlet UIButton* clostItem;
 
 -(IBAction)dismissSelf:(id)sender;
 

@@ -15,7 +15,7 @@
 issubscribed = _issubscribed;
 
 +(GRSearchResultItem*)itemWithJSONObj:(NSDictionary*)JSONObj{
-    GRSearchResultItem* item = [[[GRSearchResultItem alloc] init] autorelease];
+    GRSearchResultItem* item = [[GRSearchResultItem alloc] init];
     item.title = [JSONObj objectForKey:@"title"];
     item.streamid = [JSONObj objectForKey:@"streamid"];
     item.issubscribed = [[JSONObj objectForKey:@"issubscribed"] boolValue];
@@ -23,10 +23,5 @@ issubscribed = _issubscribed;
     return item;
 }
 
--(void)dealloc{
-    self.title = nil;
-    self.streamid = nil;
-    [super dealloc];
-}
 
 @end

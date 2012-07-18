@@ -11,7 +11,7 @@
 
 @interface BRFeedDragDownController ()
 
-@property (nonatomic, retain) UIView* bottomLine;
+@property (nonatomic, strong) UIView* bottomLine;
 
 @end
 
@@ -33,7 +33,7 @@
     [super viewDidLoad];
     self.indicator.hidesWhenStopped = YES;
     [self.indicator stopAnimating];
-    self.bottomLine = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.bottomLine = [[UIView alloc] initWithFrame:CGRectZero];
     self.bottomLine.backgroundColor = [UIColor lightGrayColor];
     
 //    self.backgroundColor = [UIColor colorWith
@@ -46,13 +46,6 @@
     self.bottomLine.frame = frame;
 }
 
--(void)dealloc{
-    self.timeLabel = nil;
-    self.titleLabel = nil;
-    self.indicator = nil;
-    self.bottomLine = nil;
-    [super dealloc];
-}
 
 -(void)refreshLabels:(NSDate*)date{
     NSString* timeLabelText = NSLocalizedString(@"title_lastUpdatedLabel", nil);

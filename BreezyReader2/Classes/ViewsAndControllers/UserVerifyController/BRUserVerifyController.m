@@ -23,8 +23,6 @@
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.loginButton = nil;
-    [super dealloc];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -102,7 +100,7 @@
 
 -(void)loginNeeded:(NSNotification*)notification{
     UIViewController* authController = [[GoogleAuthManager shared] GOAuthController];
-    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:authController] autorelease];
+    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:authController];
     [self presentViewController:nav animated:YES completion:^{
         
     }];

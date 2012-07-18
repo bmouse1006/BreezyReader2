@@ -25,7 +25,7 @@
     NSString* identifier = [dictionary objectForKey:@"identifier"];
     JJSocialShareManager* manager = [JJSocialShareManager sharedManager];
     JJSocialShareService service = [manager serviceTypeForIdentifier:identifier];
-    UISwitch* switcher = [[[UISwitch alloc] init] autorelease];
+    UISwitch* switcher = [[UISwitch alloc] init];
     switcher.on = [manager isServiceAutherized:service];
     if ([[dictionary objectForKey:@"editable"] boolValue] == NO || switcher.on == NO){
         switcher.enabled = NO;

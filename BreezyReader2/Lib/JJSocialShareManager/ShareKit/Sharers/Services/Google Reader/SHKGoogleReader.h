@@ -34,8 +34,8 @@
 	BOOL sendAfterLogin;
 }
 
-@property (nonatomic, retain) NSMutableDictionary *session;
-@property (nonatomic) BOOL sendAfterLogin;
+@property (nonatomic, strong) NSMutableDictionary *session;
+@property (nonatomic, assign) BOOL sendAfterLogin;
 
 - (void)sendWithToken:(NSString *)token;
 - (void)getSession:(NSString *)email password:(NSString *)password;

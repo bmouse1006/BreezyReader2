@@ -392,7 +392,7 @@ static NSOperationQueue *sharedQueue = nil;
 	[connectionInfo release];
 	[requestID release];
 	[dataDecompressor release];
-	[userAgentString release];
+	[userAgent release];
 
 	#if NS_BLOCKS_AVAILABLE
 	[self releaseBlocksOnMainThread];
@@ -1088,12 +1088,12 @@ static NSOperationQueue *sharedQueue = nil;
 	
 	// Build and set the user agent string if the request does not already have a custom user agent specified
 	if (![[self requestHeaders] objectForKey:@"User-Agent"]) {
-		NSString *tempUserAgentString = [self userAgentString];
-		if (!tempUserAgentString) {
-			tempUserAgentString = [ASIHTTPRequest defaultUserAgentString];
+		NSString *userAgentString = [self userAgent];
+		if (!userAgentString) {
+			userAgentString = [ASIHTTPRequest defaultUserAgentString];
 		}
-		if (tempUserAgentString) {
-			[self addRequestHeader:@"User-Agent" value:tempUserAgentString];
+		if (userAgentString) {
+			[self addRequestHeader:@"User-Agent" value:userAgentString];
 		}
 	}
 	
@@ -4999,7 +4999,7 @@ static NSOperationQueue *sharedQueue = nil;
 
 @synthesize username;
 @synthesize password;
-@synthesize userAgentString;
+@synthesize userAgent;
 @synthesize domain;
 @synthesize proxyUsername;
 @synthesize proxyPassword;

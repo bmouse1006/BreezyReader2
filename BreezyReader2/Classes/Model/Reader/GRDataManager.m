@@ -45,24 +45,24 @@ static GRDataManager *readerDM = nil;
 }
 
 -(void)taskRefreshRecFeedsList{
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	NSDictionary* jsonObj = [self.grController allRecommendationFeeds];
+		NSDictionary* jsonObj = [self.grController allRecommendationFeeds];
+		
+		NSArray* jsonRecFeeds = [jsonObj objectForKey:@"recs"];
+		
+		NSMutableArray* feeds = [NSMutableArray arrayWithCapacity:0];
+		
+		for (NSDictionary* obj in jsonRecFeeds){
+			GRRecFeed* recFeed = [GRRecFeed recFeedsWithJSONObject:obj];
+			[feeds addObject:recFeed];
+		}
+		
+		self.recFeedList = feeds;
+		
+		[self sendNotification:NOTIFICATION_ALLRECOMMENDATIONS withUserInfo:nil];
 	
-	NSArray* jsonRecFeeds = [jsonObj objectForKey:@"recs"];
-	
-	NSMutableArray* feeds = [NSMutableArray arrayWithCapacity:0];
-	
-	for (NSDictionary* obj in jsonRecFeeds){
-		GRRecFeed* recFeed = [GRRecFeed recFeedsWithJSONObject:obj];
-		[feeds addObject:recFeed];
 	}
-	
-	self.recFeedList = feeds;
-	
-	[self sendNotification:NOTIFICATION_ALLRECOMMENDATIONS withUserInfo:nil];
-	
-	[pool release];
 }
 
 //makr all items in one sub as read
@@ -73,26 +73,25 @@ static GRDataManager *readerDM = nil;
 	}else{
         NSInvocationOperation* operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(taskMarkAllAsRead:) object:sub];
         [self.editOperationQueue addOperation:operation];
-        [operation release];
 	}
 }
 
 -(void)taskMarkAllAsRead:(GRSubscription*)sub{
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	NSString* result = [self.grController markAllAsReadForSubscription:sub.ID];
+	@autoreleasepool {
+		NSString* result = [self.grController markAllAsReadForSubscription:sub.ID];
+		
+		if ([result isEqualToString:@"ok"]) {
+			[self taskSyncReaderStructure];
+			GRFeed* feed = [self feedWithSubID:[sub keyString]];
+			GRFeed* continuedFeed = nil;
+			if (feed.gr_continuation){
+				continuedFeed = [self feedWithSubID:[[sub keyString] stringByAppendingString:feed.gr_continuation]];
+			}
+			[feed.items makeObjectsPerformSelector:@selector(markAsRead)];
+			[continuedFeed.items makeObjectsPerformSelector:@selector(markAsRead)];
+		}	
 	
-	if ([result isEqualToString:@"ok"]) {
-		[self taskSyncReaderStructure];
-		GRFeed* feed = [self feedWithSubID:[sub keyString]];
-		GRFeed* continuedFeed = nil;
-		if (feed.gr_continuation){
-			continuedFeed = [self feedWithSubID:[[sub keyString] stringByAppendingString:feed.gr_continuation]];
-		}
-		[feed.items makeObjectsPerformSelector:@selector(markAsRead)];
-		[continuedFeed.items makeObjectsPerformSelector:@selector(markAsRead)];
-	}	
-	
-	[pool release];
+	}
 }
 
 -(GRTag*)getUpdatedGRTag:(NSString*)tagID{
@@ -111,36 +110,33 @@ static GRDataManager *readerDM = nil;
 
 
 -(void)markItemsAsRead:(NSArray*)items{
-	[items retain];
 	for (GRItem* item in items){
 		if (![item isReaded]){
 			[self markItemAsRead:item];
 		}
 	}
-	[items release]; 
 }
 
 -(void)markItemAsRead:(GRItem*)item{
 	NSInvocationOperation* operation = [[NSInvocationOperation alloc] initWithTarget:self 
 																			selector:@selector(taskMarkItemAsRead:) object:item];
 	[self.editOperationQueue addOperation:operation];
-	[operation release];
 }
 
 -(void)taskMarkItemAsRead:(GRItem*)item{
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	NSString* readTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_READ];
-	[self.grController editItem:item.ID
-						 addTag:readTag
-					  removeTag:nil];
+		NSString* readTag = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_READ];
+		[self.grController editItem:item.ID
+							 addTag:readTag
+						  removeTag:nil];
     
     [item markAsRead];
-	//notify that this item has been read
-	NSString* name = [item.ID stringByAppendingString:@"read"];
+		//notify that this item has been read
+		NSString* name = [item.ID stringByAppendingString:@"read"];
     [self sendNotification:name withUserInfo:nil];
 	
-	[pool release];
+	}
 }
 
 -(GRFeed*)feedWithSubID:(NSString*)subID{
@@ -159,87 +155,83 @@ static GRDataManager *readerDM = nil;
 		//time interval is bigger than 30min or no such feed, refresh
 		NSInvocationOperation* operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(taskRefreshFeed:) object:sub];
 		[self.feedOperationQueue addOperation:operation];
-		[operation release];
 	}
 }
 
 -(void)continuingFeed:(GRFeed*)feed{
 	NSInvocationOperation* operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(taskContinuingFeed:) object:feed];
 	[self.feedOperationQueue addOperation:operation];
-	[operation release];
 }
 
 -(void)taskContinuingFeed:(GRFeed*)feed{
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	NSString* feedKey = [[feed keyString] stringByAppendingString:feed.gr_continuation];
-	
-	GRFeed* continuedfeed = [self feedWithSubID:feedKey];
-	
-	if (!continuedfeed){
-	
-		NSNumber* defaultItemCount = [NSNumber numberWithInt:1];//read default item
+		NSString* feedKey = [[feed keyString] stringByAppendingString:feed.gr_continuation];
 		
-		NSString* excludeLabel = nil;
+		GRFeed* continuedfeed = [self feedWithSubID:feedKey];
 		
-		continuedfeed = [self.grController getFeedForID:feed.subscriptionID
-							  count:defaultItemCount
-						  startFrom:nil
-							exclude:excludeLabel
-					   continuation:feed.gr_continuation];
+		if (!continuedfeed){
 		
-		if (self.errorHappened == YES){
-			[self notifyErrorHappened];
-			[pool release];
-			return;
+			NSNumber* defaultItemCount = [NSNumber numberWithInt:1];//read default item
+			
+			NSString* excludeLabel = nil;
+			
+			continuedfeed = [self.grController getFeedForID:feed.subscriptionID
+								  count:defaultItemCount
+							  startFrom:nil
+								exclude:excludeLabel
+						   continuation:feed.gr_continuation];
+			
+			if (self.errorHappened == YES){
+				[self notifyErrorHappened];
+				return;
+			}
+			
+			[self.feedPool setObject:continuedfeed forKey:[[feed keyString] stringByAppendingString:feed.gr_continuation]];
 		}
 		
-		[self.feedPool setObject:continuedfeed forKey:[[feed keyString] stringByAppendingString:feed.gr_continuation]];
+		NSDictionary* userInfo = [NSDictionary dictionaryWithObject:@"YES" forKey:CONTINUEDFEEDKEY];
+		
+		[self sendNotification:[feed keyString] withUserInfo:userInfo];
 	}
-	
-	NSDictionary* userInfo = [NSDictionary dictionaryWithObject:@"YES" forKey:CONTINUEDFEEDKEY];
-	
-	[self sendNotification:[feed keyString] withUserInfo:userInfo];
-	[pool release];
 }
 
 -(void)taskRefreshFeed:(GRSubscription*)subscription{
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	NSNumber* defaultItemCount = [NSNumber numberWithInt:1];//default item count
-	[self sendNotification:[BEGANFEEDUPDATING stringByAppendingString:[subscription keyString]] withUserInfo:nil];
-	
-	NSString* excludeLabel = nil;
-	if (subscription.isUnreadOnly){
-		excludeLabel = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_READ];
-	}
-	
-	GRFeed* feed = [self.grController getFeedForID:[subscription ID] 
-											 count:defaultItemCount 
-										 startFrom:nil 
-										   exclude:excludeLabel 
-									  continuation:nil];//read online
-	if (self.errorHappened == YES){
-		[self notifyErrorHappened];
-		[pool release];
-		return;
-	}
-	NSString* subKey = [subscription keyString];
-	GRFeed* origFeed = [self.feedPool objectForKey:subKey];
-	if (!origFeed){//if this feed is not cached before
-		feed.subscriptionID = [subscription ID];
-		if (feed){
-			[self.feedPool setObject:feed forKey:subKey];
+	@autoreleasepool {
+		NSNumber* defaultItemCount = [NSNumber numberWithInt:1];//default item count
+		[self sendNotification:[BEGANFEEDUPDATING stringByAppendingString:[subscription keyString]] withUserInfo:nil];
+		
+		NSString* excludeLabel = nil;
+		if (subscription.isUnreadOnly){
+			excludeLabel = [ATOM_PREFIX_STATE_GOOGLE stringByAppendingString:ATOM_STATE_READ];
 		}
-	}else {//if this feed has been cached, than merge them together
-		origFeed = [origFeed mergeWithFeed:feed continued:NO];
-		if (origFeed){
-			[self.feedPool setObject:origFeed forKey:subKey];
+		
+		GRFeed* feed = [self.grController getFeedForID:[subscription ID] 
+												 count:defaultItemCount 
+											 startFrom:nil 
+											   exclude:excludeLabel 
+										  continuation:nil];//read online
+		if (self.errorHappened == YES){
+			[self notifyErrorHappened];
+			return;
 		}
-	}
+		NSString* subKey = [subscription keyString];
+		GRFeed* origFeed = [self.feedPool objectForKey:subKey];
+		if (!origFeed){//if this feed is not cached before
+			feed.subscriptionID = [subscription ID];
+			if (feed){
+				[self.feedPool setObject:feed forKey:subKey];
+			}
+		}else {//if this feed has been cached, than merge them together
+			origFeed = [origFeed mergeWithFeed:feed continued:NO];
+			if (origFeed){
+				[self.feedPool setObject:origFeed forKey:subKey];
+			}
+		}
 
-	//notify that the feed with feedID has been updated
-	[self sendNotification:[ENDFEEDUPDATING stringByAppendingString:subKey] withUserInfo:nil];
-	[pool release];
+		//notify that the feed with feedID has been updated
+		[self sendNotification:[ENDFEEDUPDATING stringByAppendingString:subKey] withUserInfo:nil];
+	}
 	
 }
 
@@ -354,9 +346,8 @@ static GRDataManager *readerDM = nil;
 		//初始化 GR Controller and Operation Queue;
 		GoogleReaderController* tempController = [[GoogleReaderController alloc] initWithDelegate:self];
 		self.grController = tempController;
-		[tempController release];
-		self.feedOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
-		self.editOperationQueue = [[[NSOperationQueue alloc] init] autorelease];
+		self.feedOperationQueue = [[NSOperationQueue alloc] init];
+		self.editOperationQueue = [[NSOperationQueue alloc] init];
 		self.recFeedList = [NSArray array];
 		[self readerDMSetup];
 	}
@@ -389,30 +380,28 @@ static GRDataManager *readerDM = nil;
 -(void)syncReaderStructure{
 	NSInvocationOperation* operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(taskSyncReaderStructure) object:nil];
 	[self.editOperationQueue addOperation:operation];
-	[operation release];
 }
 
 -(void)taskSyncSubscriptionsAndTags{
 	//auto release pool is needed for new thread
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
     
-	NSDictionary* tempSubList = [self.grController allSubscriptions];
-	NSDictionary* tempTagList = [self.grController allTags];	
-	if (self.errorHappened == YES || tempSubList == nil || tempTagList == nil){
-		[self notifyErrorHappened];
-		[pool release];
-		return;
-	}
+		NSDictionary* tempSubList = [self.grController allSubscriptions];
+		NSDictionary* tempTagList = [self.grController allTags];	
+		if (self.errorHappened == YES || tempSubList == nil || tempTagList == nil){
+			[self notifyErrorHappened];
+			return;
+		}
+		
+		if (![self.subDict isEqualToDictionary:tempSubList] || ![self.tagDict isEqualToDictionary:tempTagList]){
+			self.subDict = tempSubList;
+			self.tagDict = tempTagList;
+			[self.cache removeAllObjects];
+			[self buildProcessedList];
+			[self sendNotification:TAGORSUBCHANGED withUserInfo:nil];
+		}
 	
-	if (![self.subDict isEqualToDictionary:tempSubList] || ![self.tagDict isEqualToDictionary:tempTagList]){
-		self.subDict = tempSubList;
-		self.tagDict = tempTagList;
-		[self.cache removeAllObjects];
-		[self buildProcessedList];
-		[self sendNotification:TAGORSUBCHANGED withUserInfo:nil];
 	}
-	
-	[pool release];
 }
 
 -(void)syncReaderStructure_new{
@@ -470,51 +459,47 @@ static GRDataManager *readerDM = nil;
 -(void)syncUnreadCount{
 	NSInvocationOperation* operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(taskSyncUnreadCount) object:nil];
 	[self.editOperationQueue addOperation:operation];
-	[operation release];
 }
 
 -(void)taskSyncUnreadCount{
 	//auto release pool is needed for new thread
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 
-	NSDictionary* tempUnreadCount = [self.grController unreadCount];	
-	if (self.errorHappened == YES){
-		[self notifyErrorHappened];
-		[pool release];
-		return;
-	}
-	
-	[tempUnreadCount retain];
+		NSDictionary* tempUnreadCount = [self.grController unreadCount];	
+		if (self.errorHappened == YES){
+			[self notifyErrorHappened];
+			return;
+		}
+		
 
-	BOOL changed = NO;
-	if (![self.unreadCount isEqualToDictionary:tempUnreadCount]){
-		changed = YES;	
-	}
-	
-	self.unreadCount = tempUnreadCount;
-	[self updateUnreadCountToProcessedList];
+		BOOL changed = NO;
+		if (![self.unreadCount isEqualToDictionary:tempUnreadCount]){
+			changed = YES;	
+		}
+		
+		self.unreadCount = tempUnreadCount;
+		[self updateUnreadCountToProcessedList];
 
-	if (changed){
-		[self sendNotification:UNREADCOUNTCHANGED withUserInfo:nil];
+		if (changed){
+			[self sendNotification:UNREADCOUNTCHANGED withUserInfo:nil];
+		}
+		
+	
 	}
-	
-	[tempUnreadCount release];
-	
-	[pool release];
 }
 
 -(void)taskSyncReaderStructure{
 	//auto release pool is needed for new thread
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	//notify began sync data
-	[self sendNotification:BEGANSYNCDATA withUserInfo:nil];
-	
-	[self taskSyncSubscriptionsAndTags];
-	[self taskSyncUnreadCount];
+		[self sendNotification:BEGANSYNCDATA withUserInfo:nil];
+		
+		[self taskSyncSubscriptionsAndTags];
+		[self taskSyncUnreadCount];
     [self writeListToFile];
 
-	[self sendNotification:ENDSYNCDATA withUserInfo:nil];
-	[pool release];
+		[self sendNotification:ENDSYNCDATA withUserInfo:nil];
+	}
 }
 
 -(void)didReceiveErrorWhileRequestingData:(NSError *)error{
@@ -546,10 +531,8 @@ static GRDataManager *readerDM = nil;
 -(void)sendNotification:(NSString*)name withUserInfo:(NSDictionary*)userInfo{
 
 	DebugLog(@"sending notification key is %@", name);
-	[userInfo retain];
 	NSNotification* notification = [NSNotification notificationWithName:name object:self userInfo:userInfo];
     [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:notification waitUntilDone:YES];
-	[userInfo release];
 }
 
 -(void)userSignedIn:(NSNotification*)notification{
@@ -629,7 +612,6 @@ static GRDataManager *readerDM = nil;
 	[fileManager removeItemAtPath:thePath error:&error];
 	//	thePath = [documentsDirectory stringByAppendingString:CACHEFILE];
 	//	[self.cache writeToFile:thePath atomically:YES];
-	[fileManager release];
 	DebugLog(@"removing done!!");
 }
 
@@ -669,8 +651,6 @@ static GRDataManager *readerDM = nil;
 
 	self.processedTagDict = tempTagList;
 	self.processedSubDict = tempSubList;
-	[tempTagList release];
-	[tempSubList release];
 }
 
 -(void)updateUnreadCountToProcessedList
@@ -735,7 +715,6 @@ static GRDataManager *readerDM = nil;
 
 	NSInvocationOperation* operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(taskSubscribeFeed:) object:parameters];
 	[self.editOperationQueue addOperation:operation];
-	[operation release];
 }
 
 -(void)taskSubscribeFeed:(NSDictionary*)parameters{
@@ -780,7 +759,6 @@ static GRDataManager *readerDM = nil;
 	DebugLog(@"going to unsubscribe feed:%@", streamID);
 	NSInvocationOperation* operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(taskUnsbuscribeFeed:) object:streamID];
 	[self.editOperationQueue addOperation:operation];
-	[operation release];
 }
 
 -(void)taskUnsbuscribeFeed:(NSString*)streamID{
@@ -792,7 +770,6 @@ static GRDataManager *readerDM = nil;
 	DebugLog(@"going to remove tag:%@", tag);
 	NSInvocationOperation* operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(taskRemoveTag:) object:tag];
 	[self.editOperationQueue addOperation:operation];
-	[operation release];
 }
 
 -(void)taskRemoveTag:(NSString*)tag{
@@ -822,59 +799,14 @@ static GRDataManager *readerDM = nil;
 -(void)dealloc{
     [self unregisterNotifications];
 	[self writeListToFile];
-    self.tagDict = nil;
-    self.subDict = nil;
-    self.unreadCount = nil;
-    self.cache = nil;
-    self.itemPool = nil;
-    self.feedPool = nil;
-    self.grController = nil;
-    self.feedOperationQueue = nil;
-    self.editOperationQueue = nil;
-    self.processedSubDict = nil;
-    self.processedTagDict = nil;
-    self.runningOperationKeys = nil;
-    self.recFeedList = nil;
-	self.lastSubscribedStreamID = nil;
-	[super dealloc];
 }
 
 + (GRDataManager*)shared
 {
     if (readerDM == nil) {
-        readerDM = [[super allocWithZone:NULL] init];
+        readerDM = [[self alloc] init];
     }
     return readerDM;
-}
-
-+ (id)allocWithZone:(NSZone *)zone
-{
-    return [[self shared] retain];
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return self;
-}
-
-- (id)retain
-{
-    return self;
-}
-
-- (NSUInteger)retainCount
-{
-    return NSUIntegerMax;  //denotes an object that cannot be released
-}
-
-- (oneway void)release
-{
-    //do nothing
-}
-
-- (id)autorelease
-{
-    return self;
 }
 
 @end

@@ -15,7 +15,7 @@
     CGFloat totalFrameTimeDuringCapture;
     
     AVCaptureSession *_captureSession;
-    AVCaptureDevice *_inputCamera;
+    AVCaptureDevice *__weak _inputCamera;
     AVCaptureDevice *_microphone;
     AVCaptureDeviceInput *videoInput;
 
@@ -24,13 +24,13 @@
 }
 
 /// The AVCaptureSession used to capture from the camera
-@property(readonly, retain) AVCaptureSession *captureSession;
+@property(readonly) AVCaptureSession *captureSession;
 
 /// This enables the benchmarking mode, which logs out instantaneous and average frame times to the console
 @property(readwrite, nonatomic) BOOL runBenchmark;
 
 /// Use this property to manage camera settings. Focus point, exposure point, etc.
-@property(readonly) AVCaptureDevice *inputCamera;
+@property(weak, readonly) AVCaptureDevice *inputCamera;
 
 /// This determines the rotation applied to the output image, based on the source material
 @property(readwrite, nonatomic) UIInterfaceOrientation outputImageOrientation;

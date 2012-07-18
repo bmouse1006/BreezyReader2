@@ -13,8 +13,8 @@
 @interface BRFeedDetailCell (){
 }
 
-@property (nonatomic, retain) GoogleReaderClient* client;
-@property (nonatomic, retain) id item;
+@property (nonatomic, strong) GoogleReaderClient* client;
+@property (nonatomic, strong) id item;
 
 @end
 
@@ -31,16 +31,7 @@ static NSMutableDictionary* subCountForFeed = nil;
 
 -(void)dealloc{
     [self.client clearAndCancel];
-    [_item release];
     _item = nil;
-    self.client = nil;
-    self.container = nil;
-    self.titleLabel = nil;
-    self.snipetLabel = nil;
-    self.subscriberLabel = nil;
-    self.velocityLabel = nil;
-    self.topSeperateLine = nil;
-    [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -62,10 +53,10 @@ static NSMutableDictionary* subCountForFeed = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (velocityForFeed == nil){
-            velocityForFeed = [[NSMutableDictionary dictionary] retain];
+            velocityForFeed = [NSMutableDictionary dictionary];
         }
         if (subCountForFeed == nil){
-            subCountForFeed = [[NSMutableDictionary dictionary] retain];
+            subCountForFeed = [NSMutableDictionary dictionary];
         }
     });
     
@@ -99,8 +90,7 @@ static NSMutableDictionary* subCountForFeed = nil;
 -(void)setItem:(id)item{
     if (_item != item){
         
-        [_item release];
-        _item = [item retain];
+        _item = item;
         
         self.titleLabel.text = [[item objectForKey:@"title"] stringByReplacingHTMLTagAndTrim];
         self.snipetLabel.text = [[item objectForKey:@"contentSnippet"] stringByReplacingHTMLTagAndTrim];

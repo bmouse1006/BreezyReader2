@@ -12,7 +12,7 @@
 
 @interface BRRecommendationDataSource ()
 
-@property (nonatomic, retain) GoogleReaderClient* client; 
+@property (nonatomic, strong) GoogleReaderClient* client; 
 
 @end
 
@@ -20,10 +20,6 @@
 
 @synthesize client = _client;
 
--(void)dealloc{
-    self.client = nil;
-    [super dealloc];
-}
 
 -(NSString*)title{
     return NSLocalizedString(@"title_recommendation", nil);

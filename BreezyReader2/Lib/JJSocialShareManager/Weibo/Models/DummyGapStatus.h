@@ -10,13 +10,13 @@
 @class DummyGapCell;
 
 @interface DummyGapStatus : NSObject {
-	DummyGapCell *cell;
+	DummyGapCell *__unsafe_unretained cell;
 	long long statusId;
 }
 
 - (id)initWithStatusId:(long long)_statusId;
 
-@property (nonatomic, assign) DummyGapCell *cell;
+@property (nonatomic, unsafe_unretained) DummyGapCell *cell;
 @property (nonatomic, assign) long long statusId;
 
 @end

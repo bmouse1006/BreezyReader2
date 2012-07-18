@@ -10,7 +10,7 @@
 
 @interface SearchLoadingCell ()
 
-@property (nonatomic, retain) UILabel* label;
+@property (nonatomic, strong) UILabel* label;
 
 @end
 
@@ -30,7 +30,7 @@
 -(void)awakeFromNib{
     [super awakeFromNib];
     self.backgroundColor = [UIColor whiteColor];
-    self.label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height)] autorelease];
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height)];
     self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.label.backgroundColor = self.backgroundColor;
     self.label.font = [UIFont boldSystemFontOfSize:18];

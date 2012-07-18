@@ -31,21 +31,16 @@
     return nil;
   }
   
-  mSharedProcessor = [sharedProcessor retain];
+  mSharedProcessor = sharedProcessor;
   return self;
 }
 
 
-- (void) dealloc
-{
-  [mSharedProcessor release];
-  [super dealloc];
-}
 
 
 - (id<TProcessor>) processorForTransport: (id<TTransport>) transport
 {
-  return [[mSharedProcessor retain] autorelease];
+  return mSharedProcessor;
 }
 
 @end

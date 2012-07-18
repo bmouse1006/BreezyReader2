@@ -17,10 +17,6 @@
 
 @synthesize menu = _menu;
 
--(void)dealloc{
-    self.menu = nil;
-    [super dealloc];
-}
 
 - (void)viewDidLoad
 {

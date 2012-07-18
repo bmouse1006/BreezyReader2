@@ -35,11 +35,11 @@
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self){
-        UISwipeGestureRecognizer* rightSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToRight:)] autorelease];
+        UISwipeGestureRecognizer* rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToRight:)];
         rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
         [self addGestureRecognizer:rightSwipe];
         
-        UISwipeGestureRecognizer* leftSwipte = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToLeft:)] autorelease];
+        UISwipeGestureRecognizer* leftSwipte = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToLeft:)];
         leftSwipte.direction = UISwipeGestureRecognizerDirectionLeft;
         [self addGestureRecognizer:leftSwipte];
     }
@@ -49,16 +49,6 @@
 
 -(void)dealloc{
     self.item = nil;
-    self.urlImageView = nil;
-    self.container = nil;
-    self.titleLabel = nil;
-    self.bottomSeperateLine = nil;
-    self.previewLabel = nil;
-    self.timeLabel = nil;
-    self.imageList = nil;
-    self.authorLabel = nil;
-    self.buttonContainer = nil;
-    [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -108,8 +98,7 @@
 
 -(void)setItem:(GRItem *)item{
     if (_item != item){
-        [_item release];
-        _item = [item retain];
+        _item = item;
         
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         [self registerNotifications];

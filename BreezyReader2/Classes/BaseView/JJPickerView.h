@@ -21,12 +21,12 @@
 
 @interface JJPickerView : BaseView 
 
-@property (nonatomic, retain) IBOutlet UIPickerView* picker;
-@property (nonatomic, retain) IBOutlet UIView* pickerContainer;
+@property (nonatomic, strong) IBOutlet UIPickerView* picker;
+@property (nonatomic, strong) IBOutlet UIView* pickerContainer;
 
-@property (nonatomic, assign) id<UIPickerViewDelegate> delegate;
-@property (nonatomic, assign) id<UIPickerViewDataSource> dataSource;
+@property (nonatomic, unsafe_unretained) id<UIPickerViewDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<UIPickerViewDataSource> dataSource;
 
-@property (nonatomic, retain) IBOutlet UILabel* titleLabel;
+@property (nonatomic, strong) IBOutlet UILabel* titleLabel;
 
 @end

@@ -18,7 +18,6 @@
 @dynamic newestItemTimestampUsec;
 
 -(void)setGRSub:(GRSubscription*)sub{
-	[sub retain];
 //	[self setValue:sub.ID forKey:@"ID"];
 //	[self setValue:sub.sortID forKey:@"sortID"];
 //	[self setValue:sub.title forKey:@"title"];
@@ -31,7 +30,6 @@
 	self.downloadedDate = sub.downloadedDate;
 	self.newestItemTimestampUsec = [NSNumber numberWithDouble:sub.newestItemTimestampUsec];
 	
-	[sub release];
 }
 
 -(GRSubscription*)GRSub{
@@ -49,7 +47,7 @@
 	sub.downloadedDate = self.downloadedDate;
 	sub.newestItemTimestampUsec = [self.newestItemTimestampUsec doubleValue];
 	
-	return [sub autorelease];
+	return sub;
 }
 
 -(NSString*)getDownloadedDuration{

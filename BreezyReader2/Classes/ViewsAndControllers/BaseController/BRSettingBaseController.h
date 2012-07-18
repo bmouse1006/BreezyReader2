@@ -11,9 +11,9 @@
 
 @interface BRSettingBaseController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, retain) IBOutlet UITableView* tableView;
+@property (nonatomic, strong) IBOutlet UITableView* tableView;
 
-@property (nonatomic, retain) NSMutableArray* settingDataSources;
+@property (nonatomic, strong) NSMutableArray* settingDataSources;
 
 -(void)reloadSectionFromSource:(id<BRSettingDataSource>)source;
 -(void)reloadRowsFromSource:(id<BRSettingDataSource>)source row:(NSInteger)row animated:(BOOL)animated;

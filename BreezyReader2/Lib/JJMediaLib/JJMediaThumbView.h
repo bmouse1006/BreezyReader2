@@ -26,8 +26,8 @@
 @interface JJMediaThumbView : UIControl<JJMediaThumbView, ASIHTTPRequestDelegate>
 
 @property (nonatomic, assign) JJMediaType type;
-@property (nonatomic, retain) UIImageView* imageView;
-@property (nonatomic, retain) UILabel* captionLabel;
+@property (nonatomic, strong) UIImageView* imageView;
+@property (nonatomic, strong) UILabel* captionLabel;
 
 @property (nonatomic, copy) NSString* imageURL;
 

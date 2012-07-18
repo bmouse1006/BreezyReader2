@@ -10,9 +10,9 @@
 
 @interface BRImageScrollController : JJImageScrollController<UIGestureRecognizerDelegate>
 
-@property (nonatomic, retain) IBOutlet UIButton* saveButton;
-@property (nonatomic, retain) IBOutlet UIView* buttonContainer;
-@property (nonatomic, retain) IBOutlet UIView* buttonBackground;
+@property (nonatomic, strong) IBOutlet UIButton* saveButton;
+@property (nonatomic, strong) IBOutlet UIView* buttonContainer;
+@property (nonatomic, strong) IBOutlet UIView* buttonBackground;
 
 -(IBAction)saveButtonClicked:(id)sender;
 

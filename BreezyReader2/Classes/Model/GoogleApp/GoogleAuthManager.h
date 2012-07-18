@@ -27,7 +27,7 @@
 @property (nonatomic, copy) NSError* error;
 @property (nonatomic, copy, setter = setLoginStatus:) NSString* loginStatus;
 
-@property (nonatomic, retain) GTMOAuth2Authentication* oauth;
+@property (nonatomic, strong) GTMOAuth2Authentication* oauth;
 
 + (GoogleAuthManager*)shared;
 

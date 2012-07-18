@@ -273,7 +273,6 @@ static CGFloat kBorderWidth = 10;
 - (void)dismiss:(BOOL)animated {
   [self dialogWillDisappear];
 
-  [_loadingURL release];
   _loadingURL = nil;
   
   if (animated) {
@@ -302,7 +301,7 @@ static CGFloat kBorderWidth = 10;
 - (id)initWithSession:(FBSession*)session {
   if (self = [super initWithFrame:CGRectZero]) {
     _delegate = nil;
-    _session = [session retain];
+    _session = session;
     _loadingURL = nil;
     _orientation = UIDeviceOrientationUnknown;
     _showingKeyboard = NO;
@@ -319,7 +318,7 @@ static CGFloat kBorderWidth = 10;
     [self addSubview:_iconView];
     
     UIColor* color = [UIColor colorWithRed:167.0/255 green:184.0/255 blue:216.0/255 alpha:1];
-    _closeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_closeButton setImage:closeImage forState:UIControlStateNormal];
     [_closeButton setTitleColor:color forState:UIControlStateNormal];
     [_closeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
@@ -362,14 +361,6 @@ static CGFloat kBorderWidth = 10;
 
 - (void)dealloc {
   _webView.delegate = nil;
-  [_webView release];
-  [_spinner release];
-  [_titleLabel release];
-  [_iconView release];
-  [_closeButton release];
-  [_loadingURL release];
-  [_session release];
-  [super dealloc];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -591,8 +582,7 @@ static CGFloat kBorderWidth = 10;
       nil]];
   [cookies setCookie:testCookie];
 
-  [_loadingURL release];
-  _loadingURL = [[self generateURL:url params:getParams] retain];
+  _loadingURL = [self generateURL:url params:getParams];
   NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:_loadingURL];
   
   if (method) {

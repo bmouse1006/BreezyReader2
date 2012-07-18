@@ -21,7 +21,7 @@
 
 @interface JJSocialShareManager ()
 
-@property (nonatomic, assign) id<JJSocialShareManagerDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<JJSocialShareManagerDelegate> delegate;
 
 @end
 
@@ -50,7 +50,6 @@ static UIViewController* _rootViewController = nil;
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.delegate = nil;
-    [super dealloc];
 }
 
 -(id)initWithDelegate:(id<JJSocialShareManagerDelegate>)delegate{
@@ -73,15 +72,14 @@ static UIViewController* _rootViewController = nil;
 }
 
 +(id)managerWithDelegate:(id<JJSocialShareManagerDelegate>)delegate{
-    JJSocialShareManager* manager = [[[JJSocialShareManager alloc] initWithDelegate:delegate] autorelease];
+    JJSocialShareManager* manager = [[JJSocialShareManager alloc] initWithDelegate:delegate];
     
     return manager;
 }
 
 +(void)setRootViewController:(UIViewController*)rootViewController{  
     if (_rootViewController != rootViewController){
-        [_rootViewController release];
-        _rootViewController = [rootViewController retain];
+        _rootViewController = rootViewController;
     }
 }
 
@@ -104,7 +102,7 @@ static UIViewController* _rootViewController = nil;
 }
 
 -(void)sendToTwitterWithText:(NSString*)text urlString:(NSString*)urlString image:(UIImage*)image{
-    TWTweetComposeViewController* controller = [[[TWTweetComposeViewController alloc] init] autorelease];
+    TWTweetComposeViewController* controller = [[TWTweetComposeViewController alloc] init];
     [controller setInitialText:text];
     [controller addURL:[NSURL URLWithString:urlString]];
     [controller addImage:image];
@@ -116,11 +114,11 @@ static UIViewController* _rootViewController = nil;
 }
 
 -(void)sendToEvernoteWithTitle:(NSString*)title message:(NSString*)message urlString:(NSString *)urlString{
-    ENNoteComposerController* controller = [[[ENNoteComposerController alloc] initWithNibName:@"ENNoteComposerController" bundle:nil] autorelease];
+    ENNoteComposerController* controller = [[ENNoteComposerController alloc] initWithNibName:@"ENNoteComposerController" bundle:nil];
     [controller setENTitle:title];
     [controller setENContent:message];
     [controller setENURLString:urlString];
-    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:controller] autorelease];
+    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:controller];
     [[[self class] rootViewController] presentViewController:nav animated:YES completion:NULL];
 }
 
@@ -139,7 +137,7 @@ static UIViewController* _rootViewController = nil;
 }
 
 -(SHKItem*)itemWithTitle:(NSString*)title message:(NSString*)message urlString:(NSString*)urlString{
-    SHKItem *item = [[[SHKItem alloc] init] autorelease];
+    SHKItem *item = [[SHKItem alloc] init];
     item.title = title;
     item.text = message;
     item.URL = [NSURL URLWithString:urlString];

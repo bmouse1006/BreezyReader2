@@ -41,19 +41,19 @@
 	
 	NSString *tmpValue;
 	
-	SHKFormController *form;
+	SHKFormController *__weak form;
 }
 
-@property (retain) SHKFormFieldSettings *settings;
+@property (strong) SHKFormFieldSettings *settings;
 
-@property (nonatomic) CGFloat labelWidth;
+@property (nonatomic, assign) CGFloat labelWidth;
 
-@property (nonatomic, retain, getter=getTextField) UITextField *textField;
-@property (nonatomic, retain) UISwitch *toggle;
+@property (nonatomic, getter=getTextField, strong) UITextField *textField;
+@property (nonatomic, strong) UISwitch *toggle;
 
-@property (nonatomic, retain) NSString *tmpValue;
+@property (nonatomic, strong) NSString *tmpValue;
 
-@property (nonatomic, assign) SHKFormController *form;
+@property (nonatomic, weak) SHKFormController *form;
 
 - (void)setValue:(NSString *)value;
 - (NSString *)getValue;

@@ -20,7 +20,7 @@
 @class FBSession;
 
 @interface FBDialog : UIView <UIWebViewDelegate> {
-  id<FBDialogDelegate> _delegate;
+  id<FBDialogDelegate> __unsafe_unretained _delegate;
   FBSession* _session;
   NSURL* _loadingURL;
   UIWebView* _webView;
@@ -35,12 +35,12 @@
 /**
  * The delegate.
  */
-@property(nonatomic,assign) id<FBDialogDelegate> delegate;
+@property(nonatomic,unsafe_unretained) id<FBDialogDelegate> delegate;
 
 /**
  * The session for which the login is taking place.
  */
-@property(nonatomic,assign) FBSession* session;
+@property(nonatomic, strong) FBSession* session;
 
 /**
  * The title that is shown in the header atop the view;

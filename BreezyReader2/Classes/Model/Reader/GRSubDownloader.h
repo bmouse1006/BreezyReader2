@@ -47,21 +47,21 @@ typedef enum {
 
 @interface GRSubDownloader : NSObject<GRItemDownloaderDelegate, GoogleReaderControllerDelegate>
 
-@property (nonatomic, retain) NSObject<GRSubDownloaderDelegate>* delegate;
+@property (nonatomic, strong) NSObject<GRSubDownloaderDelegate>* delegate;
 @property (nonatomic, assign, readonly) GRDownloaderStates states;
-@property (nonatomic, retain) NSURLConnection* connection;
-@property (nonatomic, retain) GRSubscription* subscription;
-@property (retain) NSMutableDictionary* currentDownloaderPool;
+@property (nonatomic, strong) NSURLConnection* connection;
+@property (nonatomic, strong) GRSubscription* subscription;
+@property  NSMutableDictionary* currentDownloaderPool;
 @property (nonatomic, assign) NSUInteger numberOfDownloadedItems;
 @property (nonatomic, assign) NSUInteger numberOfTotalItems;
 @property (nonatomic, assign) NSUInteger numberOfSuccessDownload;
 @property (nonatomic, assign) NSUInteger numberOfFailedDownload;
 @property (nonatomic, assign) BOOL itemLoadingDone;
 @property (nonatomic, assign) BOOL subscriptionLoadingFailed;
-@property (nonatomic, retain) NSOperationQueue* operationQueue;
-@property (nonatomic, retain) NSError* downloadError;
-@property (nonatomic, retain) NSThread* thread;
-@property (nonatomic, retain) NSManagedObjectContext* context;
+@property (nonatomic, strong) NSOperationQueue* operationQueue;
+@property (nonatomic, strong) NSError* downloadError;
+@property (nonatomic, strong) NSThread* thread;
+@property (nonatomic, strong) NSManagedObjectContext* context;
 
 -(id)initWithSubscription:(GRSubscription*)sub delegate:(NSObject<GRSubDownloaderDelegate>*)mDelegate;
 -(BOOL)stop;

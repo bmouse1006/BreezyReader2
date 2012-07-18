@@ -14,7 +14,7 @@
 
 @interface JJMediaDataSource : NSObject<UITableViewDataSource>
 
-@property (nonatomic, assign) id<JJMediaLibTableViewCellDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<JJMediaLibTableViewCellDelegate> delegate;
 
 -(id)initWithMediaSource:(id<JJMediaSource>)mediaSource delegate:(id<JJMediaLibTableViewCellDelegate>)delegate;
 -(void)setThumbSize:(CGFloat)thumbSize thumbSpacing:(CGFloat)thumbSpacing;

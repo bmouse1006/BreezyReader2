@@ -37,7 +37,6 @@
     NSString *json = [jsonWriter stringWithFragment:self];    
     if (!json)
         DebugLog(@"-JSONFragment failed. Error trace is: %@", [jsonWriter errorTrace]);
-    [jsonWriter release];
     return json;
 }
 
@@ -46,7 +45,6 @@
     NSString *json = [jsonWriter stringWithObject:self];
     if (!json)
         DebugLog(@"-JSONRepresentation failed. Error trace is: %@", [jsonWriter errorTrace]);
-    [jsonWriter release];
     return json;
 }
 

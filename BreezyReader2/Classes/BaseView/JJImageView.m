@@ -14,7 +14,7 @@
 
 @interface JJImageView ()
 
-@property (nonatomic, retain) ASIHTTPRequest* request;
+@property (nonatomic, strong) ASIHTTPRequest* request;
 
 @property (nonatomic, assign) UIViewContentMode imageContentMode;
 
@@ -31,20 +31,15 @@
 @synthesize storagePolicy = _storagePolicy;
 
 -(void)dealloc{
-    [_imageURL release];
     _imageURL = nil;
     self.delegate = nil;
-    self.defaultImage = nil;
     [self.request clearDelegatesAndCancel];
     self.request.delegate = nil;
-    self.request = nil;
-    [super dealloc];
 }
 
 -(void)setImageURL:(NSURL *)imageURL{
     if (_imageURL != imageURL){
-        [_imageURL release];
-        _imageURL = [imageURL retain];
+        _imageURL = imageURL;
         [self.request clearDelegatesAndCancel];
         if (imageURL != nil){
             __block typeof(self) blockSelf = self;

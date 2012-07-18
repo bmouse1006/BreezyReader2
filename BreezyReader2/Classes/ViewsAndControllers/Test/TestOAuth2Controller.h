@@ -11,9 +11,9 @@
 
 @interface TestOAuth2Controller : UIViewController
 
-@property (nonatomic, retain) NSMutableData* data;
-@property (nonatomic, retain) GTMOAuth2Authentication* auth;
-@property (nonatomic, retain) IBOutlet UIWebView* webView;
+@property (nonatomic, strong) NSMutableData* data;
+@property (nonatomic, strong) GTMOAuth2Authentication* auth;
+@property (nonatomic, strong) IBOutlet UIWebView* webView;
 
 -(IBAction)login:(id)sender;
 -(IBAction)logout:(id)sender;

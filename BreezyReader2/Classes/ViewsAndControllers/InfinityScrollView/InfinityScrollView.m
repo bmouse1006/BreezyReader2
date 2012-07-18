@@ -14,8 +14,8 @@
     NSInteger _index;
 }
 
-@property (nonatomic, retain) NSMutableSet* containers;
-@property (nonatomic, assign) InfinityScrollContainer* middleContainer;
+@property (nonatomic, strong) NSMutableSet* containers;
+@property (nonatomic, weak) InfinityScrollContainer* middleContainer;
 
 -(void)initialize;
 -(void)generateAndSetupContainers;
@@ -55,9 +55,7 @@
 
 -(void)dealloc{
     self.dataSource = nil;
-    self.containers = nil;
     self.middleContainer = nil;
-    [super dealloc];
 }
 
 -(void)awakeFromNib{
@@ -144,9 +142,6 @@
             container = container.rightContainer;
         }while (self.middleContainer != container);
     }
-    [left release];
-    [right release];
-    [mid release];
 }
 
 -(void)reloadData{

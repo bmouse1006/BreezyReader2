@@ -11,10 +11,10 @@
 
 @interface GRRecFeed : NSObject<GRBaseProtocol>
 
-@property (nonatomic, retain) NSString* title;
-@property (nonatomic, retain) NSString* snippet;
-@property (nonatomic, retain) NSString* streamID;
-@property (nonatomic, retain) NSString* impressionTime;
+@property (nonatomic, strong) NSString* title;
+@property (nonatomic, strong) NSString* snippet;
+@property (nonatomic, strong) NSString* streamID;
+@property (nonatomic, strong) NSString* impressionTime;
 
 @property (nonatomic, assign) BOOL isSubscribed;
 

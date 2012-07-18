@@ -24,12 +24,7 @@
 
 -(void)dealloc{
     [self.request clearDelegatesAndCancel];
-    self.request = nil;
     [self.client clearAndCancel];
-    self.client = nil;
-    self.results = nil;
-    self.keywords = nil;
-    [super dealloc];
 }
 
 -(id)init{

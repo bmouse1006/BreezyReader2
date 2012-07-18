@@ -14,12 +14,6 @@
 @synthesize delegate = _delegate, dataSource = _dataSource;
 @synthesize titleLabel = _titleLabel;
 
--(void)dealloc{
-    self.pickerContainer = nil;
-    self.picker = nil;
-    self.titleLabel = nil;
-    [super dealloc];
-}
 
 -(void)awakeFromNib{
     [super awakeFromNib];

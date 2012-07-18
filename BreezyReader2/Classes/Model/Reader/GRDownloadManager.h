@@ -29,13 +29,13 @@ typedef enum{
 
 @interface GRDownloadManager : NSObject<GRSubDownloaderDelegate, GRItemDownloaderDelegate>
 
-@property (retain) NSMutableArray* downloaderQueue;
-@property (retain) NSMutableDictionary* downloaderIndex;
+@property  NSMutableArray* downloaderQueue;
+@property  NSMutableDictionary* downloaderIndex;
 @property (nonatomic, assign) NSUInteger maxConcurrency;
 @property (assign, readonly) NSUInteger numberOfRunningDownloader;
-@property (nonatomic, retain) NSMutableDictionary* itemDownloaderDictionary;
-@property (nonatomic, retain) NSFetchedResultsController* fetchedResultsController;
-@property (nonatomic, retain) NSManagedObjectContext* context;
+@property (nonatomic, strong) NSMutableDictionary* itemDownloaderDictionary;
+@property (nonatomic, strong) NSFetchedResultsController* fetchedResultsController;
+@property (nonatomic, strong) NSManagedObjectContext* context;
 
 -(BOOL)containsDownloaderForSub:(GRSubscription*)sub;
 -(BOOL)addSubscriptionToDownloadQueue:(GRSubscription*)sub;

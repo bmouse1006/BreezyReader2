@@ -67,7 +67,6 @@
     }
   }
   
-  [_chars release];
   _chars = nil;
 }
 
@@ -86,15 +85,6 @@
   return self;
 }
 
-- (void)dealloc {
-  [_stack release];
-  [_nameStack release];
-  [_rootObject release];
-  [_rootName release];
-  [_chars release];
-  [_parseError release];
-  [super dealloc];
-}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // NSXMLParserDelegate
@@ -127,14 +117,14 @@
         namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
   [self flushCharacters];
 
-  id object = [[[self topObject:NO] retain] autorelease];
-  NSString* name = [[self.topName retain] autorelease];
+  id object = [self topObject:NO];
+  NSString* name = self.topName;
   [_stack removeLastObject];
   [_nameStack removeLastObject];
 
   if (!_stack.count) {
-    _rootObject = [object retain];
-    _rootName = [name retain];
+    _rootObject = object;
+    _rootName = name;
   } else {
     id topObject = [self topObject:YES];
     if ([topObject isKindOfClass:[NSMutableArray class]]) {
@@ -146,7 +136,7 @@
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)error {
-  _parseError = [error retain];
+  _parseError = error;
 }
 
 @end

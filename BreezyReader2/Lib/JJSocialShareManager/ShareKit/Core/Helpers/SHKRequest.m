@@ -37,18 +37,6 @@
 @synthesize data, result, headers, response, connection;
 @synthesize success;
 
-- (void)dealloc
-{
-	[url release];
-	[params release];
-	[method release];
-	[headerFields release];
-	[connection release];
-	[data release];
-	[result release];
-	[response release];
-	[super dealloc];
-}
 
 - (id)initWithURL:(NSURL *)u params:(NSString *)p delegate:(id)d isFinishedSelector:(SEL)s method:(NSString *)m autostart:(BOOL)autostart
 {
@@ -73,11 +61,11 @@
 
 - (void)start
 {
-	self.data = [[[NSMutableData alloc] initWithLength:0] autorelease];
+	self.data = [[NSMutableData alloc] initWithLength:0];
 	
-	NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:url
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url
 																  cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-															  timeoutInterval:SHK_TIMEOUT] autorelease];
+															  timeoutInterval:SHK_TIMEOUT];
 	
 	// overwrite header fields (generally for cookies)
 	if (headerFields != nil)
@@ -95,7 +83,7 @@
 	
 	// Start Connection
 	SHKLog(@"Start SHKRequest:\nURL: %@\nparams: %@", url, params);
-	self.connection = [[[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES] autorelease];
+	self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 }
 
 
@@ -104,7 +92,7 @@
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)theResponse 
 {
 	self.response = theResponse;
-	self.headers = [[[response allHeaderFields] mutableCopy] autorelease];
+	self.headers = [[response allHeaderFields] mutableCopy];
 	
 	[data setLength:0];
 }
@@ -137,7 +125,7 @@
 - (NSString *)getResult
 {
 	if (result == nil)
-		self.result = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+		self.result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	return result;
 }
 

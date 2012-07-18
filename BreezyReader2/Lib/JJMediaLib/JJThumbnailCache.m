@@ -32,7 +32,7 @@ static NSString* _cachePath = nil;
 -(id)init{
     self = [super init];
     if (self){
-        _imgCache = [[NSMutableDictionary dictionary] retain];
+        _imgCache = [NSMutableDictionary dictionary];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedMemroyWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     
@@ -40,9 +40,7 @@ static NSString* _cachePath = nil;
 }
 
 -(void)dealloc{
-    [_imgCache release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super dealloc];
 }
 
 -(void)receivedMemroyWarning:(NSNotification*)notification{
@@ -51,7 +49,7 @@ static NSString* _cachePath = nil;
 
 -(NSString*)cachePath{
     if (_cachePath == nil){
-        _cachePath = [[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"thumbnailClipCache"] retain];
+        _cachePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"thumbnailClipCache"];
         NSFileManager* fm = [NSFileManager defaultManager];
         BOOL isDictionary = NO;
         if ([fm fileExistsAtPath:_cachePath isDirectory:&isDictionary] == NO){

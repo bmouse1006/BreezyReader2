@@ -16,9 +16,9 @@ typedef enum{
 
 @interface BRFeedActionMenuViewController : BRActionMenuViewController
 
-@property (nonatomic, retain) IBOutlet UIButton* markAllAsReadButton;
-@property (nonatomic, retain) IBOutlet UIButton* unreadOnlyButton;
-@property (nonatomic, retain) IBOutlet UIButton* showAllButton;
+@property (nonatomic, strong) IBOutlet UIButton* markAllAsReadButton;
+@property (nonatomic, strong) IBOutlet UIButton* unreadOnlyButton;
+@property (nonatomic, strong) IBOutlet UIButton* showAllButton;
 
 -(IBAction)showUnreadOnlyButtonClicked:(id)sender;
 -(IBAction)showAllArticlesButtonClicked:(id)sender;

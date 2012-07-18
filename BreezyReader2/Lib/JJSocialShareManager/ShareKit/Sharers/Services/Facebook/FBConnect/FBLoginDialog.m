@@ -31,7 +31,7 @@ static NSString* kLoginURL = @"http://www.facebook.com/login.php";
 // private
 
 - (void)connectToGetSession:(NSString*)token {
-  _getSessionRequest = [[FBRequest requestWithSession:_session delegate:self] retain];
+  _getSessionRequest = [FBRequest requestWithSession:_session delegate:self];
   NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObject:token forKey:@"auth_token"];
   if (!_session.apiSecret) {
     [params setObject:@"1" forKey:@"generate_session_secret"];
@@ -64,8 +64,6 @@ static NSString* kLoginURL = @"http://www.facebook.com/login.php";
 
 - (void)dealloc {
   _getSessionRequest.delegate = nil;
-  [_getSessionRequest release];
-  [super dealloc];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,7 +110,6 @@ static NSString* kLoginURL = @"http://www.facebook.com/login.php";
   NSTimeInterval expires = [[object objectForKey:@"expires"] floatValue];
   NSDate* expiration = expires ? [NSDate dateWithTimeIntervalSince1970:expires] : nil;
   
-  [_getSessionRequest release];
   _getSessionRequest = nil;
 
   [_session begin:uid sessionKey:sessionKey sessionSecret:sessionSecret expires:expiration];
@@ -122,7 +119,6 @@ static NSString* kLoginURL = @"http://www.facebook.com/login.php";
 }
 
 - (void)request:(FBRequest*)request didFailWithError:(NSError*)error {
-  [_getSessionRequest release];
   _getSessionRequest = nil;
 
   [self dismissWithError:error animated:YES];

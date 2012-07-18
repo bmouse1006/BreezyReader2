@@ -42,12 +42,6 @@
     [super awakeFromNib];
 }
 
--(void)dealloc{
-    self.data = nil;
-    self.webView = nil;
-    self.auth = nil;
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -85,8 +79,6 @@
 
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:controller];
     [self presentModalViewController:nav animated:YES];
-    [nav release];
-    [controller release];
     
 }
 -(IBAction)logout:(id)sender{
@@ -147,7 +139,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    NSString* str = [[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding] autorelease];
+    NSString* str = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
     DebugLog(@"%@", str);
 //    UIWebView* web = [[UIWebView alloc] initWithFrame:self.view.frame];
 //    [self.view addSubview:web];

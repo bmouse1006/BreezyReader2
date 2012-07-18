@@ -31,7 +31,6 @@
 @dynamic downloadedDate;
 
 -(void)setGRItem:(GRItem *)item{
-	[item retain];
 	self.readed = [NSNumber numberWithInt:item.readed];
 	self.selfLink = item.selfLink;
 	self.author = item.author;
@@ -46,7 +45,6 @@
 	self.source_title = item.origin_title;
 	self.content = item.content;
 	self.updated = item.updated;
-	[item release];
 }
 
 -(GRItem*)GRItem{
@@ -66,12 +64,11 @@
 	item.content = self.content;
 	item.updated = self.updated;
 	
-	return [item autorelease];
+	return item;
 }
 
 -(void)removeDownloadedImages{
 	GRItem* item = [self GRItem];
-	[item retain];
 	
 	NSArray* imageURLList = [item imageURLList];
 	NSFileManager* fileManager = [[NSFileManager alloc] init];
@@ -87,9 +84,7 @@
 			DebugLog(@"file %@ doesn't exist", fullFilePath);
 		}
 	}
-	[fileManager release];
 	
-	[item release];
 }
 
 @end

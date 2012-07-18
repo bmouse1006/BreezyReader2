@@ -16,9 +16,6 @@
 
 @implementation FeedSearchDataSource
 
--(void)dealloc{
-    [super dealloc];
-}
 
 -(id)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     id cell = nil;

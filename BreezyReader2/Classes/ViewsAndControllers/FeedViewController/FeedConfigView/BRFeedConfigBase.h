@@ -15,9 +15,9 @@
 
 @interface BRFeedConfigBase : NSObject<BRSettingDataSource>
 
-@property (nonatomic, retain) GRSubscription* subscription;
+@property (nonatomic, strong) GRSubscription* subscription;
 
-@property (nonatomic, assign) BRFeedConfigViewController* tableController;
+@property (nonatomic, unsafe_unretained) BRFeedConfigViewController* tableController;
 
 -(void)subscriptionChanged:(GRSubscription*)newSub;
 -(void)viewDidDisappear;

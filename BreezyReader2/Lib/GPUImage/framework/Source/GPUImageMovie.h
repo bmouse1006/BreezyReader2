@@ -7,7 +7,7 @@
  */
 @interface GPUImageMovie : GPUImageOutput
 
-@property(readwrite, retain) NSURL *url;
+@property(readwrite) NSURL *url;
 
 /** This enables the benchmarking mode, which logs out instantaneous and average frame times to the console
  */

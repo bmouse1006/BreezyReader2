@@ -18,14 +18,14 @@
 
 @interface BRMainScreenController : BRBaseController <InfinityScrollViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, BaseViewDelegate>
 
-@property (nonatomic, retain) InfinityScrollView* infinityScroll;
-@property (nonatomic, retain) IBOutlet SideMenuController* sideMenuController;
-@property (nonatomic, retain) IBOutlet BRFeedAndArticlesSearchController* searchController;
-@property (nonatomic, retain) IBOutlet BRTagAndSubListViewController* allSubListController;
-@property (nonatomic, retain) IBOutlet UIView* firstSyncFailedView;
-@property (nonatomic, retain) SubOverviewController* subOverrviewController;
+@property (nonatomic, strong) InfinityScrollView* infinityScroll;
+@property (nonatomic, strong) IBOutlet SideMenuController* sideMenuController;
+@property (nonatomic, strong) IBOutlet BRFeedAndArticlesSearchController* searchController;
+@property (nonatomic, strong) IBOutlet BRTagAndSubListViewController* allSubListController;
+@property (nonatomic, strong) IBOutlet UIView* firstSyncFailedView;
+@property (nonatomic, strong) SubOverviewController* subOverrviewController;
 
-@property (nonatomic, retain) IBOutlet JJLabel* noteLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* noteLabel;
 
 -(IBAction)syncReaderFirstTime:(id)sender;
 

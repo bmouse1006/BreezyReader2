@@ -123,8 +123,8 @@
 + (TApplicationException *) exceptionWithType: (int) type
                                       reason: (NSString *) reason
 {
-  return [[[TApplicationException alloc] initWithType: type
-                                         reason: reason] autorelease];
+  return [[TApplicationException alloc] initWithType: type
+                                         reason: reason];
 }
 
 @end

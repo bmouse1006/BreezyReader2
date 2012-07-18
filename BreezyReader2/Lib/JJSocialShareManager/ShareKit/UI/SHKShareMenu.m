@@ -39,13 +39,6 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (void)dealloc 
-{
-	[item release];
-	[tableData release];
-	[exclusions release];
-    [super dealloc];
-}
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -54,14 +47,14 @@
 	{
 		self.title = SHKLocalizedString(@"Share");
 		
-		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																							  target:self
-																							  action:@selector(cancel)] autorelease];
+																							  action:@selector(cancel)];
 		
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Edit")
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Edit")
 																				  style:UIBarButtonItemStyleBordered
 																				 target:self
-																				 action:@selector(edit)] autorelease];
+																				 action:@selector(edit)];
 		
 	}
 	return self;
@@ -78,8 +71,7 @@
 
 - (void)setItem:(SHKItem *)i
 {
-	[item release];
-	item = [i retain];
+	item = i;
 	
 	[self rebuildTableDataAnimated:NO];
 }
@@ -94,7 +86,7 @@
 	// Handling Excluded items
 	// If in editing mode, show them
 	// If not editing, hide them
-	self.exclusions = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"] mutableCopy] autorelease];
+	self.exclusions = [[[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"] mutableCopy];
 	
 	if (exclusions == nil)
 		self.exclusions = [NSMutableDictionary dictionaryWithCapacity:0];
@@ -108,7 +100,7 @@
 		
 		// Use temp objects so we can mutate as we are enumerating
 		NSMutableArray *sectionCopy;
-		NSMutableDictionary *tableDataCopy = [[tableData mutableCopy] autorelease];
+		NSMutableDictionary *tableDataCopy = [tableData mutableCopy];
 		NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 				
 		for(NSMutableArray *section in tableDataCopy)
@@ -116,7 +108,7 @@
 			r = 0;
 			[indexes removeAllIndexes];
 			
-			sectionCopy = [[section mutableCopy] autorelease];
+			sectionCopy = [section mutableCopy];
 			
 			for (NSMutableDictionary *row in section)
 			{
@@ -140,7 +132,6 @@
 			s++;
 		}
 		
-		[indexes release];
 		
 		if (animated)
 		{
@@ -171,7 +162,7 @@
 	}
 
 	if (sectionData.count && SHKShareMenuAlphabeticalOrder)
-		[sectionData sortUsingDescriptors:[NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)] autorelease]]];
+		[sectionData sortUsingDescriptors:[NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
 	
 	return sectionData;
 }
@@ -207,7 +198,7 @@
     SHKCustomShareMenuCell *cell = (SHKCustomShareMenuCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
 	{
-        cell = [[[SHKCustomShareMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[SHKCustomShareMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
     
@@ -219,7 +210,6 @@
 		UISwitch *toggle = [[UISwitch alloc] initWithFrame:CGRectZero];
 		toggle.userInteractionEnabled = NO;
 		cell.editingAccessoryView = toggle;
-		[toggle release];
 	}
 	
 	[(UISwitch *)cell.editingAccessoryView setOn:[exclusions objectForKey:[rowData objectForKey:@"className"]] == nil];
@@ -302,9 +292,9 @@
 	[self.tableView setEditing:YES animated:YES];
 	[self rebuildTableDataAnimated:YES];
 	
-	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+	[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 																			 target:self
-																							  action:@selector(save)] autorelease] animated:YES];
+																							  action:@selector(save)] animated:YES];
 }
 
 - (void)save
@@ -314,10 +304,10 @@
 	[self.tableView setEditing:NO animated:YES];
 	[self rebuildTableDataAnimated:YES];
 	
-	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Edit")
+	[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Edit")
 																				 style:UIBarButtonItemStyleBordered
 																							  target:self
-																							  action:@selector(edit)] autorelease] animated:YES];
+																							  action:@selector(edit)] animated:YES];
 	
 }
 

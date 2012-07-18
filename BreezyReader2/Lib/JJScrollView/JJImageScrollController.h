@@ -12,8 +12,8 @@
 
 @interface JJImageScrollController : UIViewController<JJPageScrollViewDelegate, JJPageScrollViewDataSource>
 
-@property (nonatomic, retain) JJPageScrollView* scrollView; 
-@property (nonatomic, retain) NSArray* imageList;
+@property (nonatomic, strong) JJPageScrollView* scrollView; 
+@property (nonatomic, strong) NSArray* imageList;
 @property (nonatomic, assign) NSInteger index;
 
 -(void)setImageList:(NSArray*)imageList startIndex:(NSInteger)index;

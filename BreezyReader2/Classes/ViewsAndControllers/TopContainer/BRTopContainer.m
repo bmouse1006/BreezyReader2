@@ -15,7 +15,7 @@ static double kTransitionAnimationDuration = 0.2f;
 
 @interface BRTopContainer ()
 
-@property (nonatomic, retain) NSMutableDictionary* boomedTransforms;
+@property (nonatomic, strong) NSMutableDictionary* boomedTransforms;
 
 @end
 
@@ -23,10 +23,6 @@ static double kTransitionAnimationDuration = 0.2f;
 
 @synthesize boomedTransforms = _boomedTransforms;
 
--(void)dealloc{
-    self.boomedTransforms = nil;
-    [super dealloc];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,7 +54,7 @@ static double kTransitionAnimationDuration = 0.2f;
 }
 
 -(void)loadView{
-    UIView* view = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+    UIView* view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     view.autoresizesSubviews = NO;
     view.backgroundColor = [UIColor blackColor];
     view.contentMode = UIViewContentModeTop;

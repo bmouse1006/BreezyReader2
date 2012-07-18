@@ -42,12 +42,7 @@
 }
 
 -(void)dealloc{
-    self.backItem = nil;
-    self.forwardItem = nil;
-    self.refreshItem = nil;
-    self.clostItem = nil;
     [self unregisterNotifications];
-    [super dealloc];
 }
 
 #pragma mark - View lifecycle
@@ -55,7 +50,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"title_close", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(dismissSelf:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"title_close", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(dismissSelf:)];
     [self removeGradientImage:self.webView];
     [self registerNotifications];
 }

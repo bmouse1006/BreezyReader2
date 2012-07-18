@@ -39,7 +39,7 @@ typedef enum {
 	UIImage *attachmentImage;
 }
 
-@property (nonatomic, retain) NSString *draftId;
+@property (nonatomic, strong) NSString *draftId;
 @property (nonatomic, assign) DraftType draftType;
 @property (nonatomic, assign) DraftStatus draftStatus;
 @property (nonatomic, assign) long long statusId;
@@ -47,11 +47,11 @@ typedef enum {
 @property (nonatomic, assign) int recipientedId;
 @property (nonatomic, assign) BOOL commentOrRetweet;
 @property (nonatomic, assign) time_t createdAt;
-@property (nonatomic, retain) NSString *text;
+@property (nonatomic, strong) NSString *text;
 @property (nonatomic, assign) double latitude;
 @property (nonatomic, assign) double longitude;
-@property (nonatomic, readonly) NSData *attachmentData;
-@property (nonatomic, retain) UIImage *attachmentImage;
+@property (weak, nonatomic, readonly) NSData *attachmentData;
+@property (nonatomic, strong) UIImage *attachmentImage;
 
 - (id)initWithType:(DraftType)_draftType;
 

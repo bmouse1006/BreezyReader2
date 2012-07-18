@@ -13,6 +13,6 @@
 @interface ArticleSearchDataSource : BRSearchDataSource 
 
 -(NSString*)title;
-@property (nonatomic, retain) GRFeed* feed;
+@property (nonatomic, strong) GRFeed* feed;
 
 @end

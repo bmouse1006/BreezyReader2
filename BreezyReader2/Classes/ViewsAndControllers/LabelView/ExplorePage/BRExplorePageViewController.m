@@ -25,7 +25,7 @@
 }
 
 -(void)createSource{
-    self.source = [[[BRExplorePageDataSource alloc] init] autorelease];
+    self.source = [[BRExplorePageDataSource alloc] init];
     self.source.delegate = self;
 }
 

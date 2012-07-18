@@ -21,25 +21,25 @@
 
 @interface BRFeedViewController : BRBaseController <UITableViewDelegate, BRBaseDataSourceDelegate>
 
-@property (nonatomic, retain) IBOutlet UITableView* tableView;
-@property (nonatomic, retain) IBOutlet BRFeedDragDownController* dragController;
-@property (nonatomic, retain) IBOutlet BRFeedLoadMoreController* loadMoreController;
-@property (nonatomic, retain) IBOutlet BRFeedConfigViewController* configViewController;
+@property (nonatomic, strong) IBOutlet UITableView* tableView;
+@property (nonatomic, strong) IBOutlet BRFeedDragDownController* dragController;
+@property (nonatomic, strong) IBOutlet BRFeedLoadMoreController* loadMoreController;
+@property (nonatomic, strong) IBOutlet BRFeedConfigViewController* configViewController;
 
-@property (nonatomic, retain) IBOutlet UIView* loadingView;
-@property (nonatomic, retain) IBOutlet JJLabel* loadingLabel;
-@property (nonatomic, retain) IBOutlet UIView* noMoreView;
-@property (nonatomic, retain) IBOutlet UILabel* noMoreLabel;
+@property (nonatomic, strong) IBOutlet UIView* loadingView;
+@property (nonatomic, strong) IBOutlet JJLabel* loadingLabel;
+@property (nonatomic, strong) IBOutlet UIView* noMoreView;
+@property (nonatomic, strong) IBOutlet UILabel* noMoreLabel;
 
-@property (nonatomic, retain) IBOutlet UIView* titleView;
-@property (nonatomic, retain) IBOutlet JJLabel* titleLabel;
-@property (nonatomic, retain) IBOutlet BRBottomToolBar* bottomToolBar;
-@property (nonatomic, retain) IBOutlet UIButton* menuButton;
+@property (nonatomic, strong) IBOutlet UIView* titleView;
+@property (nonatomic, strong) IBOutlet JJLabel* titleLabel;
+@property (nonatomic, strong) IBOutlet BRBottomToolBar* bottomToolBar;
+@property (nonatomic, strong) IBOutlet UIButton* menuButton;
 
-@property (nonatomic, retain) IBOutlet UIButton* configButton;
+@property (nonatomic, strong) IBOutlet UIButton* configButton;
 
-@property (nonatomic, retain) GRSubscription* subscription;
-@property (nonatomic, retain) BRFeedDataSource* dataSource;
+@property (nonatomic, strong) GRSubscription* subscription;
+@property (nonatomic, strong) BRFeedDataSource* dataSource;
 
 -(IBAction)backButtonClicked:(id)sender;
 -(IBAction)configButtonClicked:(id)sender;

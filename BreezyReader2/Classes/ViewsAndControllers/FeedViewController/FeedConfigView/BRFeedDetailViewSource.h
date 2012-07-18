@@ -12,13 +12,13 @@
 
 @interface BRFeedDetailViewSource : BRFeedConfigBase
 
-@property (nonatomic, retain) IBOutlet JJLabel* titleLabel;
-@property (nonatomic, retain) IBOutlet JJLabel* urlLabel;
-@property (nonatomic, retain) IBOutlet JJLabel* descLabel;
-@property (nonatomic, retain) IBOutlet JJLabel* weeklyArticleCountLabel;
-@property (nonatomic, retain) IBOutlet JJLabel* subscriberLabel;
-@property (nonatomic, retain) IBOutlet JJLabel* lastUpdateLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* titleLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* urlLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* descLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* weeklyArticleCountLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* subscriberLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* lastUpdateLabel;
 
-@property (nonatomic, retain) IBOutlet UIView* container;
+@property (nonatomic, strong) IBOutlet UIView* container;
 
 @end

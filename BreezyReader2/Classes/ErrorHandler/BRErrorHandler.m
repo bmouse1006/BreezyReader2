@@ -33,7 +33,6 @@ static BRErrorHandler* _handler;
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super dealloc];
 }
 
 -(void)registerAllErrorNotifications{

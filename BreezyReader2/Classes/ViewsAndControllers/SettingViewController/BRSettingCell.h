@@ -11,7 +11,7 @@
 
 @interface BRSettingCell : UITableViewCell
 
-@property (nonatomic, assign) id<BRSettingCellActions> delegate;
+@property (nonatomic, unsafe_unretained) id<BRSettingCellActions> delegate;
 
 -(void)setCellConfig:(NSDictionary*)dictionary;
 

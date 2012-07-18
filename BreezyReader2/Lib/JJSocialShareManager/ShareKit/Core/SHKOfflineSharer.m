@@ -35,15 +35,6 @@
 @synthesize runLoopThread;
 @synthesize sharer;
 
-- (void)dealloc
-{
-	[item release];
-	[sharerId release];
-	[uid release];
-	[runLoopThread release];
-	[sharer release];
-	[super dealloc];
-}
 
 - (id)initWithItem:(SHKItem *)i forSharer:(NSString *)s uid:(NSString *)u
 {
@@ -108,7 +99,6 @@
 	}
 	
 	[sharer tryToSend];	
-	[sharer release];
 }
 
 - (BOOL)shouldRun

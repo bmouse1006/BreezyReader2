@@ -221,7 +221,7 @@
 			backFacingCamera = device;
 		}
 	}
-    newVideoInput = [[[AVCaptureDeviceInput alloc] initWithDevice:backFacingCamera error:&error] autorelease];
+    newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:backFacingCamera error:&error];
     
     if (newVideoInput != nil)
     {

@@ -10,8 +10,8 @@
 
 @interface BRFeedLoadMoreController : UIViewController
 
-@property (nonatomic, retain) IBOutlet UILabel* titleLabel;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* indicator;
+@property (nonatomic, strong) IBOutlet UILabel* titleLabel;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView* indicator;
 
 -(void)loadMore;
 -(void)stopLoadingWithMore:(BOOL)more;

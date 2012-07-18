@@ -30,7 +30,7 @@ void uncaughtExceptionHandler(NSException *exception);
 
 -(void)setupGlobalAppearence;
 
-@property (nonatomic, retain) GoogleReaderClient* client;
+@property (nonatomic, strong) GoogleReaderClient* client;
 
 @end
 
@@ -45,12 +45,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     // Internal error reporting
 }
 
-- (void)dealloc
-{
-    [_window release];
-    self.client = nil;
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -66,17 +60,17 @@ void uncaughtExceptionHandler(NSException *exception) {
     [[ASIHTTPRequest sharedQueue] setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
     [self registerNotifications];
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
 
-    BRTopContainer* container = [[[BRTopContainer alloc] init] autorelease];
-    BRMainScreenController* mainscreen = [[[BRMainScreenController alloc] init] autorelease];
-    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:mainscreen] autorelease];
+    BRTopContainer* container = [[BRTopContainer alloc] init];
+    BRMainScreenController* mainscreen = [[BRMainScreenController alloc] init];
+    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:mainscreen];
     [container addChildViewController:nav];
     
     if ([[GoogleAuthManager shared] canAuthorize] == NO){
-        BRUserVerifyController* verifyController = [[[BRUserVerifyController alloc] init] autorelease];
+        BRUserVerifyController* verifyController = [[BRUserVerifyController alloc] init];
         [container addChildViewController:verifyController];
     }
     
@@ -150,7 +144,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 -(void)logoutNeeded:(NSNotification*)notification{
     [[GoogleAuthManager shared] logout];
-    BRUserVerifyController* verify = [[[BRUserVerifyController alloc] init] autorelease];
+    BRUserVerifyController* verify = [[BRUserVerifyController alloc] init];
     [(BRTopContainer*)self.window.rootViewController addToTop:verify animated:YES];
 }
 

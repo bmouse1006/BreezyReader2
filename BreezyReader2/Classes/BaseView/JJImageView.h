@@ -21,9 +21,9 @@
 
 @interface JJImageView : UIImageView <ASIHTTPRequestDelegate>
 
-@property (nonatomic, retain) NSURL* imageURL;
-@property (nonatomic, retain) UIImage* defaultImage;
-@property (nonatomic, assign) id<JJImageViewDelegate> delegate;
+@property (nonatomic, strong) NSURL* imageURL;
+@property (nonatomic, strong) UIImage* defaultImage;
+@property (nonatomic, unsafe_unretained) id<JJImageViewDelegate> delegate;
 
 @property (nonatomic, assign) UIViewContentMode defautImageMode;
 

@@ -12,11 +12,11 @@
 
 @interface BRFeedControlViewSource : BRFeedConfigBase
 
-@property (nonatomic, retain) IBOutlet BRFeedConfigSectionView* sectionView;
-@property (nonatomic, retain) IBOutlet UIView* container;
+@property (nonatomic, strong) IBOutlet BRFeedConfigSectionView* sectionView;
+@property (nonatomic, strong) IBOutlet UIView* container;
 
-@property (nonatomic, retain) IBOutlet UIButton* greenButton;
-@property (nonatomic, retain) IBOutlet UIButton* redButton;
+@property (nonatomic, strong) IBOutlet UIButton* greenButton;
+@property (nonatomic, strong) IBOutlet UIButton* redButton;
 
 -(IBAction)unsubscriebButtonClicked:(id)sender;
 -(IBAction)subscribeButtonClicked:(id)sender;

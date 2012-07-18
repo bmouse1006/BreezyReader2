@@ -45,7 +45,7 @@
     for (NSDictionary *filter in filters) {
         NSString *filterName = [filter objectForKey:@"FilterName"];
         Class theClass = NSClassFromString(filterName);
-        GPUImageFilter *genericFilter = [[[theClass alloc] init] autorelease];
+        GPUImageFilter *genericFilter = [[theClass alloc] init];
         // Set up the properties
         NSDictionary *filterAttributes;
         if ((filterAttributes = [filter objectForKey:@"Attributes"])) {

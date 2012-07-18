@@ -11,7 +11,7 @@
 
 @interface BRUserVerifyController : BRBaseController
 
-@property (nonatomic, retain) IBOutlet UIButton* loginButton;
+@property (nonatomic, strong) IBOutlet UIButton* loginButton;
 
 -(IBAction)loginButtonClicked:(id)sender;
 

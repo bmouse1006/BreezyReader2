@@ -38,17 +38,17 @@ typedef enum {
 }
 
 @property (nonatomic, assign) long long  userId;
-@property (nonatomic, retain) NSNumber*		userKey;
-@property (nonatomic, retain) NSString* screenName;
-@property (nonatomic, retain) NSString* name;
-@property (nonatomic, retain) NSString* province;
-@property (nonatomic, retain) NSString* city;
-@property (nonatomic, retain) NSString* location;
-@property (nonatomic, retain) NSString* description;
-@property (nonatomic, retain) NSString* url;
-@property (nonatomic, retain) NSString* profileImageUrl;
-@property (nonatomic, retain) NSString* profileLargeImageUrl;
-@property (nonatomic, retain) NSString* domain;
+@property (nonatomic, strong) NSNumber*		userKey;
+@property (nonatomic, strong) NSString* screenName;
+@property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong) NSString* province;
+@property (nonatomic, strong) NSString* city;
+@property (nonatomic, strong) NSString* location;
+@property (nonatomic, strong) NSString* description;
+@property (nonatomic, strong) NSString* url;
+@property (nonatomic, strong) NSString* profileImageUrl;
+@property (nonatomic, strong) NSString* profileLargeImageUrl;
+@property (nonatomic, strong) NSString* domain;
 @property (nonatomic, assign) Gender gender;
 @property (nonatomic, assign) int  followersCount;
 @property (nonatomic, assign) int  friendsCount;

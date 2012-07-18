@@ -40,7 +40,7 @@
         for (GRItem* item in self.items){
             [urls addObjectsFromArray:[item imageURLList]];
         }
-        _imageURLs = [urls retain];
+        _imageURLs = urls;
     }
     
     return _imageURLs;
@@ -59,7 +59,6 @@
 }
 
 -(GRFeed*)mergeWithFeed:(GRFeed*)feed continued:(BOOL)continued{ 
-	[feed retain];
 	if (feed){
 		@synchronized(_items){
 			self.generator = feed.generator;
@@ -89,11 +88,9 @@
 				self.items = feed.items;
 			}
 			[self.itemIDs unionSet:feed.itemIDs];
-            [_imageURLs release];
             _imageURLs = nil;
 		}
 	}
-	[feed release];
 	return self;
 }
 
@@ -105,36 +102,6 @@
 	return [self.items objectAtIndex:index];
 }
 
--(void)dealloc{
-
-    self.generator = nil;
-    self.generator_URI = nil;
-    self.ID = nil;
-    self.selfLink = nil;
-    self.alternateLink = nil;
-    self.title = nil;
-    self.subTitle = nil;
-    self.gr_continuation = nil;
-    self.author = nil;
-
-	self.updated = nil;
-    self.published = nil;
-    self.refreshed = nil;
-    self.sourceXML = nil;
-	
-    self.items = nil;
-    self.itemIDs = nil;
-    
-    self.sortArray = nil;
-    self.subscriptionID = nil;
-    
-    self.desc = nil;
-    self.direction = nil;
-    
-    [_imageURLs release];
-	[super dealloc];
-	
-}
 
 -(id)init{
 	if (self = [super init]){
@@ -142,7 +109,6 @@
 		self.sortArray = [NSArray arrayWithObjects:tempSort1, nil];
 		self.items = [NSMutableArray arrayWithObjects:0];
 		self.itemIDs = [NSMutableSet setWithCapacity:0];
-		[tempSort1 release];
 		self.refreshed = [NSDate date];
 	}
 	
@@ -154,7 +120,6 @@
 	if (![self.itemIDs containsObject:item.ID]){
 		[self.itemIDs addObject:item.ID];
 		[self.items addObject:item];
-        [_imageURLs release];
         _imageURLs = nil;
 	}
 }
@@ -167,7 +132,7 @@
     if ([json isKindOfClass:[NSDictionary class]] == NO){
         return nil;
     }
-    GRFeed* feed = [[[self alloc] init] autorelease];
+    GRFeed* feed = [[self alloc] init];
     feed.gr_continuation = [json objectForKey:@"continuation"];
     feed.desc = [json objectForKey:@"description"];
     feed.title = [json objectForKey:@"title"];

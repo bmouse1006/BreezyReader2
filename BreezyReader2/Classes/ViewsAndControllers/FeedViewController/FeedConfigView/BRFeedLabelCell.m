@@ -14,11 +14,6 @@
 @synthesize isChecked = _isChecked;
 @synthesize checkmark = _checkmark;
 
--(void)dealloc{
-    self.title = nil;
-    self.checkmark = nil;
-    [super dealloc];
-}
 
 -(void)awakeFromNib{
     [super awakeFromNib];

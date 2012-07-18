@@ -15,16 +15,16 @@
 
 @interface SubOverviewController ()
 
-@property (nonatomic, retain) UIView* snapshot;
+@property (nonatomic, strong) UIView* snapshot;
 @property (nonatomic, assign) CGRect originalRect;
-@property (nonatomic, retain) UIView* originalView;
+@property (nonatomic, strong) UIView* originalView;
 
-@property (nonatomic, retain) GRSubscription* subscription;
+@property (nonatomic, strong) GRSubscription* subscription;
 
-@property (nonatomic, retain) NSString* velocity;
-@property (nonatomic, retain) NSString* subscriberCount;
+@property (nonatomic, strong) NSString* velocity;
+@property (nonatomic, strong) NSString* subscriberCount;
 
-@property (nonatomic, retain) GoogleReaderClient* client;
+@property (nonatomic, strong) GoogleReaderClient* client;
 
 -(void)updateSubDetail;
 
@@ -65,20 +65,7 @@ static CGFloat animationDuration = 0.4f;
 
 -(void)dealloc{
     [self.client clearAndCancel];
-    self.client = nil;
-    self.dimBackground = nil;
-    self.container = nil;
-    self.snapshot = nil;
-    self.dismissButton = nil;
-    self.originalView = nil;
-    self.subDetailView = nil;
     self.subscription = nil;
-    self.titleLabel = nil;
-    self.subscriberCountLabel = nil;
-    self.velocityLabel = nil;
-    self.subscriberCount = nil;
-    self.velocity = nil;
-    [super dealloc];
 }
 
 -(void)viewDidLoad{
@@ -89,9 +76,7 @@ static CGFloat animationDuration = 0.4f;
 
 -(void)setSubscription:(GRSubscription *)subscription{
     if (_subscription != subscription){
-        [_subscription release];
         _subscription = subscription;
-        [_subscription retain];
         [self updateSubDetail];
     }
 }
@@ -110,7 +95,7 @@ static CGFloat animationDuration = 0.4f;
     self.originalView = originView;
     self.originalRect = [self.dimBackground convertRect:originView.bounds fromView:originView];
 //    snapshot
-    self.snapshot = [[[UIImageView alloc] initWithImage:[self.originalView snapshot]] autorelease];
+    self.snapshot = [[UIImageView alloc] initWithImage:[self.originalView snapshot]];
     self.container.frame = self.originalRect;
     [self.container addSubview:self.snapshot];
 

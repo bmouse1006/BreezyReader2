@@ -31,11 +31,11 @@
     NSInteger _scrollIndex;
 }
 
-@property (nonatomic, retain) MainScreenDataSource* dataSource;
-@property (nonatomic, retain) GoogleReaderClient* client;
-@property (nonatomic, retain) BaseActivityLabel* activityLabel;
+@property (nonatomic, strong) MainScreenDataSource* dataSource;
+@property (nonatomic, strong) GoogleReaderClient* client;
+@property (nonatomic, strong) BaseActivityLabel* activityLabel;
 
-@property (nonatomic, retain) JJLabel* subtitleLabel;
+@property (nonatomic, strong) JJLabel* subtitleLabel;
 
 -(void)reload;
 
@@ -80,18 +80,6 @@
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.client clearAndCancel];
-    self.client = nil;
-    self.infinityScroll = nil;
-    self.sideMenuController = nil;
-    self.dataSource = nil;
-    self.searchController = nil;
-    self.subOverrviewController = nil;
-    self.allSubListController = nil;
-    self.activityLabel = nil;
-    self.firstSyncFailedView = nil;
-    self.noteLabel = nil;
-    self.subtitleLabel = nil;
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,12 +97,12 @@
     
 //    GPUImageView* imageView = [[[GPUImageView alloc] initWithFrame:self.view.bounds] autorelease];
 //    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    UIImageView* imageView = [[[UIImageView alloc] initWithFrame:self.view.bounds] autorelease];
+    UIImageView* imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundView = imageView;
     
-    self.infinityScroll = [[[InfinityScrollView alloc] initWithFrame:self.mainContainer.bounds] autorelease];
-    self.dataSource = [[[MainScreenDataSource alloc] init] autorelease];
+    self.infinityScroll = [[InfinityScrollView alloc] initWithFrame:self.mainContainer.bounds];
+    self.dataSource = [[MainScreenDataSource alloc] init];
     self.infinityScroll.dataSource = self.dataSource;
     [self.infinityScroll setIndex:_scrollIndex];
     self.infinityScroll.infinityDelegate = self;
@@ -131,7 +119,7 @@
     self.noteLabel.shadowEnable = YES;
     self.noteLabel.text = NSLocalizedString(@"message_manualsyncnote", nil);
     
-    self.subtitleLabel = [[[JJLabel alloc] initWithFrame:CGRectMake(265, 30, 100, 40)] autorelease];
+    self.subtitleLabel = [[JJLabel alloc] initWithFrame:CGRectMake(265, 30, 100, 40)];
     self.subtitleLabel.backgroundColor = [UIColor clearColor];
     self.subtitleLabel.verticalAlignment = JJTextVerticalAlignmentMiddle;
     self.subtitleLabel.font = [UIFont boldSystemFontOfSize:24];
@@ -313,7 +301,7 @@
     DebugLog(@"start flip tile view");
     
     if (self.subOverrviewController == nil){
-        self.subOverrviewController = [[[SubOverviewController alloc] initWithTheNibOfSameName] autorelease];
+        self.subOverrviewController = [[SubOverviewController alloc] initWithTheNibOfSameName];
     }
     [self.subOverrviewController showOverviewForSub:[notification.userInfo objectForKey:@"subscription"] inView:self.mainContainer flipFrom:notification.object];
 }
@@ -367,7 +355,7 @@
 }
 
 -(void)showStarItems:(NSNotification*)notification{
-    BRFeedViewController* starFeed = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
+    BRFeedViewController* starFeed = [[BRFeedViewController alloc] initWithTheNibOfSameName];
     starFeed.subscription = [GRSubscription subscriptionForLabel:[GoogleReaderClient starTag]];
     starFeed.subscription.title = NSLocalizedString(@"title_starred", nil);
     [[self topContainer] boomOutViewController:starFeed fromView:notification.object];
@@ -380,7 +368,7 @@
 }
 
 -(void)askToBuyProVersion:(NSNotification*)notification{
-    UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"message_removeadvertisement", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"title_nothanks", nil) otherButtonTitles:NSLocalizedString(@"title_buyinappstore", nil), nil] autorelease];
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"message_removeadvertisement", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"title_nothanks", nil) otherButtonTitles:NSLocalizedString(@"title_buyinappstore", nil), nil];
     alertView.tag = buyAlertViewTag;
     [alertView show];
 }
@@ -395,15 +383,15 @@
 
 -(void)showConfigUI:(NSNotification*)notification{
     DebugLog(@"show config UI");
-    BRSettingViewController* setting = [[[BRSettingViewController alloc] initWithTheNibOfSameName] autorelease];
-    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:setting] autorelease];
+    BRSettingViewController* setting = [[BRSettingViewController alloc] initWithTheNibOfSameName];
+    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:setting];
     
     [self presentViewController:nav animated:YES completion:NULL];
 }
 
 -(void)refreshClientData:(NSNotification*)notification{
     DebugLog(@"refresh client data");
-    UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"title_reloadalldata", nil) message:NSLocalizedString(@"message_reloadalldata", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) otherButtonTitles:NSLocalizedString(@"title_ok", nil), nil] autorelease];
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"title_reloadalldata", nil) message:NSLocalizedString(@"message_reloadalldata", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) otherButtonTitles:NSLocalizedString(@"title_ok", nil), nil];
     alertView.tag = refreshAlertViewTag;
     [alertView show];
 }
@@ -445,7 +433,7 @@
 }
 
 -(void)presentImagePicker{
-    UIImagePickerController* imagePicker = [[[UIImagePickerController alloc] init] autorelease];
+    UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     

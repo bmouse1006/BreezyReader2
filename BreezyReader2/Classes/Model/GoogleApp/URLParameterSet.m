@@ -14,14 +14,9 @@
 
 @synthesize key = _key, value = _value;
 
--(void)dealloc{
-    self.key = nil;
-    self.value = nil;
-    [super dealloc];
-}
 
 +(id)pairWithKey:(NSString *)key andValue:(id)value{
-    ParameterPair* pair = [[[ParameterPair alloc] init] autorelease];
+    ParameterPair* pair = [[ParameterPair alloc] init];
     
     pair.key = key;
     if ([value isKindOfClass:[NSString class]]){
@@ -44,7 +39,7 @@
 
 @interface URLParameterSet()
 
-@property (nonatomic, retain) NSMutableArray* parameters;
+@property (nonatomic, strong) NSMutableArray* parameters;
 
 @end
 
@@ -86,10 +81,9 @@
     
     NSString* encodedString = [compliedString stringByAddingPercentEscapesAndReplacingHTTPCharacter];
     
-	[compliedString release];
 	DebugLog(@"encoded parameter string is %@", encodedString);
 	
-	return [[[encodedString stringByReplacingOccurrencesOfString:@"?" withString:@"%3F"] retain] autorelease];
+	return [encodedString stringByReplacingOccurrencesOfString:@"?" withString:@"%3F"];
 }
 
 -(void)setParameterForKey:(NSString*)key withValue:(NSObject*)value{
@@ -113,10 +107,6 @@
 	return self;
 }
 
--(void)dealloc{
-    self.parameters = nil;
-	[super dealloc];
-}
 				
 										  
 

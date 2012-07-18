@@ -12,28 +12,28 @@
 
 @interface GRItem : NSObject<GRBaseProtocol> 
 
-@property (nonatomic, retain) NSString*	ID;
-@property (nonatomic, retain) NSString*	title;
-@property (nonatomic, retain) NSDate*	published;
-@property (nonatomic, retain) NSDate*	updated;
-@property (nonatomic, retain) NSString*	selfLink;
-@property (nonatomic, retain) NSString*	alternateLink;
-@property (nonatomic, retain) NSString*	summary;
-@property (nonatomic, retain) NSString*	content;
-@property (nonatomic, retain) NSString*	author;
+@property (nonatomic, strong) NSString*	ID;
+@property (nonatomic, strong) NSString*	title;
+@property (nonatomic, strong) NSDate*	published;
+@property (nonatomic, strong) NSDate*	updated;
+@property (nonatomic, strong) NSString*	selfLink;
+@property (nonatomic, strong) NSString*	alternateLink;
+@property (nonatomic, strong) NSString*	summary;
+@property (nonatomic, strong) NSString*	content;
+@property (nonatomic, strong) NSString*	author;
 
-@property (nonatomic, retain) NSMutableSet* gr_linkingUsers;
-@property (nonatomic, retain) NSMutableSet* categories;
+@property (nonatomic, strong) NSMutableSet* gr_linkingUsers;
+@property (nonatomic, strong) NSMutableSet* categories;
 
-@property (nonatomic, retain) NSString*	origin_htmlUrl;
-@property (nonatomic, retain) NSString*	origin_streamId;
-@property (nonatomic, retain) NSString*	origin_title;
+@property (nonatomic, strong) NSString*	origin_htmlUrl;
+@property (nonatomic, strong) NSString*	origin_streamId;
+@property (nonatomic, strong) NSString*	origin_title;
 
-@property (nonatomic, retain) NSString* shortPresentDateTime;
+@property (nonatomic, strong) NSString* shortPresentDateTime;
 
-@property (nonatomic, retain) NSArray* contentImageURLs;
-@property (nonatomic, retain) NSArray* summaryImageURLs;
-@property (nonatomic, retain) NSDictionary* imageURLFileMap;
+@property (nonatomic, strong) NSArray* contentImageURLs;
+@property (nonatomic, strong) NSArray* summaryImageURLs;
+@property (nonatomic, strong) NSDictionary* imageURLFileMap;
 
 @property (nonatomic, assign) BOOL isReadStateLocked;
 

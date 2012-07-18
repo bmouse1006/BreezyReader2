@@ -24,7 +24,7 @@
 
 -(NSString*)stringByAddingPercentEscapesAndReplacingHTTPCharacter{
     NSString* string = [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSMutableString* ms = [[string mutableCopy] autorelease];
+    NSMutableString* ms = [string mutableCopy];
     [ms replaceOccurrencesOfString:@"/" 
                           withString:@"%2F"
                              options:NSBackwardsSearch

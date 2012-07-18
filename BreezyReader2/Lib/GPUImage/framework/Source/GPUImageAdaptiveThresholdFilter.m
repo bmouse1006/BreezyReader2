@@ -43,7 +43,7 @@ NSString *const kGPUImageAdaptiveThresholdFragmentShaderString = SHADER_STRING
     }
 
     // First pass: reduce to luminance
-    GPUImageGrayscaleFilter *luminanceFilter = [[[GPUImageGrayscaleFilter alloc] init] autorelease];
+    GPUImageGrayscaleFilter *luminanceFilter = [[GPUImageGrayscaleFilter alloc] init];
     [self addFilter:luminanceFilter];
     
     // Second pass: perform a box blur
@@ -51,7 +51,7 @@ NSString *const kGPUImageAdaptiveThresholdFragmentShaderString = SHADER_STRING
     [self addFilter:boxBlurFilter];
     
     // Third pass: compare the blurred background luminance to the local value
-    GPUImageFilter *adaptiveThresholdFilter = [[[GPUImageTwoInputFilter alloc] initWithFragmentShaderFromString:kGPUImageAdaptiveThresholdFragmentShaderString] autorelease];
+    GPUImageFilter *adaptiveThresholdFilter = [[GPUImageTwoInputFilter alloc] initWithFragmentShaderFromString:kGPUImageAdaptiveThresholdFragmentShaderString];
     [self addFilter:adaptiveThresholdFilter];
     
     [luminanceFilter addTarget:boxBlurFilter];

@@ -12,6 +12,6 @@
 
 @interface BRFeedLabelsViewSource : BRFeedConfigBase
 
-@property (nonatomic, retain) IBOutlet BRFeedConfigSectionView* sectionView;
+@property (nonatomic, strong) IBOutlet BRFeedConfigSectionView* sectionView;
 
 @end

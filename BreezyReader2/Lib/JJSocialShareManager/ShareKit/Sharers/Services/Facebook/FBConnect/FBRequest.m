@@ -53,11 +53,11 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
 }
 
 + (FBRequest*)requestWithSession:(FBSession*)session {
-  return [[[FBRequest alloc] initWithSession:session] autorelease];
+  return [[FBRequest alloc] initWithSession:session];
 }
 
 + (FBRequest*)requestWithSession:(FBSession*)session delegate:(id<FBRequestDelegate>)delegate {
-  FBRequest* request = [[[FBRequest alloc] initWithSession:session] autorelease];
+  FBRequest* request = [[FBRequest alloc] initWithSession:session];
   request.delegate = delegate;
   return request;
 }
@@ -175,14 +175,14 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
 }
 
 - (id)parseXMLResponse:(NSData*)data error:(NSError**)error {
-  FBXMLHandler* handler = [[[FBXMLHandler alloc] init] autorelease];
-  NSXMLParser* parser = [[[NSXMLParser alloc] initWithData:data] autorelease];
+  FBXMLHandler* handler = [[FBXMLHandler alloc] init];
+  NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
   parser.delegate = handler;
   [parser parse];
 
   if (handler.parseError) {
     if (error) {
-      *error = [[handler.parseError retain] autorelease];
+      *error = handler.parseError;
     }
     return nil;
   } else if ([handler.rootName isEqualToString:@"error_response"]) {
@@ -197,7 +197,7 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
     }
     return nil;
   } else {
-    return [[handler.rootObject retain] autorelease];
+    return handler.rootObject;
   }
 }
 
@@ -241,7 +241,7 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
     [request setHTTPBody:[self generatePostBody]];
   }
   
-  _timestamp = [[NSDate date] retain];
+  _timestamp = [NSDate date];
   _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
@@ -263,14 +263,6 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
 
 - (void)dealloc {
   [_connection cancel];
-  [_connection release];
-  [_responseText release];
-  [_url release];
-  [_method release];
-  [_params release];
-  [_userInfo release];
-  [_timestamp release];
-  [super dealloc];
 }
 
 - (NSString*)description {
@@ -301,18 +293,14 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
 -(void)connectionDidFinishLoading:(NSURLConnection*)connection {
   [self handleResponseData:_responseText];
   
-  [_responseText release];
   _responseText = nil;
-  [_connection release];
   _connection = nil;
 }
 
 - (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error {  
   [self failWithError:error];
 
-  [_responseText release];
   _responseText = nil;
-  [_connection release];
   _connection = nil;
 }
 
@@ -328,7 +316,7 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
 }
 
 - (void)call:(NSString*)method params:(NSDictionary*)params dataParam:(NSData*)dataParam {
-  _url = [[self urlForMethod:method] retain];
+  _url = [self urlForMethod:method];
   _method = [method copy];
   _params = params
     ? [[NSMutableDictionary alloc] initWithDictionary:params]
@@ -355,7 +343,7 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
 }
 
 - (void)post:(NSString*)url params:(NSDictionary*)params {
-  _url = [url retain];
+  _url = url;
   _params = params
     ? [[NSMutableDictionary alloc] initWithDictionary:params]
     : [[NSMutableDictionary alloc] init];
@@ -366,7 +354,6 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
 - (void)cancel {
   if (_connection) {
     [_connection cancel];
-    [_connection release];
     _connection = nil;
 
     if ([_delegate respondsToSelector:@selector(requestWasCancelled:)]) {

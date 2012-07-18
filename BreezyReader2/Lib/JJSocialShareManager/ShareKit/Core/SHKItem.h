@@ -57,19 +57,19 @@ typedef enum
 		NSMutableDictionary *custom;
 }
 
-@property (nonatomic)			SHKShareType shareType;
+@property (nonatomic, assign)			SHKShareType shareType;
 
-@property (nonatomic, retain)	NSURL *URL;
+@property (nonatomic, strong)	NSURL *URL;
 
-@property (nonatomic, retain)	UIImage *image;
+@property (nonatomic, strong)	UIImage *image;
 
-@property (nonatomic, retain)	NSString *title;
-@property (nonatomic, retain)	NSString *text;
-@property (nonatomic, retain)	NSString *tags;
+@property (nonatomic, strong)	NSString *title;
+@property (nonatomic, strong)	NSString *text;
+@property (nonatomic, strong)	NSString *tags;
 
-@property (nonatomic, retain)	NSData *data;
-@property (nonatomic, retain)	NSString *mimeType;
-@property (nonatomic, retain)	NSString *filename;
+@property (nonatomic, strong)	NSData *data;
+@property (nonatomic, strong)	NSString *mimeType;
+@property (nonatomic, strong)	NSString *filename;
 
 + (SHKItem *)URL:(NSURL *)url title:(NSString *)title;
 + (SHKItem *)image:(UIImage *)image title:(NSString *)title;

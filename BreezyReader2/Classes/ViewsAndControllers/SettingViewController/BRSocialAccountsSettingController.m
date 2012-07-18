@@ -35,7 +35,7 @@
     BRAccountSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell){
-        cell = [[[BRAccountSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[BRAccountSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.delegate = self;
     }
     
@@ -73,7 +73,7 @@
     if (service == JJSocialShareServiceGoogle){
         [self dismissViewControllerAnimated:YES completion:^{
             [GoogleReaderClient removeStoredReaderData];
-            BRUserVerifyController* verifyController = [[[BRUserVerifyController alloc] init] autorelease];
+            BRUserVerifyController* verifyController = [[BRUserVerifyController alloc] init];
             [[[UIApplication sharedApplication].keyWindow.rootViewController topContainer] addToTop:verifyController animated:YES];
         }];
     }

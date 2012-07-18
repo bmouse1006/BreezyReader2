@@ -26,7 +26,7 @@ static NSUInteger kDefaultColumnCount = 4;
     Class _thumbnailClass;
 }
 
-@property (nonatomic, retain) id<JJMediaSource> mediaSource;
+@property (nonatomic, strong) id<JJMediaSource> mediaSource;
 
 -(void)layoutThumbnailViews;
 -(void)resetThumbSize;
@@ -41,11 +41,6 @@ static NSUInteger kDefaultColumnCount = 4;
 @synthesize thumbnailViews = _thumbnailViews, mediaSource = _mediaSource;
 @synthesize delegate = _delegate;
 
--(void)dealloc{
-    self.thumbnailViews = nil;
-    self.mediaSource = nil;
-    [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     return [self initWithStyle:style reuseIdentifier:reuseIdentifier thumbSpacing:kDefaultThumbSpacing thumbSize:kDefaultThumbSize];
@@ -136,7 +131,7 @@ static NSUInteger kDefaultColumnCount = 4;
 }
 
 -(UIView*)generateThumbViewAtIndex:(NSInteger)index{
-    id thumb = [[[_thumbnailClass alloc] init] autorelease];
+    id thumb = [[_thumbnailClass alloc] init];
     if ([thumb isKindOfClass:[UIControl class]]){
         [thumb addTarget:self action:@selector(thumbTouched:) forControlEvents:UIControlEventTouchUpInside];
         [thumb addTarget:self action:@selector(thumbTouchedDown:) forControlEvents:UIControlEventTouchDown];

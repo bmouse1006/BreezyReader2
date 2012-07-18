@@ -24,14 +24,14 @@
 }
 
 @property (nonatomic, assign) sqlite_int64	directMessageId; // 私信ID
-@property (nonatomic, retain) NSString*		text;
+@property (nonatomic, strong) NSString*		text;
 @property (nonatomic, assign) int			senderId;
 @property (nonatomic, assign) int			recipientId;
 @property (nonatomic, assign) time_t		createdAt;
-@property (nonatomic, retain) NSString*		senderScreenName;
-@property (nonatomic, retain) NSString*		recipientScreenName;
-@property (nonatomic, retain) User*			sender;
-@property (nonatomic, retain) User*			recipient;
+@property (nonatomic, strong) NSString*		senderScreenName;
+@property (nonatomic, strong) NSString*		recipientScreenName;
+@property (nonatomic, strong) User*			sender;
+@property (nonatomic, strong) User*			recipient;
 
 - (DirectMessage*)initWithJsonDictionary:(NSDictionary*)dic;
 

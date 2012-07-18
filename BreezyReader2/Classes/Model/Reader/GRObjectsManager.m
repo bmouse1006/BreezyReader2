@@ -28,13 +28,11 @@ static NSMutableDictionary* cachedObjects = nil;
 	
 	[context setPersistentStoreCoordinator:coordinator];
 	
-	return [context autorelease];
+	return context;
 }
 
 +(void)clearObjects{
-	[mom release];
 	mom = nil;
-	[persistentStoreCoordinator release];
 	persistentStoreCoordinator = nil;
 }
 
@@ -99,14 +97,12 @@ static NSMutableDictionary* cachedObjects = nil;
 	NSFetchedResultsController* controller = [[NSFetchedResultsController alloc] initWithFetchRequest:request
 																				 managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
 	
-	[request release];
 	
-	return [controller autorelease];
+	return controller;
 }
 
 +(void)didReceiveMemoryWarning{
 	[cachedObjects removeAllObjects];
-	[cachedObjects release];
 	cachedObjects = nil;
 }
 
@@ -120,7 +116,7 @@ static NSMutableDictionary* cachedObjects = nil;
         return mom;
     }
 	
-    mom = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
+    mom = [NSManagedObjectModel mergedModelFromBundles:nil];
 	
     return mom;
 }

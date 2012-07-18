@@ -30,16 +30,16 @@
 }
 
 //@property (nonatomic, retain) NSTimer* timer;
-@property (nonatomic, retain) ASIHTTPRequest* imageRequest;
-@property (nonatomic, retain) NSString* currentImageURL;
-@property (nonatomic, retain) UIView* unreadCountContainer;
-@property (nonatomic, retain) UIImageView* unreadImage;
-@property (nonatomic, retain) UIImageView* captionImage;
+@property (nonatomic, strong) ASIHTTPRequest* imageRequest;
+@property (nonatomic, strong) NSString* currentImageURL;
+@property (nonatomic, strong) UIView* unreadCountContainer;
+@property (nonatomic, strong) UIImageView* unreadImage;
+@property (nonatomic, strong) UIImageView* captionImage;
 @property (nonatomic, assign) BOOL allowAnimation;
 
-@property (nonatomic, retain) GoogleReaderClient* grClient;
+@property (nonatomic, strong) GoogleReaderClient* grClient;
 
-@property (nonatomic, assign) NSTimer* timer;
+@property (nonatomic, weak) NSTimer* timer;
 
 -(void)createSubviews;
 
@@ -105,34 +105,20 @@ static CGFloat kCaptionHeight = 40.0f;
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.grClient clearAndCancel];
-    self.grClient = nil;
     [self.layer removeAllAnimations];
     [self.imageRequest clearDelegatesAndCancel];
     self.imageRequest = nil;
-    [_imageURLs release];
     _imageURLs = nil;
-    [_imageView release];
-    _imageView = nil;
-    [_subscription release];
     _subscription = nil;
 //    [self.timer invalidate];
     self.timer = nil;
-    self.caption = nil;
-    self.infoButton = nil;
-    self.currentImageURL = nil;
-    self.unreadLabel = nil;
-    self.unreadImage = nil;
-    self.captionImage = nil;
-    self.unreadCountContainer = nil;
-    [super dealloc];
 }
 
 #pragma mark - getter setter
 -(void)setImageRequest:(ASIHTTPRequest *)imageRequest{
     if (_imageRequest != imageRequest){
         [_imageRequest clearDelegatesAndCancel];
-        [_imageRequest release];
-        _imageRequest = [imageRequest retain];
+        _imageRequest = imageRequest;
     }
 }
 
@@ -146,15 +132,14 @@ static CGFloat kCaptionHeight = 40.0f;
 
 -(void)setSubscription:(GRSubscription *)subscription{
     if (_subscription != subscription){
-        [_subscription release];
-        _subscription = [subscription retain];
+        _subscription = subscription;
         [self.grClient clearAndCancel];
         NSArray* imageURLs = [[BRImagePreviewCache sharedCache] cachedPreviewImagesForKey:_subscription.ID];
         if (imageURLs){
             if ([imageURLs isKindOfClass:[NSNull class]]){
                 [self setImageURLs:nil];
             }else{
-                [self setImageURLs:[[imageURLs mutableCopy] autorelease]];
+                [self setImageURLs:[imageURLs mutableCopy]];
             }
         }else{
             [self setImageURLs:nil];
@@ -183,7 +168,7 @@ static CGFloat kCaptionHeight = 40.0f;
     if (_unreadCount){
         [self.unreadImage removeFromSuperview];
         self.unreadLabel.text = [[NSNumber numberWithInt:_unreadCount] description];
-        self.unreadImage = [[[UIImageView alloc] initWithImage:[self.unreadLabel snapshot]] autorelease];
+        self.unreadImage = [[UIImageView alloc] initWithImage:[self.unreadLabel snapshot]];
         CGRect frame = self.unreadImage.frame;
         frame.origin.x = 5.0;
         frame.origin.y = 5.0;
@@ -223,10 +208,10 @@ static CGFloat kCaptionHeight = 40.0f;
 
 -(void)createSubviews{
     
-    self.imageView = [[[UIImageView alloc] initWithImage:DefaultImage_SUB] autorelease];
+    self.imageView = [[UIImageView alloc] initWithImage:DefaultImage_SUB];
     self.imageView.alpha = 0.3f;
     
-    self.caption = [[[JJLabel alloc] initWithFrame:CGRectZero] autorelease];
+    self.caption = [[JJLabel alloc] initWithFrame:CGRectZero];
     self.caption.backgroundColor = [UIColor clearColor];
     self.caption.textColor = [UIColor whiteColor];
     self.caption.font = [UIFont boldSystemFontOfSize:14];
@@ -240,10 +225,10 @@ static CGFloat kCaptionHeight = 40.0f;
     UIEdgeInsets insets = UIEdgeInsetsMake(2, 5, 2, 5);
     [self.caption setContentEdgeInsets:insets];
     
-    self.captionImage = [[[UIImageView alloc] initWithFrame:self.caption.frame] autorelease];
+    self.captionImage = [[UIImageView alloc] initWithFrame:self.caption.frame];
     self.captionImage.backgroundColor = [UIColor clearColor];
     
-    self.unreadLabel = [[[JJLabel alloc] initWithFrame:CGRectZero] autorelease];
+    self.unreadLabel = [[JJLabel alloc] initWithFrame:CGRectZero];
     self.unreadLabel.backgroundColor = [UIColor clearColor];
     self.unreadLabel.shadowBlur = 2;
     self.unreadLabel.shadowColor = [UIColor blackColor];
@@ -256,10 +241,10 @@ static CGFloat kCaptionHeight = 40.0f;
     [self.unreadLabel setContentEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 2)];
     
 //    self.unreadImage = [[[UIImageView alloc] initWithFrame:CGRectZero] autorelease];
-    self.unreadCountContainer = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.unreadCountContainer = [[UIView alloc] initWithFrame:CGRectZero];
     self.unreadCountContainer.backgroundColor = [UIColor clearColor];
     
-    self.infoButton = [[[UIButton alloc] initWithFrame:CGRectMake(-7, -7, 32, 32 )] autorelease];
+    self.infoButton = [[UIButton alloc] initWithFrame:CGRectMake(-7, -7, 32, 32 )];
     [self.infoButton setImage:[UIImage imageNamed:@"info"] forState:UIControlStateNormal];
     self.infoButton.showsTouchWhenHighlighted = YES;
     self.infoButton.alpha = 0.6f;
@@ -333,8 +318,7 @@ static CGFloat kCaptionHeight = 40.0f;
     if(_imageURLs != imageURLs){
         [self.layer removeAllAnimations];
 //        [self.timer invalidate];
-        [_imageURLs release];
-        _imageURLs = [imageURLs retain];
+        _imageURLs = imageURLs;
         //start load images
         [self.imageView performSelectorOnMainThread:@selector(setImage:) withObject:DefaultImage_SUB waitUntilDone:NO];
         self.imageView.alpha = 0.3f;
@@ -346,7 +330,7 @@ static CGFloat kCaptionHeight = 40.0f;
 }
 
 -(UIImageView*)prepareImageView{
-    UIImageView* imageView = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+    UIImageView* imageView = [[UIImageView alloc] initWithFrame:self.bounds];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
 //    imageView.image = DefaultImage_SUB;
     imageView.clipsToBounds = YES;
@@ -490,7 +474,7 @@ static CGFloat kCaptionHeight = 40.0f;
     [self.unreadCountContainer.layer removeAllAnimations];
     UIView* previousUnreadView = self.unreadImage;
     self.unreadLabel.text = [[NSNumber numberWithInt:count] description];
-    self.unreadImage = (count == 0)?nil:[[[UIImageView alloc] initWithImage:[self.unreadLabel snapshot]] autorelease];
+    self.unreadImage = (count == 0)?nil:[[UIImageView alloc] initWithImage:[self.unreadLabel snapshot]];
     CGRect frame = self.unreadImage.frame;
     frame.origin.x = 5.0;
     frame.origin.y = 5.0;
@@ -539,7 +523,7 @@ static CGFloat kCaptionHeight = 40.0f;
     if (feed){
         DebugLog(@"feed's ID is %@", feed.ID);
         [[BRImagePreviewCache sharedCache] storeImagePreviews:feed.imageURLs key:self.subscription.ID];
-        NSMutableArray* images = [[feed.imageURLs mutableCopy] autorelease];
+        NSMutableArray* images = [feed.imageURLs mutableCopy];
         [self setImageURLs:images];
     }
 }

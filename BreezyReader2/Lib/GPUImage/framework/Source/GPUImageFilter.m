@@ -199,7 +199,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
 
 - (UIImage *)imageByFilteringImage:(UIImage *)imageToFilter;
 {
-    GPUImagePicture *stillImageSource = [[[GPUImagePicture alloc] initWithImage:imageToFilter] autorelease];
+    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:imageToFilter];
     
     [self prepareForImageCapture];
     

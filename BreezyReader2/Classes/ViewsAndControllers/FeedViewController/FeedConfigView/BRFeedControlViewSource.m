@@ -21,13 +21,6 @@
 @synthesize container = _container;
 @synthesize greenButton = _greenButton, redButton = _redButton;
 
--(void)dealloc{
-    self.sectionView = nil;
-    self.container = nil;
-    self.greenButton = nil;
-    self.redButton = nil;
-    [super dealloc];
-}
 
 - (id)init
 {
@@ -66,7 +59,7 @@
 
 -(id)tableView:(UITableView*)tableView cellForRow:(NSInteger)index{
 //    return self.view;
-    BRFeedConfigBaseCell* cell = [[[BRFeedConfigBaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+    BRFeedConfigBaseCell* cell = [[BRFeedConfigBaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     [cell.contentView addSubview:self.container];
     return cell;
 }

@@ -10,10 +10,10 @@
 
 @interface GRSearchResult : NSObject
 
-@property (nonatomic, retain) NSDictionary* JSONObj;
-@property (nonatomic, readonly, getter = getResults) NSArray* results;
-@property (nonatomic, readonly, getter = getQuery) NSString* query;
-@property (nonatomic, readonly, getter = getCategoryid) NSString* categoryid;
+@property (nonatomic, strong) NSDictionary* JSONObj;
+@property (weak, nonatomic, readonly, getter = getResults) NSArray* results;
+@property (weak, nonatomic, readonly, getter = getQuery) NSString* query;
+@property (weak, nonatomic, readonly, getter = getCategoryid) NSString* categoryid;
 @property (nonatomic, readonly, getter = getHaspreviouspage) BOOL haspreviouspage;
 @property (nonatomic, readonly, getter = getPreviouspagestart) NSInteger previouspagestart;
 @property (nonatomic, readonly, getter = getHasnextpage) BOOL hasnextpage;

@@ -22,7 +22,7 @@
 
 + (Stopwatch*) stopwatch
 {
-    return [[[Stopwatch alloc] init] autorelease];
+    return [[Stopwatch alloc] init];
 }
 
 - (void) lap:(NSString*)message

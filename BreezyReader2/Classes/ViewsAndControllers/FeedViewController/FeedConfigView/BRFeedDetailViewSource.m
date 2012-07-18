@@ -12,7 +12,7 @@
 
 @interface BRFeedDetailViewSource ()
 
-@property (nonatomic, retain) GoogleReaderClient* client;
+@property (nonatomic, strong) GoogleReaderClient* client;
 
 @end
 
@@ -24,16 +24,7 @@
 @synthesize client = _client;
 
 -(void)dealloc{
-    self.titleLabel = nil;
-    self.urlLabel = nil;
-    self.descLabel = nil;
-    self.weeklyArticleCountLabel = nil;
-    self.subscriberLabel = nil;
-    self.lastUpdateLabel = nil;
-    self.container = nil;
     [self.client clearAndCancel];
-    self.client = nil;
-    [super dealloc];
 }
 
 - (UITableViewCell*)loadCell
@@ -57,7 +48,7 @@
     self.client = [GoogleReaderClient clientWithDelegate:self action:@selector(receivedFeedDetails:)];
     [self.client getStreamDetails:self.subscription.ID];
     
-    UITableViewCell* cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+    UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor clearColor];
     [cell.contentView addSubview:self.container];

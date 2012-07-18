@@ -29,7 +29,7 @@ static BRImagePreviewCache* _shared;
 -(id)init{
     self = [super init];
     if (self){
-        _pool = [[NSMutableDictionary dictionary] retain];
+        _pool = [NSMutableDictionary dictionary];
     }
     
     return self;

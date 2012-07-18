@@ -23,11 +23,6 @@
     return self;
 }
 
--(void)dealloc{
-    self.scrollView = nil;
-    self.contentControllers = nil;
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {

@@ -16,9 +16,6 @@
 
 @implementation BRRecommendationPageViewController
 
--(void)dealloc{
-    [super dealloc];
-}
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -26,7 +23,7 @@
 }
 
 -(void)createSource{
-    self.source = [[[BRRecommendationDataSource alloc] init] autorelease];
+    self.source = [[BRRecommendationDataSource alloc] init];
     self.source.delegate = self;
 }
 

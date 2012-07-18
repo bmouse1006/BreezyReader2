@@ -21,11 +21,6 @@
     return self;
 }
 
--(void)dealloc{
-    self.topBlack = nil;
-    self.topWhite = nil;
-    [super dealloc];
-}
 
 -(void)awakeFromNib{
     [super awakeFromNib];
@@ -34,16 +29,16 @@
 
 -(void)setupCell{
 //    self.topBlack = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-    self.topWhite = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.topWhite = [[UIView alloc] initWithFrame:CGRectZero];
 //    self.topBlack.backgroundColor = [UIColor darkGrayColor];
     self.topWhite.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.4];
 //    [self.contentView addSubview:self.topBlack];
     [self.contentView addSubview:self.topWhite];
-    UIView* backgroundView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
+    UIView* backgroundView = [[UIView alloc] initWithFrame:self.bounds];
     backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
     self.backgroundView = backgroundView;
     
-    UIView* selectedBackgroundView =  [[[UIView alloc] initWithFrame:self.bounds] autorelease];
+    UIView* selectedBackgroundView =  [[UIView alloc] initWithFrame:self.bounds];
     selectedBackgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     self.selectedBackgroundView = selectedBackgroundView;
     

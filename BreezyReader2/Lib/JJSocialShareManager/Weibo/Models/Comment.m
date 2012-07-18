@@ -18,7 +18,7 @@
 		commentId = [dic getLongLongValueValueForKey:@"id" defaultValue:-1];
 		commentKey = [[NSNumber alloc]initWithLongLong:commentId];
 		createdAt = [dic getTimeValueForKey:@"created_at" defaultValue:0];
-		text = [[dic getStringValueForKey:@"text" defaultValue:@""] retain];
+		text = [dic getStringValueForKey:@"text" defaultValue:@""];
 		
 		// parse source parameter
 		NSString *src = [dic getStringValueForKey:@"source" defaultValue:@""];
@@ -57,25 +57,25 @@
 		else {
 			source = src;
 		}
-		source = [source retain];
-		sourceUrl = [sourceUrl retain];
+		source = source;
+		sourceUrl = sourceUrl;
 
 		favorited = [dic getBoolValueForKey:@"favorited" defaultValue:NO];
 		truncated = [dic getBoolValueForKey:@"truncated" defaultValue:NO];
 		
 		NSDictionary* userDic = [dic objectForKey:@"user"];
 		if (userDic) {
-			user = [[User userWithJsonDictionary:userDic] retain];
+			user = [User userWithJsonDictionary:userDic];
 		}
 		
 		NSDictionary* statusDic = [dic objectForKey:@"status"];
 		if (statusDic) {
-			status = [[Status statusWithJsonDictionary:statusDic] retain];
+			status = [Status statusWithJsonDictionary:statusDic];
 		}
 		
 		NSDictionary* replyCommentDic = [dic objectForKey:@"reply_comment"];
 		if (replyCommentDic) {
-			replyComment = [[Comment commentWithJsonDictionary:replyCommentDic] retain];
+			replyComment = [Comment commentWithJsonDictionary:replyCommentDic];
 		}
 		
 	}
@@ -84,7 +84,7 @@
 }
 
 + (Comment*)commentWithJsonDictionary:(NSDictionary*)dic {
-	return [[[Comment alloc] initWithJsonDictionary:dic] autorelease];
+	return [[Comment alloc] initWithJsonDictionary:dic];
 }
 
 
@@ -132,14 +132,4 @@
     return _timestamp;
 }
 
-- (void)dealloc {
-	[commentKey release];
-	[text release];
-	[source release];
-	[sourceUrl release];
-	[user release];
-	[status release];
-	[replyComment release];
-	[super dealloc];
-}
 @end

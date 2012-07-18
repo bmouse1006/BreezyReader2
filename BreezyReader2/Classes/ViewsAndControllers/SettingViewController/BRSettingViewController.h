@@ -12,9 +12,9 @@
 
 @interface BRSettingViewController : UITableViewController <BRSettingCellActions, UIPickerViewDelegate, UIPickerViewDataSource, BaseViewDelegate>
 
-@property (nonatomic, retain) NSArray* settingConfigs;
+@property (nonatomic, strong) NSArray* settingConfigs;
 
-@property (nonatomic, retain) NSArray* pickerData;
+@property (nonatomic, strong) NSArray* pickerData;
 @property (nonatomic, copy) NSString* pickerIdentifier;
 
 -(id)objectAtIndexPath:(NSIndexPath*)indexPath;

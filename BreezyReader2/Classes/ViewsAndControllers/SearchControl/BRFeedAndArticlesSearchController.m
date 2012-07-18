@@ -20,10 +20,10 @@ static CGFloat kArticleSearchResultCellHeight = 70.0f;
 
 @interface BRFeedAndArticlesSearchController ()
 
-@property (nonatomic, retain) ArticleSearchDataSource* articleSearchDataSource;
-@property (nonatomic, retain) FeedSearchDataSource* feedSearchDataSource;
+@property (nonatomic, strong) ArticleSearchDataSource* articleSearchDataSource;
+@property (nonatomic, strong) FeedSearchDataSource* feedSearchDataSource;
 
-@property (nonatomic, retain) NSTimer* searchTimer;
+@property (nonatomic, strong) NSTimer* searchTimer;
 
 @end
 
@@ -35,13 +35,7 @@ static CGFloat kArticleSearchResultCellHeight = 70.0f;
 @synthesize loadMoreButton = _loadMoreButton;
 
 -(void)dealloc{
-    self.articleSearchDataSource = nil;
-    self.feedSearchDataSource = nil;
     [self.searchTimer invalidate];
-    self.searchTimer = nil;
-    self.loadMoreView = nil;
-    self.loadMoreButton = nil;
-    [super dealloc];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -68,9 +62,9 @@ static CGFloat kArticleSearchResultCellHeight = 70.0f;
     UITableView* tableView = self.searchDisplayController.searchResultsTableView;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.feedSearchDataSource = [[[FeedSearchDataSource alloc] init] autorelease];
+    self.feedSearchDataSource = [[FeedSearchDataSource alloc] init];
     self.feedSearchDataSource.delegate = self;
-    self.articleSearchDataSource = [[[ArticleSearchDataSource alloc] init] autorelease];
+    self.articleSearchDataSource = [[ArticleSearchDataSource alloc] init];
     self.articleSearchDataSource.delegate = self;
     self.searchDisplayController.searchResultsDataSource = self.articleSearchDataSource;
     tableView.rowHeight = kFeedSearchResultCellHeight;
@@ -156,18 +150,17 @@ static CGFloat kArticleSearchResultCellHeight = 70.0f;
     id item = [searchDataBase objectAtIndexPath:indexPath];
 
     if ([searchDataBase isKindOfClass:[ArticleSearchDataSource class]]){
-        BRArticleScrollViewController* article = [[[BRArticleScrollViewController alloc] initWithTheNibOfSameName] autorelease];
+        BRArticleScrollViewController* article = [[BRArticleScrollViewController alloc] initWithTheNibOfSameName];
         article.feed = ((ArticleSearchDataSource*)searchDataBase).feed;
         article.index = indexPath.row;
         [[self topContainer] slideInViewController:article];
     }
     if ([searchDataBase isKindOfClass:[FeedSearchDataSource class]]){
-        BRFeedViewController* feed = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
+        BRFeedViewController* feed = [[BRFeedViewController alloc] initWithTheNibOfSameName];
         GRSubscription* sub = [[GRSubscription alloc] init];
         sub.title = [[item objectForKey:@"title"] stringByReplacingHTMLTagAndTrim];
         sub.ID = [@"feed/" stringByAppendingString:[item objectForKey:@"url"]];
         feed.subscription = sub;
-        [sub release];
         
         [[self topContainer] boomOutViewController:feed fromView:[tableView cellForRowAtIndexPath:indexPath]];
     }

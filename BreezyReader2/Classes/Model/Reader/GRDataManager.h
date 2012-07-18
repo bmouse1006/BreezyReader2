@@ -25,27 +25,27 @@
 
 @interface GRDataManager : NSObject<GoogleReaderControllerDelegate> 
 
-@property (retain) NSDictionary* tagDict;
-@property (retain) NSDictionary* subDict;
-@property (retain) NSDictionary* unreadCount;
-@property (retain) NSMutableDictionary* processedTagDict;
-@property (retain) NSMutableDictionary* processedSubDict;
-@property (retain) NSMutableDictionary* favoriteSubDict;
+@property (strong)  NSDictionary* tagDict;
+@property (strong)  NSDictionary* subDict;
+@property (strong)  NSDictionary* unreadCount;
+@property (strong)  NSMutableDictionary* processedTagDict;
+@property (strong)  NSMutableDictionary* processedSubDict;
+@property (strong)  NSMutableDictionary* favoriteSubDict;
 
-@property (retain) NSMutableDictionary* cache;
-@property (retain) NSMutableDictionary* feedPool;
-@property (retain) NSMutableDictionary* itemPool;
-@property (retain) GoogleReaderController* grController;
-@property (retain) NSOperationQueue* feedOperationQueue;
-@property (retain) NSOperationQueue* editOperationQueue;
-@property (retain) NSArray* recFeedList;
+@property (strong)  NSMutableDictionary* cache;
+@property (strong)  NSMutableDictionary* feedPool;
+@property (strong)  NSMutableDictionary* itemPool;
+@property (strong)  GoogleReaderController* grController;
+@property (strong)  NSOperationQueue* feedOperationQueue;
+@property (strong)  NSOperationQueue* editOperationQueue;
+@property (strong)  NSArray* recFeedList;
 
-@property (retain) NSMutableSet* runningOperationKeys;
+@property (strong)  NSMutableSet* runningOperationKeys;
 
-@property (retain) NSError* grError;
+@property (strong)  NSError* grError;
 @property (assign) BOOL errorHappened;
 
-@property (nonatomic, retain) NSString* lastSubscribedStreamID;
+@property (nonatomic, strong) NSString* lastSubscribedStreamID;
 
 + (GRDataManager*)shared;
 +(void)didReceiveMemoryWarning;

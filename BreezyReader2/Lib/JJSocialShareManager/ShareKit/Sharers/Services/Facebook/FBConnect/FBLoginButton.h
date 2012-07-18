@@ -36,7 +36,7 @@ typedef enum {
 /**
  * The visual style of the button.
  */
-@property(nonatomic) FBLoginButtonStyle style;
+@property(nonatomic, assign) FBLoginButtonStyle style;
 
 /**
  * The session object that the button will log in and out of.
@@ -44,6 +44,6 @@ typedef enum {
  * The default value is the global session singleton, so there is usually no need to
  * set this property yourself.
  */
-@property(nonatomic,retain) FBSession* session;
+@property(nonatomic, strong) FBSession* session;
 
 @end

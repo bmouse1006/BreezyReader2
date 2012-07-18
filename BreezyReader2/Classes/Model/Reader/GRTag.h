@@ -14,10 +14,10 @@
 
 @interface GRTag : NSObject<GRBaseProtocol, NSCoding> 
 
-@property (nonatomic, retain) NSString* ID;
-@property (nonatomic, retain) NSString* sortID;
-@property (nonatomic, retain) NSString* label;
-@property (nonatomic, retain) NSString* typeString;
+@property (nonatomic, strong) NSString* ID;
+@property (nonatomic, strong) NSString* sortID;
+@property (nonatomic, strong) NSString* label;
+@property (nonatomic, strong) NSString* typeString;
 
 @property (nonatomic, assign) NSInteger unreadCount;
 @property (nonatomic, assign) NSTimeInterval newestItemTimestampUsec;

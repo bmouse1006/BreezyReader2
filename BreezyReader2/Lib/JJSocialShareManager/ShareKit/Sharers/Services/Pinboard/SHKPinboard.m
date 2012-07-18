@@ -64,7 +64,7 @@
 	// Authorize the user through the server
 	NSDictionary *formValues = [form formValues];
 	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
+	self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:
 													[NSString stringWithFormat:@"https://%@:%@@api.pinboard.in/v1/posts/get",
 													 SHKEncode([formValues objectForKey:@"username"]),
 													 SHKEncode([formValues objectForKey:@"password"])
@@ -73,7 +73,7 @@
 										  delegate:self
 								isFinishedSelector:@selector(authFinished:)
 											method:@"POST"
-										 autostart:YES] autorelease];
+										 autostart:YES];
 	
 	self.pendingForm = form;
 }
@@ -128,7 +128,7 @@
 {	
 	if ([self validateItem])
 	{			
-		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
+		self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:
 														[NSString stringWithFormat:@"https://%@:%@@api.pinboard.in/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
 														 SHKEncode([self getAuthValueForKey:@"username"]),
 														 SHKEncode([self getAuthValueForKey:@"password"]),
@@ -142,7 +142,7 @@
 											  delegate:self
 									isFinishedSelector:@selector(sendFinished:)
 												method:@"GET"
-											 autostart:YES] autorelease];
+											 autostart:YES];
 		
 		
 		// Notify delegate

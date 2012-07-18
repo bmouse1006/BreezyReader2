@@ -19,9 +19,9 @@
 
 @interface BRFeedConfigViewController ()
 
-@property (nonatomic, retain) GoogleReaderClient* client;
-@property (nonatomic, retain) BaseActivityLabel* activityLabel;
-@property (nonatomic, retain) NSTimer* timer;
+@property (nonatomic, strong) GoogleReaderClient* client;
+@property (nonatomic, strong) BaseActivityLabel* activityLabel;
+@property (nonatomic, strong) NSTimer* timer;
 
 @end
 
@@ -43,12 +43,7 @@
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.client clearAndCancel];
-    self.client = nil;
-    self.subscription = nil;
-    self.activityLabel = nil;
     [self.timer invalidate];
-    self.timer = nil;
-    [super dealloc];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -65,16 +60,16 @@
 -(NSMutableArray*)settingDataSources{
     if (_settingDataSources== nil){
         _settingDataSources = [[NSMutableArray alloc] init];
-        BRFeedDetailViewSource* detailController = [[[BRFeedDetailViewSource alloc] init] autorelease];
+        BRFeedDetailViewSource* detailController = [[BRFeedDetailViewSource alloc] init];
         detailController.subscription = self.subscription;
         detailController.tableController = self;
-        BRFeedLabelsViewSource* labelsController = [[[BRFeedLabelsViewSource alloc] init] autorelease];
+        BRFeedLabelsViewSource* labelsController = [[BRFeedLabelsViewSource alloc] init];
         labelsController.subscription = self.subscription;
         labelsController.tableController = self;
-        BRFeedControlViewSource* controlsController = [[[BRFeedControlViewSource alloc] init] autorelease];
+        BRFeedControlViewSource* controlsController = [[BRFeedControlViewSource alloc] init];
         controlsController.subscription = self.subscription;
         controlsController.tableController = self;
-        BRRelatedFeedViewSource* relatedFeedController = [[[BRRelatedFeedViewSource alloc] init] autorelease];
+        BRRelatedFeedViewSource* relatedFeedController = [[BRRelatedFeedViewSource alloc] init];
         relatedFeedController.subscription = self.subscription;
         relatedFeedController.tableController = self;
         [_settingDataSources addObject:detailController];
@@ -129,13 +124,13 @@
 
 #pragma mark - table callback action
 -(void)showSubscription:(GRSubscription*)subscription{
-    BRFeedViewController* feedController = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
+    BRFeedViewController* feedController = [[BRFeedViewController alloc] initWithTheNibOfSameName];
     feedController.subscription = subscription;
     [[self topContainer] replaceTopByController:feedController animated:YES];
 }
 
 -(void)showAddNewTagView{
-    UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"title_pleaseinputlabelname", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) otherButtonTitles:NSLocalizedString(@"title_ok", nil), nil] autorelease];
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"title_pleaseinputlabelname", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) otherButtonTitles:NSLocalizedString(@"title_ok", nil), nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     alertView.tag = newLabelTag;
     [alertView show];
@@ -145,13 +140,13 @@
     
 }
 -(void)unsubscribeButtonClicked{
-    UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:NSLocalizedString(@"message_unsubscribe", nil), self.subscription.title] delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) otherButtonTitles:NSLocalizedString(@"title_ok", nil), nil] autorelease];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:NSLocalizedString(@"message_unsubscribe", nil), self.subscription.title] delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) otherButtonTitles:NSLocalizedString(@"title_ok", nil), nil];
     alert.tag = unsubscribeTag;
     [alert show];
 }
 
 -(void)subscribeButtonClicked{
-    UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:NSLocalizedString(@"message_subscribe", nil), self.subscription.title] delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) otherButtonTitles:NSLocalizedString(@"title_ok", nil), nil] autorelease];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:NSLocalizedString(@"message_subscribe", nil), self.subscription.title] delegate:self cancelButtonTitle:NSLocalizedString(@"title_cancel", nil) otherButtonTitles:NSLocalizedString(@"title_ok", nil), nil];
     alert.tag = subscribeTag;
     [alert show];
 }

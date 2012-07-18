@@ -14,8 +14,8 @@
 
 @interface BRFeedLabelsViewSource ()
 
-@property (nonatomic, retain) NSArray* allLabels;
-@property (nonatomic, retain) NSMutableSet* selectedTags;
+@property (nonatomic, strong) NSArray* allLabels;
+@property (nonatomic, strong) NSMutableSet* selectedTags;
 
 @end
 
@@ -25,12 +25,6 @@
 @synthesize sectionView = _sectionView;
 @synthesize selectedTags = _selectedTags;
 
--(void)dealloc{
-    self.sectionView = nil;
-    self.allLabels = nil;
-    self.selectedTags = nil;
-    [super dealloc];
-}
 
 - (id)init
 {

@@ -31,10 +31,6 @@ static CGFloat kTitleLabelHeight = 60.0f;
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.tag = nil;
-    self.source = nil;
-    self.titleLabel = nil;
-    [super dealloc];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -60,7 +56,7 @@ static CGFloat kTitleLabelHeight = 60.0f;
 -(void)loadView{
     [super loadView];
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, kTitleLabelHeight);
-    self.titleLabel = [[[JJLabel alloc] initWithFrame:frame] autorelease];
+    self.titleLabel = [[JJLabel alloc] initWithFrame:frame];
     UIEdgeInsets insets = UIEdgeInsetsMake(0, [self thumbSpacing], 0, [self thumbSpacing]);
     [self.titleLabel setContentEdgeInsets:insets];
     self.titleLabel.textColor = [UIColor whiteColor];
@@ -130,7 +126,7 @@ static CGFloat kTitleLabelHeight = 60.0f;
 }
 
 -(id<UITableViewDataSource>)generateDataSourceWithMediaSource:(id<JJMediaSource>)source{
-    BRSubGridViewDataSource* datasource = [[[BRSubGridViewDataSource alloc] initWithMediaSource:source delegate:self] autorelease];
+    BRSubGridViewDataSource* datasource = [[BRSubGridViewDataSource alloc] initWithMediaSource:source delegate:self];
     [datasource setThumbSize:[self thumbSize] thumbSpacing:[self thumbSpacing]];
     return datasource;
 }
@@ -139,7 +135,7 @@ static CGFloat kTitleLabelHeight = 60.0f;
     GRSubscription* sub = [self.source mediaAtIndex:index];
     UIView* view = [cell.thumbnailViews objectAtIndex:index - [cell startIndex]];
 
-    BRFeedViewController* feedController = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
+    BRFeedViewController* feedController = [[BRFeedViewController alloc] initWithTheNibOfSameName];
     feedController.subscription = sub;
     
 //    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:feedController] autorelease];
@@ -164,7 +160,7 @@ static CGFloat kTitleLabelHeight = 60.0f;
 }
 
 -(void)createSource{
-    self.source = [[[BRSubGridSource alloc] init] autorelease];
+    self.source = [[BRSubGridSource alloc] init];
     self.source.tag = self.tag;
     self.source.delegate = self;
 }
@@ -196,7 +192,7 @@ static CGFloat kTitleLabelHeight = 60.0f;
     };
     
     GRSubscription* sub = [self.tag toSubscription];
-    BRFeedViewController* feedController = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
+    BRFeedViewController* feedController = [[BRFeedViewController alloc] initWithTheNibOfSameName];
     feedController.subscription = sub;
     
     //    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:feedController] autorelease];

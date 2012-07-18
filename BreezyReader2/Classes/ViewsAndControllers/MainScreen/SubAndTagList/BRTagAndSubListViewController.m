@@ -14,8 +14,8 @@
 
 @interface BRTagAndSubListViewController ()
 
-@property (nonatomic, retain) NSArray* tagList;
-@property (nonatomic, retain) NSDictionary* subscriptionDict;
+@property (nonatomic, strong) NSArray* tagList;
+@property (nonatomic, strong) NSDictionary* subscriptionDict;
 
 @end
 
@@ -25,12 +25,6 @@
 @synthesize tagList = _tagList;
 @synthesize subscriptionDict = _subscriptionDict;
 
--(void)dealloc{
-    self.tableView = nil;
-    self.tagList = nil;
-    self.subscriptionDict = nil;
-    [super dealloc];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -99,7 +93,7 @@
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     GRSubscription* sub = [self subscriptionAtIndexPath:indexPath];
     
-    BRFeedViewController* feedViewController = [[[BRFeedViewController alloc] initWithTheNibOfSameName] autorelease];
+    BRFeedViewController* feedViewController = [[BRFeedViewController alloc] initWithTheNibOfSameName];
     
     feedViewController.subscription = sub;
     
@@ -108,7 +102,7 @@
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     GRTag* tag = [self.tagList objectAtIndex:section];
-    BRFeedConfigSectionView* sectionView = [[[BRFeedConfigSectionView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 30.0f)] autorelease];
+    BRFeedConfigSectionView* sectionView = [[BRFeedConfigSectionView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 30.0f)];
     sectionView.titleLabel.text = tag.label;
     
     return sectionView;
@@ -124,7 +118,7 @@
     static NSString* identifier = @"BRFeedConfigBaseCell";
     BRFeedConfigBaseCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil){
-        cell = [[[BRFeedConfigBaseCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
+        cell = [[BRFeedConfigBaseCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
     }
     
     cell.textLabel.text = sub.title;

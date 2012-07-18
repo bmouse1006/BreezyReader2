@@ -84,7 +84,6 @@ static NSMutableDictionary* _cachedDownloadedSub = nil;
 			[self sendDownloaderQueueChangedNotification:[NSIndexSet indexSetWithIndex:[self.downloaderQueue count]-1] 
 										 queueChangeType:GRDownloaderQueueChangeTypeInsert];
 		}
-		[downloader release];
 		DebugLog(@"new downloader added");
 		
 		[self downloaderQueueChanged];
@@ -155,7 +154,6 @@ static NSMutableDictionary* _cachedDownloadedSub = nil;
 																		context:self.context];
 		[self.itemDownloaderDictionary setObject:downloader forKey:item.ID];
 		[downloader start];
-		[downloader release];
 	}
 	return YES;
 }
@@ -280,7 +278,6 @@ static NSMutableDictionary* _cachedDownloadedSub = nil;
 	NSFetchedResultsController* fetchedController = [GRObjectsManager fetchedResultsControllerFromModel:ITEMMODELNAME 
 																							  predicate:predicate 
 																						sortDescriptors:[NSArray arrayWithObject:sort]];
-	[sort release];
 	NSError* error;
 	
 	[fetchedController performFetch:&error];
@@ -336,14 +333,6 @@ static NSMutableDictionary* _cachedDownloadedSub = nil;
 	return self;
 }
 
--(void)dealloc{
-    self.downloaderQueue = nil;
-    self.downloaderIndex = nil;
-    self.itemDownloaderDictionary = nil;
-    self.fetchedResultsController = nil;
-    self.context = nil;
-	[super dealloc];
-}
 
 //singleton method
 
@@ -352,39 +341,9 @@ static GRDownloadManager* downloadManager = nil;
 + (GRDownloadManager*)shared
 {
     if (downloadManager == nil) {
-        downloadManager = [[super allocWithZone:NULL] init];
+        downloadManager = [[self alloc] init];
     }
     return downloadManager;
-}
-
-+ (id)allocWithZone:(NSZone *)zone
-{
-    return [[self shared] retain];
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return self;
-}
-
-- (id)retain
-{
-    return self;
-}
-
-- (NSUInteger)retainCount
-{
-    return NSUIntegerMax;  //denotes an object that cannot be released
-}
-
-- (oneway void)release
-{
-    //do nothing
-}
-
-- (id)autorelease
-{
-    return self;
 }
 
 @end
@@ -448,7 +407,6 @@ static GRDownloadManager* downloadManager = nil;
 		NSFetchedResultsController* controller = [GRObjectsManager fetchedResultsControllerFromModel:SUBMODELNAME
 																						   predicate:nil
 																					 sortDescriptors:[NSArray arrayWithObject:descriptor]];
-		[descriptor release];
 		
 		self.fetchedResultsController = controller;
 		self.context = [controller managedObjectContext];

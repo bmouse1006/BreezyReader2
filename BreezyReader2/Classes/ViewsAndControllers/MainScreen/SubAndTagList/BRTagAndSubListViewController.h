@@ -10,6 +10,6 @@
 
 @interface BRTagAndSubListViewController : BRBaseController<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, retain) IBOutlet UITableView* tableView;
+@property (nonatomic, strong) IBOutlet UITableView* tableView;
 
 @end

@@ -19,8 +19,8 @@
 
 @interface JJMediaLibTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) NSMutableArray* thumbnailViews;
-@property (nonatomic, assign) id<JJMediaLibTableViewCellDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray* thumbnailViews;
+@property (nonatomic, unsafe_unretained) id<JJMediaLibTableViewCellDelegate> delegate;
 
 -(void)setColumnCount:(NSUInteger)columnCount;
 -(void)setMediaSource:(id<JJMediaSource>)source withStartIndex:(NSUInteger)index;

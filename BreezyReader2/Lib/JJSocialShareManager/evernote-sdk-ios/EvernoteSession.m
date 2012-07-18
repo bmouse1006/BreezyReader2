@@ -40,15 +40,15 @@
 
 @interface EvernoteSession()
 
-@property (nonatomic, retain) UIViewController *viewController;
+@property (nonatomic, strong) UIViewController *viewController;
 
-@property (nonatomic, retain) NSURLResponse *response;
-@property (nonatomic, retain) NSMutableData *receivedData;
+@property (nonatomic, strong) NSURLResponse *response;
+@property (nonatomic, strong) NSMutableData *receivedData;
 
-@property (nonatomic, retain) ENCredentialStore *credentialStore;
+@property (nonatomic, strong) ENCredentialStore *credentialStore;
 
 @property (nonatomic, copy) EvernoteAuthCompletionHandler completionHandler;
-@property (nonatomic, retain) NSString *tokenSecret;
+@property (nonatomic, strong) NSString *tokenSecret;
 
 // generate a dictionary of name=>value from the given queryString
 + (NSDictionary *)parametersFromQueryString:(NSString *)queryString;
@@ -87,16 +87,7 @@
 
 - (void)dealloc
 {
-    [_viewController release];
-    [_consumerKey release];
-    [_consumerSecret release];
-    [_credentialStore release];
-    [_host release];
-    [_receivedData release];
-    [_response release];
-    [_tokenSecret release];
     dispatch_release(_queue);
-    [super dealloc];
 }
 
 - (id)init 
@@ -126,7 +117,7 @@
 {
     self.credentialStore = [ENCredentialStore load];
     if (!self.credentialStore) {
-        self.credentialStore = [[[ENCredentialStore alloc] init] autorelease];
+        self.credentialStore = [[ENCredentialStore alloc] init];
         [self.credentialStore save];
     } 
     _queue = dispatch_queue_create("com.evernote.sdk.EvernoteSession", NULL);
@@ -194,17 +185,17 @@
 - (EDAMNoteStoreClient *)noteStore
 {
     NSURL *url = [NSURL URLWithString:[self credentials].noteStoreUrl];
-    THTTPClient *transport = [[[THTTPClient alloc] initWithURL:url] autorelease];
-    TBinaryProtocol *protocol = [[[TBinaryProtocol alloc] initWithTransport:transport] autorelease];
-    return [[[EDAMNoteStoreClient alloc] initWithProtocol:protocol] autorelease];
+    THTTPClient *transport = [[THTTPClient alloc] initWithURL:url];
+    TBinaryProtocol *protocol = [[TBinaryProtocol alloc] initWithTransport:transport];
+    return [[EDAMNoteStoreClient alloc] initWithProtocol:protocol];
 }
 
 - (EDAMUserStoreClient *)userStore
 {
     NSURL *url = [NSURL URLWithString:[self userStoreUrl]];
-    THTTPClient *transport = [[[THTTPClient alloc] initWithURL:url] autorelease];
-    TBinaryProtocol *protocol = [[[TBinaryProtocol alloc] initWithTransport:transport] autorelease];
-    return [[[EDAMUserStoreClient alloc] initWithProtocol:protocol] autorelease];
+    THTTPClient *transport = [[THTTPClient alloc] initWithURL:url];
+    TBinaryProtocol *protocol = [[TBinaryProtocol alloc] initWithTransport:transport];
+    return [[EDAMUserStoreClient alloc] initWithProtocol:protocol];
 }
 
 - (NSURLConnection *)connectionWithRequest:(NSURLRequest *)request
@@ -367,8 +358,8 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSString *string = [[[NSString alloc] initWithData:self.receivedData 
-                                              encoding:NSUTF8StringEncoding] autorelease];
+    NSString *string = [[NSString alloc] initWithData:self.receivedData 
+                                              encoding:NSUTF8StringEncoding];
 
     // Trap bad HTTP response status codes.
     // This might be from an invalid consumer key, a key not set up for OAuth, etc.
@@ -434,10 +425,10 @@
 
 - (void)openOAuthViewControllerWithURL:(NSURL *)authorizationURL
 {
-    ENOAuthViewController *oauthViewController = [[[ENOAuthViewController alloc] initWithAuthorizationURL:authorizationURL
+    ENOAuthViewController *oauthViewController = [[ENOAuthViewController alloc] initWithAuthorizationURL:authorizationURL
                                                    oauthCallbackPrefix:[self oauthCallback]
-                                                                                                 delegate:self] autorelease];
-    UINavigationController *oauthNavController = [[[UINavigationController alloc] initWithRootViewController:oauthViewController] autorelease];
+                                                                                                 delegate:self];
+    UINavigationController *oauthNavController = [[UINavigationController alloc] initWithRootViewController:oauthViewController];
 
     // use a formsheet on iPad
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -455,11 +446,11 @@
                       webApiUrlPrefix:(NSString *)webApiUrlPrefix
                   authenticationToken:(NSString *)authenticationToken
 {
-    ENCredentials *ec = [[[ENCredentials alloc] initWithHost:self.host
+    ENCredentials *ec = [[ENCredentials alloc] initWithHost:self.host
                                                   edamUserId:edamUserId 
                                                 noteStoreUrl:noteStoreUrl 
                                              webApiUrlPrefix:webApiUrlPrefix
-                                         authenticationToken:authenticationToken] autorelease];
+                                         authenticationToken:authenticationToken];
     [self.credentialStore addCredentials:ec];    
 }
 
@@ -486,7 +477,7 @@
 
 + (NSDictionary *)parametersFromQueryString:(NSString *)queryString 
 {
-    NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     NSArray *nameValues = [queryString componentsSeparatedByString:@"&"];
     for (NSString *nameValue in nameValues) {
         NSArray *components = [nameValue componentsSeparatedByString:@"="];

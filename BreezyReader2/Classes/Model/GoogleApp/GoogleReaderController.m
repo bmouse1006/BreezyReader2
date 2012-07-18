@@ -37,7 +37,7 @@
 @synthesize delegate = _delegate;
 
 +(id)controller{
-    return [[[self alloc] init] autorelease];
+    return [[self alloc] init];
 }
 //API here!!
 
@@ -106,7 +106,7 @@
 //LIST API, return nil if fail
 -(NSDictionary*)allRecommendationFeeds{
 	NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_RECOMMENDATION];
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:ATOM_ARGS_COUNT withValue:@"99999"];
 	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     return [self readDataFromGoogleReader:url
@@ -117,7 +117,7 @@
 
 -(NSDictionary*)allSubscriptions{
 	NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_SUBSCRIPTION];
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     return [self readDataFromGoogleReader:url
                            withParameters:paramSet
@@ -128,7 +128,7 @@
 //return all tags
 -(NSDictionary*)allTags{
 	NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_TAG];
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     return [self readDataFromGoogleReader:url
                            withParameters:paramSet
@@ -139,7 +139,7 @@
 //return unread cound for all subscription and tags
 -(NSDictionary*)unreadCount{
 	NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_UNREAD_COUNT];
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:@"output" withValue:@"json"];
     return [self readDataFromGoogleReader:url
                            withParameters:paramSet
@@ -149,7 +149,7 @@
 
 //return result of search by keywords and start point
 -(NSDictionary*)searchFeeds:(NSString*)keyWord start:(NSInteger)start{
-    URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+    URLParameterSet* paramSet = [[URLParameterSet alloc] init];
     [paramSet setParameterForKey:@"q" withValue:keyWord];
     [paramSet setParameterForKey:@"start" withValue:[NSString stringWithFormat:@"%d", start]];
     [paramSet setParameterForKey:@"client" withValue:@"scroll"];
@@ -168,7 +168,7 @@
 	NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_SUBSCRIPTION];
 	NSString* feedName = subscription;
 	//Prepare parameters
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	if (feedName){
 		[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:feedName];//add feed URI
 	}
@@ -192,7 +192,7 @@
 	//get complete feed URI in Google Reader
 	NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_MARK_ALL_AS_READ];
 	//Prepare parameters
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	
 	[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:subscription];//add feed URI
 //	[paramSet setParameterForKey:EDIT_ARGS_ACTION withValue:@"unsubscribe"];//add API action. Here is 'unsubscribe'
@@ -210,7 +210,7 @@
 	//get complete feed URI in Google Reader
 	NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_SUBSCRIPTION];
 	//Prepare parameters
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:subscription];//add feed URI
 	[paramSet setParameterForKey:EDIT_ARGS_ACTION withValue:@"unsubscribe"];//add API action. Here is 'unsubscribe'
 	
@@ -229,7 +229,7 @@
 	//get complete feed URI in Google Reader
 	NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_SUBSCRIPTION];
 	//Prepare parameters
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:subscription];//add feed URI
 	if (tagToAdd != nil)
 		[paramSet setParameterForKey:EDIT_ARGS_ADD withValue:tagToAdd];//tag name to add
@@ -250,7 +250,7 @@
 	//get complete feed URI in Google Reader
 	NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_TAG1];
 	//Prepare parameters
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:tagName];//add feed URI
 	
 	NSString* pubValue = nil;
@@ -273,7 +273,7 @@
 	//get complete feed URI in Google Reader
 	NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_DISABLETAG];
 	//Prepare parameters
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:tagName];//add feed URI
 	[paramSet setParameterForKey:EDIT_ARGS_ACTION withValue:@"disable-tags"];//add API action. Here is 'unsubscribe'
 	
@@ -291,7 +291,7 @@
 	//get complete feed URI in Google Reader
 	NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_TAG2];
 	//Prepare parameters
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:EDIT_ARGS_ITEM withValue:itemID];//add feed URI
 	if (tagToAdd != nil)
 		[paramSet setParameterForKey:EDIT_ARGS_ADD withValue:tagToAdd];//tag name to add
@@ -309,24 +309,18 @@
 //init and alloc
 -(id)initWithDelegate:(id<GoogleReaderControllerDelegate>)delegate{
 	if (self = [super init]){
-		NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
-		[dictionary release];
+//		NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
 		self.delegate = delegate;
 	}
 	return self;
 }
 
--(void)dealloc{
-    self.errorMsg = nil;
-	[super dealloc];
-}
 
 /////Private method
 
 -(void)parseLoadedData:(NSData*)data{
 	NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	DebugLog(@"received data is: %@", str);
-	[str release];
 }
 
 -(NSValue*)keyForConnection:(NSURLConnection*)connection{
@@ -380,7 +374,6 @@
 				temp = [temp stringByAppendingString:[additionalParameters parameterString]];
 				[request setURL:[NSURL URLWithString:temp]];
 				 
-				[additionalParameters release];
 			}
 		}else{
 			[request setHTTPMethod:@"GET"];//GET method for others
@@ -419,7 +412,6 @@
 		}
 		[self.delegate didSuccessFinishedDataReceive:response];
 		result = [self performSelector:_parser withObject:returningData];
-		[[result retain] autorelease];
 		if (result != nil){
 			return result;
 		}
@@ -446,7 +438,7 @@
 	URLParameterSet* parameterSet = nil;
 	
 	if (count||date||excludeString||continuationStr){
-		parameterSet = [[[URLParameterSet alloc] init] autorelease];
+		parameterSet = [[URLParameterSet alloc] init];
 		if (count)
 			[parameterSet setParameterForKey:ATOM_ARGS_COUNT withValue:[count stringValue]];
 		if (date)
@@ -505,7 +497,6 @@
         temp = [temp stringByAppendingString:[additionalParameters parameterString]];
         [request setURL:[NSURL URLWithString:temp]];
         
-        [additionalParameters release];
         
     }else{
         request = [ASIHTTPRequest requestWithURL:baseURL];
@@ -545,27 +536,27 @@
 
 -(ASIHTTPRequest*)requestForAllSubscriptions{
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_SUBSCRIPTION];
-    URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+    URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     return [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_LIST];
 }
 
 -(ASIHTTPRequest*)requestForAllTags{
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_TAG];
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     return [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_LIST];
 }
 
 -(ASIHTTPRequest*)requestForUnreadCount{
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_UNREAD_COUNT];
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     return [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_LIST];
 }
 
 -(ASIHTTPRequest*)requestForSearchingArticleWithKeywords:(NSString*)keywords{
-    URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+    URLParameterSet* paramSet = [[URLParameterSet alloc] init];
     [paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     [paramSet setParameterForKey:SEARCH_ARGS_NUMBER withValue:[NSNumber numberWithInt:100]];
     [paramSet setParameterForKey:SEARCH_ARGS_QUERY withValue:keywords];

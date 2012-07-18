@@ -57,8 +57,6 @@ static NSString* kPermissionURL = @"http://www.facebook.com/connect/prompt_permi
 
 - (void)dealloc {
   [_redirectTimer invalidate];
-  [_permission release];
-  [super dealloc];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

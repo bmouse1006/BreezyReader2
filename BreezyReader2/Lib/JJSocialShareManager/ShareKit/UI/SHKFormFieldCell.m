@@ -39,14 +39,6 @@
 #define SHK_FORM_CELL_PAD_RIGHT 10
 
 
-- (void)dealloc
-{
-	[settings release];
-	[textField release];	
-	[toggle release];
-	[tmpValue release];
-	[super dealloc];
-}
 
 - (UITextField *)getTextField
 {
@@ -61,7 +53,6 @@
 		textField.autocorrectionType = UITextAutocorrectionTypeNo;
 		textField.delegate = form;
 		[self.contentView addSubview:textField];
-		[textField release];
 		
 		[self setValue:tmpValue];
 	}
@@ -92,7 +83,6 @@
 			self.toggle = [[UISwitch alloc] initWithFrame:CGRectZero];	
 			[self.contentView addSubview:toggle];
 			[self setValue:tmpValue];
-			[toggle release];
 		}
 		
 		toggle.frame = CGRectMake(self.contentView.bounds.size.width-toggle.bounds.size.width-SHK_FORM_CELL_PAD_RIGHT,
@@ -124,8 +114,7 @@
 
 - (void)setSettings:(SHKFormFieldSettings *)s
 {
-	[settings release];
-	settings = [s retain];
+	settings = s;
 	[self setNeedsLayout];	
 }
 

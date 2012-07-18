@@ -44,13 +44,6 @@ static NSString* kStreamURL = @"http://www.facebook.com/connect/prompt_feed.php"
 	return self;
 }
 
-- (void)dealloc {
-	[_attachment        release];
-	[_actionLinks       release];
-	[_targetId          release];
-	[_userMessagePrompt release];
-	[super dealloc];
-}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FBDialog

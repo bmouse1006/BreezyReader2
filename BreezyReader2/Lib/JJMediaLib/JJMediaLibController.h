@@ -13,10 +13,10 @@
 
 @interface JJMediaLibController : UIViewController<JJMediaLibTableViewCellDelegate>
 
-@property (nonatomic, retain) JJMediaDataSource* dataSource;
-@property (nonatomic, retain) id<JJMediaSource> mediaSource;
+@property (nonatomic, strong) JJMediaDataSource* dataSource;
+@property (nonatomic, strong) id<JJMediaSource> mediaSource;
 
-@property (nonatomic, retain) IBOutlet UITableView* tableView;
+@property (nonatomic, strong) IBOutlet UITableView* tableView;
 
 -(void)assignMediaSource:(id<JJMediaSource>)source;
 -(CGFloat)thumbSize;

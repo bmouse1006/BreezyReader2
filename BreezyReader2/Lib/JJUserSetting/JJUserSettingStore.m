@@ -14,8 +14,7 @@ static NSDictionary* _defaultSetting;
 
 +(void)setDefaultSettingFile:(NSString*)filePath{
     NSDictionary* setting = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    [_defaultSetting release];
-    _defaultSetting = [setting retain];
+    _defaultSetting = setting;
 }
 
 

@@ -15,16 +15,16 @@
 
 @interface BRSubscriptionTileView : UIControl<JJMediaThumbView, ASIHTTPRequestDelegate>
 
-@property (nonatomic, readwrite, retain) NSString* title;
+@property (nonatomic, readwrite) NSString* title;
 
-@property (nonatomic, retain) IBOutlet JJLabel* caption;
-@property (nonatomic, retain) IBOutlet UIImageView* imageView;
-@property (nonatomic, retain) IBOutlet UIButton* infoButton;
-@property (nonatomic, retain) IBOutlet JJLabel* unreadLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* caption;
+@property (nonatomic, strong) IBOutlet UIImageView* imageView;
+@property (nonatomic, strong) IBOutlet UIButton* infoButton;
+@property (nonatomic, strong) IBOutlet JJLabel* unreadLabel;
 
-@property (nonatomic, retain, setter = setImageURLs:) NSMutableArray* imageURLs;
+@property (nonatomic, setter = setImageURLs:) NSMutableArray* imageURLs;
 
-@property (nonatomic, retain) GRSubscription* subscription;
+@property (nonatomic, strong) GRSubscription* subscription;
 
 -(void)switchSubviewFrom:(UIView*)original toView:(UIView*)destiny;
 

@@ -21,7 +21,7 @@ NSMutableArray* CreateNonRetainingArray() {
 	CFArrayCallBacks callbacks = kCFTypeArrayCallBacks;
 	callbacks.retain = RetainNoOp;
 	callbacks.release = ReleaseNoOp;
-	return (NSMutableArray*)CFArrayCreateMutable(nil, 0, &callbacks);
+	return (__bridge_transfer NSMutableArray*)CFArrayCreateMutable(nil, 0, &callbacks);
 }
 
 
@@ -31,7 +31,7 @@ NSMutableDictionary* CreateNonRetainingDictionary() {
 	CFDictionaryValueCallBacks callbacks = kCFTypeDictionaryValueCallBacks;
 	callbacks.retain = RetainNoOp;
 	callbacks.release = ReleaseNoOp;
-	return (NSMutableDictionary*)CFDictionaryCreateMutable(nil, 0, &keyCallbacks, &callbacks);
+	return (__bridge_transfer NSMutableDictionary*)CFDictionaryCreateMutable(nil, 0, &keyCallbacks, &callbacks);
 }
 
 BOOL IsStringWithAnyText(id object) {
@@ -101,7 +101,7 @@ NSString* PathForDocumentsResource(NSString* relativePath) {
 	if (!documentsPath) {
 		NSArray* dirs = NSSearchPathForDirectoriesInDomains(
 															NSDocumentDirectory, NSUserDomainMask, YES);
-		documentsPath = [[dirs objectAtIndex:0] retain];
+		documentsPath = [dirs objectAtIndex:0];
 	}
 	return [documentsPath stringByAppendingPathComponent:relativePath];
 }

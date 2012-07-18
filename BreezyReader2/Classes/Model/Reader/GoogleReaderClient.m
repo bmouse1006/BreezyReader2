@@ -26,7 +26,7 @@
 
 @interface FetchTokenArg: NSObject
 
-@property (nonatomic, assign) id request;
+@property (nonatomic, unsafe_unretained) id request;
 @property (nonatomic, copy) id completionHandler; 
 
 @end
@@ -37,25 +37,23 @@
 
 -(void)dealloc{
     self.request = nil;
-    self.completionHandler = nil;
-    [super dealloc];
 }
 
 @end
 
 @interface GoogleReaderClient ()
 
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, unsafe_unretained) id delegate;
 @property (nonatomic, assign) SEL action;
 @property (nonatomic, copy) id delegateCompletionHandler;
 
-@property (nonatomic, retain) ASIHTTPRequest* request;
-@property (nonatomic, retain) ASIHTTPRequest* tokenRequest;
-@property (nonatomic, retain) ASINetworkQueue* requestQueue;
+@property (nonatomic, strong) ASIHTTPRequest* request;
+@property (nonatomic, strong) ASIHTTPRequest* tokenRequest;
+@property (nonatomic, strong) ASINetworkQueue* requestQueue;
 
 @property (nonatomic, copy) id requestInternalCompletionBlock;
 
-@property (nonatomic, retain) NSError* reportError;
+@property (nonatomic, strong) NSError* reportError;
 
 //add/remove tag to one subscription
 -(void)editSubscription:(NSString*)subscription 
@@ -92,7 +90,7 @@ static long long _lastUnreadCountRefreshTime;
 static NSString* _userID = nil;
 
 +(id)clientWithDelegate:(id)delegate action:(SEL)action{
-    return [[[self alloc] initWithDelegate:delegate action:action] autorelease];
+    return [[self alloc] initWithDelegate:delegate action:action];
 }
 
 -(void)setCompletionHandler:(GoogleReaderCompletionHandler)block{
@@ -139,7 +137,6 @@ static NSString* _userID = nil;
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self clearAndCancel];
-    [super dealloc];
 }
 
 -(id)initWithDelegate:(id)delegate action:(SEL)action{
@@ -312,7 +309,6 @@ static NSString* _userID = nil;
 }
 
 +(void)setToken:(NSString*)token{
-    [_token release];
     _token = [token copy];
 }
 
@@ -389,7 +385,7 @@ static NSString* _userID = nil;
 
 -(void)refreshUnreadCount{
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_UNREAD_COUNT];
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
     [paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     [self.request clearDelegatesAndCancel];
     self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_LIST];
@@ -503,7 +499,7 @@ static NSString* _userID = nil;
 -(ASIHTTPRequest*)requestForTagList{
     
     NSString* taglistString = [URI_PREFIX_API stringByAppendingString:API_LIST_TAG];
-    URLParameterSet* tagParam = [[[URLParameterSet alloc] init] autorelease];
+    URLParameterSet* tagParam = [[URLParameterSet alloc] init];
     [tagParam setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     ASIHTTPRequest* tagRequest = [self requestWithURL:[self fullURLFromBaseString:taglistString] parameters:tagParam APIType:API_LIST]; 
     tagRequest.didStartSelector = @selector(tagRequestStarted:);
@@ -514,7 +510,7 @@ static NSString* _userID = nil;
 
 -(ASIHTTPRequest*)requestForSubscriptionList{
     NSString* sublistString = [URI_PREFIX_API stringByAppendingString:API_LIST_SUBSCRIPTION];
-    URLParameterSet* subParam = [[[URLParameterSet alloc] init] autorelease];
+    URLParameterSet* subParam = [[URLParameterSet alloc] init];
     [subParam setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     
     ASIHTTPRequest* subRequest = [self requestWithURL:[self fullURLFromBaseString:sublistString] parameters:subParam APIType:API_LIST];
@@ -526,7 +522,7 @@ static NSString* _userID = nil;
 
 -(void)request:(ASIHTTPRequest *)request didReceiveResponseHeaders:(NSDictionary *)responseHeaders{
     if (_userID == nil){
-        _userID = [[responseHeaders objectForKey:@"X-Reader-User"] retain];
+        _userID = [responseHeaders objectForKey:@"X-Reader-User"];
     }
 }
 
@@ -679,7 +675,7 @@ static NSString* _userID = nil;
 }
 
 -(void)getStreamDetails:(NSString*)streamID{
-    URLParameterSet* parameters = [[[URLParameterSet alloc] init] autorelease];
+    URLParameterSet* parameters = [[URLParameterSet alloc] init];
     [parameters setParameterForKey:@"s" withValue:streamID];
     [parameters setParameterForKey:@"fetchTrends" withValue:@"false"];
     [parameters setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
@@ -695,7 +691,7 @@ static NSString* _userID = nil;
 
 -(void)queryContentsWithIDs:(NSArray*)IDArray{
     
-    URLParameterSet* parameters = [[[URLParameterSet alloc] init] autorelease];
+    URLParameterSet* parameters = [[URLParameterSet alloc] init];
     
     for (NSDictionary* ID in IDArray){
         [parameters setParameterForKey:CONTENTS_ARGS_ID withValue:[ID objectForKey:@"id"]];
@@ -714,7 +710,7 @@ static NSString* _userID = nil;
 }
 
 -(void)searchArticlesWithKeywords:(NSString*)keywords{
-    URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+    URLParameterSet* paramSet = [[URLParameterSet alloc] init];
     [paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     [paramSet setParameterForKey:SEARCH_ARGS_NUMBER withValue:[NSNumber numberWithInt:300]];
     [paramSet setParameterForKey:SEARCH_ARGS_QUERY withValue:keywords];
@@ -744,7 +740,7 @@ static NSString* _userID = nil;
 
 -(void)requestRecommendationList{
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_RECOMMENDATION];
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:ATOM_ARGS_COUNT withValue:@"99999"];
 	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     void(^completionBlock)(ASIHTTPRequest*) = ^(ASIHTTPRequest* request){
@@ -760,7 +756,7 @@ static NSString* _userID = nil;
         return;
     }
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_LIST_RELATED];
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:streamID];
 	[paramSet setParameterForKey:LIST_ARGS_OUTPUT withValue:OUTPUT_JSON];
     [self.request clearDelegatesAndCancel];
@@ -814,7 +810,7 @@ static NSString* _userID = nil;
     _needRefreshUnreadCount = YES;
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_MARK_ALL_AS_READ];
 	//Prepare parameters
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	
 	[paramSet setParameterForKey:EDIT_ARGS_FEED withValue:streamID];//add feed URI
     
@@ -822,14 +818,14 @@ static NSString* _userID = nil;
     self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
     __block typeof(self) blockSelf = self;
     [self.request setCompletionBlock:^{
-        DebugLog(@"mark all as read succeeded");
+        NSLog(@"mark all as read succeeded");
         NSArray* items = [[[blockSelf class] itemsForFeed] objectForKey:streamID];
         [items makeObjectsPerformSelector:@selector(markAsRead)];
         [blockSelf performCallBack];
-        [blockSelf performSelectorOnMainThread:@selector(refreshUnreadCount) withObject:self waitUntilDone:NO];
+        [blockSelf performSelectorOnMainThread:@selector(refreshUnreadCount) withObject:blockSelf waitUntilDone:NO];
     }];
     [self.request setFailedBlock:^{
-        DebugLog(@"mark all as read failed");
+        NSLog(@"mark all as read failed");
         [blockSelf performCallBack];
     }];
     
@@ -838,9 +834,9 @@ static NSString* _userID = nil;
             [blockSelf performCallBack];
         }else{
             
-            [[GoogleAuthManager shared] authRequest:_request completionBlock:^(NSError* error){
+            [[GoogleAuthManager shared] authRequest:blockSelf.request completionBlock:^(NSError* error){
                 if (error == nil){
-                    [_request startAsynchronous];
+                    [blockSelf.request startAsynchronous];
                 }
             }];
         }
@@ -858,7 +854,7 @@ static NSString* _userID = nil;
 -(void)editRecommendationStream:(NSString*)streamID action:(NSString*)action{
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_RECOMMENDATION_EDIT];
     
-    URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+    URLParameterSet* paramSet = [[URLParameterSet alloc] init];
     [paramSet setParameterForKey:EDIT_ARGS_FEED withValue:streamID];
     [paramSet setParameterForKey:EDIT_ARGS_RECOMMENDATION_ACTION withValue:action];
     self.request = [self requestWithURL:[self fullURLFromBaseString:url] parameters:paramSet APIType:API_EDIT];
@@ -878,7 +874,7 @@ static NSString* _userID = nil;
     [self editSubscription:streamID action:@"subscribe" tagToAdd:tag tagToRemove:nil newName:title completionBlock:^(ASIHTTPRequest* request){
         _needRefreshReaderStructure = YES;
         _needRefreshRecommendation = YES;
-        GRSubscription* sub = [[[GRSubscription alloc] init] autorelease];
+        GRSubscription* sub = [[GRSubscription alloc] init];
         sub.ID = streamID;
         sub.title = title;
         [UniversalSubList setObject:sub forKey:streamID];
@@ -919,7 +915,7 @@ static NSString* _userID = nil;
             
             GRTag* tag = [GoogleReaderClient tagWithID:newTag];
             if (!tag){
-                tag = [[[GRTag alloc] init] autorelease];
+                tag = [[GRTag alloc] init];
                 tag.ID = newTag;
                 tag.label = [[newTag componentsSeparatedByString:@"/"] lastObject];
                 @synchronized(UniversalTagList){
@@ -938,7 +934,7 @@ static NSString* _userID = nil;
 -(void)editSubscription:(NSString *)subscription action:(NSString*)action tagToAdd:(NSString *)tagToAdd tagToRemove:(NSString *)tagToRemove newName:(NSString*)newName completionBlock:(void(^)(ASIHTTPRequest*))block{
     
     NSAssert(action.length > 0, @"action of subscrition edit should not be nil!");
-    URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+    URLParameterSet* paramSet = [[URLParameterSet alloc] init];
     
     if (tagToAdd.length != 0){
         if ([tagToAdd hasPrefix:@"user/"] == NO){
@@ -1099,7 +1095,7 @@ static NSString* _userID = nil;
 									  startFrom:(NSDate*)date 
 										exclude:(NSString*)excludeString 
                                    continuation:(NSString*)continuationStr {
-	URLParameterSet* parameterSet = parameterSet = [[[URLParameterSet alloc] init] autorelease];;
+	URLParameterSet* parameterSet = parameterSet = [[URLParameterSet alloc] init];;
 	
     if (count)
         [parameterSet setParameterForKey:ATOM_ARGS_COUNT withValue:[count stringValue]];
@@ -1144,7 +1140,6 @@ static NSString* _userID = nil;
         temp = [temp stringByAppendingString:[additionalParameters parameterString]];
         [request setURL:[NSURL URLWithString:temp]];
         
-        [additionalParameters release];
         request.cachePolicy = ASIDoNotReadFromCacheCachePolicy;
     }else{
         request = [ASIHTTPRequest requestWithURL:baseURL];
@@ -1181,7 +1176,7 @@ static NSString* _userID = nil;
     
     NSString* url = [URI_PREFIX_API stringByAppendingString:API_EDIT_TAG2];
 	//Prepare parameters
-	URLParameterSet* paramSet = [[[URLParameterSet alloc] init] autorelease];
+	URLParameterSet* paramSet = [[URLParameterSet alloc] init];
 	[paramSet setParameterForKey:EDIT_ARGS_ITEM withValue:itemID];//add feed URI
 	if (tagToAdd != nil)
 		[paramSet setParameterForKey:EDIT_ARGS_ADD withValue:tagToAdd];//tag name to add
@@ -1213,7 +1208,6 @@ static NSString* _userID = nil;
 
             [[GoogleAuthManager shared] authRequest:request completionBlock:^(NSError* error){
                 if (error == nil){
-                    DebugLog(@"address for request is %d", request);
                     [request startAsynchronous];
                 }
             }];
@@ -1231,7 +1225,7 @@ static NSString* _userID = nil;
     NSMutableArray* addTokenQueue = [[self class] addTokenQueue];
     if (token == nil){
         @synchronized(addTokenQueue){
-            FetchTokenArg* arg = [[[FetchTokenArg alloc] init] autorelease];
+            FetchTokenArg* arg = [[FetchTokenArg alloc] init];
             arg.request = request;
             arg.completionHandler = block;
             

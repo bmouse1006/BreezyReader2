@@ -17,12 +17,12 @@
 
 @interface MainScreenDataSource ()
 
-@property (nonatomic, retain) NSMutableSet* tagIDSet;
-@property (nonatomic, retain) NSMutableDictionary* tagControllers;
+@property (nonatomic, strong) NSMutableSet* tagIDSet;
+@property (nonatomic, strong) NSMutableDictionary* tagControllers;
 
-@property (nonatomic, retain) BRRecommendationPageViewController* recommendationPage;
-@property (nonatomic, retain) BRSubFavoritePageController* favoritePage;
-@property (nonatomic, retain) BRExplorPageViewController* explorePage;
+@property (nonatomic, strong) BRRecommendationPageViewController* recommendationPage;
+@property (nonatomic, strong) BRSubFavoritePageController* favoritePage;
+@property (nonatomic, strong) BRExplorPageViewController* explorePage;
 
 @end
 
@@ -44,15 +44,6 @@
     return self;
 }
 
--(void)dealloc{
-    self.controllers = nil;
-    self.tagIDSet = nil;
-    self.recommendationPage = nil;
-    self.favoritePage = nil;
-    self.tagControllers = nil;
-    self.explorePage = nil;
-    [super dealloc];
-}
 
 -(void)didReceiveMemoryWarning{
     [self.controllers makeObjectsPerformSelector:@selector(didReceiveMemoryWarning)];
@@ -81,7 +72,7 @@
         GRTag* tag = obj;
         if ([[GoogleReaderClient subscriptionsWithTagID:tag.ID] count] > 0 && [self.tagIDSet containsObject:tag.ID] == NO){
             [self.tagIDSet addObject:tag.ID];
-            BRSubGridViewController* controller = [[[BRSubGridViewController alloc] init] autorelease];
+            BRSubGridViewController* controller = [[BRSubGridViewController alloc] init];
             controller.tag = tag;
             [self.tagControllers setObject:controller forKey:tag.ID];
         }
@@ -89,20 +80,20 @@
     
     //load explor page
     if (self.explorePage == nil){
-        self.explorePage = [[[BRExplorPageViewController alloc] init] autorelease];
+        self.explorePage = [[BRExplorPageViewController alloc] init];
     }
     
     //load favorite page
     if (self.favoritePage == nil){
         if ([[BRReadingStatistics statistics] countOfRecordedReadingFrequency] >= 6){
-            self.favoritePage = [[[BRSubFavoritePageController alloc] init] autorelease];
+            self.favoritePage = [[BRSubFavoritePageController alloc] init];
         }else{
             self.favoritePage = nil;
         }
     }
     //load recommendation page
     if (self.recommendationPage == nil){
-        self.recommendationPage = [[[BRRecommendationPageViewController alloc] init] autorelease];
+        self.recommendationPage = [[BRRecommendationPageViewController alloc] init];
     }
     
     [self composeControllerList];

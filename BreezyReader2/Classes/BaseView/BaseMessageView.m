@@ -23,16 +23,9 @@
     self.container.layer.masksToBounds = YES;
 }
 
--(void)dealloc{
-    self.message = nil;
-    self.container = nil;
-    self.textView = nil;
-    [super dealloc];
-}
 
 -(void)setMessage:(NSString *)message{
     if (_message != message){
-        [_message release];
         _message = [message copy];
         
         self.textView.text = message;

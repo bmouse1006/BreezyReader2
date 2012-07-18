@@ -11,14 +11,14 @@
 @interface InfinityScrollContainer : NSObject{
     NSInteger _index;
     
-    InfinityScrollContainer* _leftContainer;
-    InfinityScrollContainer* _rightContainer;
+    InfinityScrollContainer* __weak _leftContainer;
+    InfinityScrollContainer* __weak _rightContainer;
 }
 
-@property (nonatomic, assign) InfinityScrollContainer* leftContainer;
-@property (nonatomic, assign) InfinityScrollContainer* rightContainer;
+@property (nonatomic, weak) InfinityScrollContainer* leftContainer;
+@property (nonatomic, weak) InfinityScrollContainer* rightContainer;
 
-@property (nonatomic, retain) UIView* view;
+@property (nonatomic, strong) UIView* view;
 @property (nonatomic, assign) NSInteger index;
 
 -(void)addViewToContainer:(UIView*)view;

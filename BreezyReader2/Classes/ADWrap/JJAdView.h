@@ -25,7 +25,7 @@
 
 @interface JJAdView : UIView<ADBannerViewDelegate, GADBannerViewDelegate>
 
-@property (nonatomic, assign) id<JJAdViewDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<JJAdViewDelegate> delegate;
 
 @property (nonatomic, copy) NSString* adMobPublisherID;
 

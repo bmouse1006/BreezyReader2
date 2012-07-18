@@ -10,7 +10,7 @@
 
 @interface BRManuallyClearCacheView : BRSettingCustomBaseView
 
-@property (nonatomic, retain) IBOutlet UIButton* button;
+@property (nonatomic, strong) IBOutlet UIButton* button;
 
 -(IBAction)clearCache:(id)sender;
 

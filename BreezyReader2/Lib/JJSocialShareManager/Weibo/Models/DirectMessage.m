@@ -17,20 +17,20 @@
 
 	if (self = [super init]) {
 		directMessageId = [dic getLongLongValueValueForKey:@"id" defaultValue:-1];
-		text = [[dic getStringValueForKey:@"text" defaultValue:@""] retain];
+		text = [dic getStringValueForKey:@"text" defaultValue:@""];
 		senderId = [dic getIntValueForKey:@"sender_id" defaultValue:-1];
 		recipientId = [dic getIntValueForKey:@"recipient_id" defaultValue:-1];
-		senderScreenName = [[dic getStringValueForKey:@"sender_screen_name" defaultValue:@""] retain];
-		recipientScreenName = [[dic getStringValueForKey:@"recipient_screen_name" defaultValue:@""] retain];
+		senderScreenName = [dic getStringValueForKey:@"sender_screen_name" defaultValue:@""];
+		recipientScreenName = [dic getStringValueForKey:@"recipient_screen_name" defaultValue:@""];
 		
 		NSDictionary* senderDic = [dic objectForKey:@"sender"];
 		if (senderDic) {
-			sender = [[User userWithJsonDictionary:senderDic] retain];
+			sender = [User userWithJsonDictionary:senderDic];
 		}
 		
 		NSDictionary* recipientDic = [dic objectForKey:@"recipient"];
 		if (recipientDic) {
-			recipient = [[User userWithJsonDictionary:recipientDic] retain];
+			recipient = [User userWithJsonDictionary:recipientDic];
 		}
 		
 	}
@@ -39,15 +39,7 @@
 }
 
 + (DirectMessage*)directMessageWithJsonDictionary:(NSDictionary*)dic {
-	return [[[DirectMessage alloc] initWithJsonDictionary:dic] autorelease];
+	return [[DirectMessage alloc] initWithJsonDictionary:dic];
 }
 
-- (void)dealloc {
-	[text release];
-	[senderScreenName release];
-	[recipientScreenName release];
-	[sender release];
-	[recipient release];
-	[super dealloc];
-}
 @end

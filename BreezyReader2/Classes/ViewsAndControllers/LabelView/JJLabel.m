@@ -11,7 +11,7 @@
 
 @interface JJLabel()
 
-@property (nonatomic, assign) id target;
+@property (nonatomic, unsafe_unretained) id target;
 @property (nonatomic, assign) SEL action;
 
 -(void)drawTextInRect:(CGRect)rect;
@@ -30,13 +30,6 @@
 @synthesize verticalAlignment = _verticalAlignment;
 @synthesize actualLineNumber = _actualLineNumber;
 
--(void)dealloc{
-    self.shadowColor = nil;
-    self.text = nil;
-    self.font = nil;
-    self.textColor = nil;
-    [super dealloc];
-}
 
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -59,7 +52,7 @@
 }
 
 -(void)initialize{
-    UITapGestureRecognizer* singleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)] autorelease];
+    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
     
     [self addGestureRecognizer:singleTap];
 }
@@ -68,7 +61,6 @@
 
 -(void)setText:(NSString *)text{
     if (_text != text){
-        [_text release];
         _text = [text copy];
         if (self.autoResize){
             [self resizeToFitText];
@@ -79,8 +71,7 @@
 
 -(void)setTextColor:(UIColor *)textColor{
     if (_textColor != textColor){
-        [_textColor release];
-        _textColor = [textColor retain];
+        _textColor = textColor;
         [self performSelector:@selector(setNeedsDisplay)];
     }
 }
@@ -95,7 +86,7 @@
 
 -(UIFont*)font{
     if (_font == nil){
-        _font = [[UIFont systemFontOfSize:[UIFont systemFontSize]] retain];
+        _font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
     }
     
     return _font;

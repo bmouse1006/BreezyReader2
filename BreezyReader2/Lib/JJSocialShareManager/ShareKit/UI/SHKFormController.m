@@ -32,22 +32,14 @@
 
 @implementation SHKFormController
 
-@synthesize delegate, validateSelector, saveSelector; 
+@synthesize delegate = _delegate;
+@synthesize validateSelector, saveSelector; 
 @synthesize sections, values;
 @synthesize labelWidth;
 @synthesize activeField;
 @synthesize autoSelect;
 
 
-- (void)dealloc 
-{
-	[delegate release];
-	[sections release];
-	[values release];
-	[activeField release];
-	
-    [super dealloc];
-}
 
 
 #pragma mark -
@@ -59,14 +51,14 @@
 	{
 		self.title = barTitle;
 		
-		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																							  target:self
-																							  action:@selector(cancel)] autorelease];
+																							  action:@selector(cancel)];
 		
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:rightButtonTitle
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle
 																				  style:UIBarButtonItemStyleDone
 																				 target:self
-																				 action:@selector(validateForm)] autorelease];
+																				 action:@selector(validateForm)];
 		
 		self.values = [NSMutableDictionary dictionaryWithCapacity:0];
 	}
@@ -159,7 +151,7 @@
     SHKCustomFormFieldCell *cell = (SHKCustomFormFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
 	{
-        cell = [[[SHKCustomFormFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[SHKCustomFormFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		cell.form = self;
 		
 		if (SHKFormFontColorRed != -1)		

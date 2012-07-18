@@ -31,10 +31,10 @@ void report_memory(NSString *tag);
 
 @property(readwrite, nonatomic) BOOL shouldSmoothlyScaleOutput;
 @property(readwrite, nonatomic) BOOL shouldIgnoreUpdatesToThisTarget;
-@property(readwrite, nonatomic, retain) GPUImageMovieWriter *audioEncodingTarget;
+@property(readwrite, nonatomic) GPUImageMovieWriter *audioEncodingTarget;
 @property(readwrite, nonatomic, unsafe_unretained) id<GPUImageInput> targetToIgnoreForUpdates;
 @property(nonatomic, copy) void(^frameProcessingCompletionBlock)(GPUImageOutput*, CMTime);
-@property(nonatomic) BOOL enabled;
+@property(nonatomic, assign) BOOL enabled;
 
 /// @name Managing targets
 - (void)setInputTextureForTarget:(id<GPUImageInput>)target atIndex:(NSInteger)inputTextureIndex;

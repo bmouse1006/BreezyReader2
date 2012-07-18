@@ -60,11 +60,6 @@ static NSString* kFeedURL = @"http://www.facebook.com/connect/prompt_feed.php";
   return self;
 }
 
-- (void)dealloc {
-  [_templateData release];
-  [_bodyGeneral release];
-  [super dealloc];
-}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FBDialog

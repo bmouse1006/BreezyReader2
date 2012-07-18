@@ -31,7 +31,7 @@
   self = [self init];
   __errorCode = errorCode;
   __errorCode_isset = YES;
-  __parameter = [parameter retain];
+  __parameter = parameter;
   __parameter_isset = YES;
   return self;
 }
@@ -46,7 +46,7 @@
   }
   if ([decoder containsValueForKey: @"parameter"])
   {
-    __parameter = [[decoder decodeObjectForKey: @"parameter"] retain];
+    __parameter = [decoder decodeObjectForKey: @"parameter"];
     __parameter_isset = YES;
   }
   return self;
@@ -65,11 +65,6 @@
   }
 }
 
-- (void) dealloc
-{
-  [__parameter release];
-  [super dealloc];
-}
 
 - (int) errorCode {
   return __errorCode;
@@ -89,12 +84,10 @@
 }
 
 - (NSString *) parameter {
-  return [[__parameter retain] autorelease];
+  return __parameter;
 }
 
 - (void) setParameter: (NSString *) parameter {
-  [parameter retain];
-  [__parameter release];
   __parameter = parameter;
   __parameter_isset = YES;
 }
@@ -104,7 +97,6 @@
 }
 
 - (void) unsetParameter {
-  [__parameter release];
   __parameter = nil;
   __parameter_isset = NO;
 }
@@ -190,7 +182,7 @@
   self = [self init];
   __errorCode = errorCode;
   __errorCode_isset = YES;
-  __message = [message retain];
+  __message = message;
   __message_isset = YES;
   return self;
 }
@@ -205,7 +197,7 @@
   }
   if ([decoder containsValueForKey: @"message"])
   {
-    __message = [[decoder decodeObjectForKey: @"message"] retain];
+    __message = [decoder decodeObjectForKey: @"message"];
     __message_isset = YES;
   }
   return self;
@@ -224,11 +216,6 @@
   }
 }
 
-- (void) dealloc
-{
-  [__message release];
-  [super dealloc];
-}
 
 - (int) errorCode {
   return __errorCode;
@@ -248,12 +235,10 @@
 }
 
 - (NSString *) message {
-  return [[__message retain] autorelease];
+  return __message;
 }
 
 - (void) setMessage: (NSString *) message {
-  [message retain];
-  [__message release];
   __message = message;
   __message_isset = YES;
 }
@@ -263,7 +248,6 @@
 }
 
 - (void) unsetMessage {
-  [__message release];
   __message = nil;
   __message_isset = NO;
 }
@@ -347,9 +331,9 @@
 - (id) initWithIdentifier: (NSString *) identifier key: (NSString *) key
 {
   self = [self init];
-  __identifier = [identifier retain];
+  __identifier = identifier;
   __identifier_isset = YES;
-  __key = [key retain];
+  __key = key;
   __key_isset = YES;
   return self;
 }
@@ -359,12 +343,12 @@
   self = [super initWithCoder: decoder];
   if ([decoder containsValueForKey: @"identifier"])
   {
-    __identifier = [[decoder decodeObjectForKey: @"identifier"] retain];
+    __identifier = [decoder decodeObjectForKey: @"identifier"];
     __identifier_isset = YES;
   }
   if ([decoder containsValueForKey: @"key"])
   {
-    __key = [[decoder decodeObjectForKey: @"key"] retain];
+    __key = [decoder decodeObjectForKey: @"key"];
     __key_isset = YES;
   }
   return self;
@@ -383,20 +367,12 @@
   }
 }
 
-- (void) dealloc
-{
-  [__identifier release];
-  [__key release];
-  [super dealloc];
-}
 
 - (NSString *) identifier {
-  return [[__identifier retain] autorelease];
+  return __identifier;
 }
 
 - (void) setIdentifier: (NSString *) identifier {
-  [identifier retain];
-  [__identifier release];
   __identifier = identifier;
   __identifier_isset = YES;
 }
@@ -406,18 +382,15 @@
 }
 
 - (void) unsetIdentifier {
-  [__identifier release];
   __identifier = nil;
   __identifier_isset = NO;
 }
 
 - (NSString *) key {
-  return [[__key retain] autorelease];
+  return __key;
 }
 
 - (void) setKey: (NSString *) key {
-  [key retain];
-  [__key release];
   __key = key;
   __key_isset = YES;
 }
@@ -427,7 +400,6 @@
 }
 
 - (void) unsetKey {
-  [__key release];
   __key = nil;
   __key_isset = NO;
 }

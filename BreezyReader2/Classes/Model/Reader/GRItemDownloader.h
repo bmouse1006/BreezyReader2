@@ -20,13 +20,13 @@
 
 @interface GRItemDownloader : NSObject<ImageDownloaderDelegate>
 
-@property (nonatomic, retain) GRItem* item;
-@property (nonatomic, retain) NSArray* imageList;
-@property (retain) NSMutableDictionary* downloaderPool;//need to consider multi thread access
+@property (nonatomic, strong) GRItem* item;
+@property (nonatomic, strong) NSArray* imageList;
+@property  NSMutableDictionary* downloaderPool;//need to consider multi thread access
 @property (nonatomic, assign) BOOL cancelled;
-@property (nonatomic, retain) NSObject<GRItemDownloaderDelegate>* delegate;
+@property (nonatomic, strong) NSObject<GRItemDownloaderDelegate>* delegate;
 
-@property (nonatomic, retain) NSManagedObjectContext* context;
+@property (nonatomic, strong) NSManagedObjectContext* context;
 
 -(void)cancel;
 -(void)start;

@@ -14,10 +14,6 @@
 
 @synthesize button = _button;
 
--(void)dealloc{
-    self.button = nil;
-    [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame
 {

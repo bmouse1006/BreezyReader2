@@ -24,7 +24,7 @@
 	UIWebView									*_webView;
 	UINavigationBar								*_navBar;
 	
-	id <OAuthControllerDelegate>			_delegate;
+	id <OAuthControllerDelegate>			__unsafe_unretained _delegate;
 	UIView										*_blockerView;
 	
 	UIInterfaceOrientation                      _orientation;
@@ -33,8 +33,8 @@
 	
 }
 
-@property (nonatomic, retain) OAuthEngine *engine;
-@property (nonatomic, readwrite, assign) id <OAuthControllerDelegate> delegate;
+@property (nonatomic, strong) OAuthEngine *engine;
+@property (nonatomic, readwrite, unsafe_unretained) id <OAuthControllerDelegate> delegate;
 @property (nonatomic, readonly) UINavigationBar *navigationBar;
 
 + (OAuthController *) controllerToEnterCredentialsWithEngine: (OAuthEngine *) engine 

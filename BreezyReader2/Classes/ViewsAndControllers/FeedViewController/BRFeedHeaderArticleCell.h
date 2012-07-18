@@ -14,6 +14,6 @@
 
 @interface BRFeedHeaderArticleCell : BRFeedTableViewCell
 
-@property (nonatomic, retain) IBOutlet UIImageView* bottomShadow;
+@property (nonatomic, strong) IBOutlet UIImageView* bottomShadow;
 
 @end

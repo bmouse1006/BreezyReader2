@@ -38,15 +38,8 @@
 	feed.impressionTime = [JSONObj objectForKey:@"impressionTime"];
 	feed.isSubscribed = NO;
 	
-	return [feed autorelease];
+	return feed;
 }
 
--(void)dealloc{
-    self.title = nil;
-    self.snippet = nil;
-    self.streamID = nil;
-    self.impressionTime = nil;
-	[super dealloc];
-}
 
 @end

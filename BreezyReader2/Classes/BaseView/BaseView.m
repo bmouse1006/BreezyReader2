@@ -18,7 +18,6 @@ static BaseView* _currentView = nil;
 
 -(void)dealloc{
     self.baseViewDelegate = nil;
-    [super dealloc];
 }
 
 - (id)initWithFrame:(CGRect)frame

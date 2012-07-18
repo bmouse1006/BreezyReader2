@@ -13,8 +13,8 @@
 
 @interface BRRelatedFeedViewSource ()
 
-@property (nonatomic, retain) NSMutableArray* relatedSubs;
-@property (nonatomic, retain) GoogleReaderClient* client;
+@property (nonatomic, strong) NSMutableArray* relatedSubs;
+@property (nonatomic, strong) GoogleReaderClient* client;
 
 @end
 
@@ -38,13 +38,6 @@
     return self;
 }
 
--(void)dealloc{
-    self.relatedSubs = nil;
-    self.client = nil;
-    self.activity = nil;
-    self.showButton = nil;
-    [super dealloc];
-}
 
 -(UIView*)sectionView{
     return _sectionView;

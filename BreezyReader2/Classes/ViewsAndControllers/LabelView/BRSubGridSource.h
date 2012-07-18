@@ -12,8 +12,8 @@
 
 @interface BRSubGridSource : NSObject<JJMediaSource>
 
-@property (nonatomic, retain) GRTag* tag;
-@property (nonatomic, retain) NSArray* subscriptions;
-@property (nonatomic, assign) id<JJMediaSourceDelegate> delegate;
+@property (nonatomic, strong) GRTag* tag;
+@property (nonatomic, strong) NSArray* subscriptions;
+@property (nonatomic, unsafe_unretained) id<JJMediaSourceDelegate> delegate;
 
 @end

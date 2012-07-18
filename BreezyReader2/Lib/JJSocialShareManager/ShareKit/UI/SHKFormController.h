@@ -45,18 +45,18 @@
 	BOOL autoSelect;
 }
 
-@property (retain) id delegate;
-@property SEL validateSelector;
-@property SEL saveSelector;
+@property (unsafe_unretained) id delegate;
+@property (assign) SEL validateSelector;
+@property (assign) SEL saveSelector;
 
-@property (retain) NSMutableArray *sections;
-@property (retain) NSMutableDictionary *values;
+@property (strong) NSMutableArray *sections;
+@property (strong) NSMutableDictionary *values;
 
-@property CGFloat labelWidth;
+@property (assign) CGFloat labelWidth;
 
-@property (nonatomic, retain) UITextField *activeField;
+@property (nonatomic, strong) UITextField *activeField;
 
-@property BOOL autoSelect;
+@property (assign) BOOL autoSelect;
 
 
 - (id)initWithStyle:(UITableViewStyle)style title:(NSString *)barTitle rightButtonTitle:(NSString *)rightButtonTitle;

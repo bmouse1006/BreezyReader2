@@ -12,29 +12,29 @@
 
 @interface GRFeed : NSObject<GRBaseProtocol, NSCoding>
 
-@property (nonatomic, retain) NSString*	generator;
-@property (nonatomic, retain) NSString*	generator_URI;
-@property (nonatomic, retain) NSString*	ID;
-@property (nonatomic, retain) NSString*	selfLink;
-@property (nonatomic, retain) NSString*	alternateLink;
-@property (nonatomic, retain) NSString*	title;
-@property (nonatomic, retain) NSString*	subTitle;
-@property (nonatomic, retain) NSString*	gr_continuation;
-@property (nonatomic, retain) NSString*	author;
-@property (nonatomic, retain) NSDate*	updated;
-@property (nonatomic, retain) NSDate*	published;
-@property (nonatomic, retain) NSDate*	refreshed;
-@property (nonatomic, retain) NSMutableArray* items;
-@property (nonatomic, retain) NSMutableSet* itemIDs;
-@property (nonatomic, retain) NSData*	sourceXML;
-@property (nonatomic, retain) NSString* subscriptionID;
+@property (nonatomic, strong) NSString*	generator;
+@property (nonatomic, strong) NSString*	generator_URI;
+@property (nonatomic, strong) NSString*	ID;
+@property (nonatomic, strong) NSString*	selfLink;
+@property (nonatomic, strong) NSString*	alternateLink;
+@property (nonatomic, strong) NSString*	title;
+@property (nonatomic, strong) NSString*	subTitle;
+@property (nonatomic, strong) NSString*	gr_continuation;
+@property (nonatomic, strong) NSString*	author;
+@property (nonatomic, strong) NSDate*	updated;
+@property (nonatomic, strong) NSDate*	published;
+@property (nonatomic, strong) NSDate*	refreshed;
+@property (nonatomic, strong) NSMutableArray* items;
+@property (nonatomic, strong) NSMutableSet* itemIDs;
+@property (nonatomic, strong) NSData*	sourceXML;
+@property (nonatomic, strong) NSString* subscriptionID;
 
-@property (nonatomic, retain) NSMutableArray* sortArray;
+@property (nonatomic, strong) NSMutableArray* sortArray;
 
 @property (nonatomic, readonly) NSArray* imageURLs; 
 
-@property (nonatomic, retain) NSString* desc;
-@property (nonatomic, retain) NSString* direction;
+@property (nonatomic, strong) NSString* desc;
+@property (nonatomic, strong) NSString* direction;
 
 -(void)sortItems;
 -(void)addItem:(GRItem*)item;

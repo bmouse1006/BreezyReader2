@@ -19,8 +19,8 @@ typedef enum{
 @interface GRDiscover : NSObject<GRBaseProtocol> 
 
 @property (nonatomic, readonly) GRDiscoverType type;
-@property (nonatomic, retain) NSString* string;
-@property (nonatomic, retain) UIImage* theIcon;
+@property (nonatomic, strong) NSString* string;
+@property (nonatomic, strong) UIImage* theIcon;
 @property (nonatomic, readonly, getter=unreadCount) NSInteger unread;
 
 -(id)initWithGRDiscoverType:(GRDiscoverType)mType;

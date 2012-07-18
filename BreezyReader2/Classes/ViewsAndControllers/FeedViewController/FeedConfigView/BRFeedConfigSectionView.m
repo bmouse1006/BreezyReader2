@@ -13,13 +13,6 @@
 @synthesize titleLabel = _titleLabel, subTitleLabel = _subTitleLabel;
 @synthesize topBlack = _topBlack, topWhite = _topWhite;
 
--(void)dealloc{
-    self.titleLabel = nil;
-    self.subTitleLabel = nil;
-    self.topWhite = nil;
-    self.topBlack = nil;
-    [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -37,15 +30,15 @@
 }
 
 -(void)createSubviews{
-    self.titleLabel = [[[JJLabel alloc] initWithFrame:CGRectZero] autorelease];
+    self.titleLabel = [[JJLabel alloc] initWithFrame:CGRectZero];
     [self setupLabel:self.titleLabel];
-    self.subTitleLabel = [[[JJLabel alloc] initWithFrame:CGRectZero] autorelease];
+    self.subTitleLabel = [[JJLabel alloc] initWithFrame:CGRectZero];
     [self setupLabel:self.subTitleLabel];
     self.subTitleLabel.textColor = [UIColor whiteColor];
     self.subTitleLabel.font = [UIFont boldSystemFontOfSize:14];
     self.subTitleLabel.textAlignment = UITextAlignmentRight;
 //    self.topBlack = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-    self.topWhite = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.topWhite = [[UIView alloc] initWithFrame:CGRectZero];
 //    self.topBlack.backgroundColor = [UIColor darkGrayColor];
     self.topWhite.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.4f];;
     [self addSubview:self.topWhite];

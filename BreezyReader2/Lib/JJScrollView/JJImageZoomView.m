@@ -16,9 +16,9 @@
     long long _contentLength;
 }
 
-@property (nonatomic, retain) UIImageView* imageView;
-@property (nonatomic, retain) ASIHTTPRequest* request;
-@property (nonatomic, retain) UIProgressView* progressBar;
+@property (nonatomic, strong) UIImageView* imageView;
+@property (nonatomic, strong) ASIHTTPRequest* request;
+@property (nonatomic, strong) UIProgressView* progressBar;
 
 -(void)setupViews;
 - (void)setMaxMinZoomScalesForCurrentBounds;
@@ -52,17 +52,13 @@
 }
 
 -(void)dealloc{
-    self.imageView = nil;
     [self.request clearDelegatesAndCancel];
-    self.request = nil;
-    self.progressBar = nil;
-    [super dealloc];
 }
 
 -(void)setupViews{
     _downloadedLength = 0.0f;
     _contentLength = 0.0001f;
-    self.progressBar = [[[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar] autorelease];
+    self.progressBar = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
     self.progressBar.progress = 0;
     CGRect frame = self.progressBar.frame;
     frame.origin.x = (self.frame.size.width - frame.size.width)/2;
@@ -75,7 +71,7 @@
     self.bounces = YES;
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
-    UITapGestureRecognizer* doubleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)] autorelease];
+    UITapGestureRecognizer* doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
     doubleTap.numberOfTapsRequired = 2;
     doubleTap.delaysTouchesBegan = YES;
     [self addGestureRecognizer:doubleTap];
@@ -83,7 +79,7 @@
 
 -(void)setImage:(UIImage *)image{
     [self.imageView removeFromSuperview];
-    self.imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
+    self.imageView = [[UIImageView alloc] initWithImage:image];
     [self insertSubview:self.imageView belowSubview:self.progressBar];
     
     [self adjustImageView];

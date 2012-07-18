@@ -10,7 +10,7 @@
 
 @interface BRFeedConfigBaseCell : UITableViewCell
 
-@property (nonatomic, retain) IBOutlet UIView* topWhite;
-@property (nonatomic, retain) IBOutlet UIView* topBlack;
+@property (nonatomic, strong) IBOutlet UIView* topWhite;
+@property (nonatomic, strong) IBOutlet UIView* topBlack;
 
 @end

@@ -11,7 +11,7 @@
 @interface JJAdView()
 
 @property (nonatomic, assign) CGSize adSize;
-@property (nonatomic, retain) id adView;
+@property (nonatomic, strong) id adView;
 
 @end
 
@@ -24,11 +24,6 @@
 
 static NSString* admobPublisherID = @"a14f851c3ba444f";
 
--(void)dealloc{
-    self.adMobPublisherID = nil;
-    self.adView = nil;
-    [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -94,7 +89,7 @@ static NSString* admobPublisherID = @"a14f851c3ba444f";
 -(void)loadiAd{
     [self.adView removeFromSuperview];
     [self.adView setValue:nil forKey:@"delegate"];
-    ADBannerView* bannerView = [[[ADBannerView alloc] initWithFrame:self.bounds] autorelease];
+    ADBannerView* bannerView = [[ADBannerView alloc] initWithFrame:self.bounds];
     bannerView.delegate = self;
     [self addSubview:bannerView];
     self.adView = bannerView;
@@ -103,7 +98,7 @@ static NSString* admobPublisherID = @"a14f851c3ba444f";
 -(void)loadAdmob{
     [self.adView removeFromSuperview];
     [self.adView setValue:nil forKey:@"delegate"];
-    GADBannerView* bannerView = [[[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner] autorelease];
+    GADBannerView* bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
     bannerView.delegate = self;
     bannerView.adUnitID = admobPublisherID;
     bannerView.rootViewController = [self.delegate viewControllerForPresentingModalView];

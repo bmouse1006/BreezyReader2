@@ -82,12 +82,12 @@
 						SHKEncode([formValues objectForKey:@"password"])
 						];
 	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"http://readitlaterlist.com/v2/auth"]
+	self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"http://readitlaterlist.com/v2/auth"]
 								 params:params
 							   delegate:self
 					 isFinishedSelector:@selector(authFinished:)
 								 method:@"POST"
-							  autostart:YES] autorelease];
+							  autostart:YES];
 	
 	self.pendingForm = form;
 }
@@ -102,11 +102,11 @@
 	
 	else
 	{
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
+		[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
 									 message:[request.headers objectForKey:@"X-Error"]
 									delegate:nil
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
-						   otherButtonTitles:nil] autorelease] show];
+						   otherButtonTitles:nil] show];
 	}
 }
 
@@ -149,12 +149,12 @@
 							new,
 							tags];
 		
-		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"http://readitlaterlist.com/v2/send"]
+		self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"http://readitlaterlist.com/v2/send"]
 									 params:params
 								   delegate:self
 						 isFinishedSelector:@selector(sendFinished:)
 									 method:@"POST"
-								  autostart:YES] autorelease];
+								  autostart:YES];
 		
 		
 		// Notify delegate

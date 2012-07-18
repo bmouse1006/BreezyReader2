@@ -46,8 +46,8 @@ enum EDAMErrorCode {
 - (void) write: (id <TProtocol>) outProtocol;
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=errorCode, setter=setErrorCode:) int errorCode;
-@property (nonatomic, retain, getter=parameter, setter=setParameter:) NSString * parameter;
+@property (nonatomic, getter=errorCode, setter=setErrorCode:, assign) int errorCode;
+@property (nonatomic, getter=parameter, setter=setParameter:, strong) NSString * parameter;
 #else
 
 - (int) errorCode;
@@ -76,8 +76,8 @@ enum EDAMErrorCode {
 - (void) write: (id <TProtocol>) outProtocol;
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=errorCode, setter=setErrorCode:) int errorCode;
-@property (nonatomic, retain, getter=message, setter=setMessage:) NSString * message;
+@property (nonatomic, getter=errorCode, setter=setErrorCode:, assign) int errorCode;
+@property (nonatomic, getter=message, setter=setMessage:, strong) NSString * message;
 #else
 
 - (int) errorCode;
@@ -106,8 +106,8 @@ enum EDAMErrorCode {
 - (void) write: (id <TProtocol>) outProtocol;
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=identifier, setter=setIdentifier:) NSString * identifier;
-@property (nonatomic, retain, getter=key, setter=setKey:) NSString * key;
+@property (nonatomic, getter=identifier, setter=setIdentifier:, strong) NSString * identifier;
+@property (nonatomic, getter=key, setter=setKey:, strong) NSString * key;
 #else
 
 - (NSString *) identifier;

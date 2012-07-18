@@ -10,7 +10,7 @@
 
 @interface BRActionMenuViewController : UIViewController
 
-@property (nonatomic, retain) IBOutlet UIView* menu;
+@property (nonatomic, strong) IBOutlet UIView* menu;
 -(void)dismiss;
 -(void)showMenuInPosition:(CGPoint)position anchorPoint:(CGPoint)anchor;
 

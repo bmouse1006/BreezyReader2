@@ -14,7 +14,7 @@
 
 @interface BRFeedConfigViewController : BRSettingBaseController<UIAlertViewDelegate>
 
-@property (nonatomic, retain) GRSubscription* subscription;
+@property (nonatomic, strong) GRSubscription* subscription;
 
 -(void)showSubscription:(GRSubscription*)subscription;
 -(void)showAddNewTagView;

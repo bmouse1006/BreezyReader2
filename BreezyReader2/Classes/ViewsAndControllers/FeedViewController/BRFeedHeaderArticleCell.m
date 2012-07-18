@@ -23,10 +23,6 @@
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.bottomShadow = nil;
-    self.starButton = nil;
-    self.unstarButton = nil;
-    [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

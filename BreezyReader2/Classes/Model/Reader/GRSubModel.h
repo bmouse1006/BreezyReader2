@@ -11,11 +11,11 @@
 
 @interface GRSubModel :  NSManagedObject
 
-@property (nonatomic, retain) NSString * ID;
-@property (nonatomic, retain) NSString * sortID;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSDate * downloadedDate;
-@property (nonatomic, retain) NSNumber * newestItemTimestampUsec;
+@property (nonatomic, strong) NSString * ID;
+@property (nonatomic, strong) NSString * sortID;
+@property (nonatomic, strong) NSString * title;
+@property (nonatomic, strong) NSDate * downloadedDate;
+@property (nonatomic, strong) NSNumber * newestItemTimestampUsec;
 //
 //@property (nonatomic, readonly, getter=getDownloadedDuration) NSString* downloadedDuration;
 

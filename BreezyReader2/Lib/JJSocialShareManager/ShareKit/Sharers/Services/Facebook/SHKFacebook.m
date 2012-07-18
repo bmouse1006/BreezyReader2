@@ -37,9 +37,6 @@
 - (void)dealloc
 {
 	[session.delegates removeObject:self];
-	[session release];
-	[login release];
-	[super dealloc];
 }
 
 
@@ -108,7 +105,7 @@
 - (void)promptAuthorization
 {
 	self.pendingFacebookAction = SHKFacebookPendingLogin;
-	self.login = [[[FBLoginDialog alloc] initWithSession:[self session]] autorelease];
+	self.login = [[FBLoginDialog alloc] initWithSession:[self session]];
 	[login show];
 }
 
@@ -144,7 +141,7 @@
 	{
 		self.pendingFacebookAction = SHKFacebookPendingStatus;
 		
-		SHKFBStreamDialog* dialog = [[[SHKFBStreamDialog alloc] init] autorelease];
+		SHKFBStreamDialog* dialog = [[SHKFBStreamDialog alloc] init];
 		dialog.delegate = self;
 		dialog.userMessagePrompt = SHKLocalizedString(@"Enter your message:");
 		dialog.attachment = [NSString stringWithFormat:
@@ -167,7 +164,7 @@
 	{
 		self.pendingFacebookAction = SHKFacebookPendingStatus;
 		
-		SHKFBStreamDialog* dialog = [[[SHKFBStreamDialog alloc] init] autorelease];
+		SHKFBStreamDialog* dialog = [[SHKFBStreamDialog alloc] init];
 		dialog.delegate = self;
 		dialog.userMessagePrompt = @"Enter your message:";
 		dialog.defaultStatus = item.text;
@@ -182,7 +179,7 @@
 	{		
 		self.pendingFacebookAction = SHKFacebookPendingImage;
 		
-		FBPermissionDialog* dialog = [[[FBPermissionDialog alloc] init] autorelease];
+		FBPermissionDialog* dialog = [[FBPermissionDialog alloc] init];
 		dialog.delegate = self;
 		dialog.permission = @"photo_upload";
 		[dialog show];		

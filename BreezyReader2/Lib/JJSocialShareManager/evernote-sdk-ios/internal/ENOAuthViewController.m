@@ -10,9 +10,9 @@
 
 @interface ENOAuthViewController() <UIWebViewDelegate>
 
-@property (nonatomic, retain) NSURL *authorizationURL;
-@property (nonatomic, retain) NSString *oauthCallbackPrefix;
-@property (nonatomic, retain) UIWebView *webView;
+@property (nonatomic, strong) NSURL *authorizationURL;
+@property (nonatomic, strong) NSString *oauthCallbackPrefix;
+@property (nonatomic, strong) UIWebView *webView;
 
 @end
 
@@ -26,10 +26,6 @@
 - (void)dealloc
 {
     self.delegate = nil;
-    [_authorizationURL release];
-    [_oauthCallbackPrefix release];
-    [_webView release];
-    [super dealloc];
 }
 
 - (id)initWithAuthorizationURL:(NSURL *)authorizationURL 
@@ -50,13 +46,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    UIBarButtonItem *cancelItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
-                                                                                target:self action:@selector(cancel:)] autorelease];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
+                                                                                target:self action:@selector(cancel:)];
     self.navigationItem.rightBarButtonItem = cancelItem;
     
     // Using self.view.frame leaves a 20px black space above the webview... from status bar spacing?
     //self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
-    self.webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)] autorelease];
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.webView.scalesPageToFit = YES;
     self.webView.delegate = self;
@@ -80,7 +76,6 @@
 
     self.webView.delegate = nil;
     [self.webView stopLoading];    
-    [_webView release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

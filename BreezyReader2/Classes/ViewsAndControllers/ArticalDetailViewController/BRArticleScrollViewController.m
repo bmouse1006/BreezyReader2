@@ -20,10 +20,10 @@
     BOOL _showMenu;
 }
 
-@property (nonatomic, retain) NSArray* articleDetailControllers;
-@property (nonatomic, retain) NSMutableSet* clients;
+@property (nonatomic, strong) NSArray* articleDetailControllers;
+@property (nonatomic, strong) NSMutableSet* clients;
 
-@property (nonatomic, retain) UIView* adView;
+@property (nonatomic, strong) UIView* adView;
 
 @end
 
@@ -44,21 +44,8 @@
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.scrollView = nil;
-    self.feed = nil;
-    self.backButton = nil;
-    self.bottomToolBar = nil;
-    self.articleDetailControllers = nil;
     [self.clients makeObjectsPerformSelector:@selector(clearAndCancel)];
-    self.clients = nil;
-    self.adView = nil;
-    self.starButton = nil;
-    self.unstarButton = nil;
-    self.starButtonContainer = nil;
-    self.actionMenuController = nil;
-    self.leftScrollButton = nil;
-    self.rightScrollButton = nil;
-    [super dealloc];
+    self.articleDetailControllers = nil;
 }
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -154,7 +141,7 @@
 -(void)loadControllers{
     NSMutableArray* controllers = [NSMutableArray array];
     for (GRItem* item in self.feed.items){
-        BRArticleDetailViewController* articleDetail = [[[BRArticleDetailViewController alloc] initWithItem:item] autorelease];
+        BRArticleDetailViewController* articleDetail = [[BRArticleDetailViewController alloc] initWithItem:item];
         articleDetail.delegate = self;
         [controllers addObject:articleDetail];
         [self addChildViewController:articleDetail];
@@ -221,11 +208,11 @@
 -(IBAction)viewInSafari:(id)sender{
     NSInteger index = [self.scrollView currentIndex];
     GRItem* item = [self.feed.items objectAtIndex:index];
-    JJSingleWebController* webController = [[[JJSingleWebController alloc] initWithTheNibOfSameName] autorelease];
+    JJSingleWebController* webController = [[JJSingleWebController alloc] initWithTheNibOfSameName];
     webController.URL = [NSURL URLWithString:item.alternateLink];
     
     [UIApplication sharedApplication].statusBarHidden = NO;
-    UINavigationController* nav = [[[UINavigationController alloc] initWithRootViewController:webController] autorelease];
+    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:webController];
     [self presentViewController:nav animated:YES completion:NULL];
 }
 

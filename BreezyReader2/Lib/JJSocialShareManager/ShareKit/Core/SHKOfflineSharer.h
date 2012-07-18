@@ -39,12 +39,12 @@
 	SHKSharer *sharer;
 }
 
-@property (nonatomic, retain) SHKItem *item;
-@property (nonatomic, retain) NSString *sharerId;
-@property (nonatomic, retain) NSString *uid;
+@property (nonatomic, strong) SHKItem *item;
+@property (nonatomic, strong) NSString *sharerId;
+@property (nonatomic, strong) NSString *uid;
 @property BOOL readyToFinish;
-@property (nonatomic, retain) NSThread *runLoopThread;
-@property (nonatomic, retain) SHKSharer *sharer;
+@property (nonatomic, strong) NSThread *runLoopThread;
+@property (nonatomic, strong) SHKSharer *sharer;
 
 - (id)initWithItem:(SHKItem *)i forSharer:(NSString *)s uid:(NSString *)u;
 

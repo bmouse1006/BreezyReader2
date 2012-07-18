@@ -21,20 +21,20 @@
 		statusId = [stmt getInt64:0];
 		statusKey = [[NSNumber alloc]initWithLongLong:statusId];
 		createdAt = [stmt getInt32:1];
-		text = [[stmt getString:2] retain];
-		source = [[stmt getString:3] retain];
-		sourceUrl = [[stmt getString:4] retain];
+		text = [stmt getString:2];
+		source = [stmt getString:3];
+		sourceUrl = [stmt getString:4];
 		favorited = [stmt getInt32:5];
 		truncated = [stmt getInt32:6];
 		latitude = [stmt getDouble:7];
 		longitude = [stmt getDouble:8];
 		inReplyToStatusId = [stmt getInt64:9];
 		inReplyToUserId = [stmt getInt32:10];
-		inReplyToScreenName = [[stmt getString:11] retain];
-		thumbnailPic = [[stmt getString:12] retain];
-		bmiddlePic = [[stmt getString:13] retain];
-		originalPic = [[stmt getString:14] retain];
-		user = [[User userWithId:[stmt getInt32:15]] retain];
+		inReplyToScreenName = [stmt getString:11];
+		thumbnailPic = [stmt getString:12];
+		bmiddlePic = [stmt getString:13];
+		originalPic = [stmt getString:14];
+		user = [User userWithId:[stmt getInt32:15]];
 		commentsCount = [stmt getInt32:16];
 		retweetsCount = [stmt getInt32:17];
 		unread = [stmt getInt32:19];
@@ -48,7 +48,7 @@
 		statusId = [dic getLongLongValueValueForKey:@"id" defaultValue:-1];
 		statusKey = [[NSNumber alloc]initWithLongLong:statusId];
 		createdAt = [dic getTimeValueForKey:@"created_at" defaultValue:0];
-		text = [[dic getStringValueForKey:@"text" defaultValue:@""] retain];
+		text = [dic getStringValueForKey:@"text" defaultValue:@""];
 		
 		// parse source parameter
 		NSString *src = [dic getStringValueForKey:@"source" defaultValue:@""];
@@ -87,8 +87,8 @@
 		else {
 			source = src;
 		}
-		source = [source retain];
-		sourceUrl = [sourceUrl retain];
+		source = source;
+		sourceUrl = sourceUrl;
 		
 		favorited = [dic getBoolValueForKey:@"favorited" defaultValue:NO];
 		truncated = [dic getBoolValueForKey:@"truncated" defaultValue:NO];
@@ -104,19 +104,19 @@
 		
 		inReplyToStatusId = [dic getLongLongValueValueForKey:@"in_reply_to_status_id" defaultValue:-1];
 		inReplyToUserId = [dic getIntValueForKey:@"in_reply_to_user_id" defaultValue:-1];
-		inReplyToScreenName = [[dic getStringValueForKey:@"in_reply_to_screen_name" defaultValue:@""] retain];
-		thumbnailPic = [[dic getStringValueForKey:@"thumbnail_pic" defaultValue:@""] retain];
-		bmiddlePic = [[dic getStringValueForKey:@"bmiddle_pic" defaultValue:@""] retain];
-		originalPic = [[dic getStringValueForKey:@"original_pic" defaultValue:@""] retain];
+		inReplyToScreenName = [dic getStringValueForKey:@"in_reply_to_screen_name" defaultValue:@""];
+		thumbnailPic = [dic getStringValueForKey:@"thumbnail_pic" defaultValue:@""];
+		bmiddlePic = [dic getStringValueForKey:@"bmiddle_pic" defaultValue:@""];
+		originalPic = [dic getStringValueForKey:@"original_pic" defaultValue:@""];
 		
 		NSDictionary* userDic = [dic objectForKey:@"user"];
 		if (userDic) {
-			user = [[User userWithJsonDictionary:userDic] retain];
+			user = [User userWithJsonDictionary:userDic];
 		}
 		
 		NSDictionary* retweetedStatusDic = [dic objectForKey:@"retweeted_status"];
 		if (retweetedStatusDic) {
-			retweetedStatus = [[Status statusWithJsonDictionary:retweetedStatusDic] retain];
+			retweetedStatus = [Status statusWithJsonDictionary:retweetedStatusDic];
 		}
 	}
 	return self;
@@ -124,7 +124,7 @@
 
 + (Status*)statusWithJsonDictionary:(NSDictionary*)dic
 {
-	return [[[Status alloc] initWithJsonDictionary:dic] autorelease];
+	return [[Status alloc] initWithJsonDictionary:dic];
 }
 
 
@@ -173,19 +173,6 @@
 }
 
 
-- (void)dealloc {
-	[text release];
-	[source release];
-	[sourceUrl release];
-	[inReplyToScreenName release];
-	[thumbnailPic release];
-	[bmiddlePic release];
-	[originalPic release];
-	[user release];
-	[retweetedStatus release];
-	[statusKey release];
-	[super dealloc];
-}
 
 + (Status*)statusWithStatusId:(long long)statusId {
 	
@@ -194,7 +181,6 @@
     static Statement *stmt = nil;
     if (stmt == nil) {
         stmt = [DBConnection statementWithQuery:"SELECT * FROM statuses WHERE statusId = ?"];
-        [stmt retain];
     }
     
     [stmt bindInt64:statusId forIndex:1];
@@ -204,7 +190,7 @@
         return nil;
     }
     
-    status = [[[Status alloc] initWithStatement:stmt] autorelease];
+    status = [[Status alloc] initWithStatement:stmt];
 	long long retweetedStatusId = [stmt getInt64:18];	
     [stmt reset];
 	
@@ -222,7 +208,6 @@
     static Statement *stmt = nil;
     if (stmt == nil) {
         stmt = [DBConnection statementWithQuery:"SELECT statusId FROM statuses WHERE statusId=?"];
-        [stmt retain];
     }
     
     [stmt bindInt64:aStatusId forIndex:1];
@@ -241,7 +226,6 @@
     static Statement *stmt = nil;
     if (stmt == nil) {
         stmt = [DBConnection statementWithQuery:"REPLACE INTO statuses VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"];
-        [stmt retain];
     }
     [stmt bindInt64:statusId    forIndex:1];
 	[stmt bindInt32:createdAt   forIndex:2];

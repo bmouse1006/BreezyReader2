@@ -10,7 +10,7 @@
 
 @interface JJImageZoomView : UIScrollView <UIScrollViewDelegate>
 
-@property (nonatomic, readonly) UIImage* loadedImage;
+@property (weak, nonatomic, readonly) UIImage* loadedImage;
 
 -(void)setImage:(UIImage*)image;
 -(void)setImageURL:(NSString*)imageURL;

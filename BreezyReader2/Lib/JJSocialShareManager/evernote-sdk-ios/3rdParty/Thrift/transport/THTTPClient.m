@@ -25,9 +25,6 @@
 
 - (void) setupRequest
 {
-  if (mRequest != nil) {
-    [mRequest release];
-  }
 
   // set up our request object that we'll use for each request
   mRequest = [[NSMutableURLRequest alloc] initWithURL: mURL];
@@ -67,9 +64,9 @@
 
   mTimeout = timeout;
   if (userAgent) {
-    mUserAgent = [userAgent retain];
+    mUserAgent = userAgent;
   }
-  mURL = [aURL retain];
+  mURL = aURL;
 
   [self setupRequest];
 
@@ -82,23 +79,12 @@
 
 - (void) setURL: (NSURL *) aURL
 {
-  [aURL retain];
-  [mURL release];
   mURL = aURL;
 
   [self setupRequest];
 }
 
 
-- (void) dealloc
-{
-  [mURL release];
-  [mUserAgent release];
-  [mRequest release];
-  [mRequestData release];
-  [mResponseData release];
-  [super dealloc];
-}
 
 
 - (int) readAll: (uint8_t *) buf offset: (int) off length: (int) len
@@ -151,8 +137,7 @@
   }
 
   // phew!
-  [mResponseData release];
-  mResponseData = [responseData retain];
+  mResponseData = responseData;
   mResponseDataOffset = 0;
 }
 

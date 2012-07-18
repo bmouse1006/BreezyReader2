@@ -113,7 +113,7 @@
 
 - (BOOL)sendMail
 {	
-	MFMailComposeViewController *mailController = [[[MFMailComposeViewController alloc] init] autorelease];
+	MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
 	mailController.mailComposeDelegate = self;
 	
 	NSString *body = [item customValueForKey:@"body"];

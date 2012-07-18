@@ -18,7 +18,7 @@
 -(id)initWithContainerFrame:(CGRect)frame{
     self = [super init];
     if (self){
-        self.view = [[[UIView alloc] initWithFrame:frame] autorelease];
+        self.view = [[UIView alloc] initWithFrame:frame];
         self.view.backgroundColor = [UIColor clearColor];
         self.leftContainer = nil;
         self.rightContainer = nil;
@@ -28,10 +28,6 @@
     return self;
 }
 
--(void)dealloc{
-    self.view = nil;
-    [super dealloc];
-}
 
 -(void)addViewToContainer:(UIView*)view{
 

@@ -14,7 +14,7 @@ static NSString* LOCATION_API = @"http://api.wipmania.com/";
 
 @interface JJADManager ()
 
-@property (nonatomic, retain) CLLocation* location;
+@property (nonatomic, strong) CLLocation* location;
 
 @end
 
@@ -65,10 +65,6 @@ static BOOL inChina = YES;
     return self;
 }
 
--(void)dealloc{
-    self.location = nil;
-    [super dealloc];
-}
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
     self.location = newLocation;
@@ -81,7 +77,7 @@ static BOOL inChina = YES;
 //    }
     id adView = nil;
 #ifdef FREEVERSION
-    adView = [[[JJAdView alloc] initWithSize:CGSizeMake(320, 50)] autorelease];
+    adView = [[JJAdView alloc] initWithSize:CGSizeMake(320, 50)];
     ((JJAdView*)adView).hidden = YES;
     ((JJAdView*)adView).delegate = self;
     [adView loadAd];

@@ -75,12 +75,12 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
                        SHKEncode([formValues objectForKey:@"password"])
                        ];
 	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kInstapaperAuthenticationURL]
+	self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:kInstapaperAuthenticationURL]
                                            params:params
                                          delegate:self
                                isFinishedSelector:@selector(authFinished:)
                                            method:@"POST"
-                                        autostart:YES] autorelease];
+                                        autostart:YES];
 	
 	self.pendingForm = form;
 }
@@ -99,11 +99,11 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
     else
       errorMessage = SHKLocalizedString(@"Sorry, Instapaper encountered an error. Please try again.");
       
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
+		[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
                                  message:errorMessage
                                 delegate:nil
                        cancelButtonTitle:SHKLocalizedString(@"Close")
-                       otherButtonTitles:nil] autorelease] show];
+                       otherButtonTitles:nil] show];
 	}
 }
 
@@ -128,12 +128,12 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
                          SHKEncode([self getAuthValueForKey:@"username"]),
                          SHKEncode([self getAuthValueForKey:@"password"])];
 		
-		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kInstapaperSharingURL]
+		self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:kInstapaperSharingURL]
                                              params:params
                                            delegate:self
                                  isFinishedSelector:@selector(sendFinished:)
                                              method:@"POST"
-                                          autostart:YES] autorelease];
+                                          autostart:YES];
 		
 		// Notify delegate
 		[self sendDidStart];

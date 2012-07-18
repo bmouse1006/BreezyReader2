@@ -14,7 +14,6 @@
 
 -(void)dealloc{
     self.properties = nil;
-    [super dealloc];
 }
 
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key{
@@ -23,9 +22,7 @@
 
 -(void)setProperties:(NSDictionary *)properties{
     if (_properties != properties){
-        [_properties release];
         _properties = properties;
-        [_properties retain];
         NSArray* keys = [_properties allKeys];
         for (id key in keys){
             [self setValue:[_properties valueForKey:key] forKey:key];
@@ -36,7 +33,7 @@
 +(id)objWithProperties:(NSDictionary*)properties{
     BasePropertiesObject* obj = [[self alloc] init];
     obj.properties = properties;
-    return [obj autorelease];
+    return obj;
 }
 
 @end

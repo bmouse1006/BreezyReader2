@@ -21,7 +21,6 @@
 
 - (void)dealloc {
 	cell = nil;
-	[super dealloc];
 }
 
 @end

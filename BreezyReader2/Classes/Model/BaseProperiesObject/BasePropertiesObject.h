@@ -10,7 +10,7 @@
 
 @interface BasePropertiesObject : NSObject
 
-@property (nonatomic, retain, setter = setProperties:) NSDictionary* properties;
+@property (nonatomic, setter = setProperties:) NSDictionary* properties;
 
 +(id)objWithProperties:(NSDictionary*)properties;
 

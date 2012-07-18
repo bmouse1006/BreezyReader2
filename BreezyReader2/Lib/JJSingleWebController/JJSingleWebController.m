@@ -13,11 +13,11 @@
 
 @interface JJSingleWebController ()
 
-@property (nonatomic, retain) UIBarButtonItem* backIcon;
-@property (nonatomic, retain) UIBarButtonItem* forwardIcon;
-@property (nonatomic, retain) UIBarButtonItem* refreshIcon;
-@property (nonatomic, retain) UIBarButtonItem* stopIcon;
-@property (nonatomic, retain) UIBarButtonItem* actionIcon;
+@property (nonatomic, strong) UIBarButtonItem* backIcon;
+@property (nonatomic, strong) UIBarButtonItem* forwardIcon;
+@property (nonatomic, strong) UIBarButtonItem* refreshIcon;
+@property (nonatomic, strong) UIBarButtonItem* stopIcon;
+@property (nonatomic, strong) UIBarButtonItem* actionIcon;
 
 -(void)updateUI;
 -(void)hideGradientBackground:(UIView*)theView;
@@ -30,16 +30,6 @@
 @synthesize URL = _URL;
 @synthesize backIcon = _backIcon, forwardIcon = _forwardIcon, refreshIcon = _refreshIcon, stopIcon = _stopIcon, actionIcon = _actionIcon;
 
--(void)dealloc{
-    self.webView = nil;
-    self.URL = nil;
-    self.backIcon = nil;
-    self.forwardIcon = nil;
-    self.refreshIcon = nil;
-    self.stopIcon = nil;
-    self.actionIcon = nil;
-    [super dealloc];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -75,18 +65,18 @@
     
     if (self.navigationItem.leftBarButtonItem == nil){
         
-        UIBarButtonItem* closeItem = [[[UIBarButtonItem alloc] initWithTitle:SingleWebLocalizedString(@"title_close", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(closeAction:)] autorelease];
+        UIBarButtonItem* closeItem = [[UIBarButtonItem alloc] initWithTitle:SingleWebLocalizedString(@"title_close", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(closeAction:)];
         self.navigationItem.leftBarButtonItem = closeItem;
     }
     
-    self.backIcon = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backIcon"] style:UIBarButtonItemStylePlain target:self.webView action:@selector(goBack)] autorelease];
+    self.backIcon = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backIcon"] style:UIBarButtonItemStylePlain target:self.webView action:@selector(goBack)];
     self.backIcon.tintColor = nil;
-    self.forwardIcon = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forwardIcon"] style:UIBarButtonItemStylePlain target:self.webView action:@selector(goForward)] autorelease];
+    self.forwardIcon = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forwardIcon"] style:UIBarButtonItemStylePlain target:self.webView action:@selector(goForward)];
     self.forwardIcon.tintColor = nil;
-    self.refreshIcon = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self.webView action:@selector(reload)] autorelease];
+    self.refreshIcon = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self.webView action:@selector(reload)];
     self.refreshIcon.tintColor = nil;
-    self.stopIcon = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self.webView action:@selector(stopLoading)] autorelease];
-    self.actionIcon = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionAction:)] autorelease];
+    self.stopIcon = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self.webView action:@selector(stopLoading)];
+    self.actionIcon = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionAction:)];
     self.actionIcon.tintColor = nil;
 
     [self.webView loadRequest:[NSURLRequest requestWithURL:self.URL]];
@@ -118,13 +108,13 @@
     self.backIcon.enabled = [self.webView canGoBack];
     self.forwardIcon.enabled = [self.webView canGoForward];
     
-    UIBarButtonItem* space = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
+    UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
     if ([self.webView isLoading]){
         self.toolbarItems = [NSArray arrayWithObjects:self.backIcon, space, self.forwardIcon, space, self.stopIcon, space, self.actionIcon, nil];
-        UIActivityIndicatorView* indicator = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] autorelease];
+        UIActivityIndicatorView* indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [indicator startAnimating];
-        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:indicator] autorelease];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:indicator];
     }else{
         self.toolbarItems = [NSArray arrayWithObjects:self.backIcon, space, self.forwardIcon, space, self.refreshIcon, space, self.actionIcon, nil];
         self.navigationItem.rightBarButtonItem = nil;
@@ -133,7 +123,7 @@
 
 #pragma mark - action
 -(void)actionAction:(id)sender{
-    UIActionSheet* sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:SingleWebLocalizedString(@"title_cancel", nil) destructiveButtonTitle:nil otherButtonTitles:SingleWebLocalizedString(@"title_openinsafari", nil),nil] autorelease];
+    UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:SingleWebLocalizedString(@"title_cancel", nil) destructiveButtonTitle:nil otherButtonTitles:SingleWebLocalizedString(@"title_openinsafari", nil),nil];
     [sheet showFromToolbar:self.navigationController.toolbar];
 }
 

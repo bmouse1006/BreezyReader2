@@ -45,10 +45,10 @@ typedef enum
 	NSString *start;
 }
 
-@property (nonatomic, retain) NSString *label;
-@property (nonatomic, retain) NSString *key;
+@property (nonatomic, strong) NSString *label;
+@property (nonatomic, strong) NSString *key;
 @property SHKFormFieldType type;
-@property (nonatomic, retain) NSString *start;
+@property (nonatomic, strong) NSString *start;
 
 + (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s;
 

@@ -68,14 +68,6 @@
 	return self;
 }
 
--(void)dealloc{
-    self.delegate = nil;
-    self.cachedData = nil;
-    self.connection = nil;
-    self.imageURL = nil;
-    
-	[super dealloc];
-}
 
 @end
 

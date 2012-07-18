@@ -120,13 +120,12 @@ static GoogleAuthManager *shareAuthManager = nil;
             self.loginStatus = LOGIN_FAILED;
         }
     }];
-    return [authControl autorelease];
+    return authControl;
 }
 
 -(void)promptAuthViewController{
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:[self GOAuthController]];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentModalViewController:nav animated:YES];
-    [nav release];
 }
 
 #pragma mark - notification register and handlers
@@ -151,7 +150,6 @@ static GoogleAuthManager *shareAuthManager = nil;
 #pragma mark - getter and setter
 
 -(void)setLoginStatus:(NSString *)loginStatus{
-    [_loginStatus release];
     _loginStatus = [loginStatus copy];
     NSNotification* notification = [NSNotification notificationWithName:NOTIFICATION_LOGINSTATUSCHANGED object:nil userInfo:[NSDictionary dictionaryWithObject:self.loginStatus forKey:@"status"]];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
@@ -196,11 +194,6 @@ static GoogleAuthManager *shareAuthManager = nil;
 	return self;
 }
 
--(void)dealloc{
-    self.oauth = nil;
-    self.error = nil;
-	[super dealloc];
-}
 
 
 #pragma mark - singleton methods
@@ -208,39 +201,9 @@ static GoogleAuthManager *shareAuthManager = nil;
 + (GoogleAuthManager*)shared
 {
     if (shareAuthManager == nil) {
-        shareAuthManager = [[super allocWithZone:NULL] init];
+        shareAuthManager = [[self alloc] init];
     }
     return shareAuthManager;
 }
 
-+ (id)allocWithZone:(NSZone *)zone
-{
-    return [[self shared] retain];
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return self;
-}
-
-- (id)retain
-{
-    return self;
-}
-
-- (NSUInteger)retainCount
-{
-    return NSUIntegerMax;  //denotes an object that cannot be released
-}
-
-- (oneway void)release
-{
-    return;
-    //do nothing
-}
-
-- (id)autorelease
-{
-    return self;
-}
 @end

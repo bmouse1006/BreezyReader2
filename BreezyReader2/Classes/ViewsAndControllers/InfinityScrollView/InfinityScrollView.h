@@ -35,8 +35,8 @@ typedef enum{
 
 @interface InfinityScrollView : UIScrollView <UIScrollViewDelegate>
 
-@property (nonatomic, assign) IBOutlet id<InfinityScrollViewDataSource> dataSource;
-@property (nonatomic, assign) IBOutlet id<InfinityScrollViewDelegate> infinityDelegate;
+@property (nonatomic, unsafe_unretained) IBOutlet id<InfinityScrollViewDataSource> dataSource;
+@property (nonatomic, unsafe_unretained) IBOutlet id<InfinityScrollViewDelegate> infinityDelegate;
 
 -(void)setIndex:(NSInteger)index;
 -(void)reloadData;

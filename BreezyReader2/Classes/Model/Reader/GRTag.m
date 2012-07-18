@@ -35,7 +35,7 @@
 }
 
 -(GRSubscription*)toSubscription{
-	GRSubscription* sub = [[[GRSubscription alloc] init] autorelease];
+	GRSubscription* sub = [[GRSubscription alloc] init];
 	sub.ID = self.ID;
 	sub.sortID = self.sortID;
 	sub.title = self.label;
@@ -68,7 +68,7 @@
 	if (![JSONTag isKindOfClass:[NSDictionary class]])
 		return nil;
 	
-	GRTag* newTag = [[[GRTag alloc] init] autorelease];
+	GRTag* newTag = [[GRTag alloc] init];
 	
 	newTag.ID = [JSONTag objectForKey:@"id"];
 	NSArray* tokens = [newTag.ID componentsSeparatedByString:@"/"];
@@ -82,7 +82,7 @@
 }
 
 +(GRTag*)tagWithNoLabel{
-    GRTag* tag = [[[GRTag alloc] init] autorelease];
+    GRTag* tag = [[GRTag alloc] init];
     tag.ID = @"";
     tag.label = NSLocalizedString(@"title_nolabel", nil);
     return tag;
@@ -110,14 +110,6 @@
 	return self;
 }
 
--(void)dealloc{
-
-    self.ID = nil;
-    self.sortID = nil;
-    self.label = nil;
-    self.typeString = nil;
-	[super dealloc];
-}
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];

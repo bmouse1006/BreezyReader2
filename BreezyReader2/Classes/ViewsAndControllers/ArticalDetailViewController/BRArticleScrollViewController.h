@@ -15,20 +15,20 @@
 
 @interface BRArticleScrollViewController : BRBaseController<JJPageScrollViewDelegate, JJPageScrollViewDataSource, UIScrollViewDelegate>
 
-@property (nonatomic, retain) IBOutlet JJPageScrollView* scrollView;
-@property (nonatomic, retain) IBOutlet BRBottomToolBar* bottomToolBar;
+@property (nonatomic, strong) IBOutlet JJPageScrollView* scrollView;
+@property (nonatomic, strong) IBOutlet BRBottomToolBar* bottomToolBar;
 
-@property (nonatomic, retain) GRFeed* feed;
+@property (nonatomic, strong) GRFeed* feed;
 @property (nonatomic, assign) NSUInteger index;
 
-@property (nonatomic, retain) IBOutlet UIButton* backButton;
-@property (nonatomic, retain) IBOutlet UIButton* starButton;
-@property (nonatomic, retain) IBOutlet UIButton* unstarButton;
-@property (nonatomic, retain) IBOutlet UIView* starButtonContainer;
-@property (nonatomic, retain) IBOutlet UIButton* leftScrollButton;
-@property (nonatomic, retain) IBOutlet UIButton* rightScrollButton;
+@property (nonatomic, strong) IBOutlet UIButton* backButton;
+@property (nonatomic, strong) IBOutlet UIButton* starButton;
+@property (nonatomic, strong) IBOutlet UIButton* unstarButton;
+@property (nonatomic, strong) IBOutlet UIView* starButtonContainer;
+@property (nonatomic, strong) IBOutlet UIButton* leftScrollButton;
+@property (nonatomic, strong) IBOutlet UIButton* rightScrollButton;
 
-@property (nonatomic, retain) IBOutlet BRArticleActionMenuViewController* actionMenuController;
+@property (nonatomic, strong) IBOutlet BRArticleActionMenuViewController* actionMenuController;
 
 -(IBAction)back:(id)sender;
 -(IBAction)viewInSafari:(id)sender;

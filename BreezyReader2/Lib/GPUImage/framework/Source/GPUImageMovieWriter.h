@@ -36,7 +36,7 @@ extern NSString *const kGPUImageColorSwizzlingFragmentShaderString;
 @property(readwrite, nonatomic) BOOL shouldPassthroughAudio;
 @property(nonatomic, copy) void(^completionBlock)(void);
 @property(nonatomic, copy) void(^failureBlock)(NSError*);
-@property(nonatomic, assign) id<GPUImageMovieWriterDelegate> delegate;
+@property(nonatomic, unsafe_unretained) id<GPUImageMovieWriterDelegate> delegate;
 @property(readwrite, nonatomic) BOOL encodingLiveVideo;
 @property(nonatomic, copy) void(^videoInputReadyCallback)(void);
 @property(nonatomic, copy) void(^audioInputReadyCallback)(void);

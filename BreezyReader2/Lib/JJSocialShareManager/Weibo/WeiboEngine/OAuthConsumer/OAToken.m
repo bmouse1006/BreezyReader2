@@ -88,12 +88,6 @@
 	return self;
 }
 
-- (void)dealloc
-{
-	[key release];
-	[secret release];
-	[super dealloc];
-}
 
 #pragma mark -
 

@@ -11,10 +11,10 @@
 
 @interface BRFeedConfigSectionView : UIView
 
-@property (nonatomic, retain) IBOutlet JJLabel* titleLabel;
-@property (nonatomic, retain) IBOutlet JJLabel* subTitleLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* titleLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* subTitleLabel;
 
-@property (nonatomic, retain) IBOutlet UIView* topWhite;
-@property (nonatomic, retain) IBOutlet UIView* topBlack;
+@property (nonatomic, strong) IBOutlet UIView* topWhite;
+@property (nonatomic, strong) IBOutlet UIView* topBlack;
 
 @end

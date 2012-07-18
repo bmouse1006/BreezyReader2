@@ -78,7 +78,7 @@ static UIAccessibilityTraits *traitImage = nil, *traitButton = nil;
   if (_session.isConnected) {
     [_session logout];
   } else {
-    FBLoginDialog* dialog = [[[FBLoginDialog alloc] initWithSession:_session] autorelease];
+    FBLoginDialog* dialog = [[FBLoginDialog alloc] initWithSession:_session];
     [dialog show];
   }
 }
@@ -116,9 +116,6 @@ static UIAccessibilityTraits *traitImage = nil, *traitButton = nil;
 
 - (void)dealloc {
   [_session.delegates removeObject:self];
-  [_session release];
-  [_imageView release];
-  [super dealloc];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -179,8 +176,7 @@ static UIAccessibilityTraits *traitImage = nil, *traitButton = nil;
 - (void)setSession:(FBSession*)session {
   if (session != _session) {
     [_session.delegates removeObject:self];
-    [_session release];
-    _session = [session retain];
+    _session = session;
     [_session.delegates addObject:self];
     
     [self updateImage];

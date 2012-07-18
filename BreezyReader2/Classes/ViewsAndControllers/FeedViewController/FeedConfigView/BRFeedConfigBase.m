@@ -21,7 +21,6 @@
 -(void)dealloc{
     self.subscription = nil;
     self.tableController = nil;
-    [super dealloc];
 }
 
 - (id)init
@@ -59,8 +58,7 @@
 
 -(void)setSubscription:(GRSubscription *)subscription{
     if (_subscription != subscription){
-        [_subscription release];
-        _subscription = [subscription retain];
+        _subscription = subscription;
         [self subscriptionChanged:_subscription];
     }
 }

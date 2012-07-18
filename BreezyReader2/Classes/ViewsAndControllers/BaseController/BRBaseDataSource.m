@@ -13,10 +13,6 @@
 @synthesize delegate = _delegate;
 @synthesize loadedTime = _loadedTime;
 
--(void)dealloc{
-    self.loadedTime = nil;
-    [super dealloc];
-}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 0;

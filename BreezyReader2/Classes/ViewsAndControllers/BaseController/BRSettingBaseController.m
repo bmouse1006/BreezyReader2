@@ -17,11 +17,6 @@
 @synthesize settingDataSources = _settingDataSources;
 @synthesize tableView = _tableView;
 
--(void)dealloc{
-    self.settingDataSources = nil;
-    self.tableView = nil;
-    [super dealloc];
-}
 
 - (void)viewDidUnload
 {

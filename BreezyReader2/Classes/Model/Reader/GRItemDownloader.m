@@ -33,7 +33,6 @@
 		[downloader cancel];
 	}
 	
-	[dictionary release];
 }
 
 -(void)start{
@@ -46,7 +45,6 @@
 		if (![self.downloaderPool objectForKey:urlString]){
 			[self.downloaderPool setObject:imageDownloader forKey:urlString];
 		}
-		[imageDownloader release];
 	}
 	
 	//the pool might be modified while interate, so we need to copy a new dictionary
@@ -64,7 +62,6 @@
 		}
 	}
 	
-	[dictionary release];
 	[self checkIfAllImageDownloaderFinished];
 }
 
@@ -117,14 +114,6 @@
 	return self;
 }
 
--(void)dealloc{
-    self.delegate = nil;
-    self.item = nil;
-    self.imageList = nil;
-    self.downloaderPool = nil;
-    self.context = nil;
-	[super dealloc];
-}
 
 @end
 
@@ -140,17 +129,17 @@
 }
 
 -(void)taskSaveImage:(NSDictionary*)parameters{
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	NSData* rowData = [parameters objectForKey:@"rowData"];
-	NSString* filePath = [parameters objectForKey:@"filePath"];
-	
-	UIImage* image = [UIImage imageWithData:rowData];
-	NSData* encryptData = UIImageJPEGRepresentation(image, 1);
+		NSData* rowData = [parameters objectForKey:@"rowData"];
+		NSString* filePath = [parameters objectForKey:@"filePath"];
+		
+		UIImage* image = [UIImage imageWithData:rowData];
+		NSData* encryptData = UIImageJPEGRepresentation(image, 1);
 
-	[encryptData writeToFile:filePath atomically:YES];
+		[encryptData writeToFile:filePath atomically:YES];
 	
-	[pool release];
+	}
 }
 
 -(void)checkIfAllImageDownloaderFinished{

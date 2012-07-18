@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy, setter = setMessage:) NSString* message;
 
-@property (nonatomic, retain) IBOutlet UITextView* textView;
-@property (nonatomic, retain) IBOutlet UIView* container;
+@property (nonatomic, strong) IBOutlet UITextView* textView;
+@property (nonatomic, strong) IBOutlet UIView* container;
 
 @end

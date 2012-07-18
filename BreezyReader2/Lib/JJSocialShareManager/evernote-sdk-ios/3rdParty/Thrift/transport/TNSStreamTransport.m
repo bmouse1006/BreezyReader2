@@ -26,9 +26,9 @@
 - (id) initWithInputStream: (NSInputStream *) input
               outputStream: (NSOutputStream *) output
 {
-  [super init];
-  mInput = [input retain];
-  mOutput = [output retain];
+  self = [super init];
+  mInput = input;
+  mOutput = output;
   return self;
 }
 
@@ -42,12 +42,6 @@
   return [self initWithInputStream: nil outputStream: output];
 }
 
-- (void) dealloc
-{
-  [mInput release];
-  [mOutput release];
-  [super dealloc];
-}
 
 
 - (int) readAll: (uint8_t *) buf offset: (int) off length: (int) len

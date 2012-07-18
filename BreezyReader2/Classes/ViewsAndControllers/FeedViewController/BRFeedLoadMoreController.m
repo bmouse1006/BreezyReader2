@@ -16,11 +16,6 @@
 
 @synthesize titleLabel = _titleLabel, indicator = _indicator;
 
--(void)dealloc{
-    self.titleLabel = nil;
-    self.indicator = nil;
-    [super dealloc];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

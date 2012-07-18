@@ -13,23 +13,23 @@
 
 @interface BRFeedTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) GRItem* item;
-@property (nonatomic, retain) IBOutlet JJImageView* urlImageView;
+@property (nonatomic, strong) GRItem* item;
+@property (nonatomic, strong) IBOutlet JJImageView* urlImageView;
 
-@property (nonatomic, retain) IBOutlet UIView* bottomSeperateLine;
-@property (nonatomic, retain) IBOutlet JJLabel* titleLabel;
-@property (nonatomic, retain) IBOutlet JJLabel* previewLabel;
-@property (nonatomic, retain) IBOutlet JJLabel* timeLabel;
-@property (nonatomic, retain) IBOutlet JJLabel* authorLabel;
+@property (nonatomic, strong) IBOutlet UIView* bottomSeperateLine;
+@property (nonatomic, strong) IBOutlet JJLabel* titleLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* previewLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* timeLabel;
+@property (nonatomic, strong) IBOutlet JJLabel* authorLabel;
 
-@property (nonatomic, retain) IBOutlet UIView* container;
+@property (nonatomic, strong) IBOutlet UIView* container;
 
-@property (nonatomic, retain) IBOutlet UIButton* starButton;
-@property (nonatomic, retain) IBOutlet UIButton* unstarButton;
+@property (nonatomic, strong) IBOutlet UIButton* starButton;
+@property (nonatomic, strong) IBOutlet UIButton* unstarButton;
 
-@property (nonatomic, retain) IBOutlet UIView* buttonContainer;
+@property (nonatomic, strong) IBOutlet UIView* buttonContainer;
 
-@property (nonatomic, retain) NSArray* imageList;
+@property (nonatomic, strong) NSArray* imageList;
 
 @property (nonatomic, assign) BOOL showSource;
 

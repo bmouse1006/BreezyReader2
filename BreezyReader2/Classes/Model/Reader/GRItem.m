@@ -52,7 +52,7 @@
 @synthesize isReadStateLocked = _isReadStateLocked;
 
 +(id)objWithJSON:(NSDictionary*)json{
-    GRItem* item = [[[self alloc] init] autorelease];
+    GRItem* item = [[self alloc] init];
     
     item.ID = [json objectForKey:@"id"];
     item.title = [json objectForKey:@"title"];
@@ -83,7 +83,7 @@
 		return _plainSummary;
 	}
 	
-	_plainSummary = [[self.summary stringByReplacingHTMLTagAndTrim] retain];
+	_plainSummary = [self.summary stringByReplacingHTMLTagAndTrim];
 	
 	return _plainSummary;
 }
@@ -92,7 +92,7 @@
 	if (_plainContent){
 		return _plainContent;
 	}
-	_plainContent = [[self.content stringByReplacingHTMLTagAndTrim] retain];
+	_plainContent = [self.content stringByReplacingHTMLTagAndTrim];
 	return _plainContent;
 }
 
@@ -173,7 +173,6 @@
 }
 
 -(GRItem*)mergeWithItem:(GRItem*)item{
-	[item retain];
 	if ([self.ID isEqualToString:item.ID]){
 		//only below three fields will be updated
 		//don't need to consider other situation
@@ -181,7 +180,6 @@
 		self.gr_linkingUsers = item.gr_linkingUsers;
 		self.categories = item.categories;
 	}
-	[item release];
 	return self;
 }
 
@@ -202,34 +200,6 @@
 	return [[[self.ID MD5] stringByAppendingString:[imageURL MD5]] stringByAppendingString:@".jpg"];
 }
 
--(void)dealloc{
-	
-    self.ID = nil;
-    self.title = nil;
-    self.selfLink = nil;
-    self.alternateLink = nil;
-    self.summary = nil;
-    self.content = nil;
-    self.author = nil;
-    self.origin_streamId = nil;
-    self.origin_htmlUrl = nil;
-    self.origin_title = nil;
-    
-    self.updated = nil;
-    self.published = nil;
-    self.gr_linkingUsers = nil;
-    self.categories = nil;
-    
-    self.contentImageURLs = nil;
-    self.summaryImageURLs = nil;
-    self.imageURLFileMap = nil;
-    self.shortPresentDateTime = nil;
-
-	[_plainContent release];
-	[_plainSummary release];
-	
-	[super dealloc];
-}
 
 -(id)init{
 	if (self = [super init]){
@@ -261,7 +231,6 @@
 static NSMutableDictionary* itemPool = nil;
 
 +(GRItem*)mergeItemToPool:(GRItem*)item{
-	[item retain];
 	if (!itemPool){
 		itemPool = [[NSMutableDictionary alloc] initWithCapacity:0];
 	}
@@ -273,7 +242,6 @@ static NSMutableDictionary* itemPool = nil;
 		[itemPool setObject:item forKey:item.ID];
 		returnItem = item;
 	}
-	[item release];
 	return returnItem;
 
 }

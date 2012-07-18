@@ -19,7 +19,7 @@ static CGFloat kDefaultThumbSapcing = 4.0f;
     CGFloat _thumbSpacing;
 }
 
-@property (nonatomic, retain) id<JJMediaSource> mediaSource;
+@property (nonatomic, strong) id<JJMediaSource> mediaSource;
 
 - (NSInteger)columnCountForView:(UIView *)view;
 
@@ -42,10 +42,6 @@ static CGFloat kDefaultThumbSapcing = 4.0f;
     return self;
 }
 
--(void)dealloc{
-    self.mediaSource = nil;
-    [super dealloc];
-}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -66,7 +62,7 @@ static CGFloat kDefaultThumbSapcing = 4.0f;
     NSUInteger columnCount = [self columnCountForView:tableView];
     JJMediaLibTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[JJMediaLibTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier thumbSpacing:_thumbSpacing thumbSize:_thumbSize] autorelease];
+        cell = [[JJMediaLibTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier thumbSpacing:_thumbSpacing thumbSize:_thumbSize];
         cell.delegate = self.delegate;
         [cell setThumbnailClass:[self classForThumbnail]];
         [cell setColumnCount:columnCount];

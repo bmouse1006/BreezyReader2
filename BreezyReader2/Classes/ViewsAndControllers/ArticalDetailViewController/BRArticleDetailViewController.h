@@ -13,13 +13,13 @@
 
 @interface BRArticleDetailViewController : BRBaseController<UIWebViewDelegate, UIGestureRecognizerDelegate>
 
-@property (nonatomic, retain) IBOutlet UIWebView* webView;
-@property (nonatomic, retain) IBOutlet UIView* loadingView;
-@property (nonatomic, retain) IBOutlet UILabel* loadingLabel;
+@property (nonatomic, strong) IBOutlet UIWebView* webView;
+@property (nonatomic, strong) IBOutlet UIView* loadingView;
+@property (nonatomic, strong) IBOutlet UILabel* loadingLabel;
 
-@property (nonatomic, assign) id<UIScrollViewDelegate> delegate;
+@property (nonatomic, weak) id<UIScrollViewDelegate> delegate;
 
-@property (nonatomic, retain) GRItem* item;
+@property (nonatomic, strong) GRItem* item;
 
 -(id)initWithItem:(GRItem*)item;
 -(void)scrollToTop;

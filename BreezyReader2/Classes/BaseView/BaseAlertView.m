@@ -25,7 +25,6 @@
 
 -(void)setMessage:(NSString *)message{
     if (_message != message){
-        [_message release];
         _message = [message copy];
         self.titleLabel.text = message;
     }

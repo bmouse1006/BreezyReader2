@@ -11,7 +11,7 @@
 @implementation NSDate (simpleFormat)
 
 -(NSString*)stringWithFormat:(NSString*)format{
-    NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:format];
     return [formatter stringFromDate:self];
 }
@@ -38,7 +38,6 @@
     
     [formatter setTimeZone:[NSTimeZone localTimeZone]];
     NSString* output = [formatter stringFromDate:self];
-    [formatter release];
     
     return output;
 }

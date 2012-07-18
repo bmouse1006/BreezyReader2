@@ -56,7 +56,7 @@ static TBinaryProtocolFactory * gSharedFactory = nil;
              strictWrite: (BOOL) strictWrite
 {
   self = [super init];
-  mTransport = [transport retain];
+  mTransport = transport;
   mStrictRead = strictRead;
   mStrictWrite = strictWrite;
   return self;
@@ -75,11 +75,6 @@ static TBinaryProtocolFactory * gSharedFactory = nil;
 }
 
 
-- (void) dealloc
-{
-  [mTransport release];
-  [super dealloc];
-}
 
 
 - (id <TTransport>) transport

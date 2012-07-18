@@ -13,9 +13,9 @@
 + (NSString *)generateGuid {
 	CFUUIDRef	uuidObj = CFUUIDCreate(nil);//create a new UUID
 	//get the string representation of the UUID
-	NSString	*uuidString = (NSString*)CFUUIDCreateString(nil, uuidObj);
+	NSString	*uuidString = (__bridge_transfer NSString*)CFUUIDCreateString(nil, uuidObj);
 	CFRelease(uuidObj);
-	return [uuidString autorelease];
+	return uuidString;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +42,7 @@
 - (NSDictionary*)queryDictionaryUsingEncoding:(NSStringEncoding)encoding {
 	NSCharacterSet* delimiterSet = [NSCharacterSet characterSetWithCharactersInString:@"&;"];
 	NSMutableDictionary* pairs = [NSMutableDictionary dictionary];
-	NSScanner* scanner = [[[NSScanner alloc] initWithString:self] autorelease];
+	NSScanner* scanner = [[NSScanner alloc] initWithString:self];
 	while (![scanner isAtEnd]) {
 		NSString* pairString = nil;
 		[scanner scanUpToCharactersFromSet:delimiterSet intoString:&pairString];

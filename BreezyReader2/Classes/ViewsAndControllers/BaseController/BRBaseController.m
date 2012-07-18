@@ -46,15 +46,6 @@ static CGFloat distance = 0.0f;
     return self;
 }
 
--(void)dealloc{
-    self.backgroundView = nil;
-    self.mainContainer = nil;
-    self.secondaryView = nil;
-    self.slideCompletionBlock = nil;
-    self.unslideCompletionBlock = nil;
-    self.actionMenuController = nil;
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -142,7 +133,7 @@ static CGFloat distance = 0.0f;
     distance = self.mainContainer.frame.size.width/4*3;
  
     //add shadow
-    UIImageView* shadow = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, self.view.bounds.size.height)] autorelease];
+    UIImageView* shadow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, self.view.bounds.size.height)];
     shadow.contentMode = UIViewContentModeScaleToFill;
     shadow.image = [UIImage imageNamed:@"menu-left-shadow"];
     _sideShadow = shadow;
@@ -151,7 +142,7 @@ static CGFloat distance = 0.0f;
     frame.origin.x = self.mainContainer.bounds.size.width;
     _sideShadow.frame = frame;
     //add hide button
-    UIControl* hideButton = [[[UIControl alloc] initWithFrame:self.mainContainer.bounds] autorelease];
+    UIControl* hideButton = [[UIControl alloc] initWithFrame:self.mainContainer.bounds];
     [hideButton addTarget:self action:@selector(slideHideSecondaryView) forControlEvents:UIControlEventTouchUpInside];
     hideButton.backgroundColor = [UIColor clearColor];
     _hideButton = hideButton;

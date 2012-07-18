@@ -15,15 +15,11 @@
 @synthesize results = _results, query = _query, categoryid = _categoryid, haspreviouspage = _haspreviouspage, previouspagestart = _previouspagestart, hasnextpage = _hasnextpage, nextpagestart = _nextpagestart;
 
 +(GRSearchResult*)resultWithJSONObj:(NSDictionary*)JSONObj{
-    GRSearchResult* result = [[[GRSearchResult alloc] init] autorelease];
+    GRSearchResult* result = [[GRSearchResult alloc] init];
     result.JSONObj = JSONObj;
     return result;
 }
 
--(void)dealloc{
-    self.JSONObj = nil;
-    [super dealloc];
-}
 
 -(NSArray*)getResults{
     NSMutableArray* results = [NSMutableArray arrayWithCapacity:0];

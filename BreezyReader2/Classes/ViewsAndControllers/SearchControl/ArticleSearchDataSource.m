@@ -16,7 +16,7 @@
     NSInteger _startIndex;
 }
 
-@property (nonatomic, retain) NSArray* searchResults;
+@property (nonatomic, strong) NSArray* searchResults;
 
 -(void)requestContentsForIDs:(NSArray*)IDs;
 -(void)loadNextPageOfContents;
@@ -37,11 +37,6 @@
     return self;
 }
 
--(void)dealloc{
-    self.searchResults = nil;
-    self.feed = nil;
-    [super dealloc];
-}
 
 -(id)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     id cell = nil;

@@ -14,11 +14,11 @@
 
 @interface GRSubscription : NSObject<GRBaseProtocol, NSCoding>
 
-@property (nonatomic, retain) NSString* ID;
-@property (nonatomic, retain) NSString* title;
-@property (nonatomic, retain) NSString* sortID;
-@property (nonatomic, retain) NSMutableSet* categories;
-@property (nonatomic, retain) NSDate* downloadedDate;
+@property (nonatomic, strong) NSString* ID;
+@property (nonatomic, strong) NSString* title;
+@property (nonatomic, strong) NSString* sortID;
+@property (nonatomic, strong) NSMutableSet* categories;
+@property (nonatomic, strong) NSDate* downloadedDate;
 
 @property (nonatomic, assign) NSInteger unreadCount;
 @property (nonatomic, assign) NSTimeInterval newestItemTimestampUsec;

@@ -10,8 +10,8 @@
 
 @interface JJSingleWebController : UIViewController<UIWebViewDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, retain) IBOutlet UIWebView* webView;
+@property (nonatomic, strong) IBOutlet UIWebView* webView;
 
-@property (nonatomic, retain) NSURL* URL;
+@property (nonatomic, strong) NSURL* URL;
 
 @end

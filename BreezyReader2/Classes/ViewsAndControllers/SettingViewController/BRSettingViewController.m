@@ -22,12 +22,6 @@
 @synthesize pickerData = _pickerData;
 @synthesize pickerIdentifier = _pickerIdentifier;
 
--(void)dealloc{
-    self.settingConfigs = nil;
-    self.pickerData = nil;
-    self.pickerIdentifier = nil;
-    [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -45,7 +39,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"table_background_pattern"]];
     [UIApplication sharedApplication].statusBarStyle = UIBarStyleBlack;
-    UIBarButtonItem* close = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"title_done", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(close)] autorelease];
+    UIBarButtonItem* close = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"title_done", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(close)];
     self.navigationItem.rightBarButtonItem = close;
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:41/255.0f green:41/255.0f blue:41/255.0f alpha:1];
     
@@ -72,7 +66,7 @@
 -(NSArray*)settingConfigs{
     if (_settingConfigs == nil){
         NSURL* url = [[NSBundle mainBundle] URLForResource:[self settingFilename] withExtension:@"plist"];
-        _settingConfigs = [[NSArray arrayWithContentsOfURL:url] retain];
+        _settingConfigs = [NSArray arrayWithContentsOfURL:url];
     }
     
     return _settingConfigs;
@@ -101,7 +95,7 @@
     static NSString *CellIdentifier = @"BRSettingCell";
     BRSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil){
-        cell = [[[BRSettingCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[BRSettingCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.delegate = self;
     }
     
@@ -122,7 +116,7 @@
     NSString* type = [[config objectForKey:@"type"] lowercaseString];
     if ([type isEqualToString:@"more"]){
         NSString* next = [config objectForKey:@"next"];
-        id controller = [[[NSClassFromString(next) alloc] initWithNibName:next bundle:nil] autorelease];
+        id controller = [[NSClassFromString(next) alloc] initWithNibName:next bundle:nil];
         if (controller){
             [self.navigationController pushViewController:controller animated:YES];
         }
@@ -182,7 +176,7 @@
 //}
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
-    UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(12.0f, 0.0f, [pickerView rowSizeForComponent:component].width-12, [pickerView rowSizeForComponent:component].height)] autorelease];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(12.0f, 0.0f, [pickerView rowSizeForComponent:component].width-12, [pickerView rowSizeForComponent:component].height)];
     
     [label setText:NSLocalizedString([[self.pickerData objectAtIndex:row] description], nil)];
     [label setTextAlignment:UITextAlignmentCenter];
@@ -197,7 +191,7 @@
 #pragma mark - jj view delegate
 -(void)viewWillShow:(BaseView *)view{
     NSInteger row = [self.pickerData indexOfObject:[UserPreferenceDefine valueForIdentifier:self.pickerIdentifier]];
-    [(JJPickerView*)view selectRow:row inComponent:0 animated:NO];
+    [((JJPickerView*)view).picker selectRow:row inComponent:0 animated:NO];
 }
 
 -(void)viewDidDismiss:(BaseView *)view{

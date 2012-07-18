@@ -11,7 +11,7 @@
 
 @interface MainScreenDataSource : NSObject <InfinityScrollViewDataSource>
 
-@property (nonatomic, retain) NSMutableArray* controllers;
+@property (nonatomic, strong) NSMutableArray* controllers;
 
 -(void)reloadController;
 -(void)didReceiveMemoryWarning;

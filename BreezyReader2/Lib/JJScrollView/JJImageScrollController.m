@@ -14,7 +14,7 @@
     BOOL _outletHidden;
 }
 
-@property (nonatomic, retain) UITapGestureRecognizer* singleTap;
+@property (nonatomic, strong) UITapGestureRecognizer* singleTap;
 
 @end
 
@@ -28,10 +28,6 @@
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.scrollView = nil;
-    self.imageList = nil;
-    self.singleTap = nil;
-    [super dealloc];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -62,10 +58,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.scrollView = [[[JJPageScrollView alloc] initWithFrame:self.view.bounds] autorelease];
+    self.scrollView = [[JJPageScrollView alloc] initWithFrame:self.view.bounds];
     self.scrollView.datasource = self;
     self.scrollView.delegate = self;
-    self.singleTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singelTapAction:)] autorelease];
+    self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singelTapAction:)];
     [self.scrollView addGestureRecognizer:self.singleTap];
     [self.view addSubview:self.scrollView];
     self.scrollView.pageIndex = self.index;
@@ -128,7 +124,7 @@
         [self.singleTap requireGestureRecognizerToFail:gesutre];
     }
     [imageView setImageURL:[self.imageList objectAtIndex:index]];
-    return [imageView autorelease];
+    return imageView;
 }
 
 -(CGSize)scrollView:(JJPageScrollView*)scrollView sizeOfPageAtIndex:(NSInteger)index{

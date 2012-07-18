@@ -23,10 +23,10 @@ typedef enum {
 
 @property (nonatomic, assign) CGFloat shadowBlur;
 @property (nonatomic, assign) CGFloat shadowEnable;
-@property (nonatomic, retain) UIColor* shadowColor;
+@property (nonatomic, strong) UIColor* shadowColor;
 @property (nonatomic, assign) CGSize shadowOffset;
-@property (nonatomic, retain) UIFont* font;
-@property (nonatomic, retain) UIColor* textColor;
+@property (nonatomic, strong) UIFont* font;
+@property (nonatomic, strong) UIColor* textColor;
 
 @property (nonatomic, copy) NSString* text;
 @property (nonatomic, assign) UITextAlignment textAlignment;

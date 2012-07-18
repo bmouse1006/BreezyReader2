@@ -38,14 +38,12 @@
 
 -(void)setNewestItemTimestampUsec:(NSTimeInterval)newestItemTimestampUsec{
     _newestItemTimestampUsec = newestItemTimestampUsec;
-    [_newestItemDate release];
-    _newestItemDate = [[NSDate dateWithTimeIntervalSince1970:_newestItemTimestampUsec/1000000] retain];
+    _newestItemDate = [NSDate dateWithTimeIntervalSince1970:_newestItemTimestampUsec/1000000];
 }
 
 -(void)setFirstItemMSec:(NSTimeInterval)firstItemMSec{
     _firstItemMSec = firstItemMSec;
-    [_firstItemDate release];
-    _firstItemDate = [[NSDate dateWithTimeIntervalSince1970:firstItemMSec/1000] retain];
+    _firstItemDate = [NSDate dateWithTimeIntervalSince1970:firstItemMSec/1000];
 }
 
 -(NSString*)keyString{
@@ -90,7 +88,7 @@
 }
 
 -(GRRecFeed*)recFeedFromSubscription{
-	GRRecFeed* feed = [[[GRRecFeed alloc] init] autorelease];
+	GRRecFeed* feed = [[GRRecFeed alloc] init];
 	feed.streamID = self.ID;
 	feed.title = self.title;
 	
@@ -107,7 +105,7 @@
 		return nil;
 	}
 	
-	GRSubscription* newSub = [[[GRSubscription alloc] init] autorelease];
+	GRSubscription* newSub = [[GRSubscription alloc] init];
 	
 	newSub.ID = [JSONSub objectForKey:@"id"];
 	newSub.title = [JSONSub objectForKey:@"title"];
@@ -140,7 +138,7 @@
 	allItems.ID = label;
     allItems.title = label;
 	allItems.sortID = @"000000";
-	return [allItems autorelease];
+	return allItems;
 }
 
 +(GRSubscription*)subscriptionForGRRecFeed:(GRRecFeed*)recFeed{
@@ -148,7 +146,7 @@
 	recSub.ID = recFeed.streamID;
 	recSub.title = recFeed.title;
 	recSub.sortID = @"000000";
-	return [recSub autorelease];
+	return recSub;
 }
 
 -(id)init{
@@ -164,17 +162,6 @@
 	return self;
 }
 
--(void)dealloc{
-
-    self.ID = nil;
-    self.title = nil;
-    self.sortID = nil;
-    self.categories = nil;
-    self.downloadedDate = nil;
-    [_firstItemDate release];
-    [_newestItemDate release];
-	[super dealloc];
-}
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];

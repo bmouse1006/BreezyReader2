@@ -14,11 +14,11 @@
 
 @interface BRBaseController : UIViewController
 
-@property (nonatomic, retain) IBOutlet UIView* backgroundView;
-@property (nonatomic, retain) IBOutlet UIView* mainContainer; 
-@property (nonatomic, retain) IBOutlet BRActionMenuViewController* actionMenuController;
+@property (nonatomic, strong) IBOutlet UIView* backgroundView;
+@property (nonatomic, strong) IBOutlet UIView* mainContainer; 
+@property (nonatomic, strong) IBOutlet BRActionMenuViewController* actionMenuController;
 
-@property (nonatomic, retain) IBOutlet UIView* secondaryView;
+@property (nonatomic, strong) IBOutlet UIView* secondaryView;
 
 @property (nonatomic, readonly) BOOL secondaryViewIsShown;
 

@@ -49,16 +49,16 @@ static FBSession* sharedSession = nil;
 
 + (FBSession*)sessionForApplication:(NSString*)key secret:(NSString*)secret
     delegate:(id<FBSessionDelegate>)delegate {
-  FBSession* session = [[[FBSession alloc] initWithKey:key secret:secret
-    getSessionProxy:nil] autorelease];
+  FBSession* session = [[FBSession alloc] initWithKey:key secret:secret
+    getSessionProxy:nil];
   [session.delegates addObject:delegate];
   return session;
 }
 
 + (FBSession*)sessionForApplication:(NSString*)key getSessionProxy:(NSString*)getSessionProxy
     delegate:(id<FBSessionDelegate>)delegate {
-  FBSession* session = [[[FBSession alloc] initWithKey:key secret:nil
-    getSessionProxy:getSessionProxy] autorelease];
+  FBSession* session = [[FBSession alloc] initWithKey:key secret:nil
+    getSessionProxy:getSessionProxy];
   [session.delegates addObject:delegate];
   return session;
 }
@@ -132,8 +132,7 @@ static FBSession* sharedSession = nil;
 
     if (!burst) {
       _requestBurstCount = 1;
-      [_lastRequestTime release];
-      _lastRequestTime = [[request timestamp] retain];
+      _lastRequestTime = [request timestamp];
     }
   }
   return YES;
@@ -187,16 +186,6 @@ static FBSession* sharedSession = nil;
     sharedSession = nil;
   }
 
-  [_delegates release];
-  [_requestQueue release];
-  [_apiKey release];
-  [_apiSecret release];
-  [_getSessionProxy release];
-  [_sessionKey release];
-  [_sessionSecret release];
-  [_expirationDate release];
-  [_lastRequestTime release];
-  [super dealloc];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -219,7 +208,7 @@ static FBSession* sharedSession = nil;
   _uid = uid;
   _sessionKey = [sessionKey copy];
   _sessionSecret = [sessionSecret copy];
-  _expirationDate = [expires retain];
+  _expirationDate = expires;
   
   [self save];
 }
@@ -233,7 +222,7 @@ static FBSession* sharedSession = nil;
       _uid = uid;
       _sessionKey = [[defaults stringForKey:@"FBSessionKey"] copy];
       _sessionSecret = [[defaults stringForKey:@"FBSessionSecret"] copy];
-      _expirationDate = [expirationDate retain];
+      _expirationDate = expirationDate;
 
       for (id<FBSessionDelegate> delegate in _delegates) {
         [delegate session:self didLogin:_uid];
@@ -266,11 +255,8 @@ static FBSession* sharedSession = nil;
     
 
     _uid = 0;
-    [_sessionKey release];
     _sessionKey = nil;
-    [_sessionSecret release];
     _sessionSecret = nil;
-    [_expirationDate release];
     _expirationDate = nil;
     [self unsave];
 

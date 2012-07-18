@@ -17,7 +17,7 @@ static CGFloat kImageSwitchDuration = 0.2;
     BOOL _isAppearring;
 }
 
-@property (nonatomic, retain) ASIHTTPRequest* request;
+@property (nonatomic, strong) ASIHTTPRequest* request;
 
 -(ASIHTTPRequest*)requestWithImageURL:(NSString*)urlString;
 -(void)switchToImage:(UIImage*)image animated:(BOOL)animated;
@@ -38,12 +38,12 @@ static CGFloat kImageSwitchDuration = 0.2;
     self = [super initWithFrame:frame];
     if (self){
         
-        self.imageView = [[[UIImageView alloc] initWithFrame:CGRectZero] autorelease];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         self.imageView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
         [self addSubview:self.imageView];
         
-        self.captionLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+        self.captionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.captionLabel.font = [UIFont systemFontOfSize:10];
         self.captionLabel.textColor = [UIColor whiteColor];
         self.captionLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
@@ -58,12 +58,8 @@ static CGFloat kImageSwitchDuration = 0.2;
 }
 
 -(void)dealloc{
-    self.captionLabel = nil;
-    self.imageView = nil;
     self.imageURL = nil;
     [self.request clearDelegatesAndCancel];
-    self.request = nil;
-    [super dealloc];
 }
 
 -(void)layoutSubviews{
@@ -82,7 +78,6 @@ static CGFloat kImageSwitchDuration = 0.2;
 
 -(void)setImageURL:(NSString *)imageURL{
     if (_imageURL != imageURL){
-        [_imageURL release];
         _imageURL = [imageURL copy];
         self.imageView.image = nil;
         if (_imageURL){
