@@ -10,7 +10,6 @@
 #import "GoogleAuthManager.h"
 #import "URLParameterSet.h"
 #import "GRFeed.h"
-#import "JSON.h"
 #import "ASIHTTPRequest.h"
 
 #define RECEIVED_DATA @"receivedData"

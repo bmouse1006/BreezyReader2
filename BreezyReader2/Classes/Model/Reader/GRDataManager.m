@@ -418,8 +418,8 @@ static GRDataManager *readerDM = nil;
                 [[GoogleAuthManager shared] authRequest:request_tag];
                 [request_sub startSynchronous];
                 [request_tag startSynchronous];
-                NSDictionary* tempSubList = [request_sub.responseString JSONValue];;
-                NSDictionary* tempTagList = [request_tag.responseString JSONValue];	
+                NSDictionary* tempSubList = [NSJSONSerialization JSONObjectWithData:request_sub.responseData options:NSJSONReadingAllowFragments error:nil];
+                NSDictionary* tempTagList = [NSJSONSerialization JSONObjectWithData:request_tag.responseData options:NSJSONReadingAllowFragments error:nil];
                 if (![self.subDict isEqualToDictionary:tempSubList] || ![self.tagDict isEqualToDictionary:tempTagList]){
                     self.subDict = tempSubList;
                     self.tagDict = tempTagList;
@@ -441,7 +441,7 @@ static GRDataManager *readerDM = nil;
     [[GoogleAuthManager shared] authRequest:request completionBlock:^(NSError* error){
         if (error == nil){
             [request setCompletionBlock:^{
-                NSDictionary* tempUnreadCount = [request.responseString JSONValue];	
+                NSDictionary* tempUnreadCount = [NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingAllowFragments error:nil];
                 
                 BOOL changed = ![self.unreadCount isEqualToDictionary:tempUnreadCount];
                 

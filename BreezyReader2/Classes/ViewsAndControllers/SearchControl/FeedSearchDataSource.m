@@ -7,7 +7,6 @@
 //
 
 #import "FeedSearchDataSource.h"
-#import "NSString+SBJSON.h"
 #import "ASIHTTPRequest.h"
 
 @interface FeedSearchDataSource()

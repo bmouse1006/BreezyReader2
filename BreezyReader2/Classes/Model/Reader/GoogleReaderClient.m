@@ -13,7 +13,6 @@
 #import "GoogleAuthManager.h"
 #import "GRFeed.h"
 #import "BRReadingStatistics.h"
-#import "NSString+SBJSON.h"
 #import "NSString+Addition.h"
 
 #define TAGLIST_STORE_KEY @"TAGLIST_STORE_KEY"
@@ -411,7 +410,7 @@ static NSString* _userID = nil;
     _needRefreshUnreadCount = NO;
     _lastUnreadCountRefreshTime = [[NSDate date] timeIntervalSince1970];
     DebugLog(@"received response is %@", request.responseString);
-    NSArray* tempUnreadArray = [[request.responseString JSONValue] objectForKey:@"unreadcounts"];
+    NSArray* tempUnreadArray = [[NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingAllowFragments error:nil] objectForKey:@"unreadcounts"];
     NSMutableDictionary* unreadCount = UniversalUnreadCount;
     
     [unreadCount removeAllObjects];
@@ -532,7 +531,7 @@ static NSString* _userID = nil;
 }
 
 -(void)subRequestFinished:(ASIHTTPRequest*)request{
-    NSArray* subs = [[request.responseString JSONValue] objectForKey:@"subscriptions"];
+    NSArray* subs = [[NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingAllowFragments error:nil] objectForKey:@"subscriptions"];
     NSMutableDictionary* subMap = UniversalSubList;
     @synchronized(subMap){
         [subMap removeAllObjects];
@@ -551,7 +550,7 @@ static NSString* _userID = nil;
 }
 
 -(void)tagRequestFinished:(ASIHTTPRequest*)request{
-    NSArray* tags = [[request.responseString JSONValue] objectForKey:@"tags"];
+    NSArray* tags = [[NSJSONSerialization JSONObjectWithData:request.responseData options:NSJSONReadingAllowFragments error:nil] objectForKey:@"tags"];
     NSMutableDictionary* tagMap = UniversalTagList;
     @synchronized(tagMap){
         [tagMap removeAllObjects];
@@ -1006,7 +1005,8 @@ static NSString* _userID = nil;
 
 -(id)responseJSONValue{
     
-    return [self.responseString JSONValue];
+    return [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingAllowFragments error:nil];
+
 }
 
 -(GRFeed*)responseFeed{
@@ -1077,7 +1077,7 @@ static NSString* _userID = nil;
     NSRange jsonRange = {start, end-start+1};
     NSString* json = [resultString substringWithRange:jsonRange];
     
-    return [json JSONValue];
+    return [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];
 }
 
 -(BOOL)isResponseOK{

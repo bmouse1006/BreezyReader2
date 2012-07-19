@@ -9,7 +9,6 @@
 #import "WeiboClient.h"
 #import "DirectMessage.h"
 #import "StringUtil.h"
-#import "SBJSON.h"
 
 
 @implementation WeiboClient
@@ -524,7 +523,7 @@
     }
 #endif
 
-    NSObject *obj = [content JSONValue];
+    NSObject *obj = [NSJSONSerialization JSONObjectWithData:[content dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];
     if (request == WEIBO_REQUEST_FRIENDSHIP_EXISTS) {
         NSRange r = [content rangeOfString:@"true" options:NSCaseInsensitiveSearch];
   	  	obj = [NSNumber numberWithBool:r.location != NSNotFound];

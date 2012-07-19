@@ -8,7 +8,6 @@
 #import "BRErrorHandler.h"
 #import "BRFeedDataSource.h"
 #import "BRFeedTableViewCell.h"
-#import "SBJSON.h"
 #import "BROperationQueues.h"
 #import "BRReadingStatistics.h"
 #import "BRImagePreviewCache.h"
