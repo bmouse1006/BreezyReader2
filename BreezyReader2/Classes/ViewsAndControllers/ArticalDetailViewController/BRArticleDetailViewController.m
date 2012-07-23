@@ -89,7 +89,7 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
     
     self.loadingLabel.text = [self.item.title stringByReplacingHTMLTagAndTrim];
     
-    self.webView.scrollView.delegate = self.delegate;
+    self.webView.scrollView.delegate = self;
     [self removeGradientImage:self.webView];
     UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
     singleTap.delegate = self;
@@ -235,6 +235,13 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
         [[self topContainer] addToTop:imageScroller animated:YES];
     }else{
         _imageClicked = NO;
+    }
+}
+
+#pragma mark - scroll view delegate
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    if ([self.delegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]){
+        [self.delegate scrollViewWillBeginDragging:scrollView];
     }
 }
 

@@ -20,6 +20,7 @@
 
 @synthesize bottomShadow = _bottomShadow;
 @synthesize starButton = _starButton, unstarButton = _unstarButton;
+@synthesize glowButton = _glowButton;
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -79,6 +80,8 @@
     [self.container addSubview:self.timeLabel];
     [self.container addSubview:self.authorLabel];
     [self.container addSubview:self.buttonContainer];
+    [self.container addSubview:self.glowButton];
+    self.glowButton.hidden = YES;
     
     [self.contentView addSubview:self.container];
 }
@@ -107,6 +110,35 @@
         self.authorLabel.hidden = NO;
         self.urlImageView.hidden = YES;
     }
+    
     [self updateStarButton];
 }
+
+#pragma mark - responder actions
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    UITouch* touch = [touches anyObject];
+    self.glowButton.hidden = NO;
+    self.glowButton.center = [touch locationInView:self];
+}
+
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
+    [super touchesCancelled:touches withEvent:event];
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    [super touchesEnded:touches withEvent:event];
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        self.glowButton.alpha = 0.0f;
+    } completion:^(BOOL finished){
+        self.glowButton.alpha = 1.0f;
+        self.glowButton.hidden = YES;
+    }];
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    [super touchesMoved:touches withEvent:event];
+}
+
 @end

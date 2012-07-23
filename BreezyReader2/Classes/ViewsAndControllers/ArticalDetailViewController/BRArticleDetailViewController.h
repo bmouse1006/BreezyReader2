@@ -11,13 +11,13 @@
 #import "GRFeed.h"
 #import "GRItem.h"
 
-@interface BRArticleDetailViewController : BRBaseController<UIWebViewDelegate, UIGestureRecognizerDelegate>
+@interface BRArticleDetailViewController : BRBaseController<UIWebViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIWebView* webView;
 @property (nonatomic, strong) IBOutlet UIView* loadingView;
 @property (nonatomic, strong) IBOutlet UILabel* loadingLabel;
 
-@property (nonatomic, weak) id<UIScrollViewDelegate> delegate;
+@property (nonatomic, assign) id<UIScrollViewDelegate> delegate;
 
 @property (nonatomic, strong) GRItem* item;
 

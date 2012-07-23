@@ -41,6 +41,8 @@
 
 @property (nonatomic, weak) NSTimer* timer;
 
+@property (nonatomic, strong) UIButton* glowButton;
+
 -(void)createSubviews;
 
 -(void)startFeedRequest:(GRSubscription*)sub;
@@ -76,6 +78,8 @@
 @synthesize allowAnimation = _allowAnimation;
 
 @synthesize grClient = _grClient;
+
+@synthesize glowButton = _glowButton;
 
 static CGFloat kCaptionHeight = 40.0f;
 
@@ -254,6 +258,12 @@ static CGFloat kCaptionHeight = 40.0f;
     frame.origin.y += 5;
     self.infoButton.frame = frame;
     
+    self.glowButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    self.glowButton.highlighted = YES;
+    self.glowButton.showsTouchWhenHighlighted = YES;
+    self.glowButton.backgroundColor = [UIColor clearColor];
+    self.glowButton.hidden = YES;
+    
     [self addSubview:self.imageView];
 //    [self addSubview:self.caption];
 //    [self addSubview:self.unreadImage];
@@ -261,6 +271,8 @@ static CGFloat kCaptionHeight = 40.0f;
     [self addSubview:self.captionImage];
     
     [self addSubview:self.unreadCountContainer];
+    
+    [self addSubview:self.glowButton];
 }
 
 -(void)requestFinished:(ASIHTTPRequest*)request{
@@ -414,9 +426,38 @@ static CGFloat kCaptionHeight = 40.0f;
 //    [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(changeImage) userInfo:nil repeats:NO];
 }
 
+#pragma mark - responder actions
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    UITouch* touch = [touches anyObject];
+    [self bringSubviewToFront:self.glowButton];
+    self.glowButton.hidden = NO;
+    self.glowButton.center = [touch locationInView:self];
+}
+
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
+    [super touchesCancelled:touches withEvent:event];
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    [super touchesEnded:touches withEvent:event];
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        self.glowButton.alpha = 0.0f;
+    } completion:^(BOOL finished){
+        self.glowButton.alpha = 1.0f;
+        self.glowButton.hidden = YES;
+    }];
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    [super touchesMoved:touches withEvent:event];
+}
+
 #pragma mark - control action
 -(void)thumbTouchedDown:(id)sender{
     CGAffineTransform scale = CGAffineTransformMakeScale(0.95, 0.95);
+    
     [UIView animateWithDuration:0.05 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.transform = scale;
     } completion:NULL];
@@ -433,6 +474,8 @@ static CGFloat kCaptionHeight = 40.0f;
         self.transform = CGAffineTransformIdentity;
     } completion:NULL];    
 }
+
+
 
 -(void)infoButtonClicked:(id)sender{
     //start filp animation

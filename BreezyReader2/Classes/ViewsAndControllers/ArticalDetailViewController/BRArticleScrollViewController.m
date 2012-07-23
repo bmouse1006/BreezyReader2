@@ -46,6 +46,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.clients makeObjectsPerformSelector:@selector(clearAndCancel)];
     self.articleDetailControllers = nil;
+    self.scrollView = nil;
 }
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{

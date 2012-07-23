@@ -41,8 +41,8 @@ typedef enum{
 
 @interface JJPageScrollView : UIView<UIScrollViewDelegate>
 
-@property (nonatomic, unsafe_unretained) IBOutlet id<JJPageScrollViewDataSource> datasource;
-@property (nonatomic, unsafe_unretained) IBOutlet id<JJPageScrollViewDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<JJPageScrollViewDataSource> datasource;
+@property (nonatomic, weak) IBOutlet id<JJPageScrollViewDelegate> delegate;
 
 @property (nonatomic, assign) NSUInteger pageIndex;
 

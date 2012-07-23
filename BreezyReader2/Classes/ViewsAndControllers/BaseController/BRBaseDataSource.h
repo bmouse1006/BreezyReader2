@@ -19,7 +19,7 @@
 
 @interface BRBaseDataSource : NSObject <UITableViewDataSource>
 
-@property (nonatomic, unsafe_unretained) id<BRBaseDataSourceDelegate> delegate;
+@property (nonatomic, weak) id<BRBaseDataSourceDelegate> delegate;
 @property (nonatomic, strong) NSDate* loadedTime;
 
 -(void)loadDataMore:(BOOL)more forceRefresh:(BOOL)refresh;

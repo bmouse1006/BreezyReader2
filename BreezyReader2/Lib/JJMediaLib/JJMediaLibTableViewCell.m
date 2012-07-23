@@ -130,6 +130,8 @@ static NSUInteger kDefaultColumnCount = 4;
     [thumb thumbTouchMoveOut:thumb];    
 }
 
+
+
 -(UIView*)generateThumbViewAtIndex:(NSInteger)index{
     id thumb = [[_thumbnailClass alloc] init];
     if ([thumb isKindOfClass:[UIControl class]]){
