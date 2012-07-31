@@ -510,6 +510,20 @@
 		223AED9F1546D57E00D5581C /* BRRelatedFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 223AED9E1546D57E00D5581C /* BRRelatedFeedCell.m */; };
 		223AEDA21546D67F00D5581C /* BRRelatedFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 223AEDA11546D67E00D5581C /* BRRelatedFeedCell.xib */; };
 		224A4266154FC8EB00BC697F /* BRTagAndSubListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A4265154FC8EB00BC697F /* BRTagAndSubListViewController.m */; };
+		224B0C8B15BE1D460082B0B7 /* BWStatusBarOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 224B0C8415BE1D460082B0B7 /* BWStatusBarOverlay.m */; };
+		224B0C8C15BE1D460082B0B7 /* BWStatusBarOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 224B0C8415BE1D460082B0B7 /* BWStatusBarOverlay.m */; };
+		224B0C8D15BE1D460082B0B7 /* status-bar-pattern-black.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8515BE1D460082B0B7 /* status-bar-pattern-black.jpg */; };
+		224B0C8E15BE1D460082B0B7 /* status-bar-pattern-black.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8515BE1D460082B0B7 /* status-bar-pattern-black.jpg */; };
+		224B0C8F15BE1D460082B0B7 /* status-bar-pattern-black@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8615BE1D460082B0B7 /* status-bar-pattern-black@2x.jpg */; };
+		224B0C9015BE1D460082B0B7 /* status-bar-pattern-black@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8615BE1D460082B0B7 /* status-bar-pattern-black@2x.jpg */; };
+		224B0C9115BE1D460082B0B7 /* status-bar-pattern-default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8715BE1D460082B0B7 /* status-bar-pattern-default.jpg */; };
+		224B0C9215BE1D460082B0B7 /* status-bar-pattern-default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8715BE1D460082B0B7 /* status-bar-pattern-default.jpg */; };
+		224B0C9315BE1D460082B0B7 /* status-bar-pattern-default@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8815BE1D460082B0B7 /* status-bar-pattern-default@2x.jpg */; };
+		224B0C9415BE1D460082B0B7 /* status-bar-pattern-default@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8815BE1D460082B0B7 /* status-bar-pattern-default@2x.jpg */; };
+		224B0C9515BE1D460082B0B7 /* status-bar-progress.png in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8915BE1D460082B0B7 /* status-bar-progress.png */; };
+		224B0C9615BE1D460082B0B7 /* status-bar-progress.png in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8915BE1D460082B0B7 /* status-bar-progress.png */; };
+		224B0C9715BE1D460082B0B7 /* status-bar-progress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8A15BE1D460082B0B7 /* status-bar-progress@2x.png */; };
+		224B0C9815BE1D460082B0B7 /* status-bar-progress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 224B0C8A15BE1D460082B0B7 /* status-bar-progress@2x.png */; };
 		224E3FC61573D558008FFF1A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 224E3FC91573D558008FFF1A /* Default@2x.png */; };
 		224E3FCB1573D562008FFF1A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 224E3FCE1573D562008FFF1A /* Default.png */; };
 		224E3FD41573D7AE008FFF1A /* login_background_cn.png in Resources */ = {isa = PBXBuildFile; fileRef = 224E3FD01573D7AD008FFF1A /* login_background_cn.png */; };
@@ -1340,6 +1354,14 @@
 		223AEDA11546D67E00D5581C /* BRRelatedFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRRelatedFeedCell.xib; sourceTree = "<group>"; };
 		224A4264154FC8EB00BC697F /* BRTagAndSubListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTagAndSubListViewController.h; sourceTree = "<group>"; };
 		224A4265154FC8EB00BC697F /* BRTagAndSubListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTagAndSubListViewController.m; sourceTree = "<group>"; };
+		224B0C8315BE1D460082B0B7 /* BWStatusBarOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWStatusBarOverlay.h; sourceTree = "<group>"; };
+		224B0C8415BE1D460082B0B7 /* BWStatusBarOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWStatusBarOverlay.m; sourceTree = "<group>"; };
+		224B0C8515BE1D460082B0B7 /* status-bar-pattern-black.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-black.jpg"; sourceTree = "<group>"; };
+		224B0C8615BE1D460082B0B7 /* status-bar-pattern-black@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-black@2x.jpg"; sourceTree = "<group>"; };
+		224B0C8715BE1D460082B0B7 /* status-bar-pattern-default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-default.jpg"; sourceTree = "<group>"; };
+		224B0C8815BE1D460082B0B7 /* status-bar-pattern-default@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-default@2x.jpg"; sourceTree = "<group>"; };
+		224B0C8915BE1D460082B0B7 /* status-bar-progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-bar-progress.png"; sourceTree = "<group>"; };
+		224B0C8A15BE1D460082B0B7 /* status-bar-progress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-bar-progress@2x.png"; sourceTree = "<group>"; };
 		224E3FC81573D558008FFF1A /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default@2x.png"; sourceTree = "<group>"; };
 		224E3FCA1573D55E008FFF1A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/Default@2x.png"; sourceTree = "<group>"; };
 		224E3FCD1573D562008FFF1A /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/Default.png; sourceTree = "<group>"; };
@@ -2548,6 +2570,21 @@
 			path = SubAndTagList;
 			sourceTree = "<group>";
 		};
+		224B0C8215BE1D460082B0B7 /* BWStatusBarOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				224B0C8315BE1D460082B0B7 /* BWStatusBarOverlay.h */,
+				224B0C8415BE1D460082B0B7 /* BWStatusBarOverlay.m */,
+				224B0C8515BE1D460082B0B7 /* status-bar-pattern-black.jpg */,
+				224B0C8615BE1D460082B0B7 /* status-bar-pattern-black@2x.jpg */,
+				224B0C8715BE1D460082B0B7 /* status-bar-pattern-default.jpg */,
+				224B0C8815BE1D460082B0B7 /* status-bar-pattern-default@2x.jpg */,
+				224B0C8915BE1D460082B0B7 /* status-bar-progress.png */,
+				224B0C8A15BE1D460082B0B7 /* status-bar-progress@2x.png */,
+			);
+			path = BWStatusBarOverlay;
+			sourceTree = "<group>";
+		};
 		22679BC8155F97EB008539C4 /* UserSetting */ = {
 			isa = PBXGroup;
 			children = (
@@ -3217,6 +3254,7 @@
 		229B2CA415273CAE00700504 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				224B0C8215BE1D460082B0B7 /* BWStatusBarOverlay */,
 				22F9483E15B6E8CA000B0692 /* ASIHTTPRequest */,
 				22C6CCA515B45864004481D1 /* GPUImage */,
 				22A51A79156D18DC00A7BB76 /* JJSocialShareManager */,
@@ -4669,7 +4707,7 @@
 		22F8667D14A216AA00D7B1CE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = 22F8668014A216AA00D7B1CE /* Build configuration list for PBXProject "BreezyReader2" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -4932,6 +4970,12 @@
 				2263E06315BD8A5F002C14A8 /* Icon.png in Resources */,
 				2263E06415BD8A5F002C14A8 /* Icon@2x.png in Resources */,
 				2263E06515BD8A5F002C14A8 /* iTunesArtwork@2x in Resources */,
+				224B0C8E15BE1D460082B0B7 /* status-bar-pattern-black.jpg in Resources */,
+				224B0C9015BE1D460082B0B7 /* status-bar-pattern-black@2x.jpg in Resources */,
+				224B0C9215BE1D460082B0B7 /* status-bar-pattern-default.jpg in Resources */,
+				224B0C9415BE1D460082B0B7 /* status-bar-pattern-default@2x.jpg in Resources */,
+				224B0C9615BE1D460082B0B7 /* status-bar-progress.png in Resources */,
+				224B0C9815BE1D460082B0B7 /* status-bar-progress@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5150,6 +5194,12 @@
 				2263E05B15BD89BF002C14A8 /* iTunesArtwork in Resources */,
 				2263E05C15BD89BF002C14A8 /* Icon@2x.png in Resources */,
 				2263E05D15BD89BF002C14A8 /* iTunesArtwork@2x in Resources */,
+				224B0C8D15BE1D460082B0B7 /* status-bar-pattern-black.jpg in Resources */,
+				224B0C8F15BE1D460082B0B7 /* status-bar-pattern-black@2x.jpg in Resources */,
+				224B0C9115BE1D460082B0B7 /* status-bar-pattern-default.jpg in Resources */,
+				224B0C9315BE1D460082B0B7 /* status-bar-pattern-default@2x.jpg in Resources */,
+				224B0C9515BE1D460082B0B7 /* status-bar-progress.png in Resources */,
+				224B0C9715BE1D460082B0B7 /* status-bar-progress@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5570,6 +5620,7 @@
 				22F948BA15B6E8D8000B0692 /* ASIS3Request.m in Sources */,
 				22F948BC15B6E8D8000B0692 /* ASIS3ServiceRequest.m in Sources */,
 				22F948DF15B6E8FE000B0692 /* Reachability.m in Sources */,
+				224B0C8C15BE1D460082B0B7 /* BWStatusBarOverlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5962,6 +6013,7 @@
 				22F948B915B6E8D8000B0692 /* ASIS3Request.m in Sources */,
 				22F948BB15B6E8D8000B0692 /* ASIS3ServiceRequest.m in Sources */,
 				22F948DE15B6E8FE000B0692 /* Reachability.m in Sources */,
+				224B0C8B15BE1D460082B0B7 /* BWStatusBarOverlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

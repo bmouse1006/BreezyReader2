@@ -118,6 +118,7 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     UITouch* touch = [touches anyObject];
+    [self bringSubviewToFront:self.glowButton];
     self.glowButton.hidden = NO;
     self.glowButton.center = [touch locationInView:self];
 }
@@ -129,7 +130,7 @@
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     [super touchesEnded:touches withEvent:event];
     
-    [UIView animateWithDuration:0.2f animations:^{
+    [UIView animateWithDuration:0.4f animations:^{
         self.glowButton.alpha = 0.0f;
     } completion:^(BOOL finished){
         self.glowButton.alpha = 1.0f;

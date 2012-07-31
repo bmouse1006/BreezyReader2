@@ -72,6 +72,9 @@
 "NOTIFICATION_MARKITEMASREAD" = "标记为已读";
 "NOTIFICATION_MARKITEMASUNREAD" = "标记为未读";
 
+"message_startsynchronizing" = "开始同步";
+"message_synchronizingfailed" = "同步失败";
+"message_synchronizingdone" = "同步结束";
 "message_removeadvertisement" = "想要将广告移除吗？只需6元即可获得完整版";
 "message_unsubscribe" = "您想要取消订阅 \"%@\" 吗?";
 "message_subscribe" = "您想要订阅 \"%@\" 吗?";

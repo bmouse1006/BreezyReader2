@@ -21,6 +21,7 @@
 #import "BRUserPreferenceDefine.h"
 #import "BRSubGridViewController.h"
 #import "GPUImage.h"
+#import "BWStatusBarOverlay.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define refreshAlertViewTag 1
@@ -265,10 +266,12 @@
 
 -(void)syncBegan:(NSNotification*)notification{
     DebugLog(@"start to sync reader data", nil);
+    [BWStatusBarOverlay showWithMessage:NSLocalizedString(@"message_startsynchronizing", nil) loading:YES animated:YES];
 }
 
 -(void)syncEnd:(NSNotification*)notification{
     DebugLog(@"end of syncing reader data", nil);
+    [BWStatusBarOverlay showSuccessWithMessage:NSLocalizedString(@"message_synchronizingdone", nil) duration:1.0f animated:YES];
     self.activityLabel.message = NSLocalizedString(@"message_reloadfinished", nil);
     [self.activityLabel setFinished:YES];
     self.activityLabel = nil;
@@ -277,6 +280,7 @@
 
 -(void)syncFailed:(NSNotification*)notification{
     DebugLog(@"end of syncing reader data", nil);
+    [BWStatusBarOverlay showErrorWithMessage:NSLocalizedString(@"message_synchronizingfailed", nil) duration:1.0f animated:YES];
     self.activityLabel.message = NSLocalizedString(@"message_reloadfailed", nil);
     [self.activityLabel setFinished:YES];
     self.activityLabel = nil;

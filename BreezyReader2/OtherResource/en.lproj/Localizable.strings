@@ -72,6 +72,9 @@
 "NOTIFICATION_MARKITEMASREAD" = "Mark as read";
 "NOTIFICATION_MARKITEMASUNREAD" = "Mark as unread";
 
+"message_startsynchronizing" = "Start synchronizing";
+"message_synchronizingfailed" = "Synchronizing failed";
+"message_synchronizingdone" = "Synchronizing done";
 "message_removeadvertisement" = "Would like to remove advertisement? Full version only cost 0.99$";
 "message_unsubscribe" = "Do you want to unsubscribe \"%@?\"";
 "message_subscribe" = "Do you want to subscribe \"%@?\"";

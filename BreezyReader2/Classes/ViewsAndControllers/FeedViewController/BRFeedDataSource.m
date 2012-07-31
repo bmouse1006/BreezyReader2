@@ -69,7 +69,7 @@
     }
     
     GRItem* item = [self.feed getItemAtIndex:indexPath.row];
-    [cell performSelector:@selector(setItem:) withObject:item];
+    [cell setItem:item];
     
     return cell;
 }

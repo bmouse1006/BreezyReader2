@@ -343,7 +343,7 @@ static CGFloat refreshDistance = 60.0f;
 
 #pragma mark - table view delegate
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return (indexPath.row % 10)?70.0f:97.0f;
+    return (indexPath.row % 10)?75.0f:97.0f;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{

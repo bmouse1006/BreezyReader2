@@ -71,7 +71,7 @@
     [super awakeFromNib];
     
     self.titleLabel.verticalAlignment = JJTextVerticalAlignmentTop;
-    self.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     self.titleLabel.textColor = [UIColor colorWithRed:41/255.0f green:41/255.0f blue:41/255.0f alpha:1];
     
     self.previewLabel.verticalAlignment = JJTextVerticalAlignmentTop;
@@ -81,7 +81,7 @@
     self.timeLabel.verticalAlignment = JJTextVerticalAlignmentBottom;
     self.timeLabel.font = [UIFont systemFontOfSize:10];
     self.timeLabel.textColor = [UIColor lightGrayColor];
-    self.timeLabel.textAlignment = UITextAlignmentRight;
+    self.timeLabel.textAlignment = UITextAlignmentLeft;
     
     self.authorLabel.verticalAlignment = JJTextVerticalAlignmentBottom;
     self.authorLabel.font = [UIFont systemFontOfSize:10];
@@ -151,8 +151,9 @@
 //    CGPoint starCenter = CGPointMake(<#CGFloat x#>, <#CGFloat y#>)
     frame = self.titleLabel.frame;
     frame.origin.x = leftSpacing;
-    frame.size.width = bounds.size.width - (leftSpacing + kCellRightSpacing + self.buttonContainer.frame.size.width);
-    frame.size.height = 40;
+//    frame.size.width = bounds.size.width - (leftSpacing + kCellRightSpacing + self.buttonContainer.frame.size.width);
+    frame.size.width = bounds.size.width - (leftSpacing + kCellRightSpacing);
+    frame.size.height = 50;
     
     [self.titleLabel setFrame:frame];
     
@@ -163,9 +164,13 @@
     frame.size.height = 73.0f - (self.titleLabel.frame.origin.y + 40);
     [self.previewLabel setFrame:frame];
     
-    frame = self.authorLabel.frame;
+    frame = self.timeLabel.frame;
     frame.origin.x = leftSpacing;
-    [self.authorLabel setFrame:frame];
+    self.timeLabel.frame = frame;
+    
+    frame = self.authorLabel.frame;
+    frame.origin.x = self.timeLabel.frame.origin.x + self.timeLabel.frame.size.width;
+    self.authorLabel.frame = frame;
     [self updateStarButton];
     [self updateReadColor];
 }
