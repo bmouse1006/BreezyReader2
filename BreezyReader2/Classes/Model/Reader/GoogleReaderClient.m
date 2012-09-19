@@ -1157,7 +1157,6 @@ static NSString* _userID = nil;
     request.shouldAttemptPersistentConnection = NO;
     request.delegate = self;
     request.cacheStoragePolicy = ASICacheForSessionDurationCacheStoragePolicy;
-    
     DebugLog(@"request string is %@", [request.url absoluteString]);
     
     return request;

@@ -44,6 +44,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIImage* image = self.backgroundView.image;
+    image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(240, 0, 240, 0)];
+    self.backgroundView.image = image;
     // Do any additional setup after loading the view from its nib.
 }
 

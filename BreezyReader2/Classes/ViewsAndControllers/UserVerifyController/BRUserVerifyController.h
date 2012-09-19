@@ -12,6 +12,7 @@
 @interface BRUserVerifyController : BRBaseController
 
 @property (nonatomic, strong) IBOutlet UIButton* loginButton;
+@property (nonatomic, strong) UIImageView* backgroundView;
 
 -(IBAction)loginButtonClicked:(id)sender;
 

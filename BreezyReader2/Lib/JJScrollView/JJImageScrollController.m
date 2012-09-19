@@ -138,12 +138,14 @@
 
 #pragma mark - orientation notification
 -(void)oritationDidChange:(NSNotification*)notification{
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
     switch ([UIDevice currentDevice].orientation) {
         case UIDeviceOrientationLandscapeLeft:
             //rotation -90
         {
             [UIView animateWithDuration:0.2f animations:^{
-                self.scrollView.bounds = CGRectMake(0, 0, 480, 320);
+                self.scrollView.bounds = CGRectMake(0, 0, height, width);
                 self.scrollView.transform = CGAffineTransformMakeRotation(M_PI/2);
                 [self.scrollView reloadData];
             }];
@@ -153,7 +155,7 @@
             //rotation 90
         {
             [UIView animateWithDuration:0.2f animations:^{
-                self.scrollView.bounds = CGRectMake(0, 0, 480, 320);
+                self.scrollView.bounds = CGRectMake(0, 0, height, width);
                 self.scrollView.transform = CGAffineTransformMakeRotation(-M_PI/2);
                 [self.scrollView reloadData];
             }];
@@ -162,7 +164,7 @@
         case UIDeviceOrientationPortrait:
         {
             [UIView animateWithDuration:0.2f animations:^{
-                self.scrollView.bounds = CGRectMake(0, 0, 320, 480);
+                self.scrollView.bounds = CGRectMake(0, 0, width, height);
                 self.scrollView.transform = CGAffineTransformIdentity;
                 [self.scrollView reloadData];
             }];

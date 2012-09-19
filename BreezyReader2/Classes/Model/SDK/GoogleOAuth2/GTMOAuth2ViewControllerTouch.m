@@ -339,6 +339,11 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
   self.navigationItem.rightBarButtonItem = rightBarButtonItem_;
 }
 
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    self.webView.frame = self.view.bounds;
+}
+
 - (void)popView {
   if (self.navigationController.topViewController == self) {
     if (!self.view.isHidden) {

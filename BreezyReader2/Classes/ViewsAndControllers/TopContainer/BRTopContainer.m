@@ -61,6 +61,14 @@ static double kTransitionAnimationDuration = 0.2f;
     self.view = view;
 }
 
+-(BOOL)shouldAutorotate{
+    return NO;
+}
+
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -98,6 +106,7 @@ static double kTransitionAnimationDuration = 0.2f;
         [controller viewDidAppear:YES];
     }else{
         double duration = (animated)?kTransitionAnimationDuration:0.0f;
+        controller.view.frame = self.view.bounds;
         controller.view.alpha = 0.0f;
         [self transitionFromViewController:top toViewController:controller duration:duration options:UIViewAnimationOptionTransitionNone animations:^{
             controller.view.alpha = 1.0f;

@@ -39,7 +39,7 @@
         [subview removeFromSuperview];
     }
     [self.view addSubview:view];
-    view.center = self.view.center;
+    view.frame = self.view.bounds;
 }
 
 @end

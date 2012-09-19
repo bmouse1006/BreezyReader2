@@ -83,6 +83,11 @@ static NSString* scriptTemplate   = @"(function(){readConvertLinksToFootnotes=fa
 
 #pragma mark - View lifecycle
 
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    self.loadingView.frame = self.view.bounds;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

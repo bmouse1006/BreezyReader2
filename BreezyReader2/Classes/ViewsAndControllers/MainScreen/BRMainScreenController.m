@@ -95,14 +95,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
 //    GPUImageView* imageView = [[[GPUImageView alloc] initWithFrame:self.view.bounds] autorelease];
 //    imageView.contentMode = UIViewContentModeScaleAspectFill;
     UIImageView* imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundView = imageView;
     
-    self.infinityScroll = [[InfinityScrollView alloc] initWithFrame:self.mainContainer.bounds];
+    self.infinityScroll = [[InfinityScrollView alloc] initWithFrame:CGRectZero];
     self.dataSource = [[MainScreenDataSource alloc] init];
     self.infinityScroll.dataSource = self.dataSource;
     [self.infinityScroll setIndex:_scrollIndex];
@@ -192,7 +191,9 @@
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     CGRect bounds = self.mainContainer.bounds;
+    self.firstSyncFailedView.frame = bounds;
     self.infinityScroll.frame = bounds;
+    [self.infinityScroll reloadData];
     CGRect menuRect = self.sideMenuController.view.frame;
     menuRect.size.height = bounds.size.height;
     menuRect.size.width = 60;
@@ -332,13 +333,14 @@
 -(void)scrollView:(InfinityScrollView *)scrollView didStopAtChildViewOfIndex:(NSInteger)index{
     //add more code here
     _scrollIndex = index;
-    index = (index+1) % [self.dataSource.controllers count];
-    
-    BRSubGridViewController* gridViewController = [self.dataSource.controllers objectAtIndex:index];
-    self.subtitleLabel.text = [gridViewController.source title];
-    [UIView animateWithDuration:0.2f animations:^{
-        self.subtitleLabel.alpha = 0.5f;
-    }];
+    if ([self.dataSource.controllers count] > 0){
+        index = (index+1) % [self.dataSource.controllers count];
+        BRSubGridViewController* gridViewController = [self.dataSource.controllers objectAtIndex:index];
+        self.subtitleLabel.text = [gridViewController.source title];
+        [UIView animateWithDuration:0.2f animations:^{
+            self.subtitleLabel.alpha = 0.5f;
+        }];
+    }
 }
 
 -(void)scrollView:(InfinityScrollView *)scrollView userDraggingOffset:(CGPoint)offset{

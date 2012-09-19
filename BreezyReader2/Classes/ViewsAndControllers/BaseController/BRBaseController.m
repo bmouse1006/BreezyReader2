@@ -87,6 +87,7 @@ static CGFloat distance = 0.0f;
 {
     [super viewDidLoad];
     self.view.autoresizesSubviews = YES;
+    self.mainContainer.frame = self.view.bounds;
     self.mainContainer.autoresizesSubviews = YES;
     self.mainContainer.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.mainContainer];
@@ -117,6 +118,15 @@ static CGFloat distance = 0.0f;
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.view.layer removeAllAnimations];
+}
+
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    CGRect frame = self.mainContainer.frame;
+    frame.size.width = self.view.bounds.size.width;
+    frame.size.height = self.view.bounds.size.height;
+    self.mainContainer.frame = frame;
+    self.backgroundView.frame = self.mainContainer.bounds;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
